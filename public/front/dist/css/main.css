@@ -1,0 +1,2945 @@
+/* || ROOT COLOR */
+:root {
+	color-scheme: light only !important;
+}
+:root {
+	--alphaBlurple40015: rgba(130, 156, 248, 0.149);
+	--alphaBlurple40020: rgba(130, 156, 248, 0.2);
+	--alphaBlurple40027: rgba(130, 156, 248, 0.271);
+	--alphaBlurple60013: rgba(59, 94, 218, 0.129);
+	--alphaBlurple60020: rgba(59, 94, 218, 0.2);
+	--alphaBlurple80016: rgba(44, 57, 106, 0.161);
+	--alphaBlurple8006: rgba(44, 57, 106, 0.059);
+	--alphaNeutral50012: rgba(110, 122, 136, 0.122);
+	--alphaNeutral50016: rgba(110, 122, 136, 0.161);
+	--alphaNeutral50018: rgba(110, 122, 136, 0.18);
+	--alphaNeutral50020: rgba(110, 122, 136, 0.2);
+	--alphaNeutral50024: rgba(110, 122, 136, 0.239);
+	--alphaNeutral50030: rgba(110, 122, 136, 0.302);
+	--alphaNeutral50032: rgba(110, 122, 136, 0.322);
+	--alphaNeutral50036: rgba(110, 122, 136, 0.302);
+	--alphaNeutral50070: rgba(110, 122, 136, 0.698);
+	--alphaNeutral5008: rgba(110, 122, 136, 0.078);
+	--alphaNeutral70060: rgba(34, 50, 67, 0.6);
+	--brandBlurple100: #ecf0fe;
+	--brandBlurple200: #d5defd;
+	--brandBlurple300: #acbdfb;
+	--brandBlurple400: #829cf8;
+	--brandBlurple500: #587bf6;
+	--brandBlurple600: #3b5eda;
+	--brandBlurple700: #374d9b;
+	--brandBlurple800: #2c396a;
+	--brandBlurple900: #19223c;
+	--brandDandelion100: #fef9ed;
+	--brandDandelion200: #fdf1c6;
+	--brandDandelion300: #fbe48e;
+	--brandDandelion400: #f8d655;
+	--brandDandelion500: #f6c91d;
+	--brandDandelion600: #daac00;
+	--brandDandelion700: #a38100;
+	--brandDandelion800: #6d5600;
+	--brandDandelion900: #362c05;
+	--brandNeutral1000: #04070b;
+	--brandNeutral100: #fff;
+	--brandNeutral200: #edf1f5;
+	--brandNeutral300: #d2d8de;
+	--brandNeutral400: #a5adb6;
+	--brandNeutral500: #6e7a88;
+	--brandNeutral600: #405163;
+	--brandNeutral700: #223243;
+	--brandNeutral750: #1a2837;
+	--brandNeutral800: #14212f;
+	--brandNeutral900: #0c1722;
+	--brandSlime100: #f1fbe9;
+	--brandSlime200: #e0f7cf;
+	--brandSlime300: #c1ee9f;
+	--brandSlime400: #a2e66e;
+	--brandSlime500: #84dd3e;
+	--brandSlime600: #67c122;
+	--brandSlime700: #4d9119;
+	--brandSlime800: #346011;
+	--brandSlime900: #1d300d;
+	--brandSunset100: #feedeb;
+	--brandSunset200: #fdd7d3;
+	--brandSunset300: #faada5;
+	--brandSunset400: #f77f73;
+	--brandSunset500: #fc6350;
+	--brandSunset600: #c72c1e;
+	--brandSunset700: #962116;
+	--brandSunset800: #68170f;
+	--brandSunset900: #3c0d09;
+	--utilityBlack100: #000;
+	--utilityBlack10: rgba(0, 0, 0, 0.1);
+	--utilityBlack12: rgba(0, 0, 0, 0.12);
+	--utilityBlack15: rgba(0, 0, 0, 0.15);
+	--utilityBlack33: rgba(0, 0, 0, 0.33);
+	--utilityBlack4: rgba(0, 0, 0, 0.04);
+	--utilityBlack5: rgba(0, 0, 0, 0.05);
+	--utilityBlack66: rgba(0, 0, 0, 0.66);
+	--utilityBlackTransparent: rgba(0, 0, 0, 0.001);
+	--utilityMxWidgetBackgroundDark: #121417;
+	--utilityMxWidgetBackgroundLight: #f8f9fb;
+	--utilitySystemBlue100: #64d2ff;
+	--utilitySystemBlue200: #5ac8fa;
+	--utilitySystemGreen100: #32d74b;
+	--utilitySystemGreen200: #34c759;
+	--utilitySystemOrange100: #ff9f0a;
+	--utilitySystemOrange200: #ff9500;
+	--utilitySystemPurple100: #bf5af2;
+	--utilitySystemPurple200: #af52de;
+	--utilitySystemRed100: #ff453a;
+	--utilitySystemRed200: #ff3b30;
+	--utilitySystemYellow100: #ffd60a;
+	--utilitySystemYellow200: #fc0;
+	--utilityTransparentGray100: rgba(235, 235, 245, 0.651);
+	--utilityTransparentGray200: rgba(60, 60, 67, 0.361);
+	--utilityTransparentGray300: rgba(84, 84, 88, 0.651);
+	--utilityTransparentGray400: rgba(60, 60, 67, 0.6);
+	--utilityTransparentGray500: rgba(60, 60, 67, 0.549);
+	--utilityTransparentGray50: rgba(118, 118, 128, 0.239);
+	--utilityWhite100: #fff;
+	--utilityWhite10: rgba(255, 255, 255, 0.102);
+	--utilityWhite15: rgba(255, 255, 255, 0.149);
+	--utilityWhite20: rgba(255, 255, 255, 0.2);
+	--utilityWhite30: rgba(255, 255, 255, 0.302);
+	--utilityWhite35: rgba(255, 255, 255, 0.349);
+	--utilityWhite60: rgba(255, 255, 255, 0.6);
+	--utilityWhite70: rgba(255, 255, 255, 0.698);
+	--utilityWhite80: rgba(255, 255, 255, 0.8);
+	--utilityWhite8: rgba(255, 255, 255, 0.078);
+	--accountwidgetMxWidgetBackground: #f8f9fb;
+	--actionPrimary: #3b5eda;
+	--actionPrimaryActive: #374d9b;
+	--actionPrimaryDisabled: #acbdfb;
+	--actionSecondary: #405163;
+	--actionSecondaryActive: #223243;
+	--actionSecondaryBorder: #d2d8de;
+	--actionSecondaryDisabled: #a5adb6;
+	--actionTertiary: #374d9b;
+	--actionTertiaryActive: #2c396a;
+	--actionbarBackground: #19223c;
+	--actionbarButtonBackground: #19223c;
+	--backgroundDarkPrimary: #1a2837;
+	--backgroundDarkSecondary: rgba(255, 255, 255, 0.149);
+	--backgroundDarkTertiary: rgba(255, 255, 255, 0.2);
+	--backgroundGroupedPrimary: #edf1f5;
+	--backgroundGroupedSecondary: #fff;
+	--backgroundGroupedTertiary: #edf1f5;
+	--backgroundPrimary: #fff;
+	--backgroundPrimaryElevated: #fff;
+	--backgroundSecondary: #edf1f5;
+	--backgroundSecondaryElevated: #edf1f5;
+	--backgroundTableHeader: #edf1f5;
+	--backgroundTableRow: #fff;
+	--backgroundTableRowSelected: #d5defd;
+	--backgroundTertiary: #d2d8de;
+	--backgroundTertiaryElevated: #d2d8de;
+	--budgetBarBackground: #edf1f5;
+	--budgetBarBackgroundOnNonWhite: #fff;
+	--budgetBarBorder: #d2d8de;
+	--budgetBarEmpty: #fff;
+	--budgetBarFunded: #67c122;
+	--budgetBarFundedSpending: #a2e66e;
+	--budgetBarFundedSpendingStripe: #f1fbe9;
+	--budgetBarOverspending: #c72c1e;
+	--budgetBarOverspendingStripe: #fdd7d3;
+	--budgetBarPreviouslyAssigned: #6e7a88;
+	--budgetBarUnderfunded: #f6c91d;
+	--budgetBarUnderfundedSpending: #fbe48e;
+	--budgetBarUnderfundedSpendingStripe: #fef9ed;
+	--buttonDestructiveBackground: #feedeb;
+	--buttonDestructiveBackgroundActive: #c72c1e;
+	--buttonDestructiveLabel: #c72c1e;
+	--buttonEmphasizedBackground: #4d9119;
+	--buttonEmphasizedBackgroundActive: #67c122;
+	--buttonEmphasizedBackgroundDisabled: #d2d8de;
+	--buttonPrimaryBackground: #3b5eda;
+	--buttonPrimaryBackgroundActive: #374d9b;
+	--buttonPrimaryBackgroundDisabled: #d2d8de;
+	--buttonSecondaryBackground: rgba(59, 94, 218, 0.129);
+	--buttonSecondaryBackgroundActive: rgba(59, 94, 218, 0.2);
+	--buttonSecondaryLabel: #3b5eda;
+	--calloutNegativeAccent: #c72c1e;
+	--calloutNegativeButtonBackground: #c72c1e;
+	--calloutNegativeButtonBackgroundActive: #962116;
+	--calloutNegativeButtonForeground: #feedeb;
+	--calloutNegativeLabel: #3c0d09;
+	--calloutNegativeProminentBackground: #faada5;
+	--calloutNegativeProminentBackgroundEmphasis: #f77f73;
+	--calloutNegativeSubtleBackground: #feedeb;
+	--calloutNegativeSubtleBackgroundEmphasis: #faada5;
+	--calloutSecondaryAccent: #6e7a88;
+	--calloutSecondaryButtonBackground: #405163;
+	--calloutSecondaryButtonBackgroundActive: #223243;
+	--calloutSecondaryButtonForeground: #fff;
+	--calloutSecondaryLabel: #0c1722;
+	--calloutSecondaryProminentBackground: #d2d8de;
+	--calloutSecondaryProminentBackgroundEmphasis: #a5adb6;
+	--calloutSecondarySubtleBackground: rgba(110, 122, 136, 0.122);
+	--calloutSecondarySubtleBackgroundEmphasis: #d2d8de;
+	--calloutPositiveAccent: #67c122;
+	--calloutPositiveButtonBackground: #4d9119;
+	--calloutPositiveButtonBackgroundActive: #346011;
+	--calloutPositiveButtonForeground: #f1fbe9;
+	--calloutPositiveLabel: #1d300d;
+	--calloutPositiveProminentBackground: #c1ee9f;
+	--calloutPositiveProminentBackgroundEmphasis: #84dd3e;
+	--calloutPositiveSubtleBackground: #f1fbe9;
+	--calloutPositiveSubtleBackgroundEmphasis: #c1ee9f;
+	--calloutPrimaryAccent: #3b5eda;
+	--calloutPrimaryButtonBackground: #3b5eda;
+	--calloutPrimaryButtonBackgroundActive: #374d9b;
+	--calloutPrimaryButtonForeground: #ecf0fe;
+	--calloutPrimaryLabel: #19223c;
+	--calloutPrimaryProminentBackground: #d5defd;
+	--calloutPrimaryProminentBackgroundEmphasis: #829cf8;
+	--calloutPrimarySubtleBackground: rgba(59, 94, 218, 0.129);
+	--calloutPrimarySubtleBackgroundEmphasis: #acbdfb;
+	--calloutWarningAccent: #daac00;
+	--calloutWarningButtonBackground: #f6c91d;
+	--calloutWarningButtonBackgroundActive: #daac00;
+	--calloutWarningButtonForeground: #362c05;
+	--calloutWarningProminentBackground: #fbe48e;
+	--calloutWarningProminentBackgroundEmphasis: #daac00;
+	--calloutWarningProminentBackgroundLabel: #362c05;
+	--calloutWarningSubtleBackground: #fef9ed;
+	--calloutWarningSubtleBackgroundEmphasis: #fbe48e;
+	--calloutWarningSubtleBackgroundLabel: #362c05;
+	--categoryBalanceAlternateBorder: #000;
+	--categoryBalanceAlternateNegativeBackground: #c72c1e;
+	--categoryBalanceAlternateNegativeBackgroundActive: #962116;
+	--categoryBalanceAlternateNegativeLabel: #feedeb;
+	--categoryBalanceAlternateWarningBackground: #f6c91d;
+	--categoryBalanceAlternateWarningBackgroundActive: #daac00;
+	--categoryBalanceNegativeBackground: #faada5;
+	--categoryBalanceNegativeBackgroundActive: #f77f73;
+	--categoryBalanceNegativeLabel: #3c0d09;
+	--categoryBalancePositiveBackground: #c1ee9f;
+	--categoryBalancePositiveBackgroundActive: #a2e66e;
+	--categoryBalancePositiveLabel: #1d300d;
+	--categoryBalanceWarningBackground: #f8d655;
+	--categoryBalanceWarningBackgroundActive: #f6c91d;
+	--categoryBalanceWarningLabel: #362c05;
+	--categoryBalanceZeroBackground: #edf1f5;
+	--categoryBalanceZeroLabel: #6e7a88;
+	--checkboxBackground: #fff;
+	--checkboxBackgroundDisabled: #d2d8de;
+	--checkboxBackgroundSelected: #3b5eda;
+	--checkboxBorder: #6e7a88;
+	--checkboxBorderSelected: #3b5eda;
+	--checkboxForegroundSelected: #fff;
+	--debtChartsFive: #84dd3e;
+	--debtChartsFour: #f1fbe9;
+	--debtChartsOne: #ecf0fe;
+	--debtChartsSeven: #6d5600;
+	--debtChartsSix: #fef9ed;
+	--debtChartsThree: #587bf6;
+	--debtChartsTwo: #d5defd;
+	--fillPrimary: rgba(110, 122, 136, 0.2);
+	--fillQuarternary: rgba(110, 122, 136, 0.078);
+	--fillSecondary: rgba(110, 122, 136, 0.161);
+	--fillTertiary: rgba(110, 122, 136, 0.122);
+	--filterBackground: #fff;
+	--filterBackgroundActive: rgba(59, 94, 218, 0.129);
+	--filterLabel: #3b5eda;
+	--filterLabelDisabled: #acbdfb;
+	--flagBlue: #5ac8fa;
+	--flagGreen: #34c759;
+	--flagOrange: #ff9500;
+	--flagPurple: #af52de;
+	--flagRed: #ff3b30;
+	--flagYellow: #fc0;
+	--headerBackground: #fff;
+	--iconFillPrimary: #6e7a88;
+	--iconFillSecondary: #a5adb6;
+	--iconFillTertiary: #d2d8de;
+	--iconTwotoneDark: #223243;
+	--iconTwotoneLight: #6e7a88;
+	--illustrationBackgroundBlurple200: #d5defd;
+	--illustrationBackgroundBlurple300: #acbdfb;
+	--illustrationBackgroundBlurple400: #829cf8;
+	--illustrationBackgroundBlurple500: #587bf6;
+	--illustrationBackgroundBlurple: #3b5eda;
+	--illustrationBackgroundButtermilk: #fef9ed;
+	--illustrationBackgroundDandelion: #f6c91d;
+	--illustrationBackgroundSlime: #67c122;
+	--inputBackground: #fff;
+	--inputBackgroundDisabled: #edf1f5;
+	--inputBorder: #d2d8de;
+	--inputBorderActive: #3b5eda;
+	--labelAction: #3b5eda;
+	--labelActionActive: #374d9b;
+	--labelActionDisabled: #acbdfb;
+	--labelDarkBackgroundPrimary: #fff;
+	--labelDarkBackgroundSecondary: #edf1f5;
+	--labelHeading: #19223c;
+	--labelNegative: #c72c1e;
+	--labelNegativeActive: #962116;
+	--labelNegativeDisabled: #fdd7d3;
+	--labelPositive: #4d9119;
+	--labelPositiveActive: #346011;
+	--labelPrimary: #19223c;
+	--labelQuaternary: #a5adb6;
+	--labelSecondary: #405163;
+	--labelTertiary: #6e7a88;
+	--labelWarning: #6d5600;
+	--loadingActionActive: #fff;
+	--loadingBackground: #2c396a;
+	--loadingShimmerBackground: #fff;
+	--loadingShimmerBackgroundFaded: rgba(255, 255, 255, 0.8);
+	--loanChartsPositive: #84dd3e;
+	--loanChartsPrimary: #3b5eda;
+	--loanChartsSecondary: #acbdfb;
+	--loanChartsTertiary: #d2d8de;
+	--loanChartsWarning: #f6c91d;
+	--modalBackgroundAccent: #2c396a;
+	--movesSelectedBackground: #3b5eda;
+	--movesStandardBackground: #d5defd;
+	--pillBackground: rgba(59, 94, 218, 0.129);
+	--pillLabel: #3b5eda;
+	--registerSecondaryButtonLabel: #3b5eda;
+	--registerSecondaryButtonLabelActive: #374d9b;
+	--reportsEight: #fbe48e;
+	--reportsEleven: #d2d8de;
+	--reportsFive: #84dd3e;
+	--reportsFour: #829cf8;
+	--reportsNetworthAssetsBackground: #587bf6;
+	--reportsNetworthDebtsBackground: #fc6350;
+	--reportsNine: #fc6350;
+	--reportsOne: #587bf6;
+	--reportsSeven: #f6c91d;
+	--reportsSix: #c1ee9f;
+	--reportsSpendingBreakdownTop1: #3b5eda;
+	--reportsSpendingBreakdownTop2: #84dd3e;
+	--reportsSpendingBreakdownTop3: #f6c91d;
+	--reportsSpendingBreakdownTop4: #fc6350;
+	--reportsSpendingBreakdownTop5: #829cf8;
+	--reportsSpendingBreakdownTopOther: #d5defd;
+	--reportsTen: #faada5;
+	--reportsThree: #374d9b;
+	--reportsTwo: #acbdfb;
+	--scrimDefault: rgba(0, 0, 0, 0.1);
+	--scrimInvisible: rgba(0, 0, 0, 0.001);
+	--scrimStrong: rgba(0, 0, 0, 0.66);
+	--separatorStandard: #d2d8de;
+	--separatorStrong: #405163;
+	--separatorSubdued: rgba(0, 0, 0, 0.1);
+	--settingsHeaderBackground: #fff;
+	--sidebarAccountNegativeBalanceBackground: #fff;
+	--sidebarBackground: #2c396a;
+	--sidebarButtonBackgroundActive: #374d9b;
+	--sidebarButtonBackgroundSelected: #374d9b;
+	--sidebarButtonSecondaryBackground: rgba(255, 255, 255, 0.102);
+	--sidebarButtonSecondaryBackgroundActive: #374d9b;
+	--sidebarButtonSecondaryBackgroundPressed: rgba(0, 0, 0, 0.15);
+	--sidebarButtonTertiaryBackground: rgba(255, 255, 255, 0.149);
+	--sidebarButtonTertiaryBackgroundActive: rgba(255, 255, 255, 0.302);
+	--sidebarButtonTertiaryBackgroundPressed: rgba(255, 255, 255, 0.349);
+	--sidebarIconFillDefault: #fff;
+	--sidebarLabelPrimary: #fff;
+	--sidebarLabelSecondary: rgba(255, 255, 255, 0.8);
+	--statusNegative: #c72c1e;
+	--statusPositive: #67c122;
+	--statusWarning: #f6c91d;
+	--viewsErrorBackground: #faada5;
+	--viewsErrorBackgroundHover: #f77f73;
+	--viewsErrorBackgroundSelected: #feedeb;
+	--viewsErrorBackgroundSelectedHover: #fdd7d3;
+	--viewsErrorLabel: #3c0d09;
+	--viewsErrorLabelSelected: #3c0d09;
+	--viewsErrorSelectedAccent: #fc6350;
+	--viewsNeutralBackground: #edf1f5;
+	--viewsNeutralBackgroundHover: #d2d8de;
+	--viewsNeutralBackgroundSelected: #d5defd;
+	--viewsNeutralBackgroundSelectedHover: #acbdfb;
+	--viewsNeutralSelectedAccent: #3b5eda;
+	--viewsWarningBackground: #fbe48e;
+	--viewsWarningBackgroundHover: #f8d655;
+	--viewsWarningBackgroundSelected: #fdf1c6;
+	--viewsWarningBackgroundSelectedHover: #fbe48e;
+	--viewsWarningLabel: #362c05;
+	--viewsWarningLabelSelected: #362c05;
+	--viewsWarningSelectedAccent: #daac00;
+	color-scheme: light only;
+}
+
+/* || RESET */
+* {
+	box-sizing: border-box;
+}
+
+/* || BODY */
+body, html {
+	height: 100%;
+	overflow: hidden;
+	width: 100%;
+	color: var(--labelPrimary);
+}
+body, button, html, input, select, textarea {
+	font-family: "Figtree", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	transition: none;
+}
+body, figure, form {
+	margin: 0;
+}
+button::-moz-focus-inner, input::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+
+/* || LAYOUT */
+.content-layout, .layout {
+	display: flex;
+	height: 100%;
+	width: 100%;
+}
+.layout {
+	flex-direction: column;
+}
+.skip-to-content {
+	background-color: var(--calloutSectionStandardProminentBackground);
+	color: var(--calloutSectionStandardLabel);
+	clip: rect(1px, 1px, 1px, 1px);
+	height: 1px;
+	margin: 0;
+	overflow: hidden;
+	padding: 1rem;
+	position: absolute;
+	text-decoration: none;
+	width: 1px;
+}
+.link-copier-input:focus, a, a:active, a:focus, a:hover {
+	outline: 0;
+}
+
+/* || NAV SIDEBAR */
+.nav-account-block .nav-account-name svg, .sidebar, .sidebar .nav-main, .sidebar .sidebar-nav-menu {
+	flex: 0 0 auto;
+}
+.sidebar {
+	background-color: var(--sidebarBackground);
+	height: 100%;
+	border-right: 1px solid var(--separatorSubdued);
+	display: flex !important;
+	width: 260px;
+	z-index: 102;
+}
+.sidebar, .sidebar a {
+	color: var(--sidebarLabelPrimary);
+}
+.ynab-u {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	letter-spacing: normal;
+	word-spacing: normal;
+	text-rendering: auto;
+}
+.ynab-u, textarea {
+	vertical-align: top;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+	display: block;
+}
+.sidebar .sidebar-left {
+	display: flex;
+	flex: 1 0 auto;
+	flex-direction: column;
+	justify-content: space-between;
+	width: calc(100% - .1875rem);
+}
+.sidebar-contents {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: center;
+	overflow: auto;
+	overflow-x: hidden;
+}
+/* || SIDEBAR NAV */
+.sidebar-resized-collapsed .nav-accounts, .sidebar-resized-collapsed .nav-accounts-empty-state, .sidebar-resized-collapsed .nav-add-account, .sidebar-resized-collapsed .navlink-label, .sidebar-resized-collapsed .referral-program, .sidebar-resized-collapsed .referral-program-banner, .sidebar-resized-collapsed .sidebar-nav-menu-budget, .sidebar-resized-half .nav-account-value, .sidebar-resized-half .referral-program-link-text {
+	display: none;
+}
+.sidebar .sidebar-nav {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+button:focus-visible {
+	outline-color: var(--actionPrimary);
+	outline-style: auto;
+	outline-width: 1px;
+}
+.sidebar-nav-menu {
+	color: var(--sidebarLabelPrimary);
+	border-radius: .5rem;
+	font-size: 1.2rem;
+	font-weight: 700;
+	height: auto;
+	justify-content: space-between;
+	margin: .5rem .3125rem .5rem .5rem;
+	padding: .3125rem .5rem;
+	transition: background-color .15s ease;
+}
+.sidebar .sidebar-bottom, .sidebar-nav-menu {
+	background-color: var(--sidebarBackground);
+	align-items: center;
+	display: flex;
+}
+button {
+	background: 0 0;
+	border: 0;
+	padding: 0;
+}
+button, html input[type="button"], input[type="reset"], input[type="submit"] {
+	-webkit-appearance: button;
+	cursor: pointer;
+	*overflow: visible;
+}
+button, select {
+	text-transform: none;
+}
+button, input {
+	line-height: normal;
+}
+button, input, select {
+	vertical-align: baseline;
+}
+.sidebar-nav-menu .sidebar-nav-ynab {
+	flex: 0 0 auto;
+	margin: 0 .5rem;
+	width: 1.5rem;
+}
+svg:not(:root) {
+	overflow: hidden;
+}
+.ynab-new-icon {
+	fill: currentColor;
+	stroke: none;
+}
+.ynab-new-icon * {
+	pointer-events: none;
+}
+.sidebar-nav-menu .sidebar-nav-budget-email .sidebar-nav-budget-email-email {
+	opacity: .7;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+	filter: alpha(opacity=70);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.sidebar-nav-menu .sidebar-nav-budget-email, .sidebar-nav-menu .sidebar-nav-budget-email .sidebar-nav-budget-email-budget {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.sidebar-nav-menu .sidebar-nav-budget-email {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	text-align: left;
+}
+.account-widget .account-widget-apple-handoff .account-widget-body h3, .account-widget .account-widget-error-screen .account-widget-body h3, .account-widget .account-widget-error-screen-retry .account-widget-body h3, .account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-text .select-linked-unlinked-box-title, .account-widget .account-widget-step .account-widget-header .account-widget-header-title h1, .account-widget .account-widget-success-screen .account-widget-body h3, .accounts-header .accounts-header-balances, .budget-inspector h1, .group-container .sidebar__link, .group-subpage-header .group-subpage-header__navlist li, .income-expense-expense .income-expense-h1, .income-expense-expense .income-expense-h1 button, .income-expense-income .income-expense-h1, .income-expense-income .income-expense-h1 button, .income-expense-net-income .income-expense-column:first-child, .income-expense-net-income .income-expense-h1, .income-expense-net-income .income-expense-h1 button, .loan-account h3, .loan-account header.loan-account-header, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-balance .loan-account-header-balance-amount, .loan-account-account-header, .loan-account-account-header .loan-account-header-element .loan-account-header-element-amount, .loan-account-payoff-simulator-banner .banner-text .banner-heading, .loan-progress-container .loan-progress-intro .loan-progress-balance-remaining .loan-progress-balance-remaining-percent, .modal .activity-header, .modal .category-moves-header, .modal-account-reconcile .modal-account-reconcile-difference .modal-account-reconcile-difference-header .modal-account-reconcile-cleared-balance-amount, .modal-budget-hidden-categories .modal-header, .modal-fresh .modal-fresh-header, .modal-generic .modal-header, .modal-popup.account-modal .modal-header, .modal-popup.unpair-confirm-modal .modal-header, .reports-header button, .reports-inspector h1, .sidebar-nav-menu .sidebar-nav-budget-email .sidebar-nav-budget-email-budget, .type-title-xs {
+	font-size: 1.125rem;
+	font-weight: 600;
+	line-height: 1.2;
+}
+.account-info-small-text-container small, .account-widget .account-widget-cc-step .ynab-table-head .ynab-table-col, .account-widget .account-widget-cc-step .ynab-table-head.account-widget-cc-header .ynab-table-col, .account-widget .account-widget-connections .account-widget-already-connected .already-connected-row-wrapper .already-connected-row .already-connected-select .already-connected-select-id, .account-widget .account-widget-connections .account-widget-security-policy-footer > a, .account-widget .account-widget-info-matrix .account-widget-info-matrix-note, .account-widget .account-widget-info-matrix .info-matrix-table tbody tr td.info-matrix-text-value, .account-widget .account-widget-info-matrix .info-matrix-table thead tr, .account-widget .account-widget-loan-category .account-widget-radio-button-list label .account-widget-loan-category-radio-description .account-widget-loan-category-radio-description-subtitle, .account-widget .account-widget-step .account-widget-header .account-widget-header-title h2, .account-widget .y-form-note, .accounts-header .accounts-header-label, .budget-table-row.is-master-category .budget-table-cell-name button.ftue-add-category-button, .budget-view-row ul.budget-view-buttons li, .cleared-balances .cleared-balances-h2, .cleared-balances .cleared-balances-h3, .dashboard h4, .dashboard-link-protection-modal .dashboard-link-protection-modal-status, .enter-emails .help-note, .family-body .budgets-shared-with-you li .budget-owner, .family-body .manage-member .owner-budgets li, .family.family-body .budgets-list li a .budget-sharing-status, .group-subscription-credit-card-form .group-subscription-credit-card-no-charge, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-balance .loan-account-header-balance-label, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-update-balance-date, .loan-account-account-header .loan-account-header-account-details .loan-account-header-account-info, .loan-account-account-header .loan-account-header-element .loan-account-header-element-label, .loan-account-activity-entry .modal .loan-account-activity-entry-fieldset-group-note, .loan-account-payoff-simulator .paydown-analysis-min-payment-section .paydown-analysis-min-payment-note, .loan-account-payoff-simulator .paydown-analysis-note, .loan-paydown-chart .loan-paydown-chart-body text, .loan-paydown-chart .loan-paydown-chart-legend, .manage-payees em, .modal-account-payees .modal-account-payees-expand .modal-account-payees-expand-inner .modal-account-payees-expand-inner-body .modal-account-payees-expand-inner-body-section .section-caption, .modal-budget-fresh-start em, .modal-budget-settings .ynab4-migration .button, .modal-budget-views-create-intro .modal-budget-views-create-intro-dont-show-again, .modal-budget-views-manage .modal .modal-budget-views-manage-limit-reached, .modal-budget-views-menu .modal li.budget-views-menu-item.budget-views-menu-item-limit-reached, .modal-fresh .modal-fresh-title em, .nav-account-block .nav-account-name, .nav-account-notification, .nav-account-value, .petition-container .group-petition-form-error, .petition-container .group-petition-form-inputs a, .petition-container .group-petition-form-notice, .plan-chart-header__boundary, .plan-chart-row, .plan-description, .plan-header-pricing__subtitle, .plan-header__subtitle, .recent-moves-row-wrapper .money-movement-group .money-movement-details, .recent-moves-row-wrapper .recent-moves-row-subheader, .referral-program, .reports-net-worth .reports-net-worth-tooltip em, .reports-net-worth .reports-net-worth-tooltip h4, .sidebar-nav-menu .sidebar-nav-budget-email .sidebar-nav-budget-email-email, .subscribe-invite__subtitle, .transaction-search .transaction-search-recommendations button em, .type-footnote, .ynab-new-inspector-goals .goal-progress-label-container .label, .ynab-new-inspector-goals .target-behavior-dropdown .type-dropdown-label .type-dropdown-label-tagline.callout, .ynab-table-head .ynab-table-col {
+	font-size: .75rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.button-truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.sidebar-nav-menu:hover {
+	background-color: var(--sidebarButtonBackgroundActive);
+}
+/* || UL NAV MAIN */
+.sidebar hr, .sidebar ul {
+	margin: 0;
+	padding: 0;
+}
+.ftue-add-accounts, .nav-main {
+	clear: both;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: .5rem;
+}
+nav ol, nav ul {
+	list-style: none;
+	list-style-image: none;
+}
+/* || BUTTON COLLAPSED */
+.sidebar-resized-collapsed ul.nav-main .sidebar-nav-menu-collapsed {
+	display: flex;
+	height: 2.9375rem;
+	margin-bottom: .5rem;
+}
+ul.nav-main .sidebar-nav-menu-collapsed {
+	display: none;
+	margin-top: .5125rem;
+}
+.sidebar-resized-collapsed .nav-main button {
+	display: flex;
+	justify-content: center;
+}
+
+/* || BOTONES NAV */
+.ftue-add-accounts .navlink, .nav-main .navlink {
+	display: flex;
+	height: 2.5rem;
+	margin: 0 0 .25rem;
+	padding: 0;
+	width: 100%;
+}
+.account-widget .account-type-select .account-type-select-group button, .account-widget .account-widget-account-list-item .account-widget-account-list-item-name-and-amount, .account-widget .account-widget-account-list-item .account-widget-list-select-all, .account-widget .account-widget-apple-handoff .account-widget-body p, .account-widget .account-widget-error-screen .account-widget-body p, .account-widget .account-widget-error-screen-retry .account-widget-body p, .account-widget .account-widget-item-list button.account-widget-institution-button, .account-widget .account-widget-success-screen .account-widget-body p, .account-widget .separator-text, .accounts-header .accounts-header-actions .button, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category button, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category.button, .button, .button-cancel, .button-disabled, .button-primary, .button-red, .button-secondary, .category-set-wizard-flow, .category-set-wizard-text-form .text-input, .clear-budget-filter, .field-with-error.has-errors.base-error ul.errors li, .ftue-add-accounts .navlink, .insight-item, .join-container, .join-container .highlighted-error, .link-copier-input, .loan-account .loan-account-container .loan-account-details h3, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-update-balance-button, .loan-account-account-header .loan-account-header-actions .loan-account-header-button, .loan-account-activity-entry .modal input[type="text"], .loan-account-lpv2 .loan-account-account-header .add-activity-dropdown, .modal-account-payees .modal-account-payees-expand .modal-account-payees-expand-inner .modal-account-payees-expand-inner-body .modal-account-payees-expand-inner-body-section a, .modal-payee-list-item .ynab-new-icon.gear, .modal-payees .modal-payees-toolbar button, .modal-reports-dropdown .modal-header-actions, .nav-accounts-empty-state h5, .nav-main .navlink, .petition-container, .reports-net-worth .reports-net-worth-tooltip strong, .reports-net-worth .tick, .reports-spending .bb-chart-arcs-title, .reports-spending-tooltip strong, .reports-spending-trends .tick, .rollout-header__subtitle, .subscription-header__subtitle {
+	font-size: 1rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.ftue-add-accounts a, .ftue-add-accounts button, .ftue-add-accounts button.button-sidebar, .nav-main a, .nav-main button, .nav-main button.button-sidebar {
+	align-items: center;
+	border: 0;
+	border-radius: .375rem;
+	display: flex;
+	height: 100%;
+	justify-content: flex-start;
+	margin: 0 .3125rem 0 .5rem;
+	overflow: hidden;
+	padding: .4rem 0;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 100%;
+}
+.device-notice a, button, input, select, textarea {
+	color: var(--labelPrimary);
+}
+.ftue-add-accounts .ynab-new-icon, .ftue-add-accounts svg, .nav-main .ynab-new-icon, .nav-main svg {
+	fill: var(--sidebarLabelPrimary);
+	color: var(--sidebarLabelPrimary);
+	flex: 0 0 auto;
+	margin: 0 .5rem;
+	text-align: center;
+	width: 1.5rem;
+}
+.ftue-add-accounts li.active a, .nav-main li.active a {
+	background-color: var(--sidebarButtonBackgroundSelected);
+}
+.sidebar a {
+	text-decoration: none;
+}
+.ftue-add-accounts li.active a, .nav-main li.active a {
+	background-color: var(--sidebarButtonBackgroundSelected);
+}
+.ftue-add-accounts a:hover, .ftue-add-accounts button:hover, .nav-main a:hover, .nav-main button:hover {
+	background-color: var(--sidebarButtonBackgroundActive);
+}
+
+/* || NAV ACCOUNTS */
+.nav-accounts {
+	line-height: 1.5;
+	margin: 0 auto;
+	width: 100%;
+}
+.nav-accounts .nav-account {
+	padding: .5rem 0 0;
+}
+.nav-account-block, .nav-account-row {
+	align-items: center;
+	cursor: pointer;
+	display: flex;
+	height: 2rem;
+	justify-content: space-between;
+	margin: 0 .3125rem .25rem .5rem;
+	padding: 0;
+}
+.nav-account-block .nav-account-name-button {
+	color: var(--sidebarLabelPrimary);
+	float: left;
+	letter-spacing: .085rem;
+	text-align: left;
+}
+.nav-account-block .nav-account-name {
+	align-items: center;
+	display: flex;
+	flex: 1 1 auto;
+	overflow: hidden;
+	padding-left: 0;
+	width: 100%;
+}
+.nav-account-name {
+	flex: 1 1 auto;
+	flex-wrap: nowrap;
+}
+button, input, select, textarea {
+	font-size: 100%;
+	margin: 0;
+	*vertical-align: middle;
+}
+.nav-account-block .nav-account-name-button .ynab-new-icon {
+	fill: var(--sidebarLabelPrimary);
+	margin: 0 .5rem 0 .75rem;
+	position: relative;
+	top: -.0625rem;
+}
+.nav-account-block .nav-account-name div {
+	flex: 1 1 auto;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.nav-account-block .nav-account-value {
+	flex: 0 1 auto;
+	margin-left: auto;
+	max-width: 13rem;
+}
+.nav-account-value {
+	flex: 0 1 auto;
+	margin-bottom: -.2em;
+	padding-right: 0;
+	position: relative;
+	text-align: right;
+}
+.nav-account-value .currency {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.nav-account-block .nav-account-icons {
+	flex: 0 0 auto;
+	height: 1rem;
+	margin: 0 .5rem;
+	position: relative;
+	width: 1rem;
+}
+.nav-account-row.is-selected {
+	background-color: var(--sidebarButtonBackgroundSelected);
+}
+[draggable] {
+	user-select: none;
+	-khtml-user-drag: element;
+	-webkit-user-drag: element;
+}
+.nav-account-row {
+	border-radius: .375rem;
+}
+.nav-account-row .nav-account-icons {
+	flex: 0 0 auto;
+	height: 1rem;
+	margin: 0 .5rem;
+	position: relative;
+	width: 1rem;
+}
+.nav-account-row .nav-account-icons.nav-account-icons-left .ynab-new-icon.edit {
+	display: none;
+	height: .75rem;
+	opacity: .7;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+	filter: alpha(opacity=70);
+	width: .75rem;
+}
+.nav-account-row .nav-account-icons .ynab-new-icon {
+	bottom: 0;
+	fill: var(--sidebarLabelPrimary);
+	left: 0;
+	margin: auto;
+	pointer-events: none;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+.nav-account-row .nav-account-name {
+	line-height: 2.3 !important;
+	flex: 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 100%;
+}
+.nav-account-block .nav-account-add-account .ynab-new-icon, .nav-account-row .nav-account-name {
+	color: var(--sidebarLabelPrimary);
+}
+.account-flash-notification, .account-header-balances-tooltip.modal-overlay .modal .modal-content, .account-widget, .account-widget .account-widget-account-list-item .account-widget-account-list-item-type-and-mask, .account-widget .account-widget-add-unlinked-account .negative-asset-warning .warnings, .account-widget .account-widget-cc-step .ynab-table-col, .account-widget .account-widget-cc-step .ynab-table-col .cc-payment-amount, .account-widget .account-widget-connections .account-widget-already-connected .already-connected-row-wrapper .needs-attention-banner, .account-widget .account-widget-item-list button.account-widget-institution-button .account-widget-url-or-country, .account-widget .account-widget-loan-pair-with-loan .loan-pair-with-loan-existing-list .ynab-button .loan-pair-with-loan-existing-list-balance, .account-widget .account-widget-search-institutions .account-widget-search-input, .account-widget .account-widget-search-institutions .account-widget-search-input input, .account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-text .select-linked-unlinked-box-message, .account-widget .x-select-container select, .account-widget h3, .accounts-header .header-currency-label span.currency, .accounts-notification .accounts-notification-migrate-to-loan-account .new-pill, .add-activity-dropdown-options-item-description, .all-set-banner-description, .budget-header-calendar .budget-header-calendar-note, .budget-header-days .budget-header-days-label, .budget-inspector, .budget-inspector .budget-inspector-paring-account-splash p, .budget-inspector-button, .budget-table-container .budget-table-header .budget-table-cell-name, .budget-table-container .budget-table-row-li button, .budget-table-container .budget-table-row-ul, .budget-table-container.is-expanded .budget-table-cell-goal-status, .budget-table-container.is-expanded .budget-table-cell-goal-status-details, .budget-table-header-labels .budget-table-cell-activity, .budget-table-header-labels .budget-table-cell-activity span.currency, .budget-table-header-labels .budget-table-cell-available, .budget-table-header-labels .budget-table-cell-available span.currency, .budget-table-header-labels .budget-table-cell-budgeted, .budget-table-header-labels .budget-table-cell-budgeted span.currency, .budget-table-row .budget-table-cell-activity, .budget-table-row .budget-table-cell-activity span.currency, .budget-table-row .budget-table-cell-available, .budget-table-row .budget-table-cell-available span.currency, .budget-table-row .budget-table-cell-budgeted, .budget-table-row .budget-table-cell-budgeted span.currency, .budget-table-row.is-dragging, .budget-table-row.is-dragging .budget-table-row-li button, .budget-table-row.is-master-category .budget-table-cell-activity, .budget-table-row.is-master-category .budget-table-cell-activity .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-available, .budget-table-row.is-master-category .budget-table-cell-available .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-budgeted, .budget-table-row.is-master-category .budget-table-cell-budgeted .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-budgeted button.currency, .budget-toolbar .button, .button-cancel-small, .button-link, .button-list, .button-primary-small, .create-new-payee-button, .dashboard .dashboard-group, .dashboard-link-protection, .dropdown-container .dropdown-list-button, .email-confirmation__description, .employees-page .membership-search-field input, .enter-emails .feedback, .enter-emails .replace-list-checkbox, .enter-emails textarea, .family .info-box, .family a, .family-content .member-budgets, .file-incoming, .flash-message-body, .group-card-invite-members .create-new-invite-link, .group-card-upload-csv .group-upload-csv-upload-col .uploaded-filename, .group-container .public-beta__action, .group-container .public-beta__message, .group-container p, .group-subscription-credit-card-form .terms-agreement span, .group-subscription-credit-card-form input[type="text"], .group-subscription-credit-card-form select, .inspector-category-note, .inspector-message, .join-container .group-join-form-inputs input, .join-container .group-join-why-share-info, .loan-account .loan-account-container .loan-account-details-goal-description, .loan-account .loan-account-container .loan-account-details-items, .loan-account-inspector-record-payment-panel .loan-account-inspector-record-payment-message.inspector-message, .loan-account-pair-category-banner .banner-text .banner-subheading, .loan-invalid-initial-balance-banner .banner-text .banner-subheading, .loan-modal.loan-account-reconciliation .modal .modal-content, .loan-paydown-chart .chart-tooltip-container, .loan-progress-container .loan-progress-intro .loan-progress-balance-remaining .loan-progress-balance-remaining-subheading, .loan-progress-container .minimized-loan-progress .loan-progress-barchart-text, .manage-payees .button, .manage-payees h3, .modal-account-categories .modal-actions .button, .modal-account-dropdown .modal, .modal-account-dropdown .modal-action-header .button, .modal-account-dropdown ul.modal-list li.section-item .section-item-empty-state, .modal-account-edit-transaction-list ul.action-bar-menu li, .modal-account-edit-transaction-list ul.modal-list li, .modal-account-edit-transaction-list ul.submenu li, .modal-account-flags .modal, .modal-account-payees .modal-account-payees-main-footer .button, .modal-account-reconcile .modal, .modal-account-reconcile .modal a, .modal-account-register-action-bar ul.action-bar-menu li, .modal-account-register-action-bar ul.modal-list li, .modal-account-register-action-bar ul.submenu li, .modal-account-view-options .date-range-dates button, .modal-account-view-options .date-range-dates li, .modal-budget-hidden-categories .modal, .modal-budget-move-money .modal, .modal-budget-note textarea, .modal-budget-overspending .modal, .modal-direct-import-status.modal-popup .modal-content, .modal-direct-import-status.modal-popup .modal-header, .modal-generic .modal-content, .modal-generic input, .modal-generic select, .modal-generic textarea, .modal-payees .modal, .modal-popup input, .modal-popup textarea, .modal-popup ul.modal-list li, .modal-popup ul.submenu li, .modal-reports-dropdown .modal-header-actions .list, .modal-reports-dropdown .modal-header-actions button, .modal-reports-dropdown .modal-overflow-area, .modal-reports-timeframe .date-range-dates button, .modal-reports-timeframe .date-range-dates li, .nav-account-row .nav-account-name, .nav-accounts-empty-state p, .new-billing-messaging__description, .open-create-category-modal-button, .page-membership-candidates .manage-candidates-card .membership-totals, .petition-container .group-petition-form-inputs input, .plan-subtitle, .privacy-policy-require-agreement .privacy-policy-require-agreement-p, .recent-moves .recent-moves-filter-options .recent-moves-filter-option, .recent-moves-row-wrapper, .register-action-bar-container .register-action-bar-inner, .register-action-bar-container .register-action-bar-inner button, .reports-controls .button, .reports-income-expense, .reports-inspector, .reports-inspector .budget-inspector-paring-account-splash p, .reports-inspector h4, .reports-inspector-timeframe-selection, .reports-spending-tooltip em, .reports-spending-tooltip h4, .resource-article-description, .rollout-card__description, .sidebar .button-sidebar, .spending-breakdown .spending-breakdown__total-spending .total-spending-title, .spending-breakdown-donut-chart__bb .bb-chart-arc text, .subscription-management .subscription-management-section p, .subscription-management .subscription-management__body, .subscription-management .subscription-management__body p, .subscription-management .subscription-management__loading, .upload-file .chosen-file-name, .upload-file .feedback, .upload-file .replace-list-checkbox, .users-budgets .last-modified, .view-debt-payoff em, .wellness-dashboard-settings-menu ul.modal-list a, .wellness-dashboard-settings-menu ul.modal-list button, .x-select-container select, .ynab-grid-body-row, .ynab-grid-body-row-bottom, .ynab-grid-body-row-top, .ynab-table, .ynab-table-col, .ynab-tooltip:hover::after, div.accounts-toolbar, select {
+	font-size: .875rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.nav-account-value:not(.nav-account-block-value) .positive {
+	display: block;
+	margin-bottom: .0625rem;
+	margin-right: -.265rem;
+	padding: 0 .4em;
+}
+bdi {
+	vertical-align: baseline;
+}
+.nav-account-row .nav-account-icons.nav-account-icons-right {
+	cursor: default;
+	opacity: .75;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+	filter: alpha(opacity=75);
+}
+.direct-status-import-icon {
+	align-items: center;
+	display: flex;
+	gap: .25rem;
+}
+.nav-account-row .nav-account-icons.nav-account-icons-right svg {
+	padding: .125rem;
+}
+.nav-accounts .negative {
+	background-color: var(--sidebarAccountNegativeBalanceBackground);
+	color: var(--labelNegative);
+	border-radius: 1000px;
+	display: block;
+	margin: 0 -.265rem .2rem .5rem;
+	margin-bottom: .2em;
+	margin-right: -.265rem;
+	padding: .125rem .375rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.budget-table-row.is-debt-payment-category .budget-table-cell-available .budget-table-cell-available-payment, .dropdown-container li.section-item, .loan-account-payoff-simulator .payoff-simulator-inputs-section-copy.button-link, .modal-account-dropdown ul.modal-list li.section-item, .nav-accounts .negative, .plan-chart-row__price, .plan-learn__link, .plan-learn__link:active, .plan-learn__link:focus, .plan-learn__link:hover, .plan-learn__link:visited, .recent-moves-day-section .recent-moves-date-wrapper .recent-moves-date-label, .recent-moves-row-wrapper .money-movement-amount-with-date .money-movement-date-label, .reflect-filter-button-group .filter-button__pill, .type-footnote-bold, .wellness-dashboard-settings-menu ul.modal-list .modal-list-header, .ynab-beta-button, .ynab-beta-button-inspector, .ynab-beta-button-sidebar, .ynab-grid-header-row .is-sorting, .ynab-new-button, .ynab-new-settings-menu ul.modal-list .modal-list-header, .ynab-new-settings-menu ul.modal-list button.beta::after, .ynab-new-settings-menu ul.modal-list button.new::after, .ynab-table-head .ynab-table-col.is-sorting {
+	font-size: .75rem;
+	font-weight: 600;
+	line-height: 1.2;
+}
+.nav-accounts .nav-account.loan .negative {
+	background-color: inherit;
+	color: inherit;
+	font-weight: inherit;
+	margin: 0;
+	padding: 0;
+}
+.nav-account-row.is-editing-this-account:not(.is-selected), .nav-account-row:hover:not(.is-selected) {
+	background-color: var(--sidebarButtonBackgroundActive);
+}
+.nav-account-row .nav-account-icons.nav-account-icons-left:hover .ynab-new-icon.edit {
+	opacity: 1;
+	filter: none;
+}
+.nav-account-row:hover .nav-account-icons-left .ynab-new-icon.edit {
+	display: inline-block;
+	top: -1px;
+}
+
+/* || ADD ACCOUNTS */
+.ynab-button.contrast:not([disabled]) {
+	background-color: var(--backgroundDarkSecondary);
+	color: var(--labelDarkBackgroundPrimary);
+}
+.sidebar .button-sidebar {
+	margin: .5rem 1rem;
+	height: 1.75rem;
+	padding: .25rem 1rem;
+}
+button:focus {
+	outline-color: var(--actionPrimary);
+	outline: 0;
+}
+:active, :focus {
+	box-shadow: none;
+}
+.ynab-button {
+	background-color: var(--buttonPrimaryBackground);
+	color: var(--labelDarkBackgroundPrimary);
+	border-radius: .5rem;
+	cursor: pointer;
+	flex-direction: row;
+	justify-content: center;
+	min-height: 2rem;
+	padding: .375rem 1rem;
+	transition: background-color .15s ease;
+}
+.budget-view-row ul.budget-view-buttons li .view-button-overspent, .ynab-button, .ynab-new-settings-menu ul.modal-list a span, .ynab-new-settings-menu ul.modal-list button span {
+	align-items: center;
+	display: flex;
+}
+.ynab-button > .ynab-new-icon {
+	margin-right: .5rem;
+}
+button.contrast:not([disabled]):active, .ynab-button.contrast:not([disabled]):hover {
+	background-color: var(--backgroundDarkTertiary);
+	color: var(--labelDarkBackgroundPrimary);
+}
+
+/* || BOTTON COLLAPSE */
+.sidebar .sidebar-bottom {
+	border-bottom: 1px solid var(--separatorSubdued);
+	flex: 1 0 auto;
+	height: 2.5rem;
+	width: 100%;
+}
+.sidebar-expand {
+	align-self: center;
+	justify-content: center;
+	margin-left: .2rem;
+}
+.sidebar-collapse, .sidebar-expand {
+	border: 0;
+	display: flex;
+	flex: 0 0 auto;
+	margin: 0 .5rem 0 auto;
+	opacity: .8;
+	width: 2rem;
+}
+.tooltip-relative-container {
+	position: relative;
+}
+.sidebar-collapse .ynab-new-icon, .sidebar-expand .ynab-new-icon {
+	fill: none;
+	color: var(--sidebarLabelPrimary);
+	stroke-width: 2;
+}
+.sidebar-collapse:hover, .sidebar-expand:hover {
+	opacity: 1;
+	filter: none;
+}
+
+/* || TOOLTIP */
+.tooltip-content.tooltip-above.tooltip-center {
+	left: 50%;
+	transform: translate(-50%);
+}
+.tooltip-content.tooltip-above {
+	bottom: calc(100% + .5rem);
+	left: 0;
+}
+.tooltip-content {
+	background-color: var(--backgroundDarkPrimary);
+	color: var(--labelDarkBackgroundSecondary);
+	border-radius: .75rem;
+	font-size: .75rem;
+	max-width: 22.5rem;
+	opacity: 0;
+	padding: .75rem;
+	pointer-events: none;
+	position: absolute;
+	text-align: left;
+	transition: opacity .2s;
+	width: max-content;
+	z-index: 1000;
+}
+.shortcut-tooltip {
+	align-items: center;
+	display: flex;
+	gap: .5rem;
+}
+.shortcut-keys {
+	align-items: stretch;
+	display: flex;
+	gap: .25rem;
+	justify-content: space-between;
+}
+.shortcut-keys .shortcut-key {
+	min-height: 1.25rem;
+	min-width: 1.25rem;
+	background-color: var(--backgroundDarkSecondary);
+	align-items: center;
+	border-radius: .25rem;
+	display: flex;
+	font-size: .875rem;
+	justify-content: center;
+	padding: 0 .25rem;
+}
+
+/* || SIDEBAR RESIZER */
+.sidebar .sidebar-resizer {
+	width: .1875rem;
+}
+.sidebar-resizer {
+	align-items: center;
+	cursor: ew-resize;
+	display: flex;
+	position: relative;
+}
+.sidebar-resizer-indicator {
+	border-radius: 6.25rem;
+	height: 2.5rem;
+	margin-left: .5rem;
+	opacity: 0;
+	position: fixed;
+	top: calc(50% + 1.25rem);
+	width: .5rem;
+	background-color: var(--actionPrimary);
+	pointer-events: none;
+	transition: opacity .25s;
+}
+.tooltip-relative-container:hover .tooltip-content {
+	opacity: 1;
+	filter: none;
+	transition: opacity .2s .5s;
+}
+/* || END SIDEBAR */
+.sidebar-resized-collapsed,
+.sidebar {
+	transition: width 0.3s ease-in-out, transform 0.3s ease-in-out;
+	/* Transición suave de 0.3 segundos */
+}
+
+/* || CONTENT */
+.content {
+	flex: 1 1 auto;
+	background-color: var(--backgroundPrimary);
+	overflow-x: auto;
+	overflow-y: hidden;
+	position: relative;
+}
+.content .content-min-break {
+	height: 100%;
+	min-width: 50rem;
+	position: relative;
+}
+.has-budget-views .budget-header {
+	border-bottom: none;
+}
+.budget-header {
+	color: var(--labelPrimary);
+}
+.budget-header {
+	width: 100%;
+	z-index: 101;
+}
+.budget-header {
+	flex: 1;
+	overflow: hidden;
+}
+header {
+	display: block;
+}
+.budget-header .budget-header-flexbox {
+	display: flex;
+	min-height: 5.5rem;
+}
+.budget-header .budget-header-item:first-child {
+	border-left: none;
+}
+.budget-header .budget-header-item {
+	background-color: var(--headerBackground);
+	padding: .6em;
+	text-align: center;
+}
+.budget-header-calendar {
+	align-items: center;
+	display: flex;
+	flex: 0 0 30%;
+	justify-content: flex-start;
+	padding-left: 1.5rem;
+	position: relative;
+}
+.budget-header-calendar .budget-header-calendar-prev {
+	color: var(--actionPrimary);
+	transition-property: all;
+	line-height: 0;
+	width: 2.5rem;
+}
+.budget-header-calendar svg {
+	color: var(--actionPrimary);
+	margin-left: .3rem;
+	transition-property: all;
+}
+.budget-header-calendar .budget-header-calendar-date {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 0 .5rem;
+}
+.budget-header-calendar .budget-header-calendar-date-button {
+	color: var(--labelPrimary);
+	align-items: center;
+	display: flex;
+	line-height: 75%;
+	white-space: nowrap;
+}
+.budget-header-calendar .budget-header-calendar-date-button {
+	font-size: 1.3125rem;
+	font-weight: 700;
+}
+.budget-header-calendar .budget-header-calendar-note {
+	color: var(--labelSecondary);
+	display: block;
+	max-width: 7rem;
+	padding-top: .125rem;
+	text-align: center;
+	text-transform: initial;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.budget-header-calendar .budget-header-calendar-note {
+	font-size: .875rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.budget-header-calendar .budget-header-calendar-next {
+	color: var(--actionPrimary);
+	transition-property: all;
+	line-height: 0;
+	width: 2.5rem;
+}
+.budget-header-calendar-note:hover {
+	text-decoration: underline;
+}
+
+/* || TOTALS */
+.to-be-budgeted.is-positive {
+	background-color: var(--calloutPositiveProminentBackground);
+	color: var(--calloutSectionPositiveLabel);
+}
+.to-be-budgeted {
+	background-color: var(--categoryBalanceZeroBackground);
+	color: var(--categoryBalanceZeroLabel);
+	align-items: center;
+	border-radius: .5rem;
+	display: flex;
+	flex-direction: row;
+	font-size: .875rem;
+	justify-content: space-between;
+	line-height: 1.25rem;
+	padding: .5rem 1rem .75rem;
+	text-align: left;
+}
+.to-be-budgeted .to-be-budgeted-heading-wrapper {
+	display: flex;
+	flex-direction: row;
+	position: relative;
+}
+.to-be-budgeted .to-be-budgeted-heading-wrapper h1 {
+	cursor: pointer;
+	position: relative;
+	z-index: 1;
+}
+.to-be-budgeted h1 {
+	color: inherit;
+	margin: 0;
+	padding: 0;
+}
+h1 {
+	font-size: 2em;
+	margin: .67em 0;
+}
+.to-be-budgeted .to-be-budgeted-amount {
+	align-items: center;
+	color: currentColor;
+	display: flex;
+}
+.to-be-budgeted .to-be-budgeted-amount {
+	font-size: 1.3125rem;
+	font-weight: 700;
+	line-height: 1.2;
+}
+.to-be-budgeted h1 .ynab-new-icon {
+	fill: currentColor;
+	margin-left: .5rem;
+	opacity: 0;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+}
+.to-be-budgeted .to-be-budgeted-label {
+	font-size: .875rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.to-be-budgeted .to-be-budgeted-heading-wrapper .to-be-budgeted-view-breakdown {
+	height: 100%;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 100%;
+	z-index: 0;
+}
+.to-be-budgeted > button:last-child {
+	margin-left: 2.5rem;
+}
+.is-positive .to-be-budgeted-button {
+	background-color: var(--calloutPositiveButtonBackground);
+	color: var(--calloutPositiveButtonForeground);
+	opacity: 1;
+	-ms-filter: none;
+	filter: none;
+}
+.to-be-budgeted-button {
+	background-color: var(--calloutSectionPassiveButtonBackground);
+	color: var(--calloutSectionPassiveButtonForeground);
+	border-radius: .5rem;
+	height: 2rem;
+	justify-content: space-between;
+	opacity: .8;
+	padding: .25rem 1rem;
+	white-space: nowrap;
+	transition: background-color 0.3s ease;
+}
+.to-be-budgeted-button {
+	align-items: center;
+	color: currentColor;
+	display: flex;
+}
+.to-be-budgeted-button {
+	font-size: 1rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.to-be-budgeted-button svg:last-child {
+	margin-left: .7rem;
+	margin-right: 0;
+}
+.to-be-budgeted-button svg {
+	fill: currentColor;
+	pointer-events: none;
+	width: .5rem;
+}
+.to-be-budgeted-button:hover {
+	background-color: var(--calloutPositiveButtonBackgroundActive);
+}
+
+/* ||DAYS */
+.budget-header-days.budget-header-no-days {
+	border: 0;
+}
+.budget-header-days {
+	color: var(--labelPrimary);
+	display: flex;
+	flex: 1 1 auto;
+	justify-content: flex-end;
+	margin-right: .5rem;
+	min-width: 7rem;
+}
+.budget-header-days .budget-header-days-age {
+	color: var(--labelPositive);
+	font-size: 2rem;
+	white-space: nowrap;
+}
+.budget-header-days .budget-header-days-label {
+	color: var(--labelSecondary);
+}
+.budget-header-days .budget-header-days-label {
+	font-size: .875rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+/* || BUDGET VIEW ROW */
+.budget-view-row {
+	background-color: var(--headerBackground);
+	border-bottom: 1px solid var(--separatorStandard);
+	container: view-row/inline-size;
+	display: flex;
+}
+.budget-view-row ul.budget-view-buttons {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	list-style: none;
+	margin: 0 .75rem .75rem;
+	padding: 0;
+}
+.budget-view-row ul.budget-view-buttons li.view-button-item.condensed.index-0 {
+	display: block;
+}
+@media (min-width: 20rem) {
+	.budget-view-row ul.budget-view-buttons li.condensed.view-button-item.index-2,
+	.budget-view-row ul.budget-view-buttons li.view-button-item.index-0 {
+		display: block;
+	}
+}
+.budget-view-row ul.budget-view-buttons li.view-button-item.condensed.index-1 {
+	display: block;
+}
+@media (min-width: 29.875rem) {
+	.budget-view-row ul.budget-view-buttons li.condensed.view-button-item.index-3,
+	.budget-view-row ul.budget-view-buttons li.view-button-item.index-1 {
+		display: block;
+	}
+}
+@media (min-width: 39.75rem) {
+	.budget-view-row ul.budget-view-buttons li.condensed.view-button-item.index-4,
+	.budget-view-row ul.budget-view-buttons li.view-button-item.index-2 {
+		display: block;
+	}
+}
+.budget-view-row ul.budget-view-buttons li {
+	margin: 0 .1875rem;
+	white-space: nowrap;
+}
+.budget-view-row ul.budget-view-buttons li {
+	font-size: .75rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.budget-view-row ul.budget-view-buttons li .view-button-all.selected,
+.budget-view-row ul.budget-view-buttons li .view-button.selected {
+	background: var(--viewsNeutralBackgroundSelected);
+	border-color: var(--viewsNeutralSelectedAccent);
+}
+.budget-view-row ul.budget-view-buttons li .view-button,
+.budget-view-row ul.budget-view-buttons li .view-button-all {
+	background-color: var(--viewsNeutralBackground);
+	color: var(--labelPrimary);
+	border: .09375rem solid transparent;
+	border-radius: .3125rem;
+	display: block;
+	font-weight: 500;
+	line-height: 1rem;
+	max-width: 9.375rem;
+	overflow: hidden;
+	padding: .1875rem .75rem;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	transition: background-color .3s ease;
+}
+ul.budget-view-buttons li .view-button-all.selected:hover {
+	background-color: var(--viewsNeutralBackgroundSelectedHover);
+}
+ul.budget-view-buttons li:not(.views-menu-button) button:hover {
+	background-color: var(--viewsNeutralBackgroundHover);
+}
+
+/* || TOOLTIP GLOBAL */
+.tooltip-global {
+	bottom: 0;
+	left: 0;
+	pointer-events: none;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 10080;
+}
+.tooltip-global [role="tooltip"] {
+	opacity: 0;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	position: absolute;
+	transition: opacity .2s;
+}
+
+/* || TABLE */
+.has-budget-views .budget-table-and-inspector {
+	height: calc(100% - 7.9rem);
+}
+.budget-table-and-inspector {
+	display: flex;
+	height: calc(100% - 5.625rem);
+	width: 100%;
+}
+.budget-table-container {
+	overflow: auto;
+	scroll-padding-top: 5.5rem;
+}
+.budget-table-container {
+	flex: 1;
+	height: 100%;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+	display: block;
+}
+.budget-table,
+.budget-table-header {
+	display: block;
+	min-width: 562px;
+	width: 100%;
+}
+.budget-table-container .budget-table-header {
+	background-color: var(--backgroundTableRow);
+	height: 5.5rem;
+	/* position: -webkit-sticky; */
+	position: sticky;
+}
+.budget-table-container .budget-table-header {
+	left: 0;
+	/* position: absolute; */
+	top: 0;
+	z-index: 1;
+}
+.budget-table-header {
+	height: 4.296875rem;
+	letter-spacing: .0375rem;
+}
+/* || BUDGET TOOLBAR */
+.budget-toolbar {
+	background-color: var(--headerBackground);
+	border-bottom: 1px solid var(--separatorStandard);
+	align-items: center;
+	display: flex;
+	height: 3rem;
+	padding-left: .5rem;
+}
+.budget-toolbar [role="cell"] {
+	z-index: 1;
+}
+.ghost-button.primary {
+	color: var(--labelAction);
+}
+.ghost-button {
+	border-radius: .5rem;
+	cursor: pointer;
+	flex-direction: row;
+	height: 2rem;
+	padding: .25rem .5rem;
+	color: var(--labelSecondary);
+	transition: background-color .15s ease;
+}
+.ghost-button {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+.type-body {
+	font-size: .875rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.budget-toolbar .ynab-new-icon {
+	height: .8rem;
+	width: .8rem;
+}
+.ghost-button > .ynab-new-icon {
+	margin-right: .5rem;
+}
+.budget-toolbar .undo-redo-container {
+	display: flex;
+}
+.ghost-button.primary[disabled] {
+	color: var(--actionPrimaryDisabled);
+}
+button[disabled] {
+	cursor: default;
+}
+.recent-moves-open-modal-container {
+	display: flex;
+}
+.budget-toolbar [role="cell"]:last-child {
+	margin-left: auto;
+	margin-right: 1rem;
+}
+.segmented-control {
+	background-color: var(--fillSecondary);
+	border-radius: .5rem;
+	display: flex;
+	flex-wrap: wrap;
+	min-height: 2rem;
+	padding: .125rem;
+}
+.segmented-control .segmented-control-button.selected {
+	background-color: var(--backgroundPrimaryElevated);
+	color: var(--labelPrimary);
+	outline: 1px solid var(--separatorSubdued);
+}
+.segmented-control .segmented-control-button {
+	align-items: center;
+	border-radius: .375rem;
+	display: flex;
+	flex: 1;
+	gap: .5rem;
+	justify-content: center;
+	min-height: 1.75rem;
+	padding: .25rem .5rem;
+}
+.segmented-control .segmented-control-button.selected > svg {
+	color: var(--iconFillPrimary);
+}
+.segmented-control .segmented-control-button:not(.selected) {
+	color: var(--labelSecondary);
+}
+.segmented-control .segmented-control-button:not(.selected) > svg {
+	color: var(--iconFillSecondary);
+}
+.ghost-button.primary:not([disabled]):hover {
+	background-color: var(--buttonSecondaryBackground);
+}
+
+/* || BUDGET INSPECTOR */
+.budget-inspector,
+.reports-inspector {
+	background-color: var(--backgroundGroupedPrimary);
+	border-left: 1px solid var(--separatorStandard);
+	display: flex;
+	min-width: 300px;
+	width: 33%;
+}
+.budget-inspector {
+	color: var(--labelPrimary);
+}
+.budget-inspector {
+	font-size: .875rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.budget-inspector .budget-inspector-resizer {
+	align-items: center;
+	cursor: ew-resize;
+	display: flex;
+	position: relative;
+	width: .1875rem;
+}
+.budget-inspector .budget-inspector-resizer-indicator {
+	border-radius: 6.25rem;
+	height: 2.5rem;
+	margin-left: -.75rem;
+	opacity: 0;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	position: absolute;
+	top: calc(50% + 1.25rem);
+	width: .5rem;
+	background-color: var(--actionPrimary);
+	pointer-events: none;
+	transition: opacity .25s;
+}
+.budget-inspector .budget-inspector-content {
+	overflow: auto;
+	padding: 1rem 1rem 3rem .8125rem;
+	width: calc(100% - .1875rem);
+}
+
+/* || MODAL SETTINGS MENU */
+.ynab-new-settings-menu.modal-overlay {
+	background-color: var(--scrimInvisible);
+}
+
+:active, :focus {
+	box-shadow: none;
+}
+.modal-overlay {
+	background-color: var(--scrimDefault);
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 10001;
+}
+
+/* || MODAL */
+.modal-overlay.active > .modal {
+	transform: scale(1);
+	opacity: 1;
+	-ms-filter: none;
+	filter: none;
+}
+.ynab-new-settings-menu .modal {
+	height: auto;
+	left: 1rem;
+	position: fixed;
+	top: 2.5rem;
+	width: 14.25rem;
+}
+.modal:active, .modal:focus {
+	box-shadow: 0 16px 64px rgba(0, 0, 0, .2);
+}
+.modal {
+	background-color: var(--backgroundPrimaryElevated);
+	pointer-events: auto;
+	border-radius: .4rem;
+	height: auto;
+	position: relative;
+	z-index: 1;
+	box-shadow: 0 16px 64px rgba(0, 0, 0, .2);
+	transition: transform 150ms ease, opacity 100ms ease;
+	animation-fill-mode: forwards;
+	opacity: 0;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+}
+
+/* || UL */
+.accounts-calendar-grid::after,
+.ynab-new-settings-menu ul.modal-list::after {
+	clear: both;
+}
+.accounts-calendar-grid::after,
+.accounts-calendar-grid::before,
+.ynab-new-settings-menu ul.modal-list::after,
+.ynab-new-settings-menu ul.modal-list::before {
+	content: "";
+	display: table;
+}
+.ynab-new-settings-menu ul.modal-list {
+	margin: 0;
+	padding: .4rem 0;
+	text-align: left;
+	zoom: 1;
+}
+
+/* || LI */
+.ynab-new-settings-menu ul.modal-list li {
+	padding: 0;
+	color: var(--labelPrimary);
+	list-style: none;
+	position: relative;
+	text-align: left;
+}
+.ynab-new-settings-menu ul.modal-list a,
+.ynab-new-settings-menu ul.modal-list button {
+	color: var(--labelPrimary);
+	align-items: center;
+	border: 0;
+	display: flex;
+	overflow: hidden;
+	padding: .4375rem .5rem .5rem 1rem;
+	text-align: left;
+	text-decoration: none;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+.ynab-new-settings-menu ul.modal-list a,
+.ynab-new-settings-menu ul.modal-list button {
+	font-size: .875rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.ynab-new-settings-menu ul.modal-list a .ynab-new-icon,
+.ynab-new-settings-menu ul.modal-list button .ynab-new-icon {
+	margin-left: 0;
+	fill: var(--iconFillPrimary);
+}
+.ynab-new-settings-menu ul.modal-list svg {
+	margin-right: .5rem;
+	color: var(--iconFillPrimary);
+}
+.budget-view-row ul.budget-view-buttons li .view-button-overspent,
+.ynab-new-settings-menu ul.modal-list a span,
+.ynab-new-settings-menu ul.modal-list button span {
+	align-items: center;
+	display: flex;
+}
+.ynab-new-settings-menu hr {
+	margin: .5rem auto;
+	padding: 0;
+	width: 100%;
+}
+hr {
+	background-color: var(--separatorSubdued);
+	border: 0;
+	height: 1px;
+}
+hr {
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+}
+.ynab-new-settings-menu ul.modal-list .modal-list-header {
+	padding: .4375rem .5rem .5rem 1rem;
+}
+.ynab-new-settings-menu ul.modal-list .modal-list-header {
+	font-size: .75rem;
+	font-weight: 600;
+	line-height: 1.2;
+}
+.ynab-new-settings-menu ul.modal-list button.modal-submenu-item {
+	justify-content: space-between;
+}
+.ynab-new-settings-menu ul.modal-list button.modal-your-privacy-choices svg:last-child {
+	margin-left: .3rem;
+}
+ul.modal-list a:hover,
+ul.modal-list button:hover {
+	background-color: var(--backgroundSecondaryElevated);
+	text-decoration: none;
+}
+
+/* || MODAL NEW BUDGET */
+a:focus-visible, div:focus-visible, li:focus-visible {
+	outline-color: var(--actionPrimary);
+	outline-style: auto;
+	outline-width: 1px;
+}
+.modal-fresh.mod-skinny .modal {
+	max-width: 30rem;
+}
+.modal-fresh .modal {
+	border-radius: .5rem;
+}
+
+.modal-fresh .modal-fresh-header {
+	color: var(--labelPrimary);
+	border-bottom: 1px solid var(--separatorSubdued);
+	align-items: center;
+	display: flex;
+	height: 3rem;
+	justify-content: space-between;
+	min-height: 3rem;
+	padding: 0 1rem;
+}
+.modal-fresh .modal-fresh-header {
+	font-size: 1.125rem;
+	font-weight: 600;
+	line-height: 1.2;
+}
+.modal-budget-settings .modal-fresh-title,
+.select-budget table {
+	width: 100%;
+}
+.modal-fresh .modal-fresh-title {
+	display: flex;
+	flex-direction: column;
+}
+.modal-budget-settings .ynab4-migration {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+}
+.modal-budget-settings .ynab4-migration .button {
+	color: var(--labelSecondary);
+	border: 0;
+	justify-content: flex-end;
+	margin-left: auto;
+	padding: 0;
+}
+.modal-budget-settings .ynab4-migration .button:hover {
+	background: initial;
+	color: var(--actionPrimary);
+	text-decoration: underline;
+}
+.modal-budget-settings .ynab4-migration .button {
+	font-size: .75rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.button,
+.button-cancel,
+.button-disabled,
+.button-red,
+.button-secondary {
+	padding: .375rem 1rem;
+	border-radius: .5rem;
+	height: 2rem;
+}
+button {
+	background: 0 0;
+	border: 0;
+	padding: 0;
+}
+.modal-budget-settings .ynab4-migration .button .ynab-new-icon {
+	color: var(--labelSecondary);
+}
+.button .ynab-new-icon,
+.button-cancel .ynab-new-icon,
+.button-secondary .ynab-new-icon {
+	color: var(--actionPrimary);
+	position: relative;
+	margin-right: .3rem;
+	overflow: visible;
+}
+.modal-fresh .modal-fresh-body {
+	line-height: 1.5;
+	padding: 1rem;
+}
+.modal-fresh .modal-fresh-body {
+	font-size: .875rem;
+	font-weight: 500;
+}
+.modal-fresh .modal-fresh-body > :last-child {
+	margin-bottom: 0;
+}
+.modal-fresh .modal-fresh-body > :first-child {
+	margin-top: 0;
+}
+section {
+	display: block;
+}
+form {
+	margin: 0;
+}
+.type-body-bold {
+	font-size: .875rem;
+	font-weight: 600;
+	line-height: 1.2;
+}
+.modal-budget-settings .modal-budget-settings-name {
+	margin: .25rem 0 1rem;
+}
+.modal-fresh input {
+	height: 2rem;
+	padding: .25rem .5rem;
+}
+.modal-fresh input {
+	border: .0625rem solid var(--inputBorder);
+	width: 100%;
+	border-radius: .25rem;
+}
+.x-select-container select:focus, input:focus {
+	border: .0625rem solid var(--inputBorderActive);
+	outline: 0;
+}
+.modal-budget-settings .modal-budget-settings-currency-fields {
+	display: flex;
+	gap: 1rem;
+}
+.modal-budget-settings .modal-budget-settings-currency-fields > div {
+	flex: 1;
+}
+.input-container-with-arrow.focused::after,
+.input-container-with-arrow.is-modal-open::after,
+.x-select-container.focused::after,
+.x-select-container.is-modal-open::after {
+	border-top: .45em solid var(--inputBorderActive);
+}
+.input-container-with-arrow::after,
+.x-select-container::after {
+	content: "";
+	height: 0;
+	pointer-events: none;
+	position: absolute;
+	width: 0;
+	border-top: .45em solid var(--iconFillSecondary);
+	border-left: .3rem solid transparent;
+	border-right: .3rem solid transparent;
+	right: .5rem;
+	top: calc(50% - .15rem);
+}
+.modal-budget-settings .x-select-container {
+	display: block;
+	margin: .25rem 0 1rem;
+}
+.x-select-container {
+	display: inline;
+	position: relative;
+}
+.x-select-container select {
+	height: 2rem;
+	-webkit-appearance: none;
+	color: var(--labelPrimary);
+	background-color: var(--inputBackground);
+	margin: 0;
+	padding: .25rem 1.5rem .25rem .5rem;
+}
+.x-select-container select,
+select {
+	border: .0625rem solid var(--inputBorder);
+	border-radius: .25rem;
+}
+.modal-fresh select {
+	width: 100%;
+}
+.x-select-container select,
+select {
+	font-size: .875rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.modal-fresh .modal-fresh-footer {
+	align-items: center;
+	display: flex;
+	gap: .5rem;
+	justify-content: flex-end;
+	padding: 1rem;
+	padding-top: 0;
+}
+.ynab-button.secondary:not([disabled]) {
+	background-color: var(--buttonSecondaryBackground);
+	color: var(--buttonSecondaryLabel);
+	border: 0;
+}
+.ynab-button {
+	font-size: 1rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.ynab-button.secondary:not([disabled]):active,
+.ynab-button.secondary:not([disabled]):hover {
+	background-color: var(--buttonSecondaryBackgroundActive);
+	color: var(--buttonSecondaryLabel);
+}
+.ynab-button:active,
+.ynab-button:hover {
+	background-color: var(--buttonPrimaryBackgroundActive);
+	color: var(--labelDarkBackgroundPrimary);
+	align-items: center;
+	justify-content: center;
+}
+
+/* || MODAL CALENDAR */
+.modal-calendar {
+	background: 0 0;
+}
+.modal-calendar .modal {
+	height: 12.3em;
+	width: 14em;
+}
+/* || YEARS */
+.month-picker-years {
+	border-bottom: 1px solid #d2d8de;
+	border-bottom: 1px solid var(--separatorStandard);
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	margin: 0 .8rem;
+	padding: .3rem 0;
+}
+.month-picker-years .month-picker-years-item {
+	list-style: none;
+}
+.ghost-button.is-icon-only > .ynab-new-icon {
+	margin-right: 0;
+}
+.loan-account-account-header hr, .month-picker-years svg.ynab-new-icon {
+	margin: 0;
+	margin-right: 0px;
+}
+.month-picker-years .month-picker-selected-year {
+	font-size: 1.1rem;
+	font-weight: 700;
+}
+.month-picker-years .month-picker-years-item {
+	list-style: none;
+}
+/* || MONTHS */
+.month-picker-months::after {
+	clear: both;
+}
+.month-picker-months::after, .month-picker-months::before {
+	content: "";
+	display: table;
+}
+.month-picker-months {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	height: 8.375rem;
+	justify-content: center;
+	margin: .3rem .625rem;
+	width: 12.75rem;
+	zoom: 1;
+	padding: 0;
+}
+
+/* || ITEMS */
+.month-picker-months .month-picker-months-item.is-disabled {
+	background-color: transparent;
+	color: var(--labelTertiary);
+	pointer-events: none;
+}
+.month-picker-months .month-picker-months-item {
+	flex: 0 0 auto;
+	height: 2.541666666666667rem;
+	position: relative;
+	width: 2.921875rem;
+	border-radius: .25rem;
+	color: #19223c;
+	color: var(--labelPrimary);
+	cursor: pointer;
+	float: left;
+	list-style: none;
+	margin: .125rem;
+	text-align: center;
+}
+.month-picker-months .month-picker-months-item {
+	font-size: .875rem;
+	font-weight: 600;
+	line-height: 1.2;
+}
+.month-picker-months {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	height: 8.375rem;
+	justify-content: center;
+	margin: .3rem .625rem;
+	width: 12.75rem;
+	zoom: 1;
+	padding: 0;
+}
+.month-picker-months .month-picker-months-item.is-selected {
+	border-radius: .25rem;
+	background-color: var(--buttonPrimaryBackground);
+	color: var(--labelDarkBackgroundPrimary);
+}
+
+/* || ARROW */
+.modal-arrow {
+	fill: var(--backgroundPrimaryElevated);
+	height: .9375rem;
+	position: absolute;
+	stroke: none;
+	transition-property: none;
+	width: 1.875rem;
+	-webkit-transition-property: none;
+}
+
+/* || MODAL ADD ACCOUNT */
+.account-widget-modal.self-centered {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	padding: 2% 0 4%;
+	z-index: 10012;
+}
+.account-widget-modal.self-centered .modal {
+	height: 608px;
+	overflow: hidden;
+	padding: 0;
+	position: relative !important;
+	width: 360px;
+}
+.account-widget {
+	background-color: var(--backgroundPrimaryElevated);
+	height: 100%;
+	outline: 0;
+	-webkit-overflow-scrolling: touch;
+}
+.account-widget {
+	font-size: .875rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.account-widget .account-widget-step {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+}
+.account-widget .account-widget-step .account-widget-header {
+	border-bottom: 1px solid var(--separatorSubdued);
+	align-items: center;
+	display: flex;
+	flex: 0 0 auto;
+	height: 3.5rem;
+	padding: .625rem 1rem;
+}
+.account-widget .account-widget-step .account-widget-header .hidden-header-button:first-child, .account-widget .account-widget-step .account-widget-header button:first-child {
+	margin-left: -1rem;
+}
+.account-widget .account-widget-step .account-widget-header .hidden-header-button, .account-widget .account-widget-step .account-widget-header button {
+	height: 3.5rem;
+	padding: 0;
+	width: 3.5rem;
+}
+.account-widget .account-widget-step .account-widget-header .account-widget-header-title {
+	flex: 6 1 auto;
+	text-align: center;
+}
+.account-widget .account-widget-step .account-widget-header .account-widget-header-title h1 {
+	color: var(--labelPrimary);
+	margin: 0;
+}
+.account-widget .account-widget-step .account-widget-header button:last-child {
+	margin-right: -1rem;
+}
+.account-widget .ynab-new-icon {
+	color: var(--actionPrimary);
+}
+/* || ACCOUNT WIDGET BODY */
+.account-widget .account-widget-step .account-widget-body {
+	flex: 1 1 auto;
+	overflow: auto;
+	padding: 1rem 1rem 0;
+}
+.account-widget .account-widget-step-with-help-box .account-widget-body {
+	display: flex;
+	flex-direction: column;
+}
+.account-widget p {
+	margin: .3rem 0 1rem;
+	color: var(--labelPrimary);
+}
+.account-widget .account-widget-add-unlinked-account .header-strong {
+	font-weight: 600;
+}
+
+/* || FORM-LABEL */
+.account-widget .y-form-field label:first-of-type {
+	margin-bottom: .25rem;
+}
+.modal-generic label {
+	display: block;
+	padding: .2625rem 0 .0875rem;
+	width: 100%;
+}
+.modal-generic label {
+	font-size: .875rem;
+	font-weight: 600;
+	line-height: 1.2;
+}
+
+/* || INPUT */
+.account-widget input[type="text"] {
+	border-color: var(--actionSecondaryBorder);
+	border-radius: .5rem;
+	height: 3rem;
+}
+.account-widget .account-widget-edit-linked-account .account-list-section, .account-widget .account-widget-edit-linked-account .account-list-section label, .account-widget .account-widget-edit-linked-account .y-form-field, .account-widget input {
+	margin-bottom: .25rem;
+}
+.modal-generic input, .modal-generic select, .modal-generic textarea, .modal-popup input, .modal-popup textarea {
+	border: .0625rem solid #d2d8de;
+	border: .0625rem solid var(--inputBorder);
+	width: 100%;
+	border-radius: .25rem;
+}
+.modal-generic input {
+	background-color: var(--inputBackground);
+	height: 2rem;
+	margin-bottom: .39375rem;
+	padding: .25rem .5rem;
+}
+.account-widget input:focus-visible {
+	border: .0625rem solid var(--actionPrimary);
+}
+.x-select-container select:focus, input:focus {
+	border: .0625rem solid #3b5eda;
+	border: .0625rem solid var(--inputBorderActive);
+	outline: 0;
+}
+ /* || ERRORS */
+.account-widget .y-form-field.has-errors input {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.field-with-error.has-errors .users-form-input, .field-with-error.has-errors input, .field-with-error.has-errors select {
+	border-color: var(--calloutNegativeProminentBackground) !important;
+	margin-bottom: 0;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+ /* || UL */
+.account-widget .y-form-field ul.errors {
+	border-bottom-left-radius: .5rem;
+	border-bottom-right-radius: .5rem;
+}
+.field-with-error.has-errors ul.errors, .field-with-error.has-warnings ul.warnings {
+	background-color: var(--calloutNegativeProminentBackground);
+	font-size: .8em;
+	margin: 0 0 .5em;
+	padding: 0;
+	color: var(--calloutNegativeLabel);
+}
+.field-with-error.has-errors ul.errors li {
+	color: var(--calloutNegativeLabel);
+	list-style: none;
+	margin: 0;
+	padding: .5em;
+}
+
+/* || BUTTON */
+.account-widget .account-type-select-button {
+	border: .0625rem solid var(--actionSecondaryBorder);
+	background-color: var(--inputBackground);
+	align-items: center;
+	border-radius: .5em;
+	display: flex;
+	height: 3rem;
+	justify-content: space-between;
+	margin-bottom: .25rem;
+	padding: 0 .5em;
+	width: 100%;
+}
+/* || SPAN */
+.account-widget .account-type-select-button svg {
+	padding: .2rem;
+}
+
+.account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box {
+	background: var(--buttonSecondaryBackground);
+	border-radius: .25rem;
+	cursor: pointer;
+	display: flex;
+}
+.account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-text {
+	display: flex;
+	margin: 2rem 1.25rem;
+}
+.account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-icon {
+	margin-right: .75rem;
+	margin-top: .25rem;
+}
+.account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-icon .ynab-new-icon.icon-download {
+	height: 1.6rem;
+	width: 1.6rem;
+}
+.account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-icon .ynab-new-icon {
+	color: var(--actionPrimary);
+}
+.account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-text .select-linked-unlinked-box-title {
+	color: var(--actionPrimary);
+}
+.account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-text .select-linked-unlinked-box-message {
+	color: var(--labelPrimary);
+	margin-bottom: 0;
+}
+
+.account-widget .separator-text {
+	border-bottom: 1px solid rgba(0, 0, 0, .1);
+	border-bottom: 1px solid var(--separatorSubdued);
+	line-height: .3rem;
+	margin-bottom: 1.5rem;
+	margin-top: 1.2rem;
+	text-align: center;
+	width: 100%;
+}
+.account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-icon .ynab-new-icon.icon-edit {
+	height: 1.5rem;
+	width: 1.5rem;
+}
+.account-widget .account-widget-step-with-help-box .account-widget-help-box {
+	margin-bottom: 1rem;
+	margin-top: auto;
+}
+.account-widget .account-widget-help-box {
+	align-items: center;
+	background-color: var(--calloutPrimarySubtleBackground);
+	border-radius: .5rem;
+	display: flex;
+	height: 4.5rem;
+	padding: 1rem;
+}
+.account-widget .account-widget-help-box > .ynab-new-icon {
+	color: var(--calloutPrimaryAccent);
+	flex-shrink: 0;
+	height: 1.5rem;
+	margin-right: 1rem;
+	position: initial;
+	width: 1.5rem;
+}
+.account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box:hover {
+	background: var(--buttonSecondaryBackgroundActive);
+}
+
+
+/* || FOOTER */
+.account-widget .account-widget-step .account-widget-footer {
+	border-top: 1px solid var(--separatorSubdued);
+	align-self: flex-end;
+	display: flex;
+	flex: 0 0 auto;
+	gap: 1rem;
+	justify-content: flex-end;
+	padding: 1rem;
+	width: 100%;
+}
+.account-widget .account-widget-step-with-help-box .account-widget-footer {
+	position: relative;
+}
+.account-widget .account-widget-step .account-widget-footer button, .group-subscription-credit-card-form .expiration-cvv-row .cvv .cvv-row #recurly-card-cvv, .join-container .group-join-form-inputs .group-join-form-name-fields input {
+	flex: 1;
+}
+.ynab-button[disabled] {
+	cursor: auto;
+	background-color: var(--buttonPrimaryBackgroundDisabled);
+	border-color: var(--buttonPrimaryBackgroundDisabled);
+	color: var(--labelTertiary);
+}
+.ynab-button.is-large {
+	min-height: 3rem;
+	padding: .375rem 1.5rem;
+}
+
+/* || ACCOUNT TYPE SELECT */
+.account-widget .account-type-select .account-type-select-group {
+	margin-bottom: 1rem;
+}
+.account-widget .account-type-select .account-type-select-group h3, .account-widget .account-widget-truelayer-handoff .account-widget-truelayer-connect h3 {
+	padding: 0;
+}
+.account-widget .account-type-select .account-type-select-group h3 {
+	font-size: 1rem;
+	font-weight: 600;
+	line-height: 1.2;
+}
+.account-widget h3 {
+	margin: 0;
+	padding: 0 0 1rem;
+	color: var(--labelPrimary);
+}
+.account-widget .account-type-select .account-type-select-group p {
+	margin: 0;
+	color: var(--labelSecondary);
+}
+
+/* || BUTTON TYPE SELECT */
+.account-widget .account-type-select .account-type-select-group button {
+	align-items: center;
+	display: flex;
+	height: 3.5rem;
+	justify-content: space-between;
+	line-height: 0;
+	margin-top: .5rem;
+	padding: 1rem;
+	text-align: left;
+	width: 100%;
+}
+.account-widget .account-widget-list-button {
+	border-radius: .5rem;
+	background-color: var(--backgroundPrimaryElevated);
+	border: .0625rem solid var(--separatorSubdued);
+}
+@media (hover: hover) {
+	.account-widget-list-button:not(:disabled):active, .account-widget-list-button:not(:disabled):hover {
+		background-color: #edf1f5;
+		background-color: var(--backgroundSecondaryElevated);
+	}
+}
+/* || SECCION TWO LOAN */
+.account-widget .account-widget-add-unlinked-account .add-unlinked-account-split-row {
+	display: flex;
+	justify-content: space-between;
+}
+.account-widget .account-widget-add-unlinked-account .add-unlinked-account-split-row .add-unlinked-account-current-balance {
+	width: 70%;
+}
+.account-widget .currency-input-group {
+	position: relative;
+	width: 100%;
+}
+/* || RATE */
+.account-widget .account-widget-add-unlinked-account .add-unlinked-account-split-row .add-unlinked-account-interest-rate {
+	width: 27%;
+}
+.account-widget .interest-input-group .input-icon {
+	align-items: center;
+	display: flex;
+	height: 3rem;
+	padding: 0 .5rem 0 0;
+	position: absolute;
+	right: 0;
+	width: auto;
+}
+.account-widget .interest-input-group input {
+	padding-right: 1.25rem;
+}
+/* || NOTE */
+.account-widget .y-form-note {
+	color: var(--labelSecondary);
+	display: block;
+	margin: -.125rem 0 1rem;
+}
+.account-widget em, .modal-import-choose-file em {
+	color: var(--labelSecondary);
+	font-style: normal;
+}
+
+/* Para controlar la visibilidad de las secciones */
+.account-widget-list-button .ynab-new-icon {
+	display: none; /* Ocultar el icono por defecto */
+}
+.account-widget-list-button.selected .ynab-new-icon {
+	display: inline; /* Mostrar el icono cuando el botón está seleccionado */
+}
+
+/* || SUCCESS */
+.account-widget .account-widget-success-screen .account-widget-body {
+	margin: 0 auto;
+	max-width: 20rem;
+	text-align: center;
+}
+.account-widget .account-widget-success-screen .account-widget-body > .icon-checkmark-circle {
+	height: 3rem;
+	width: 3rem;
+	color: #4d9119;
+	color: var(--labelPositive);
+}
+.account-widget .account-widget-success-screen .account-widget-body > .ynab-new-icon {
+	clear: both;
+	margin-bottom: 1.5rem;
+	margin-top: 3rem;
+}
+.account-widget .account-widget-success-screen .account-widget-body h3 {
+	margin: 0 0 1rem;
+	padding: 0;
+}
+.account-widget .account-widget-success-screen .account-widget-body h3 {
+	font-size: 1.125rem;
+	font-weight: 600;
+	line-height: 1.2;
+}
+.account-widget .account-widget-success-screen .account-widget-body p {
+	margin: 0 0 1rem;
+	color: #405163;
+	color: var(--labelSecondary);
+}
+.account-widget .account-widget-success-screen .account-widget-body p {
+	font-size: 1rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.account-widget a, .modal-account-reconcile .modal a {
+	color: var(--actionPrimary);
+	text-decoration: none;
+}
+
+/* || MODAL EDIT ACCOUNT */
+.modal-popup.account-modal, .modal-popup.unpair-confirm-modal {
+	z-index: 10011;
+}
+.modal-popup.account-modal .modal {
+	position: absolute;
+	width: 30rem;
+}
+.modal-popup.account-modal .modal-header-with-close {
+	display: flex;
+	justify-items: center;
+	padding: 1rem;
+}
+.modal-popup.account-modal .modal-header {
+	color: var(--labelPrimary);
+	border-bottom: .05rem solid var(--separatorSubdued);
+	text-align: left;
+}
+.modal-popup.account-modal .modal-header-with-close-title {
+	flex-grow: 1;
+	line-height: 1.5;
+}
+
+/* || MODAL CONTENT */
+
+.modal-popup.account-modal .modal-content {
+	border-bottom: .05rem solid var(--separatorSubdued);
+	max-height: 30rem;
+	overflow: auto;
+	padding: 1rem;
+}
+.modal-popup.account-modal .modal-content .fieldset:first-child {
+	border: 0;
+}
+.modal-popup.account-modal .modal-content .fieldset {
+	margin-bottom: .5em;
+	padding: 0;
+}
+.manage-payees h2, .modal-popup .fieldset, .modal-popup dd, .ynab-grid-spacer > div {
+	margin: 0;
+	padding: 0;
+}
+.modal-generic .modal-actions::after, .modal-popup dl::after, .modal-popup ul.modal-list::after, .modal-popup ul.submenu::after {
+	clear: both;
+}
+.modal-generic .modal-actions::after, .modal-generic .modal-actions::before, .modal-popup dl::after, .modal-popup dl::before, .modal-popup ul.modal-list::after, .modal-popup ul.modal-list::before, .modal-popup ul.submenu::after, .modal-popup ul.submenu::before {
+	content: "";
+	display: table;
+}
+.modal-popup.account-modal .modal-content dl:first-child {
+	margin-top: 0;
+}
+.modal-popup.account-modal .modal-content dl:last-child {
+	margin: 0;
+}
+.modal-generic .modal-content, .modal-generic dl, .modal-popup dl {
+	zoom: 1;
+}
+.modal-popup.account-modal .modal-content .fieldset .section-header {
+	font-size: 1rem;
+	margin-bottom: .3rem;
+}
+.modal-popup.account-modal .modal-content dt {
+	padding-top: 0;
+}
+.modal-popup.account-modal .modal-content dd, .modal-popup.account-modal .modal-content dt {
+	min-height: 1.5em;
+	text-align: left;
+	width: 100%;
+}
+.modal-popup dt {
+	float: left;
+	margin: 0;
+	padding-bottom: .25rem;
+}
+.modal-popup dt {
+	font-size: .875rem;
+	font-weight: 600;
+	line-height: 1.2;
+}
+.fieldset {
+	border: 0;
+	margin: 0 2px;
+	padding: .35em .625em .75em;
+}
+.modal-popup dd {
+	float: left;
+	width: 65%;
+}
+.modal-popup.account-modal .modal-content input {
+	border-color: var(--inputBorder);
+	background-color: var(--inputBackground);
+	text-align: left;
+	width: 100%;
+}
+.modal-popup input, .modal-popup textarea {
+	margin-bottom: .5rem;
+	padding: .25rem .5rem;
+	min-height: 2rem;
+}
+.modal-popup.account-modal .modal-content input:focus {
+	border-color: var(--inputBorderActive);
+}
+.modal-popup.account-modal .modal-content textarea {
+	border-color: var(--inputBorder);
+	outline: 0;
+	resize: vertical;
+	width: 100%;
+}
+textarea {
+	overflow: auto;
+}
+.modal-popup.account-modal .modal-content textarea:focus {
+	border-color: var(--actionPrimary);
+}
+
+/* || HR */
+.modal-popup.account-modal .modal-content hr {
+	margin: 1.5rem auto;
+}
+.modal-popup hr {
+	margin: .375rem auto;
+	padding: 0;
+}
+
+/* || WORKING BALANCE */
+.ynab-new-currency-input.legacy-currency-input.is-editing, .ynab-new-currency-input.legacy-currency-input:hover {
+	border: 0;
+}
+.ynab-new-currency-input.legacy-currency-input {
+	border: 0;
+	height: auto;
+}
+.ynab-new-currency-input.is-editing {
+	border: .0625rem solid var(--inputBorderActive);
+	background-color: var(--backgroundPrimary);
+}
+.ynab-new-currency-input {
+	border: .0625rem solid transparent;
+	display: flex;
+	justify-content: space-between;
+	border-radius: .25rem;
+	height: 1.5rem;
+	text-align: right;
+	width: 100%;
+}
+.ynab-new-currency-input .input-wrapper {
+	align-items: center;
+	display: flex;
+	flex: 1 1 auto;
+	width: calc(100% - 1.125rem);
+}
+.modal-popup.account-modal .modal-content .ynab-new-currency-input input {
+	height: 2rem;
+	min-height: 2rem;
+	text-align: left;
+}
+.field-with-error .ynab-new-currency-input.legacy-currency-input .ember-text-field {
+	border-width: .0625rem;
+}
+.ynab-new-currency-input.is-editing .input-wrapper input {
+	display: block;
+}
+.ynab-new-currency-input.legacy-currency-input input {
+	border-width: .0625rem !important;
+	padding: 0 .5rem !important;
+}
+.ynab-new-currency-input .input-wrapper input {
+	background: 0 0;
+	background-color: rgba(0, 0, 0, 0);
+	border-color: transparent;
+	border-radius: .25rem;
+	border-width: 0;
+	display: none;
+	font-weight: 500;
+	height: 100%;
+	margin: 0;
+	padding: 0 .1875rem;
+	text-align: right;
+	width: 100%;
+}
+.ynab-new-currency-input.is-editing .input-wrapper .currency {
+	display: none;
+}
+.modal-popup.account-modal .modal-content button {
+	vertical-align: inherit;
+}
+.ynab-new-currency-input .input-wrapper .currency {
+	display: block;
+	padding: .1875rem;
+}
+.ynab-new-currency-input .input-wrapper .currency {
+	font-size: .875rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.ynab-new-currency-input .input-wrapper button {
+	padding: .1875rem;
+	text-align: right;
+	width: 100%;
+}
+.modal-popup.account-modal .modal-content .fieldset .space-top {
+	margin-top: .5rem;
+}
+.modal-popup.account-modal .modal-content .info {
+	color: var(--labelSecondary);
+	font-size: .75rem;
+}
+
+/* || FINANCIAL */
+.modal-popup.account-modal .modal-content .fieldset.edit-direct-import-toggle .info {
+	margin: .4rem 0 1rem;
+}
+
+/* || FOOTER */
+.modal-popup.account-modal .modal-actions {
+	display: flex;
+	justify-content: flex-end;
+	padding: 1rem;
+}
+.modal-popup .modal-actions {
+	align-items: center;
+	display: flex;
+	gap: .5rem;
+	justify-content: flex-end;
+	padding: .765em;
+}
+.modal-popup.account-modal .modal-actions button.destructive, .modal-popup.account-modal .modal-actions button:first-child {
+	margin-right: auto;
+}
+.ynab-button.destructive:not([disabled]) {
+	color: var(--buttonDestructiveLabel);
+	background-color: var(--buttonDestructiveBackground);
+	border: 0;
+}
+.ynab-button.destructive:not([disabled]):active, .ynab-button.destructive:not([disabled]):hover {
+	background-color: var(--buttonDestructiveBackgroundActive);
+	border-color: var(--buttonDestructiveBackgroundActive);
+	color: var(--labelDarkBackgroundPrimary);
+}
+/*  || ACCOUNT CARD */
+.account-widget .account-widget-account-card {
+	border-radius: .25rem;
+	background-color: var(--backgroundSecondaryElevated);
+	border: .0625rem solid var(--separatorStandard);
+	margin-bottom: 1rem;
+}
+.account-widget .account-widget-account-list-item {
+	line-height: 1.5rem;
+	padding: 1rem;
+	text-align: left;
+	width: 100%;
+}
+
+.account-widget .account-widget-account-list-item .account-widget-account-list-item-name-and-amount {
+	display: flex;
+	gap: .25rem;
+	justify-content: space-between;
+}
+.account-widget .account-widget-account-list-item .account-widget-account-list-item-name-and-amount {
+	line-height: 1.1rem;
+}
+.account-widget .account-widget-account-list-item .account-widget-account-list-item-amount.account-widget-negative {
+	color: var(--labelSecondary);
+}
+.account-widget .account-widget-account-list-item .account-widget-account-list-item-type-and-mask {
+	color: var(--labelSecondary);
+}
+.account-widget .account-widget-account-list-item .account-widget-account-list-item-type-and-mask {
+	display: flex;
+	gap: .25rem;
+	justify-content: space-between;
+}
+.account-widget .account-widget-account-list-item .account-widget-account-list-item-type {
+	align-items: center;
+	display: flex;
+	gap: .25rem;
+}
+.account-widget .account-widget-step .account-widget-account-list-item-type .ynab-new-icon {
+	color: var(--actionSecondary);
+	position: inherit;
+}
+.account-widget .account-widget-account-list-item .account-widget-account-list-item-mask {
+	color: var(--labelSecondary);
+}
+/*  || RADIO-BUTTON */
+.account-widget .account-widget-radio-button-list label {
+	cursor: pointer;
+	display: inline-block;
+	font-weight: 500;
+	margin: 0 0 1rem;
+	padding: 0;
+}
+.radio {
+	cursor: pointer;
+	display: block;
+	text-align: left;
+	user-select: none;
+}
+.radio input[type="radio"], .radio input[type="radio"] + span::after {
+	opacity: 0;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	position: absolute;
+}
+.radio input[type="radio"] {
+	height: 0;
+	width: 0;
+}
+input[type="checkbox"], input[type="radio"] {
+	box-sizing: border-box;
+	padding: 0;
+	*height: 13px;
+	*width: 13px;
+}
+/* || PSEUDO-ELEMENT */
+.radio input[type="radio"] + span::after {
+	border: .125rem solid;
+	border-color: var(--actionPrimary);
+	border-radius: .25rem;
+	content: "";
+	display: block;
+	height: 1.375rem;
+	left: -.1875rem;
+	top: -.2125rem;
+	width: 1.375rem;
+}
+.radio input[type="radio"] + span::before {
+	border-radius: .5rem;
+	box-sizing: border-box;
+	content: "";
+	display: block;
+	height: .75rem;
+	left: .25rem;
+	margin-right: .313rem;
+	outline: .0625rem solid;
+	outline-color: var(--checkboxBorder);
+	outline-offset: .125rem;
+	position: absolute;
+	top: .225rem;
+	width: .75rem;
+}
+.radio input[type="radio"]:checked + span::before {
+	background: var(--actionPrimary);
+}
+
+/*  || SPAN */
+.radio input[type="radio"] + span {
+	display: inline-block;
+	font-weight: 500;
+	padding-left: 1.625rem;
+	position: relative;
+}
+.account-widget .account-widget-radio-button-list span {
+	float: right;
+	width: calc(100% - .25rem);
+}
+
+/* || CC-GOAL  */
+.account-widget hr {
+	background-color: var(--actionSecondaryBorder);
+	border: 0;
+	color: var(--actionSecondaryBorder);
+	height: 1px;
+	margin: 0 0 1rem;
+	padding: 0;
+	width: 100%;
+}
+.account-widget .account-widget-set-cc-goal .account-widget-goal-target-month {
+	display: inline-block;
+	width: 48%;
+}
+.account-widget .x-select-container {
+	display: inline;
+	position: relative;
+}
+.account-widget .x-select-container select {
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	color: var(--labelPrimary);
+	background-color: var(--inputBackground);
+	margin: 0;
+	border: .0625rem solid #d2d8de;
+	border: .0625rem solid var(--actionSecondaryBorder);
+	border-radius: .25rem;
+	height: 3rem;
+	padding: 0 .5em;
+}
+.account-widget .x-select-container::after {
+	content: "";
+	height: 0;
+	pointer-events: none;
+	position: absolute;
+	width: 0;
+	border-top: .5rem solid var(--actionPrimary);
+	border-left: .3rem solid transparent;
+	border-right: .3rem solid transparent;
+	right: .5rem;
+	top: 35%;
+}
+.account-widget .account-widget-set-cc-goal .account-widget-goal-target-year {
+	display: inline-block;
+	float: right;
+	width: 48%;
+}
+
+/* || CC-SAVE */
+.ynab-table {
+	zoom: 1;
+	display: block;
+	margin: 0;
+	padding: .5em 0 0;
+	width: 100%;
+}
+.ynab-table::before {
+	content: "";
+	display: table;
+}
+.account-widget .account-widget-cc-step .ynab-table-head.account-widget-cc-header.cc-payment {
+	border-top: 0;
+}
+.ynab-table-body, .ynab-table-head {
+	width: 100%;
+	border-bottom: 1px solid var(--separatorStandard);
+}
+.ynab-table-head, .ynab-table-row {
+	display: flex;
+	margin: 0;
+	padding: 0;
+}
+.account-widget .account-widget-cc-step .ynab-table-head.account-widget-cc-header.cc-payment .ynab-table-col {
+	border: 0;
+}
+.account-widget .account-widget-cc-step .ynab-table-head.account-widget-cc-header .ynab-table-col, .account-widget .account-widget-loading-spinner p {
+	color: var(--labelSecondary);
+}
+.account-widget .account-widget-cc-step .ynab-table-col {
+	line-height: 1.25rem;
+	width: 70%;
+}
+.ynab-table-col:first-child {
+	padding-left: 0;
+}
+.ynab-table-head .ynab-table-col {
+	border-right: 1px solid var(--separatorStandard);
+	letter-spacing: .0375rem;
+	overflow: visible;
+	padding-bottom: .25rem;
+	padding-top: .25rem;
+	text-transform: uppercase;
+}
+.ynab-table-col {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	box-sizing: border-box;
+	flex: 1 0 auto;
+	color: var(--labelPrimary);
+	padding: .5rem;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	padding-left: 0.5rem;
+}
+.account-widget .account-widget-cc-step .ynab-table-col:last-child {
+	text-align: right;
+	width: 30%;
+}
+.ynab-table-col:last-child {
+	padding-right: 0;
+}
+.ynab-table-body {
+	bottom: 0;
+	display: block;
+	max-height: 12rem;
+	overflow-y: auto;
+	position: relative;
+	top: 0;
+}
+.account-widget .account-widget-cc-step .ynab-table-row {
+	cursor: pointer;
+}
+.ynab-table-row:last-child {
+	border-bottom: none;
+}
+.ynab-table-row {
+	min-width: 100%;
+	border-bottom: 1px solid #d2d8de;
+	border-bottom: 1px solid var(--separatorStandard);
+}
+.ynab-table-row {
+	width: 100%;
+}
+.account-widget .account-widget-cc-step .ynab-table-body .ynab-table-col {
+	padding-bottom: .75rem;
+	padding-top: .75rem;
+	white-space: normal;
+}
+.account-widget .account-widget-cc-step .ynab-table-col.cc-payment-name {
+	font-weight: 700;
+}
+.account-widget .account-widget-cc-step .ynab-table-col {
+	line-height: 1.25rem;
+	width: 70%;
+}
+.account-widget .account-widget-cc-step .ynab-table-col .cc-payment-amount {
+	background-color: var(--categoryBalanceWarningBackground);
+	border-radius: 1rem;
+	color: var(--categoryBalanceWarningLabel);
+	display: inline-block;
+	padding: .125rem .5rem;
+}
+
+/* || LOAN CATEGORY */
+.account-widget p.pairing-your-account-paragraph {
+	font-size: .8rem;
+	line-height: 1.1rem;
+	color: var(--labelSecondary);
+}
+.account-widget .account-widget-loan-category .account-widget-radio-button-list {
+	margin: .5rem 0;
+}
+.account-widget .account-widget-loan-category .account-widget-radio-button-list label {
+	align-items: center;
+	display: flex;
+}
+.account-widget .account-widget-connections .account-widget-body, .account-widget .account-widget-loan-category .account-widget-radio-button-list label .account-widget-loan-category-radio-description {
+	display: flex;
+	flex-direction: column;
+}
+.account-widget .account-widget-loan-category .account-widget-radio-button-list label .account-widget-loan-category-radio-description .account-widget-loan-category-radio-description-title {
+	font-size: .875rem;
+	font-weight: 600;
+	line-height: 1.2;
+}
+.account-widget .account-widget-loan-category .account-widget-radio-button-list label .account-widget-loan-category-radio-description .account-widget-loan-category-radio-description-subtitle, .reports-income-expense .currency.zero {
+	color: var(--labelSecondary);
+}
+
+span.text-danger {
+  color: var(--labelNegative, #C72C1E);
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.007em;
+  margin-top: 0.4rem;
+  text-align: center;
+  width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
