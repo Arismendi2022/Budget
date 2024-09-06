@@ -38,9 +38,7 @@
               <input class="authentications-panel__email-field required" autofocus="autofocus" spellcheck="false" placeholder="Email address / username"
                 data-login-target="emailInput"
                 type="text" name="login_id" id="request_data_email" value="{{ old('login_id') }}">
-              @error('login_id')
-              <label class="error" for="request_data_email">{{ $message }}</label>
-              @enderror
+              <label class="error" id="email-error" for="request_data_email"></label>
             </p>
             <p class="authentications-panel__input-group js-form-password">
               <label class="u-sr-only" for="request_data_password">Password:</label>
@@ -48,9 +46,7 @@
                   autocapitalize="none" autocomplete="off" type="password" name="password" id="request_data_password">
 								<label><input type="checkbox" id="togglePassword" data-password-toggle="" data-gtm-form-interact-field-id="0">Show</label>
 							</span>
-              @error('password')
-              <label class="error" for="request_data_password">{{ $message }}</label>
-              @enderror
+              <label class="error" id="password-error" for="request_data_password"></label>
             </p>
             <p class="authentications-panel__form-options">
               <label for="request_data_remember_me">
@@ -123,18 +119,60 @@
       passwordField.setAttribute('type', type);
     });
 
-    //Este enfoque asegura que el mensaje de error se elimine
-    document.addEventListener('DOMContentLoaded', function () {
-      const form = document.getElementById('login-form');
-      const inputs = form.querySelectorAll('input[type="text"], input[type="password"]');
+    //Jquery
+    $(document).ready(function () {
+      $('#login-form').on('submit', function (e) {
+        e.preventDefault();
 
-      inputs.forEach(function (input) {
-        input.addEventListener('input', function () {
-          const errorLabel = this.closest('.authentications-panel__input-group').querySelector('.error');
-          if (errorLabel) {
-            errorLabel.style.display = 'none';
+        const formData = $(this).serialize();
+
+        $.ajax({
+          type: 'POST',
+          url: $(this).attr('action'),
+          data: formData,
+          success: function (response) {
+            if (response.status === 'success') {
+              // Redirige al dashboard si el inicio de sesión es exitoso
+              window.location.href = response.redirect;
+            }
+          },
+          error: function (xhr) {
+            // Manejar errores de validación y autenticación
+            const errors = xhr.responseJSON.errors;
+            let emailHasError = false;
+            let passwordHasError = false;
+
+            if (errors) {
+              // Mostrar errores en el campo de email
+              if (errors.login_id) {
+                $('#email-error').text(errors.login_id[0]);
+                emailHasError = true;
+              }
+
+              // Mostrar errores en el campo de contraseña
+              if (errors.password) {
+                $('#password-error').text(errors.password);
+                passwordHasError = true;
+              }
+
+              // Control de enfoque
+              if (emailHasError) {
+                $('#request_data_email').focus();
+              } else if (passwordHasError) {
+                $('#request_data_password').focus();
+              }
+            }
           }
         });
+      });
+
+      // Agregar eventos de entrada específicos para limpiar errores específicos
+      $('#request_data_email').on('input', function () {
+        $('#email-error').text('');  // Limpiar el mensaje de error del email
+      });
+
+      $('#request_data_password').on('input', function () {
+        $('#password-error').text('');  // Limpiar el mensaje de error de la contraseña
       });
     });
 

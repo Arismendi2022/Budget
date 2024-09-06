@@ -23,7 +23,7 @@
       border: 1px solid #dcdcdc;
       border-radius: 8px;
       margin: 40px auto;
-      max-width: 600px;
+      max-width: 530px;
       padding: 30px;
       text-align: center;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -81,6 +81,14 @@
       border-style: none;
       cursor: pointer;
     }
+    p {
+      font-family: 'Figtree',Helvetica,Google Sans,sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0px;
+      line-height: 24px;
+      color: #19223c;
+    }
 
     .email-footer {
       display: flex;
@@ -111,7 +119,7 @@
     <p>We have received a request to change the password associated with your YNAB account. You can do this through the link in the button below, which is valid for 6
       hours.</p>
     <a href="{{ $actionlink }}" class="reset-button" target="_blank" align="center" role="presentation" valign="middle">Reset password</a>
-    <p>If you didn't request this, you can safely ignore this email.<br>Your password won't change until you access the link above and create a new one.</p>
+    <p>If you didn't request this, you can safely ignore this email.<br><br>Your password won't change until you access the link above and create a new one.</p>
   </div>
   <div class="email-footer">
     <img

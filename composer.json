@@ -23,7 +23,11 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+      "files": [
+        "app/helpers/CMail.php",
+        "app/helpers/constants.php"
+      ]
     },
     "autoload-dev": {
         "psr-4": {

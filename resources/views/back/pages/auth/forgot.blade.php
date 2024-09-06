@@ -49,55 +49,13 @@
     });
 
     //Mostrar seccion de exito al enviar el email cambiar password.
-    /*document.addEventListener('DOMContentLoaded', function () {
-      const form = document.getElementById('password-reset-form');
-      const emailError = document.getElementById('email-error');
-      const passwordsContainer = document.querySelector('[data-new-passwords-target="passwordsContainer"]');
-      const passwordsSuccessContainer = document.querySelector('[data-new-passwords-target="passwordsSuccessContainer"]');
-      const successEmailText = document.querySelector('.js-email');
-
-      form.addEventListener('submit', function (event) {
-        event.preventDefault(); // Previene el envío del formulario para manejarlo con JavaScript
-
-        // Limpiar los mensajes de error existentes
-
-        fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'Accept': 'application/json'
-          }
-        })
-          .then(response => response.json())
-          .then(data => {
-            if (data.success) {
-              // Si la respuesta es true, muestra la sección de éxito
-              passwordsContainer.style.display = 'none';
-              passwordsSuccessContainer.style.display = 'block';
-              successEmailText.textContent = data.email; // Muestra el email en la sección de éxito
-            } else {
-              // Si la respuesta es false, muestra los errores
-              if (data.errors && data.errors.email) {
-                emailError.textContent = data.errors.email[0];
-                emailError.style.display = 'block'; // Muestra el mensaje de error
-              }
-            }
-          })
-          .catch(error => {
-            console.error('Error:', error);
-            emailError.textContent = 'Se produjo un error inesperado. Inténtalo nuevamente.';
-            emailError.style.display = 'block'; // Muestra el mensaje de error
-          });
-      });
-    });*/
     $(document).ready(function () {
       $('#password-reset-form').on('submit', function (e) {
         e.preventDefault();
 
-        var form = $(this);
-        var actionUrl = form.attr('action');
-        var formData = form.serialize();
+        const form = $(this);
+        const actionUrl = form.attr('action');
+        const formData = form.serialize();
 
         $.ajax({
           type: 'POST',

@@ -21,9 +21,6 @@
 								<input type="checkbox" id="togglePassword" data-password-toggle="">Show</label>
 						</span>
             <label class="error" id="password-error" for="request_data_password"></label>
-            {{-- @error('new_password')
-             <label class="error" for="request_data_email">{{ $message }}</label>
-             @enderror--}}
           </p>
           <p data-edit-passwords-target="resetSubmitButton">
             <button name="button" type="submit" class="button button-primary" data-disable-with="Saving New Password...">Save New Password</button>
@@ -97,7 +94,6 @@
         });
       });
     });
-
 
     // Este enfoque asegura que el mensaje de error se elimine
     document.addEventListener('DOMContentLoaded', function () {

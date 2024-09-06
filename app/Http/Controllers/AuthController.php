@@ -5,8 +5,9 @@
   use App\Helpers\CMail;
   use App\Models\User;
   use App\UserStatus;
-  use Carbon\Carbon;
+  use constDefaults;
   use Illuminate\Http\Request;
+  use Illuminate\Support\Carbon;
   use Illuminate\Support\Facades\Auth;
   use Illuminate\Support\Facades\DB;
   use Illuminate\Support\Facades\Hash;
@@ -64,26 +65,34 @@
           Auth::logout();
           $request->session()->invalidate();
           $request->session()->regenerateToken();
-          return redirect()->route('admin.login')
-            ->withInput($request->only('login_id'))
-            ->withErrors(['password' => 'Su cuenta está inactiva en este momento. Póngase en contacto con soporte tecnico en (suporte@ynab.co).']);
+
+          return response()->json([
+            'status' => 'error',
+            'errors' => ['password' => 'Su cuenta está inactiva en este momento. Póngase en contacto con soporte técnico en soporte@ynab.co.']
+          ],422);
         }
         // Check if account is in Pending mode
         if(Auth()->user()->status == UserStatus::Pending){
           Auth::logout();
           $request->session()->invalidate();
           $request->session()->regenerateToken();
-          return redirect()->route('admin.login')
-            ->withInput($request->only('login_id'))
-            ->withErrors(['password' => 'Su cuenta está actualmente pendiente de aprobación. Por favor, revise su correo electrónico para obtener más instrucciones.']);
+
+          return response()->json([
+            'status' => 'error',
+            'errors' => ['password' => 'Su cuenta está actualmente pendiente de aprobación. Por favor, revise su correo electrónico para obtener más instrucciones.']
+          ],422);
         }
 
         // Redirect user to dashboard
-        return redirect()->route('admin.dashboard');
+        return response()->json([
+          'status'   => 'success',
+          'redirect' => route('admin.dashboard')
+        ]);
       }else{
-        return redirect()->route('admin.login')
-          ->withInput($request->only('login_id'))
-          ->withErrors(['password' => 'Contraseña incorrecta.']);
+        return response()->json([
+          'status' => 'error',
+          'errors' => ['password' => 'Contraseña incorrecta.']
+        ],422);
       }
     }//End Method
 
@@ -131,8 +140,8 @@
       $mail_body = view('email-templates.forgot-template',$data)->render();
 
       $mailConfig = [
-        'from_address'      => env('CMAIL_FROM_ADDRESS'),
-        'from_name'         => env('CMAIL_FROM_NAME'),
+        'from_address'      => 'noreply@ynab.co',
+        'from_name'         => 'Ynab Budget',
         'recipient_address' => $user->email,
         'recipient_name'    => $user->name,
         'subject'           => 'Reset Password',
@@ -155,11 +164,14 @@
       if(!$isTokenExists){
         return redirect()->route('admin.forgot')->withErrors(['email' => 'Token no válido. Solicita otro enlace para restablecer contraseña.']);;
       }else{
+
         return view('back.pages.auth.reset')->with(['token' => $token]);
       }
     } //End Method
 
-    public function resetPasswordHandler(Request $request){
+    public
+    function resetPasswordHandler(Request $request
+    ){
       //Validate the form
       $request->validate([
         'new_password' => 'required|min:5|max:20',
@@ -170,16 +182,53 @@
         'max'      => 'La nueva contraseña no debe exceder más de 20 caracteres.',
       ]);
 
-      $dbToken = DB::table('password_reset_token')->where('token',$request->token)->first();
+      $dbToken = DB::table('password_reset_tokens')->where('token',$request->token)->first();
+
+      // Check if this token is not expired
+      $diffMins = Carbon::createFromFormat('Y-m-d H:i:s',$dbToken->created_at)->diffInMinutes(Carbon::now());
+
+      if($diffMins > constDefaults::tokenExpiredMinutes){
+        //when token is older that 6 hours espired
+        return response()->json(['errors' => ['new_password' => ['El token de restablecimiento de contraseña no es válido o ha expirado. Solicite uno nuevo.']]]);
+      }
 
       //Get user details
       $user = User::where('email',$dbToken->email)->first();
 
       //Update Password
       User::where('email',$user->email)->update([
-        'password'=>Hash::make($request->new_password)
+        'password' => Hash::make($request->new_password)
       ]);
 
+      //Send notification email this user email address than contains new password
+      $data = [
+        'user'         => $user,
+        'new_password' => $request->new_password
+      ];
 
-    }
+      $mail_body = view('email-templates.password-changes-template',$data)->render();
+
+      $mailConfig = [
+        'from_address'      => 'noreply@ynab.co',
+        'from_name'         => 'Ynab Budget',
+        'recipient_address' => $user->email,
+        'recipient_name'    => $user->name,
+        'subject'           => 'Password Changed',
+        'body'              => $mail_body
+      ];
+      if(CMail::send($mailConfig)){
+
+        //Delete token record
+        DB::table('password_reset_tokens')->where([
+          'email' => $dbToken->email,
+          'token' => $dbToken->token,
+        ])->delete();
+
+        //Redirect and display message
+        return response()->json(['success' => true]);
+      }else{
+        return response()->json(['errors' => ['new_password' => ['Algo salió mal. Inténtalo de nuevo más tarde.']]]);
+      }
+    } //End Method
+
   }
