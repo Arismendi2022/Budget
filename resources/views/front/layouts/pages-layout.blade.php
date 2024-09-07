@@ -41,11 +41,11 @@
 <!---->
 @include('components.modals.modal-settings')
 <!---->
-{{--@include('components.modals.modal-new-budget')--}}
+@include('components.modals.modal-new-budget')
 <!---->
 @include('components.modals.modal-calendar')
 <!---->
-{{--@include('components.modals.modal-add-account')--}}
+@include('components.modals.modal-add-account')
 <!---->
 {{--@include('components.modals.modal-edit-account')--}}
 
