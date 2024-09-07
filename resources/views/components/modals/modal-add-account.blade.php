@@ -1039,9 +1039,39 @@
       });
     });
 
-    //Cierra el modal
+    // Manejar el clic en los botones de retroceso
+    $(document).ready(function () {
+      // Manejar el clic en los botones de retroceso
+      $('button[aria-label="Back"]').on('click', function () {
+        // Encuentra la sección activa actual
+        var $currentSection = $('.account-widget-step:visible');
+
+        // Encuentra la sección anterior
+        var $previousSection = $currentSection.prev('.account-widget-step');
+
+        // Si hay una sección anterior, haz la transición
+        if ($previousSection.length) {
+          // Oculta la sección actual
+          $currentSection.hide();
+
+          // Muestra la sección anterior
+          $previousSection.show();
+
+          // Si estamos retrocediendo a la primera sección, limpia los campos
+          if ($previousSection.is(':first-child')) {
+            // Limpia los campos de la primera sección
+            $previousSection.find('input').val('');
+            $previousSection.find('select').prop('selectedIndex', 0); // Resetea los selectores
+            $previousSection.find('.account-type-select-button').text('Select account type...'); // Resetea el texto del botón
+            $('.account-widget-list-button').removeClass('selected');  // Remover la clase 'selected' de todos los botones
+          }
+        }
+      });
+    });
+
+
+    // Ocultar el modal al hacer clic en el botón de cerrar
     $('button[aria-label="Close"]').on('click', function () {
-      // Ocultar el modal al hacer clic en el botón de cerrar
       $('.modal-overlay').removeClass('modal-overlay active'); // O desactiva la clase 'active' si la estás usando para mostrar el modal
 
       // Opcionalmente, también podrías limpiar los inputs o reiniciar el modal según lo necesario
@@ -1063,6 +1093,9 @@
 
       // Deshabilitar o ocultar la sección 'account-loan' si está habilitada
       $('.account-loan').hide(); // Asegúrate de que la sección de préstamos esté oculta al cerrar el modal
+
+      // Restablecer el scroll de la sección 3 a la parte superior
+      $('.account-widget-step:nth-of-type(3)').scrollTop(0);
     });
 
   </script>

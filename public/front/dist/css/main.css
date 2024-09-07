@@ -872,6 +872,7 @@ button.contrast:not([disabled]):active, .ynab-button.contrast:not([disabled]):ho
 	border-bottom: 1px solid var(--separatorSubdued);
 	flex: 1 0 auto;
 	height: 2.5rem;
+  padding-bottom: .75rem;
 	width: 100%;
 }
 .sidebar-expand {
