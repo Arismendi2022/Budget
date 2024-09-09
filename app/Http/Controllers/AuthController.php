@@ -30,37 +30,26 @@
     }
 
     public function loginHandler(Request $request){
-      $fieldType = filter_var($request->login_id,FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+      // Validación para correo electrónico
+      $request->validate([
+        'login_id' => 'required|email|exists:users,email',
+        'password' => 'required|min:5'
+      ],[
+        'login_id.required' => 'Se requiere correo electrónico.',
+        'login_id.email'    => 'Dirección de correo electrónico no válida.',
+        'login_id.exists'   => 'El correo electrónico no existe en el sistema.',
+        'password.required' => 'Se requiere contraseña.',
+        'password.min'      => 'La contraseña debe tener al menos 5 caracteres.',
+      ]);
 
-      if($fieldType == 'email'){
-        $request->validate([
-          'login_id' => 'required|email|exists:users,email',
-          'password' => 'required'
-        ],[
-          'login_id.required' => 'Se requiere correo electrónico o nombre de usuario.',
-          'login_id.email'    => 'Dirección de correo electrónico no válida.',
-          'login_id.exists'   => 'El correo electrónico no existe en el sistema.',
-          'password.required' => 'Se requiere contraseña.',
-        ]);
-      }else{
-        $request->validate([
-          'login_id' => 'required|exists:users,username',
-          'password' => 'required'
-        ],[
-          'login_id.required' => 'Se requiere nombre de usuario o correo electrónico.',
-          'login_id.exists'   => 'El usuario no existe en el sistema.',
-          'password.required' => 'Se requiere contraseña.',
-        ]);
-
-      }
-
+      // Credenciales para autenticación
       $creds = [
-        $fieldType => $request->login_id,
+        'email'    => $request->login_id,
         'password' => $request->password
       ];
 
       if(Auth::attempt($creds)){
-        // Check if account is inactive mode
+        // Check if account is inactive
         if(auth()->user()->status == UserStatus::Inactive){
           Auth::logout();
           $request->session()->invalidate();
@@ -72,7 +61,7 @@
           ],422);
         }
         // Check if account is in Pending mode
-        if(Auth()->user()->status == UserStatus::Pending){
+        if(auth()->user()->status == UserStatus::Pending){
           Auth::logout();
           $request->session()->invalidate();
           $request->session()->regenerateToken();
@@ -230,5 +219,13 @@
         return response()->json(['errors' => ['new_password' => ['Algo salió mal. Inténtalo de nuevo más tarde.']]]);
       }
     } //End Method
+
+    public function register(Request $request){
+      $data = [
+        'pageTitle' => 'Register',
+      ];
+      return view('back.pages.auth.register',$data);
+
+    }
 
   }

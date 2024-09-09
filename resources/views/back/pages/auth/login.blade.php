@@ -25,7 +25,7 @@
           <div data-login-target="loginSubheader">
             <p>
               New to YNAB?
-              <a data-action="login#trackClickedSignUp" href="">Sign up today.</a>
+              <a data-action="login#trackClickedSignUp" href="{{ route('admin.register') }}">Sign up today.</a>
             </p>
           </div>
         </div>
@@ -154,12 +154,13 @@
                 $('#password-error').text(errors.password);
                 passwordHasError = true;
               }
-
               // Control de enfoque
               if (emailHasError) {
                 $('#request_data_email').focus();
               } else if (passwordHasError) {
                 $('#request_data_password').focus();
+                // Limpiar el campo de contraseña
+                $('#request_data_password').val('');
               }
             }
           }

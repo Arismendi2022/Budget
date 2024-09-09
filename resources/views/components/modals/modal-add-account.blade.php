@@ -158,6 +158,7 @@
             </button>
             <!---->
           </div>
+          <!-- Opciónes para Budget -->
           <div class="y-form-field field-with-error currency-input-group">
             <label>
               What is your current account balance?
@@ -192,7 +193,7 @@
               </div>
             </div>
             <!---->
-            <div class="y-form-field field-with-error  currency-input-group">
+            <div class="y-form-field field-with-error currency-input-group">
               <label>
                 Monthly payment required by your lender
               </label>
@@ -983,87 +984,85 @@
   <script>
     //Activa la segunda seccion
     $(document).ready(function () {
-      // Capturar el clic en el botón "Unlinked"
+      // Referencias a las secciones
+      const $sections = $('.account-widget-step');
+      const $section1 = $sections.eq(0);
+      const $section2 = $sections.eq(1);
+      const $section3 = $sections.eq(2);
+      const $unlinkedAccountSection = $('.account-widget-add-unlinked-account');
+      const $currencyInputGroup = $('.currency-input-group').first();
+      const $accountLoanFields = $('.account-loan');
+      const $selectButton = $('.account-type-select-button');
+      const $buttonText = $selectButton.find('.button-text');
+      const $allListButtons = $('.account-widget-list-button');
+      const $backButton = $('button[aria-label="Back"]');
+
+      // Variable para guardar el tipo de cuenta seleccionado
+      let selectedAccountType = '';
+
+      // Función para mostrar una sección y ocultar las demás
+      function showSection($sectionToShow) {
+        $sections.hide();
+        $sectionToShow.show();
+      }
+
+      // Función para limpiar los campos y restablecer el estado de los botones
+      function resetFieldsAndState() {
+        $('input[type="text"]').val('');
+        $allListButtons.removeClass('selected').find('.check-icon').hide();
+        $buttonText.text('Select account type...');
+        $currencyInputGroup.show();
+        $accountLoanFields.hide();
+      }
+
+      // Función para manejar el tipo de cuenta seleccionado
+      function handleAccountType(selectedType) {
+        if (selectedType === 'Budget') {
+          $currencyInputGroup.show();
+          $accountLoanFields.hide();
+        } else if (selectedType === 'Loan') {
+          $currencyInputGroup.hide();
+          $accountLoanFields.show();
+        }
+      }
+
+      // Captura el clic en el botón "Unlinked"
       $('.select-linked-unlinked-box').on('click', function () {
-        // Ocultar la sección actual (por ejemplo, la primera sección)
-        $('.account-widget-step').hide(); // Oculta todas las secciones
-
-        // Mostrar la sección de "Add Unlinked Account"
-        $('.account-widget-add-unlinked-account').show(); // Muestra la segunda sección
-
-        // Si es necesario, puedes deshabilitar/ajustar otros elementos aquí
+        showSection($unlinkedAccountSection);
       });
-    });
 
-    //Maneja el clic en el botón para seleccionar el tipo de cuenta
-    $(document).ready(function () {
       // Maneja el clic en el botón para seleccionar el tipo de cuenta
-      $('.account-type-select-button').on('click', function () {
-        // Oculta la sección actual (sección 2) y muestra la sección 3
-        $('.account-widget-step:nth-of-type(2)').hide();
-        $('.account-widget-step:nth-of-type(3)').show();
+      $selectButton.on('click', function () {
+        showSection($section3);
       });
 
       // Cuando se hace clic en un botón en la sección 3
-      $('.account-widget-list-button').click(function () {
-        // Remueve la clase 'selected' de todos los botones y oculta los íconos de verificación
-        $('.account-widget-list-button').removeClass('selected').find('.check-icon').hide();
+      $allListButtons.on('click', function () {
+        const $this = $(this);
+        $allListButtons.removeClass('selected').find('.check-icon').hide();
+        $this.addClass('selected').find('.check-icon').show();
 
-        // Agrega la clase 'selected' al botón que fue clickeado y muestra el ícono de verificación
-        $(this).addClass('selected').find('.check-icon').show();
+        selectedAccountType = $this.data('category');
+        const selectedText = $this.text().trim();
 
-        // Obtiene el texto y el data-category del botón seleccionado
-        var selectedText = $(this).text().trim();
-        var selectedDataCategory = $(this).data('category'); // Obtiene el data-category del botón seleccionado
-
-        // Maneja la visibilidad de los campos según el data-category
-        if (selectedDataCategory === 'Loan') {
-          // Oculta el campo de balance actual y muestra los campos para préstamos
-          $('.currency-input-group').eq(0).hide();
-          $('.account-loan').show();
-        } else {
-          // Muestra el campo de balance actual y oculta los campos para préstamos
-          $('.currency-input-group').eq(0).show();
-          $('.account-loan').hide();
-        }
-
-        // Actualiza el texto del botón de selección de tipo de cuenta con el texto del ítem seleccionado
-        var selectButton = $('.account-type-select-button');
-        selectButton.find('.button-text').text(selectedText);
-
-        // Oculta la sección 3
-        $('.account-widget-step').hide();
-
-        // Muestra la sección de selección de tipo de cuenta
-        $('.account-widget-add-unlinked-account').show();
+        handleAccountType(selectedAccountType);
+        $buttonText.text(selectedText);
+        showSection($unlinkedAccountSection);
       });
-    });
 
-    // Manejar el clic en los botones de retroceso
-    $(document).ready(function () {
       // Manejar el clic en los botones de retroceso
-      $('button[aria-label="Back"]').on('click', function () {
-        // Encuentra la sección activa actual
-        var $currentSection = $('.account-widget-step:visible');
+      $backButton.on('click', function () {
+        const $currentSection = $sections.filter(':visible');
+        const $previousSection = $currentSection.prev('.account-widget-step');
 
-        // Encuentra la sección anterior
-        var $previousSection = $currentSection.prev('.account-widget-step');
-
-        // Si hay una sección anterior, haz la transición
         if ($previousSection.length) {
-          // Oculta la sección actual
-          $currentSection.hide();
+          showSection($previousSection);
 
-          // Muestra la sección anterior
-          $previousSection.show();
-
-          // Si estamos retrocediendo a la primera sección, limpia los campos
-          if ($previousSection.is(':first-child')) {
-            // Limpia los campos de la primera sección
-            $previousSection.find('input').val('');
-            $previousSection.find('select').prop('selectedIndex', 0); // Resetea los selectores
-            $previousSection.find('.account-type-select-button').text('Select account type...'); // Resetea el texto del botón
-            $('.account-widget-list-button').removeClass('selected');  // Remover la clase 'selected' de todos los botones
+          if ($previousSection.is($section1)) {
+            showSection($section1);
+            resetFieldsAndState();
+          } else if ($previousSection.is($section2)) {
+            handleAccountType(selectedAccountType);
           }
         }
       });
@@ -1071,31 +1070,38 @@
 
 
     // Ocultar el modal al hacer clic en el botón de cerrar
-    $('button[aria-label="Close"]').on('click', function () {
-      $('.modal-overlay').removeClass('modal-overlay active'); // O desactiva la clase 'active' si la estás usando para mostrar el modal
+    $(document).ready(function () {
+      $('button[aria-label="Close"]').on('click', function () {
+        // Cierra el modal removiendo las clases que lo muestran
+        $('.modal-overlay').removeClass('modal-overlay active');
 
-      // Opcionalmente, también podrías limpiar los inputs o reiniciar el modal según lo necesario
-      $('.user-data').val(''); // Limpia los campos de input si es necesario
+        // Limpia todos los inputs si es necesario
+        $('.user-data').val(''); // Limpia todos los campos de entrada
 
-      // Al cerrar, ocultar todas las secciones y mostrar solo la primera
-      $('.account-widget-step').hide(); // Oculta todas las secciones
-      $('.account-widget-step:first').show(); // Muestra la primera sección
+        // Oculta todas las secciones y muestra solo la primera
+        $('.account-widget-step').hide(); // Oculta todas las secciones
+        $('.account-widget-step:first').show(); // Muestra la primera sección
 
-      // Remover la clase 'selected' de todos los botones
-      $('.account-widget-list-button').removeClass('selected');
+        // Remueve la clase 'selected' de los botones de tipo de cuenta
+        $('.account-widget-list-button').removeClass('selected');
 
-      // Limpiar el botón si el texto es diferente a 'Select account type...'
-      const $accountTypeButton = $('.account-type-select-button');
-      const $buttonText = $accountTypeButton.find('.button-text');
-      if ($buttonText.text().trim() !== 'Select account type...') {
-        $buttonText.text('Select account type...');
-      }
+        // Reinicia el texto del botón de selección de tipo de cuenta
+        const $accountTypeButton = $('.account-type-select-button');
+        const $buttonText = $accountTypeButton.find('.button-text');
+        if ($buttonText.text().trim() !== 'Select account type...') {
+          $buttonText.text('Select account type...');
+        }
 
-      // Deshabilitar o ocultar la sección 'account-loan' si está habilitada
-      $('.account-loan').hide(); // Asegúrate de que la sección de préstamos esté oculta al cerrar el modal
+        // Oculta la sección 'account-loan' (por si estaba habilitada)
+        $('.account-loan').hide();
 
-      // Restablecer el scroll de la sección 3 a la parte superior
-      $('.account-widget-step:nth-of-type(3)').scrollTop(0);
+        // Asegúrate de que el input de balance esté visible al cerrar el modal
+        $('.balance-input').closest('.currency-input-group').show(); // Muestra el grupo de inputs de balance
+
+        // Restablecer el scroll de la sección 3 a la parte superior
+        $('.account-widget-step:nth-of-type(3)').scrollTop(0);
+      });
+
     });
 
   </script>
