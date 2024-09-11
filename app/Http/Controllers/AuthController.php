@@ -32,19 +32,19 @@
     public function loginHandler(Request $request){
       // Validación para correo electrónico
       $request->validate([
-        'login_id' => 'required|email|exists:users,email',
+        'email'    => 'required|email|exists:users,email',
         'password' => 'required|min:5'
       ],[
-        'login_id.required' => 'Se requiere correo electrónico.',
-        'login_id.email'    => 'Dirección de correo electrónico no válida.',
-        'login_id.exists'   => 'El correo electrónico no existe en el sistema.',
+        'email.required'    => 'Se requiere correo electrónico.',
+        'email.email'       => 'Dirección de correo electrónico no válida.',
+        'email.exists'      => 'El correo electrónico no existe en el sistema.',
         'password.required' => 'Se requiere contraseña.',
         'password.min'      => 'La contraseña debe tener al menos 5 caracteres.',
       ]);
 
       // Credenciales para autenticación
       $creds = [
-        'email'    => $request->login_id,
+        'email'    => $request->email,
         'password' => $request->password
       ];
 
@@ -158,9 +158,7 @@
       }
     } //End Method
 
-    public
-    function resetPasswordHandler(Request $request
-    ){
+    public function resetPasswordHandler(Request $request){
       //Validate the form
       $request->validate([
         'new_password' => 'required|min:5|max:20',
@@ -220,12 +218,49 @@
       }
     } //End Method
 
-    public function register(Request $request){
+    public function registerCreate(Request $request){
       $data = [
         'pageTitle' => 'Register',
       ];
       return view('back.pages.auth.register',$data);
 
-    }
+    } //End Method
+
+    public function registerStore(Request $request){
+      $request->validate([
+        'email'    => 'required|email|lowercase|unique:users|regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+        'password' => 'required|min:5|max:20',
+      ],[
+        'email.required'    => 'Se requiere correo electrónico.',
+        'email.email'       => 'Dirección de correo electrónico no válida.',
+        'email.lowercase'   => 'El correo electrónico debe estar en minúsculas.',
+        'email.unique'      => 'Esta dirección de correo electrónico ya está registrada.',
+        'email.regex'       => 'El formato del correo electrónico no es válido.',
+        'password.required' => 'Se requiere contraseña.',
+        'password.min'      => 'La contraseña debe tener al menos 5 caracteres.',
+        'password.max'      => 'La contraseña no debe exceder más de 20 caracteres.',
+      ]);
+
+      //Datos de usuario
+      /*$userData = [
+        'email'    => $request->email,
+        'password' => Hash::make($request->password),
+      ];
+
+      // Crear el usuario
+      $user = User::create($userData);
+
+      if($user){
+        //Generate token
+        $token = base64_encode(Str::random(64));
+
+        VerificationToken::create([
+          'type'  => 'admin',
+          'email' => $request->email,
+          'token' => $token
+        ]);
+      }*/
+
+    } //End Method
 
   }

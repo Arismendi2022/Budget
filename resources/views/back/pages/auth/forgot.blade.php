@@ -53,13 +53,11 @@
       $('#password-reset-form').on('submit', function (e) {
         e.preventDefault();
 
-        const form = $(this);
-        const actionUrl = form.attr('action');
-        const formData = form.serialize();
+        const formData = $(this).serialize();
 
         $.ajax({
-          type: 'POST',
-          url: actionUrl,
+          url: $(this).attr('action'),
+          method: $(this).attr('method'),
           data: formData,
           dataType: 'json',
           success: function (response) {
@@ -83,12 +81,13 @@
             }
           },
           error: function (xhr) {
-            var response = xhr.responseJSON;
-            if (response && response.errors && response.errors.email) {
-              $('#email-error').text(response.errors.email[0]).show();
-            } else {
-              // Mensaje de error genérico para otros errores
-              $('#email-error').text('Hubo un error enviando el correo. Por favor, intenta de nuevo.').show();
+            if (xhr.status === 422) { // 422 Errores de validación
+              const errors = xhr.responseJSON.errors;
+
+              // Mostrar errores de validación en los campos correspondientes
+              if (errors.email) {
+                $('#email-error').text(errors.email[0]).show();
+              }
             }
           }
         });
@@ -97,3 +96,4 @@
 
   </script>
 @endpush
+

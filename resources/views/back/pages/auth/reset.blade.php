@@ -56,13 +56,11 @@
       $('#password-reset-form').on('submit', function (e) {
         e.preventDefault();
 
-        var form = $(this);
-        var actionUrl = form.attr('action');
-        var formData = form.serialize();
+        const formData = $(this).serialize();
 
         $.ajax({
-          type: 'POST',
-          url: actionUrl,
+          url: $(this).attr('action'),
+          method: $(this).attr('method'),
           data: formData,
           dataType: 'json',
           success: function (response) {
@@ -86,9 +84,10 @@
             }
           },
           error: function (xhr) {
-            var response = xhr.responseJSON;
-            if (response && response.errors && response.errors.new_password) {
-              $('#password-error').text(response.errors.new_password[0]).show();
+            const errors = xhr.responseJSON.errors;
+            // Mostrar errores de validación en los campos correspondientes
+            if (errors.new_password) {
+              $('#password-error').text(errors.new_password[0]).show();
             }
           }
         });

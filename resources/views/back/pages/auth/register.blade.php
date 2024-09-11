@@ -28,23 +28,24 @@
             </p>
           </div>
         </div>
-        <form id="login-form" class="authentications-panel__form" data-login-target="form" action="" accept-charset="UTF-8" method="POST"
+        <form id="register-form" class="authentications-panel__form" data-login-target="form" action="{{ route('admin.store') }}" accept-charset="UTF-8" method="POST"
           novalidate="novalidate">
           @csrf
           <div data-login-target="identityContainer">
             <p class="authentications-panel__input-group js-form-email">
               <label class="u-sr-only" for="request_data_email">Email:</label>
-              <input class="authentications-panel__email-field required" autofocus="autofocus" spellcheck="false" placeholder="Email address" data-login-target="emailInput"
-                type="email" name="email" id="request_data_email_signup" value="{{ old('email') }}">
-              <label class="error" id="email-error" for="request_data_email"></label>
+              <input class="authentications-panel__email-field required" id="request_data_email_signup" autofocus="autofocus" spellcheck="false" placeholder="Email address"
+                type="email" name="email">
+               <label class="error" id="email-error" for="request_data_email"></label>
             </p>
             <p class="authentications-panel__input-group js-form-password">
               <label class="u-sr-only" for="request_data_password">Password:</label>
-              <span class="password-toggle"><input class="authentications-panel__password-field required" placeholder="Password" data-login-target="passwordInput"
-                  autocapitalize="none" autocomplete="off" type="password" name="password" id="request_data_password_signup" value="{{ old('password') }}">
-								<label><input type="checkbox" id="togglePassword" data-password-toggle="" data-gtm-form-interact-field-id="0">Show</label>
+              <span class="password-toggle">
+               <input class="authentications-panel__password-field required" id="request_data_password_signup" placeholder="Password" autocapitalize="none" autocomplete="off"
+                 type="password" name="password">
+                <label><input type="checkbox" data-password-toggle="">Show</label>
 							</span>
-              <label class="error" id="email-error" for="request_data_password"></label>
+               <label class="error" id="password-error" for="request_data_password"></label>
             </p>
             <p>
               <button name="sign_up" type="submit" id="sign_up" class="authentications-panel__form-button button button-primary" data-disable-with="Signing Up...">Sign Up
@@ -83,6 +84,58 @@
 @endsection
 @push('scripts')
   <script>
+    $(document).ready(function () {
+      $('#register-form').on('submit', function (e) {
+        e.preventDefault();
+
+        const formData = $(this).serialize();
+
+        $.ajax({
+          url: $(this).attr('action'),
+          method: $(this).attr('method'),
+          data: formData,
+          dataType: 'json',
+          success: function (response) {
+            // Aquí puedes manejar una respuesta exitosa, como redirigir al usuario o mostrar un mensaje de éxito.
+          },
+          error: function (xhr) {
+            if (xhr.status === 422) { // 422 Errores de validación
+              const errors = xhr.responseJSON.errors;
+              let emailHasError = false;
+              let passwordHasError = false;
+
+              // Mostrar errores de validación en los campos correspondientes
+              if (errors['email']) {
+                $('#email-error').text(errors['email'][0]);
+                emailHasError = true;
+              }
+              if (errors['password']) {
+                $('#password-error').text(errors['password'][0]);
+                passwordHasError = true;
+              }
+              // Control de enfoque
+              if (emailHasError) {
+                $('#request_data_email_signup').focus();
+              } else if (passwordHasError) {
+                $('#request_data_password_signup').focus();
+                // Limpiar el campo de contraseña
+                $('#request_data_password_signup').val('');
+              }
+            }
+          }
+        });
+      });
+
+      // Agregar eventos de entrada específicos para limpiar errores específicos
+      $('#request_data_email_signup').on('input', function () {
+        $('#email-error').text('');
+      });
+
+      $('#request_data_password_signup').on('input', function () {
+        $('#password-error').text('');
+      });
+
+    });
 
   </script>
 @endpush

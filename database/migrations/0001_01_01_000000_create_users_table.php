@@ -11,11 +11,8 @@
     public function up():void{
       Schema::create('users',function(Blueprint $table){
         $table->id();
-        $table->string('name')->nullable();
         $table->string('email')->unique();
-        $table->string('username')->unique();
         $table->datetime('email_verified_at')->nullable();
-        //$table->datetime('email_verified_at')->nullable()->useCurrent();
         $table->string('password');
         $table->string('type')->default('admin');
         $table->string('status')->default('pending');

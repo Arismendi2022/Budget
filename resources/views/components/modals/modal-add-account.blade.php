@@ -131,7 +131,7 @@
           </p>
           <div class="y-form-field field-with-error ">
             <label>Give it a nickname</label>
-            <input id="ember162" class="ember-text-field ember-view y-input name-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
+            <input id="nickname" class="ember-text-field ember-view y-input name-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
               autocapitalize="words" name="nickname" type="text">
           </div>
           <div class="y-form-field field-with-error has-errors" style="display: none">
@@ -163,7 +163,7 @@
             <label>
               What is your current account balance?
             </label>
-            <input id="ember164" class="ember-text-field ember-view y-input balance-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
+            <input id="balance" class="ember-text-field ember-view y-input balance-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
               autocapitalize="none" inputmode="decimal" name="balance" type="text">
             <!---->
             <span class="text-danger error-text balance_error"></span>
@@ -177,7 +177,7 @@
                   <label>
                     Current account balance
                   </label>
-                  <input id="ember165" class="ember-text-field ember-view y-input current-account-balance-input user-data" autocomplete="nope"
+                  <input id="currentBalance" class="ember-text-field ember-view y-input current-account-balance-input user-data" autocomplete="nope"
                     autocorrect="off" spellcheck="false" autocapitalize="none" inputmode="decimal" name="currentBalance" type="text">
                   <!---->
                 </div>
@@ -186,7 +186,7 @@
                 <div class="y-form-field field-with-error  currency-input-group interest-input-group">
                   <label>Interest rate</label>
                   <label class="input-icon">%</label>
-                  <input id="ember166" class="ember-text-field ember-view y-input interest-rate-input user-data" autocomplete="nope" autocorrect="off"
+                  <input id="interestRate" class="ember-text-field ember-view y-input interest-rate-input user-data" autocomplete="nope" autocorrect="off"
                     spellcheck="false" autocapitalize="none" inputmode="decimal" name="interestRate" type="text">
                   <!---->
                 </div>
@@ -197,7 +197,7 @@
               <label>
                 Monthly payment required by your lender
               </label>
-              <input id="ember167" class="ember-text-field ember-view y-input minimum-payment-input user-data" autocomplete="nope" autocorrect="off"
+              <input id="minimumPayment" class="ember-text-field ember-view y-input minimum-payment-input user-data" autocomplete="nope" autocorrect="off"
                 spellcheck="false" autocapitalize="none" inputmode="decimal" name="minimumPayment" type="text">
               <!---->
             </div>
@@ -219,7 +219,7 @@
           <button class="ynab-button primary is-large" type="button" disabled="">Next</button>
         </div>
       </div>
-      <!-- Tercera sección Account Type -->
+      <!-- Tercera sección Account Type select group -->
       <div class="account-widget-step account-widget-add-unlinked-account account-widget-step-with-help-box">
         <div class="account-widget-header">
           <button aria-label="Back" title="Back" type="button">
@@ -437,7 +437,7 @@
           </div>
         </div>
       </div>
-      <!-- Cuarta seccion cc-step -->
+      <!-- Cuarta seccion cc-step 2 paso (b) o (c) -->
       <div class="account-widget-step account-widget-budget-balance account-widget-cc-step">
         <div class="account-widget-header">
           <button aria-label="Back" title="Back" type="button">
@@ -500,7 +500,7 @@
           </button>
         </div>
       </div>
-      <!-- Quinta seccion cc-goal -->
+      <!-- Quinta seccion cc-goal 3 paso Fecha pago final (b) -->
       <div class="account-widget-step account-widget-set-cc-goal account-widget-cc-step">
         <div class="account-widget-header">
           <button aria-label="Back" title="Back" type="button">
@@ -559,7 +559,7 @@
           <h3>When do you want it paid off by?</h3>
           <div class="account-widget-goal-target-month">
             <label>Month</label>
-            <div class="x-select-container  ">
+            <div class="x-select-container">
               <select class="js-x-select">
                 <option value="" disabled="" selected="">Select Month</option>
                 <option value="0">
@@ -781,7 +781,7 @@
           </button>
         </div>
       </div>
-      <!-- sexta seccion cc-save -->
+      <!-- sexta seccion cc-save 4 paso payments (b) (c) -->
       <div class="account-widget-step account-widget-save-cc account-widget-cc-step">
         <div class="account-widget-header">
           <button aria-label="Back" title="Back" type="button">
@@ -833,7 +833,7 @@
           </button>
         </div>
       </div>
-      <!-- Septima seccion loan-category -->
+      <!-- Septima seccion loan-category (d) -->
       <div class="account-widget-step account-widget-loan-category">
         <div class="account-widget-header">
           <button aria-label="Back" title="Back" type="button">
@@ -931,7 +931,7 @@
           </button>
         </div>
       </div>
-      <!-- Sección Success -->
+      <!-- Sección Success (a) (b) (c) (d) -->
       <div class="account-widget-step account-widget-success-screen">
         <div class="account-widget-header">
           <div class="hidden-header-button"></div>

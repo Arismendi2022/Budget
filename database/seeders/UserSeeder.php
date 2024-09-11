@@ -7,6 +7,7 @@
   use App\UserType;
   use Illuminate\Database\Seeder;
   use Illuminate\Support\Facades\Hash;
+  use Illuminate\Support\Facades\Auth ;
 
   class UserSeeder extends Seeder
   {
@@ -15,10 +16,8 @@
      */
     public function run():void{
       User::create([
-        'name'     => 'Admin',
         'email'    => 'admin@email.com',
-        'username' => 'admin',
-        'password' => Hash::make('password'),
+        'password' => Hash::make('12345'),
         'type'     => UserType::SuperAdmin,
         'status'   => UserStatus::Active,
       ]);

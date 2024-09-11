@@ -35,9 +35,9 @@
           <div data-login-target="identityContainer">
             <p class="authentications-panel__input-group js-form-email">
               <label class="u-sr-only" for="request_data_email">Email:</label>
-              <input class="authentications-panel__email-field required" autofocus="autofocus" spellcheck="false" placeholder="Email address / username"
+              <input class="authentications-panel__email-field required" autofocus="autofocus" spellcheck="false" placeholder="Email address"
                 data-login-target="emailInput"
-                type="text" name="login_id" id="request_data_email" value="{{ old('login_id') }}">
+                type="text" name="email" id="request_data_email" value="{{ old('email') }}">
               <label class="error" id="email-error" for="request_data_email"></label>
             </p>
             <p class="authentications-panel__input-group js-form-password">
@@ -127,31 +127,30 @@
         const formData = $(this).serialize();
 
         $.ajax({
-          type: 'POST',
           url: $(this).attr('action'),
+          method: $(this).attr('method'),
           data: formData,
+          dataType: 'json',
           success: function (response) {
             if (response.status === 'success') {
               // Redirige al dashboard si el inicio de sesión es exitoso
               window.location.href = response.redirect;
             }
           },
-          error: function (xhr) {
-            // Manejar errores de validación y autenticación
-            const errors = xhr.responseJSON.errors;
-            let emailHasError = false;
-            let passwordHasError = false;
 
-            if (errors) {
-              // Mostrar errores en el campo de email
-              if (errors.login_id) {
-                $('#email-error').text(errors.login_id[0]);
+          error: function (xhr) {
+            if (xhr.status === 422) { // 422 Errores de validación
+              const errors = xhr.responseJSON.errors;
+              let emailHasError = false;
+              let passwordHasError = false;
+
+              // Mostrar errores de validación en los campos correspondientes
+              if (errors['email']) {
+                $('#email-error').text(errors['email']);
                 emailHasError = true;
               }
-
-              // Mostrar errores en el campo de contraseña
-              if (errors.password) {
-                $('#password-error').text(errors.password);
+              if (errors['password']) {
+                $('#password-error').text(errors['password']);
                 passwordHasError = true;
               }
               // Control de enfoque
@@ -166,15 +165,15 @@
           }
         });
       });
+    });
 
-      // Agregar eventos de entrada específicos para limpiar errores específicos
-      $('#request_data_email').on('input', function () {
-        $('#email-error').text('');  // Limpiar el mensaje de error del email
-      });
+    // Agregar eventos de entrada específicos para limpiar errores específicos
+    $('#request_data_email').on('input', function () {
+      $('#email-error').text('');  // Limpiar el mensaje de error del email
+    });
 
-      $('#request_data_password').on('input', function () {
-        $('#password-error').text('');  // Limpiar el mensaje de error de la contraseña
-      });
+    $('#request_data_password').on('input', function () {
+      $('#password-error').text('');  // Limpiar el mensaje de error de la contraseña
     });
 
   </script>

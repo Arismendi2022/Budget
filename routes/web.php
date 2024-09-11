@@ -25,7 +25,8 @@
         Route::post('/send-password-reset-link','sendPasswordResetLink')->name('send_password_reset_link');
         Route::get('/password/reset/{token}','resetForm')->name('reset_password_form');
         Route::post('/reset-password-handler','resetPasswordHandler')->name('reset_password_handler');
-        Route::get('/register', 'register')->name('register');
+        Route::get('/register', 'registerCreate')->name('register');
+        Route::post('/register', 'registerStore')->name('store');
       });
     });
 
@@ -41,7 +42,7 @@
   Route::prefix('account')->name('account.')->group(function() {
     Route::controller(AccountController::class)->group(function(){
       Route::get('/add',[AccountController::class,'addAccount'])->name('add-account');
-      Route::post('/create',[AccountController::class,'createAccount'])->name('create-account'); // la otra opcion es agregar en el grupo main.
+      Route::post('/create',[AccountController::class,'createAccount'])->name('create-account');
 
     });
   });
