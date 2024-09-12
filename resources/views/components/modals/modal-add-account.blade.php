@@ -983,12 +983,9 @@
 @push('scripts')
   <script>
     //Activa la segunda seccion
-    $(document).ready(function () {
-      // Referencias a las secciones
+    $(document).ready(function() {
+      // Referencias a las secciones y elementos
       const $sections = $('.account-widget-step');
-      const $section1 = $sections.eq(0);
-      const $section2 = $sections.eq(1);
-      const $section3 = $sections.eq(2);
       const $unlinkedAccountSection = $('.account-widget-add-unlinked-account');
       const $currencyInputGroup = $('.currency-input-group').first();
       const $accountLoanFields = $('.account-loan');
@@ -996,6 +993,12 @@
       const $buttonText = $selectButton.find('.button-text');
       const $allListButtons = $('.account-widget-list-button');
       const $backButton = $('button[aria-label="Back"]');
+      const $nextButton = $('.ynab-button.primary.is-large');
+      const $nickname = $('#nickname');
+      const $balance = $('#balance');
+      const $currentBalance = $('#currentBalance');
+      const $interestRate = $('#interestRate');
+      const $minimumPayment = $('#minimumPayment');
 
       // Variable para guardar el tipo de cuenta seleccionado
       let selectedAccountType = '';
@@ -1013,65 +1016,85 @@
         $buttonText.text('Select account type...');
         $currencyInputGroup.show();
         $accountLoanFields.hide();
+        selectedAccountType = ''; // Reseteamos el tipo de cuenta seleccionado
+        checkFields();
       }
 
       // Función para manejar el tipo de cuenta seleccionado
-      function handleAccountType(selectedType) {
-        if (selectedType === 'Budget') {
+      function handleAccountType() {
+        if(selectedAccountType === 'Budget') {
           $currencyInputGroup.show();
           $accountLoanFields.hide();
-        } else if (selectedType === 'Loan') {
+        } else if(selectedAccountType === 'Loan') {
           $currencyInputGroup.hide();
           $accountLoanFields.show();
         }
       }
 
-      // Captura el clic en el botón "Unlinked"
-      $('.select-linked-unlinked-box').on('click', function () {
+      // Función para verificar los campos y habilitar/deshabilitar el botón Next
+      function checkFields() {
+        const nickname = $nickname.val().trim();
+        const balance = $balance.val().trim();
+        const currentBalance = $currentBalance.val().trim();
+        const interestRate = $interestRate.val().trim();
+        const minimumPayment = $minimumPayment.val().trim();
+        const isValidAccountType = selectedAccountType !== '' && $buttonText.text().trim() !== 'Select account type...';
+
+        $nextButton.prop('disabled', !(
+          (selectedAccountType === 'Budget' && nickname && balance && isValidAccountType) ||
+          (selectedAccountType === 'Loan' && nickname && currentBalance && interestRate && minimumPayment && isValidAccountType)
+        ));
+      }
+
+      // Delegación de eventos para manejar clics en botones
+      $(document).on('click', '.select-linked-unlinked-box', function() {
         showSection($unlinkedAccountSection);
       });
 
-      // Maneja el clic en el botón para seleccionar el tipo de cuenta
-      $selectButton.on('click', function () {
-        showSection($section3);
+      $(document).on('click', '.account-type-select-button', function() {
+        showSection($sections.eq(2)); // Asumiendo que la tercera sección es la correcta
+        checkFields(); // Verifica los campos al cambiar de sección
       });
 
-      // Cuando se hace clic en un botón en la sección 3
-      $allListButtons.on('click', function () {
+      $(document).on('click', '.account-widget-list-button', function() {
         const $this = $(this);
         $allListButtons.removeClass('selected').find('.check-icon').hide();
         $this.addClass('selected').find('.check-icon').show();
 
         selectedAccountType = $this.data('category');
-        const selectedText = $this.text().trim();
-
-        handleAccountType(selectedAccountType);
-        $buttonText.text(selectedText);
+        $buttonText.text($this.text().trim());
+        handleAccountType();
         showSection($unlinkedAccountSection);
+
+        checkFields(); // Verifica los campos después de seleccionar el tipo de cuenta
       });
 
-      // Manejar el clic en los botones de retroceso
-      $backButton.on('click', function () {
+      $(document).on('click', 'button[aria-label="Back"]', function() {
         const $currentSection = $sections.filter(':visible');
         const $previousSection = $currentSection.prev('.account-widget-step');
 
-        if ($previousSection.length) {
+        if($previousSection.length) {
           showSection($previousSection);
 
-          if ($previousSection.is($section1)) {
-            showSection($section1);
+          if($previousSection.is($sections.eq(0))) {
             resetFieldsAndState();
-          } else if ($previousSection.is($section2)) {
-            handleAccountType(selectedAccountType);
+          } else if($previousSection.is($sections.eq(1))) {
+            handleAccountType();
           }
         }
       });
+
+      // Event listeners para checkFields
+      $nickname.add($balance).add($currentBalance).add($interestRate).add($minimumPayment).on('input', checkFields);
+
+      // Verificar campos inicialmente
+      checkFields();
     });
 
 
     // Ocultar el modal al hacer clic en el botón de cerrar
-    $(document).ready(function () {
-      $('button[aria-label="Close"]').on('click', function () {
+    $(document).ready(function() {
+      $('button[aria-label="Close"]').on('click', function() {
         // Cierra el modal removiendo las clases que lo muestran
         $('.modal-overlay').removeClass('modal-overlay active');
 
@@ -1088,7 +1111,7 @@
         // Reinicia el texto del botón de selección de tipo de cuenta
         const $accountTypeButton = $('.account-type-select-button');
         const $buttonText = $accountTypeButton.find('.button-text');
-        if ($buttonText.text().trim() !== 'Select account type...') {
+        if($buttonText.text().trim() !== 'Select account type...') {
           $buttonText.text('Select account type...');
         }
 
