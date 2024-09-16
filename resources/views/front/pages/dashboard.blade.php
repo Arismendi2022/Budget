@@ -1,5 +1,5 @@
 @extends('front.layouts.pages-layout')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Budget | Arismendi Budget')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Budget | YNAB')
 @section('content')
   {{-- Content Header (Page header) --}}
   {{-- Main content --}}

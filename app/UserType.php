@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+  namespace App;
 
-enum UserType: string
-{
-  case Admin = 'admin';
-  case SuperAdmin = 'superAdmin';
-}
+  enum UserType:string
+  {
+    case Admin      = 'admin';
+    case SuperAdmin = 'superAdmin';
+  }

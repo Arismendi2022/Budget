@@ -227,6 +227,7 @@
     } //End Method
 
     public function registerStore(Request $request){
+      //Validate User registreation Form
       $request->validate([
         'email'    => 'required|email|lowercase|unique:users|regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
         'password' => 'required|min:5|max:20',
@@ -241,25 +242,26 @@
         'password.max'      => 'La contraseña no debe exceder más de 20 caracteres.',
       ]);
 
-      //Datos de usuario
-      /*$userData = [
+      // Crear el usuario
+      /*$user = User::create([
         'email'    => $request->email,
         'password' => Hash::make($request->password),
-      ];
-
-      // Crear el usuario
-      $user = User::create($userData);
+      ]);*/
 
       if($user){
         //Generate token
-        $token = base64_encode(Str::random(64));
+        //$token = base64_encode(Str::random(64));
 
-        VerificationToken::create([
+        /*VerificationToken::create([
           'type'  => 'admin',
           'email' => $request->email,
           'token' => $token
-        ]);
-      }*/
+        ]);*/
+      } else{
+        //
+
+      }
+
 
     } //End Method
 

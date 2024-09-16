@@ -1,5 +1,5 @@
 {{-- modal settings --}}
-<div id="ember180" class="ynab-u ynab-new-settings-menu">
+<div id="settings-menu" class="ynab-u ynab-new-settings-menu">
   <div class="modal" role="dialog" aria-modal="true" style="top: 54px; left: 24px;">
     <!---->
     <ul class="modal-list">
@@ -134,7 +134,7 @@
       </li>
       <li class="modal-list-header">Account</li>
       <li>
-        <button class="modal-select-budget-my-account" type="button">
+        <button class="menu-item js-menu-item modal-select-budget-my-account" role="menuitem" id="accountSettings" type="button">
           <svg class="ynab-new-icon " width="16" height="16">
             <!---->
             <use href="#icon_sprite_user">
@@ -327,11 +327,11 @@
 @push('scripts')
   <script>
     <!---->
-    //Activacion modal New Bodget
-    document.addEventListener('DOMContentLoaded', function () {
+    //Activación modal New Bodget
+    document.addEventListener('DOMContentLoaded', function() {
       const newBudget = document.querySelector(".modal-select-budget-create");
       const modalOverlay = document.getElementById('ember150');
-      const modalSettings = document.getElementById('ember180');
+      const modalSettings = document.getElementById('settings-menu');
       const budgetNameInput = document.getElementById('modal-settings-budget-name');
 
       // New Budget
@@ -350,6 +350,15 @@
 
       });
     })
+
+    //Account Settings
+    $(document).ready(function() {
+      $('#accountSettings').on('click', function() {
+        $('#settings-menu').removeClass('modal-overlay active'); // cerrar modal quitando clase
+        window.location.href = "{{ route('admin.settings') }}";
+      });
+    });
+
   </script>
 @endpush
 

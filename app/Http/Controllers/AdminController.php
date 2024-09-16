@@ -14,7 +14,7 @@
 
     public function adminDashboard(Request $request){
       $data = [
-        'pageTitle' => 'Dashboard',
+        'pageTitle' => 'Budget | YNAB',
       ];
       // Recuperar todos los usuarios
       /*$users = User::all();*/
@@ -30,5 +30,13 @@
       $request->session()->regenerateToken();
       return redirect()->route('admin.login');
     }  //End Method
+
+    public function settingsView(Request $request){
+      $data = [
+        'pageTitle' => 'Account Settings | YNAB',
+      ];
+      return view('front.pages.settings',$data);
+
+    } //End Method
 
   }

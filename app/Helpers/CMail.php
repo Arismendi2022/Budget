@@ -44,11 +44,6 @@
       } catch(Exception $e){
         return false;
       }
-
-      /*} catch(Exception $e){
-        dd('Excepción al enviar correo: '.$e->getMessage());
-        return false;
-      }*/
     }
 
   }

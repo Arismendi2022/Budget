@@ -36,20 +36,19 @@
               <label class="u-sr-only" for="request_data_email">Email:</label>
               <input class="authentications-panel__email-field required" id="request_data_email_signup" autofocus="autofocus" spellcheck="false" placeholder="Email address"
                 type="email" name="email">
-               <label class="error" id="email-error" for="request_data_email"></label>
+              <label class="error" id="email-error" for="request_data_email"></label>
             </p>
             <p class="authentications-panel__input-group js-form-password">
               <label class="u-sr-only" for="request_data_password">Password:</label>
               <span class="password-toggle">
                <input class="authentications-panel__password-field required" id="request_data_password_signup" placeholder="Password" autocapitalize="none" autocomplete="off"
                  type="password" name="password">
-                <label><input type="checkbox" data-password-toggle="">Show</label>
+                <label><input type="checkbox" id="togglePassword" data-password-toggle="">Show</label>
 							</span>
-               <label class="error" id="password-error" for="request_data_password"></label>
+              <label class="error" id="password-error" for="request_data_password"></label>
             </p>
             <p>
-              <button name="sign_up" type="submit" id="sign_up" class="authentications-panel__form-button button button-primary" data-disable-with="Signing Up...">Sign Up
-              </button>
+              <button type="submit" class="authentications-panel__form-button button button-primary" data-disable-with="Signing Up...">Sign Up</button>
             </p>
           </div>
           <p class="authentications-panel__terms">
@@ -84,8 +83,21 @@
 @endsection
 @push('scripts')
   <script>
-    $(document).ready(function () {
-      $('#register-form').on('submit', function (e) {
+    //Muetra la contraseña
+    $(document).ready(function() {
+      const passwordField = $('#request_data_password_signup');
+      const togglePassword = $('#togglePassword');
+
+      togglePassword.on('change', function() {
+        // Toggle the type attribute
+        const type = passwordField.attr('type') === 'password' ? 'text' : 'password';
+        passwordField.attr('type', type);
+      });
+    });
+
+    // Ajax guarda el nuevo usuario en la tabla
+    $(document).ready(function() {
+      $('#register-form').on('submit', function(e) {
         e.preventDefault();
 
         const formData = $(this).serialize();
@@ -95,28 +107,28 @@
           method: $(this).attr('method'),
           data: formData,
           dataType: 'json',
-          success: function (response) {
+          success: function(response) {
             // Aquí puedes manejar una respuesta exitosa, como redirigir al usuario o mostrar un mensaje de éxito.
           },
-          error: function (xhr) {
-            if (xhr.status === 422) { // 422 Errores de validación
+          error: function(xhr) {
+            if(xhr.status === 422) { // 422 Errores de validación
               const errors = xhr.responseJSON.errors;
               let emailHasError = false;
               let passwordHasError = false;
 
               // Mostrar errores de validación en los campos correspondientes
-              if (errors['email']) {
+              if(errors['email']) {
                 $('#email-error').text(errors['email'][0]);
                 emailHasError = true;
               }
-              if (errors['password']) {
+              if(errors['password']) {
                 $('#password-error').text(errors['password'][0]);
                 passwordHasError = true;
               }
               // Control de enfoque
-              if (emailHasError) {
+              if(emailHasError) {
                 $('#request_data_email_signup').focus();
-              } else if (passwordHasError) {
+              } else if(passwordHasError) {
                 $('#request_data_password_signup').focus();
                 // Limpiar el campo de contraseña
                 $('#request_data_password_signup').val('');
@@ -127,11 +139,11 @@
       });
 
       // Agregar eventos de entrada específicos para limpiar errores específicos
-      $('#request_data_email_signup').on('input', function () {
+      $('#request_data_email_signup').on('input', function() {
         $('#email-error').text('');
       });
 
-      $('#request_data_password_signup').on('input', function () {
+      $('#request_data_password_signup').on('input', function() {
         $('#password-error').text('');
       });
 

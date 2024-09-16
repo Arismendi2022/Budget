@@ -52,8 +52,8 @@
 @push('scripts')
   <script>
     //Mostrar seccion de exito al cambiar password.
-    $(document).ready(function () {
-      $('#password-reset-form').on('submit', function (e) {
+    $(document).ready(function() {
+      $('#password-reset-form').on('submit', function(e) {
         e.preventDefault();
 
         const formData = $(this).serialize();
@@ -63,11 +63,11 @@
           method: $(this).attr('method'),
           data: formData,
           dataType: 'json',
-          success: function (response) {
+          success: function(response) {
             // Restablecer los mensajes de error
             $('#password-error').hide().text('');
 
-            if (response.success) {
+            if(response.success) {
               // Ocultar la sección del formulario
               $('[data-edit-passwords-target="resetPasswordContainer"]').hide();
 
@@ -78,15 +78,15 @@
               // $('.js-email').text(response.email);
             } else {
               // Mostrar mensajes de error en el DOM
-              if (response.errors.new_password) {
+              if(response.errors.new_password) {
                 $('#password-error').text(response.errors.new_password[0]).show();
               }
             }
           },
-          error: function (xhr) {
+          error: function(xhr) {
             const errors = xhr.responseJSON.errors;
             // Mostrar errores de validación en los campos correspondientes
-            if (errors.new_password) {
+            if(errors.new_password) {
               $('#password-error').text(errors.new_password[0]).show();
             }
           }
@@ -95,25 +95,27 @@
     });
 
     // Este enfoque asegura que el mensaje de error se elimine
-    document.addEventListener('DOMContentLoaded', function () {
-      const passwordField = document.getElementById('request_data_password');
-      const errorLabel = document.querySelector('.error[for="request_data_password"]');
+    $(document).ready(function() {
+      const passwordField = $('#request_data_password');
+      const errorLabel = $('.error[for="request_data_password"]');
 
-      if (passwordField && errorLabel) {
-        passwordField.addEventListener('input', function () {
-          errorLabel.style.display = 'none';
+      if(passwordField.length && errorLabel.length) {
+        passwordField.on('input', function() {
+          errorLabel.hide();
         });
       }
     });
 
     //Muetra la contraseña
-    const passwordField = document.getElementById('request_data_password');
-    const togglePassword = document.getElementById('togglePassword');
+    $(document).ready(function() {
+      const passwordField = $('#request_data_password');
+      const togglePassword = $('#togglePassword');
 
-    togglePassword.addEventListener('change', function () {
-      // Toggle the type attribute
-      const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordField.setAttribute('type', type);
+      togglePassword.on('change', function() {
+        // Toggle the type attribute
+        const type = passwordField.attr('type') === 'password' ? 'text' : 'password';
+        passwordField.attr('type', type);
+      });
     });
 
   </script>

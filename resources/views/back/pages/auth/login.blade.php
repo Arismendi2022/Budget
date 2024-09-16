@@ -110,18 +110,20 @@
 @push('scripts')
   <script>
     //Muetra la contraseña
-    const passwordField = document.getElementById('request_data_password');
-    const togglePassword = document.getElementById('togglePassword');
+    $(document).ready(function() {
+      const passwordField = $('#request_data_password');
+      const togglePassword = $('#togglePassword');
 
-    togglePassword.addEventListener('change', function () {
-      // Toggle the type attribute
-      const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordField.setAttribute('type', type);
+      togglePassword.on('change', function() {
+        // Toggle the type attribute
+        const type = passwordField.attr('type') === 'password' ? 'text' : 'password';
+        passwordField.attr('type', type);
+      });
     });
 
-    //Jquery
-    $(document).ready(function () {
-      $('#login-form').on('submit', function (e) {
+    // Realiza la autenticacion en el login.
+    $(document).ready(function() {
+      $('#login-form').on('submit', function(e) {
         e.preventDefault();
 
         const formData = $(this).serialize();
@@ -131,32 +133,32 @@
           method: $(this).attr('method'),
           data: formData,
           dataType: 'json',
-          success: function (response) {
-            if (response.status === 'success') {
+          success: function(response) {
+            if(response.status === 'success') {
               // Redirige al dashboard si el inicio de sesión es exitoso
               window.location.href = response.redirect;
             }
           },
 
-          error: function (xhr) {
-            if (xhr.status === 422) { // 422 Errores de validación
+          error: function(xhr) {
+            if(xhr.status === 422) { // 422 Errores de validación
               const errors = xhr.responseJSON.errors;
               let emailHasError = false;
               let passwordHasError = false;
 
               // Mostrar errores de validación en los campos correspondientes
-              if (errors['email']) {
+              if(errors['email']) {
                 $('#email-error').text(errors['email']);
                 emailHasError = true;
               }
-              if (errors['password']) {
+              if(errors['password']) {
                 $('#password-error').text(errors['password']);
                 passwordHasError = true;
               }
               // Control de enfoque
-              if (emailHasError) {
+              if(emailHasError) {
                 $('#request_data_email').focus();
-              } else if (passwordHasError) {
+              } else if(passwordHasError) {
                 $('#request_data_password').focus();
                 // Limpiar el campo de contraseña
                 $('#request_data_password').val('');
@@ -168,11 +170,11 @@
     });
 
     // Agregar eventos de entrada específicos para limpiar errores específicos
-    $('#request_data_email').on('input', function () {
+    $('#request_data_email').on('input', function() {
       $('#email-error').text('');  // Limpiar el mensaje de error del email
     });
 
-    $('#request_data_password').on('input', function () {
+    $('#request_data_password').on('input', function() {
       $('#password-error').text('');  // Limpiar el mensaje de error de la contraseña
     });
 

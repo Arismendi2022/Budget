@@ -338,14 +338,14 @@
     const tooltipContent = document.querySelector('.tooltip-content');
 
     // Colapsa/Expande el sidebar - Espera a que el DOM esté completamente cargado
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
 
       // Agregar un evento de clic al botón
       sidebarBtn.addEventListener("click", () => {
         sidebar.classList.toggle("sidebar-resized-collapsed");
         sidebarBtn.classList.toggle("sidebar-expand");
         // Verificar el ancho actual y cambiarlo
-        if (sidebar.style.width === "260px") {
+        if(sidebar.style.width === "260px") {
           sidebar.style.width = "56px";
 
           tooltipContent.classList.remove('tooltip-center');
@@ -378,7 +378,7 @@
 
     // Agregar evento de clic al botón "BUDGET"
     budgetBtn.addEventListener('click', () => {
-      if (budgetDetails.style.display === 'none') {
+      if(budgetDetails.style.display === 'none') {
         budgetDetails.style.display = 'block';
         // Función para cambiar el ícono
         iconUseBudget.setAttribute('href', '#icon_sprite_chevron_down');
@@ -389,7 +389,7 @@
     });
     // Agregar evento de clic al botón "LOAN"
     loantBtn.addEventListener('click', () => {
-      if (loanDetails.style.display === 'none') {
+      if(loanDetails.style.display === 'none') {
         loanDetails.style.display = 'block';
         // Función para cambiar el ícono
         iconUseLoan.setAttribute('href', '#icon_sprite_chevron_down');
@@ -416,7 +416,7 @@
 
     // Agregar un evento de clic a cada enlace
     links.forEach(link => {
-      link.addEventListener('click', function (event) {
+      link.addEventListener('click', function(event) {
         event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
 
         // Quitar la clase 'is-selected' de todos los enlaces
@@ -432,20 +432,20 @@
     });
 
     // Activa el shift + el punto (.)
-    document.addEventListener('keydown', function (event) {
+    document.addEventListener('keydown', function(event) {
       // Obtener el código de la tecla presionada
       var keyPressed = event.key;
       var keyCode = event.code;
 
       // Verificar si la tecla presionada es '>'
-      if (keyPressed === '>' || keyCode === 'IntlBackslash') {
+      if(keyPressed === '>' || keyCode === 'IntlBackslash') {
         // Verificar si la tecla Shift también está presionada
-        if (event.shiftKey) {
+        if(event.shiftKey) {
           // Mostrar un mensaje
           sidebar.classList.toggle("sidebar-resized-collapsed");
           sidebarBtn.classList.toggle("sidebar-expand");
           // Verificar el ancho actual y cambiarlo
-          if (sidebar.style.width === "260px") {
+          if(sidebar.style.width === "260px") {
             sidebar.style.width = "56px";
             tooltipContent.classList.remove('tooltip-center');
             iconCollapsed.setAttribute('href', '#icon_sprite_sidebar_open');
@@ -479,27 +479,27 @@
     const openModalButtons = document.querySelectorAll('.js-sidebar-nav-menu');
 
     openModalButtons.forEach(button => {
-      button.addEventListener('click', function (event) {
-        const modalActive = document.getElementById('ember180');
+      button.addEventListener('click', function(event) {
+        const modalActive = document.getElementById('settings-menu');
         modalActive.classList.add('modal-overlay', 'active');
         event.stopPropagation(); // Detener la propagación del evento para evitar cierres no deseados
       });
     });
 
     // Cerrar el modal al hacer clic fuera de él
-    document.addEventListener('click', function (event) {
-      const modalActive = document.getElementById('ember180');
+    document.addEventListener('click', function(event) {
+      const modalActive = document.getElementById('settings-menu');
       const modal = document.querySelector('.modal');
-      if (modalActive.classList.contains('active') && !modal.contains(event.target) && !event.target.classList.contains('js-sidebar-nav-menu')) {
+      if(modalActive.classList.contains('active') && !modal.contains(event.target) && !event.target.classList.contains('js-sidebar-nav-menu')) {
         modalActive.classList.remove('modal-overlay', 'active');
       }
     });
 
     // modal nav-add-account
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
       const openButton = document.querySelector('.nav-add-account');
 
-      openButton.addEventListener('click', function () {
+      openButton.addEventListener('click', function() {
         const modalActive = document.getElementById('ember145');
         modalActive.classList.add('modal-overlay', 'active');
 
@@ -507,11 +507,11 @@
     });
 
     //Edit Account
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
       const editAccountButtons = document.querySelectorAll('.nav-account-icons-left');
 
       editAccountButtons.forEach(button => {
-        button.addEventListener('click', function () {
+        button.addEventListener('click', function() {
 
           const modalActive = document.getElementById('ember42');
           modalActive.classList.add('modal-overlay', 'active');
