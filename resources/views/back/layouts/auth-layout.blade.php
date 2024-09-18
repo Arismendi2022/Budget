@@ -13,8 +13,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans" rel="stylesheet">
-  <link rel="shortcut icon" href="/back/brand/ynab-tree-logo.svg">
-  <link href="/back/dist/css/auth.css" rel="stylesheet">
+  <link rel="shortcut icon" href="{{ asset('images/shared/brand/ynab-tree-logo.svg') }}">
+  <link href="{{ asset('css/back/auth.css') }}" rel="stylesheet">
 
   <style>
   </style>
@@ -27,7 +27,7 @@
   <header class="authentications-page-header">
     <div class="authentications-page-header__inner">
       <a title="Back to ynab.com" class="authentications-page-header__logo" href="#" onclick="return false;"><img alt=""
-          src="/back/brand/ynab-logo-buttermilk.svg"></a>
+          src="{{ asset('images/back/brand/ynab-logo-buttermilk.svg') }}"></a>
       <a class="authentications-page-header__back-button" href="#" onclick="return false;">
         <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" fill="#FEF9ED" viewBox="0 0 18 18" width="0.75em" height="0.75em">
           <path fill="inherit"
@@ -56,7 +56,7 @@
   </footer>
 </div>
 
-<script src="/front/dist/js/jquery-3.7.1.min.js"></script>
+<script src="{{ asset('js/shared/jquery-3.7.1.min.js') }}"></script>
 
 @stack('scripts')
 

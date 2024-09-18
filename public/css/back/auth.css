@@ -60,7 +60,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 /* || GENERAL STYLES */
 @media only screen and (min-width: 992px) {
 	.body-background--dark-shapes {
-		background: url("/back/brand/lineas-ynab.svg") bottom left/350px auto no-repeat, url("/back/brand/logo-ynab-2.svg") center -300px / 1870px auto no-repeat;
+		background: url("/images/back/brand/lineas-ynab.svg") bottom left/350px auto no-repeat, url("/images/back/brand/logo-ynab-2.svg") center -300px / 1870px auto no-repeat;
 		background-color: rgba(0, 0, 0, 0);
 		background-color: #2C396A;
 	}
@@ -334,7 +334,7 @@ a:active, a:hover, a:focus, a:visited:active, a:visited:hover, a:visited:focus {
 	color-scheme: light only;
 }
 .authentications-panel__email-field {
-	background: url(/back/brand/icon-mail.svg) 1rem center/1rem auto no-repeat;
+	background: url(/images/back/brand/icon-mail.svg) 1rem center/1rem auto no-repeat;
 	padding-left: 2.75rem !important;
 }
 .authentications-panel__email-field, .authentications-panel__password-field {
@@ -386,7 +386,7 @@ a:active, a:hover, a:focus, a:visited:active, a:visited:hover, a:visited:focus {
 	outline: none; /* Asegúrate de que los campos de entrada no tengan su propio borde de enfoque */
 }
 .authentications-panel__password-field {
-	background: url(/back/brand/icon-lock.svg) 1.125rem center/auto 1rem no-repeat;
+	background: url(/images/back/brand/icon-lock.svg) 1.125rem center/auto 1rem no-repeat;
 	padding-left: 2.75rem;
 }
 .authentications-panel__form .password-toggle label {
@@ -634,7 +634,7 @@ a:active, a:hover, a:focus, a:visited:active, a:visited:hover, a:visited:focus {
 	margin-right: 1.25rem;
 }
 .page-footer__privacy-choices::after {
-	background-image: url(/back/brand/your-privacy-choices.svg);
+	background-image: url(/images/shared/brand/your-privacy-choices.svg);
 	content: "";
 	display: inline-block;
 	height: 12px;

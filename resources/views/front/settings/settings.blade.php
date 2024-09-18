@@ -1,4 +1,4 @@
-@extends('front.layouts.pages-profile')
+@extends('front.layouts.pages-settings')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Page Title Here')
 @section('content')
   <header class="page-header">
@@ -16,10 +16,11 @@
   <main role="main" class="page-main">
     <section data-controller="user-settings">
       <h2>Account Settings</h2>
-      <p>
-        arismendi.guiza@gmail.com<a class="logout-link" data-disable-with="Logging Out..." data-logout-url="/api/v1/catalog?operation_name=logoutUser"
-          data-redirect-url="/users/sign_in" href="/logout">Log Out</a>
+      <p onclick="event.preventDefault();document.getElementById('usersLogoutForm').submit()">
+        {{ $user->email }}<a class="logout-link" data-disable-with="Logging Out..." data-logout-url="/api/v1/catalog?operation_name=logoutUser"
+          data-redirect-url="" href="#">Log Out</a>
       </p>
+      <form action="<?= route('admin.logout') ?>" id="usersLogoutForm" method="POST">@csrf</form>
       <hr>
       <h3 id="login-methods">Login Methods</h3>
       <div class="secondary-container">
@@ -27,19 +28,19 @@
           <p>
             <strong>Email &amp; Password</strong>
             <br>
-            arismendi.guiza@gmail.com
+            {{ $user->email }}
           </p>
         </div>
         <div class="right">
-          <p><a class="button" href="/settings/edit_login">Change Email &amp; Password</a></p>
+          <p><a class="button" href="{{ route('admin.edit_login') }}">Change Email &amp; Password</a></p>
         </div>
       </div>
       <div class="sso-container sso-container-apple secondary-container">
         <div class="left">
           <span class="sso-label">Apple</span>
-          <a class="sso-button sso-button--apple" data-label="Continue with Apple" data-trigger-action="false" href="#"><span
+          <a class="sso-button sso-button--apple" data-label="Continue with Apple" data-trigger-action="false" href="#" onclick="return false;"><span
               class="sso-button__logo"><img class="sso-provider-logo"
-                src="/back/brand/apple-logo.svg"></span><span
+                src="{{ asset('images/shared/brand/apple-logo.svg') }}"></span><span
               class="sso-button__label">Continue with Apple</span></a>
         </div>
       </div>
@@ -48,8 +49,8 @@
           <span class="sso-label">Google</span>
           <div class="sso-button sso-button--google" data-width="240">
             <div class="sso-button__inner js-disabled"><span class="sso-button__logo"><img class="sso-provider-logo"
-                  src="/back/brand/google-logo.svg"/></span><span
-                class="sso-button__label">Continuar con Google</span></div>
+                  src="{{ asset('images/shared/brand/google-logo.svg') }}"/></span><span
+                class="sso-button__label1">Continuar con Google</span></div>
           </div>
         </div>
       </div>
@@ -58,10 +59,9 @@
       <div class="secondary-container">
         <div class="left">
           <p>You have <strong>8 days</strong> left on your trial.</p>
-
         </div>
         <div class="right">
-          <p><a class="button" href="/subscription/new">Subscribe Now</a></p>
+          <p><a class="button" href="#" onclick="return false;">Subscribe Now</a></p>
         </div>
       </div>
       <hr>
@@ -73,7 +73,7 @@
           </p>
         </div>
         <div class="right">
-          <p><a class="button" href="/support_access">Change Permissions</a></p>
+          <p><a class="button" href="#" onclick="return false;">Change Permissions</a></p>
         </div>
       </div>
       <hr>
@@ -86,7 +86,7 @@
         </div>
         <div class="right">
           <p>
-            <a class="button" href="/settings/developer">Developer Settings</a>
+            <a class="button" href="#" onclick="return false;">Developer Settings</a>
           </p>
         </div>
       </div>
@@ -101,7 +101,7 @@
         </div>
         <div class="right">
           <p>
-            <a class="button button-destructive " href="#">Delete Account</a>
+            <a class="button button-destructive " href="#" onclick="return false;">Delete Account</a>
           </p>
         </div>
       </div>
@@ -109,3 +109,8 @@
     </section>
   </main>
 @endsection
+@push('scripts')
+
+@endpush
+
+

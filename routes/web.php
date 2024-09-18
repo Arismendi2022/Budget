@@ -35,7 +35,8 @@
         Route::get('/dashboard','adminDashboard')->name('dashboard');
         Route::post('/logout','logoutHandler')->name('logout');
         Route::get('/settings','settingsView')->name('settings');
-
+        Route::get('/edit_login','editLogin')->name('edit_login');
+        Route::post('/change-password','changePassword')->name('change_password');
       });
     });
   });

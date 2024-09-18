@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <link rel="shortcut icon" href="/front/brand/ynab-tree-logo.svg">
+  <link rel="shortcut icon" href="{{ asset('images/front/brand/ynab-tree-logo.svg') }}">
   <title>@yield('pageTitle')</title>
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -14,7 +14,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet">
-  <link href="/front/dist/css/profile.css" rel="stylesheet">
+
+  <link href="{{ asset('css/front/profile.css') }}" rel="stylesheet">
 
   <style>
     body {
@@ -43,8 +44,7 @@
   </footer>
 </div>
 
-<script src="/front/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/front/dist/js/jquery-3.7.1.min.js"></script>
+<script src="{{ asset('js/shared/jquery-3.7.1.min.js') }}"></script>
 
 @stack('scripts')
 

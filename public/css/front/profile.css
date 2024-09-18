@@ -45,6 +45,7 @@
   --illustrationBackgroundBlurple300: #ACBDFB;
   --illustrationBackgroundBlurple600: #3B5EDA;
   --illustrationBackgroundSlime400: #A2E66E;
+  --granite-300: #d2d8de;
 }
 /* || RESET */
 * {
@@ -62,9 +63,11 @@ body {
   flex-direction: column;
   line-height: 1.4;
 }
+::placeholder {
+  color: #ababab !important;
+}
 
 /* || GENERAL STYLES */
-
 /* || HEADER */
 .page-header {
   height: 3.125rem;
@@ -103,7 +106,7 @@ tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, 
   width: 30px;
   height: 30px;
   /* background-color: var(--primaryAction, #3B5EDA); */
-  background: url("/front/brand/ynab-tree-logo.svg") no-repeat center left;
+  background: url("/images/shared/brand/ynab-tree-logo.svg") no-repeat center left;
 }
 .ynab-logo span {
   display: none;
@@ -164,6 +167,9 @@ a, a:visited {
 .page-main > section {
   flex: 1 0 auto;
   max-width: 40rem;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
 }
 h2 {
   color: var(--labelHeading, #19223C);
@@ -250,7 +256,7 @@ strong {
   padding-right: 12px;
   transition: background-color 0.218s, border-color 0.218s;
   cursor: pointer;
-  border: solid 1px #000000;
+  border: solid 1px var(--granite-300);
   border-radius: 6px;
 }
 .sso-button--apple .sso-button__logo {
@@ -264,31 +270,67 @@ strong {
   color: #000000;
 }
 .sso-button--apple:hover:not(.sso-button--apple[disabled]), .sso-button--apple:hover:not(.sso-button--apple.js-disabled) {
-  background-color: #EDF1F5;
+  background-color: #edf1f5;
+  border-color: #d2e3fc;
 }
 
 /* || SSO GOOGLE */
 .sso-button--google {
-  box-sizing: border-box;
-  align-items: center;
-  background-color: #fff;
-  display: flex;
-  font-family: "Google Sans",arial,sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  letter-spacing: 0.25px;
-  height: 40px;
-  justify-content: center;
-  padding-left: 12px;
-  padding-right: 12px;
-  transition: background-color 0.218s, border-color 0.218s;
-  cursor: pointer;
-  border: solid 1px #d2e3fc;
   border-radius: 6px;
-}
-.sso-button--google {
+  box-sizing: border-box;
+  transition: background-color .218s, border-color .218s;
+  -moz-user-select: none;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #d2e3fc;
   color: #3c4043;
-  flex-grow: 0;
+  cursor: pointer;
+  font-family: "Google Sans",arial,sans-serif;
+  font-size: 14px;
+  height: 40px;
+  letter-spacing: 0.25px;
+  outline: none;
+  overflow: hidden;
+  padding: 0 12px;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: auto;
+}
+.sso-button--google:hover, .sso-button--google:focus {
+  box-shadow: none;
+  border-color: #d2e3fc;
+  background-color: #edf1f5;
+  outline: none;
+}
+.sso-button__inner {
+  justify-content: center !important;
+}
+.sso-button--google .sso-provider-logo {
+  margin-top: 3px;
+  height: 18px;
+  margin-right: 8px;
+  min-width: 18px;
+  width: 18px;
+}
+.sso-button__inner {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+.sso-button--google, .sso-button__label1 {
+  flex-grow: 0 !important;
+}
+.sso-button__label1 {
+  flex-grow: 1;
+  font-family: "Google Sans", arial, sans-serif;
+  font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: top;
@@ -357,7 +399,7 @@ a.button.button-destructive {
   padding: 0;
 }
 .page-footer__privacy-choices::after {
-  background-image: url(/back/brand/your-privacy-choices.svg);
+  background-image: url(/images/shared/brand/your-privacy-choices.svg);
   content: "";
   display: inline-block;
   height: 12px;
@@ -369,5 +411,129 @@ a.button.button-destructive {
   display: block;
   margin-top: 1rem;
 }
+
+/* || CHANGE PASSWORD & EMAIL */
+.form label {
+  color: var(--labelPrimary, #19223C);
+  display: block;
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 1.0625rem;
+  margin: 0;
+}
+/* || INPUTS */
+.form input, .form select, .recurly-hosted-field {
+  border-radius: 0.25rem;
+  height: 32px;
+  margin: 0.25rem 0 0 0;
+  padding-left: 6px;
+  max-width: 280px;
+}
+.form input, .form textarea, .form select, .form option, .recurly-hosted-field {
+  background-color: var(--inputBackground, #fff);
+  border: 1px solid var(--dividerStandard, #D2D8DE);
+  color: var(--labelPrimary, #19223C);
+  font-family: "Figtree", Helvetica, Arial, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  outline-color: var(--primaryAction, #3B5EDA);
+  width: 100%;
+  color-scheme: light only;
+}
+/* || CURRENT PASSWORD */
+/* || SPAN */
+.form .password-toggle {
+  border-radius: 0.25rem;
+  border: 1px solid var(--dividerStandard, #D2D8DE);
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  max-width: 280px;
+  margin-top: 0.25rem;
+}
+
+/* || INPUTS */
+.form .password-toggle input[type="password"], .form .password-toggle input[type="text"] {
+  border: 0;
+}
+.form .password-toggle input {
+  margin-top: 0;
+}
+/* || LABEL */
+.form .password-toggle label {
+  align-items: center;
+  background-color: #edf1f5;
+  background-color: var(--backgroundSecondary, #EDF1F5);
+  border-bottom-right-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  color: var(--labelPrimary, #19223C);
+  cursor: pointer;
+  display: flex;
+  font-size: 0.875rem;
+  font-weight: normal;
+  line-height: 1rem;
+  padding: 0 0.5rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+.form .password-toggle input[type="checkbox"] {
+  cursor: pointer;
+  height: auto;
+  padding: 0;
+  margin: 0 0.25rem 0 0;
+  width: auto;
+}
+.form .password-toggle:focus-within {
+  outline: 2px solid var(--primaryAction, #3B5EDA);
+}
+.form .password-toggle input[type="password"]:focus,
+.form .password-toggle input[type="text"]:focus {
+  outline: none;
+}
+
+/* || BUTTON */
+.form .button-submit:disabled, .button-launch-app:disabled, .button-primary:disabled {
+  background-color: var(--primaryActionDisabled, #D2D8DE);
+  border-color: var(--primaryActionDisabled, #D2D8DE);
+  color: var(--labelDarkBackgroundPrimary, #fff);
+}
+.button:disabled, .button.disabled {
+  color: var(--primaryAction, #3B5EDA);
+  cursor: not-allowed !important;
+  opacity: 0.5;
+}
+.form .button-submit:focus, .form .button-submit:hover:not(:disabled), .button-launch-app:focus, .button-launch-app:hover, .button-primary:focus, .button-primary:hover {
+  color: var(--labelDarkBackgroundPrimary, #fff);
+  background-color: var(--buttonPrimaryBackgroundActive, #374D9B);
+  border-color: var(--buttonPrimaryBackgroundActive, #374D9B);
+}
+.form .button-submit, .button-launch-app, .button-primary {
+  color: var(--labelDarkBackgroundPrimary, #fff);
+  background-color: var(--buttonPrimaryBackground, #3B5EDA);
+  border-color: var(--buttonPrimaryBackground, #3B5EDA);
+}
+.button:focus, .button:hover {
+  color: var(--primaryActionSelected, #374D9B);
+  border-color: var(--primaryActionSelected, #374D9B);
+  cursor: pointer;
+}
+/* || MESSAGE ERROR */
+.form p label.error {
+  color: #c40303;
+  margin-top: 3px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 

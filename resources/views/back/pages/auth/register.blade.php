@@ -5,7 +5,7 @@
     <div class="authentications-section__inner">
       <aside class="authentications-aside">
         <div class="authentications-aside__image authentications-aside__image--default"><img
-            src="/back/brand/doodle-logo.svg"></div>
+            src="{{ asset('images/back/brand/doodle-logo.svg') }}"></div>
         <h2>Transforma el dinero.</h2>
         <p>
           El YNABer promedio ahorra $600 en sus primeros dos meses (y, sinceramente, parece estar por encima del promedio).
@@ -63,13 +63,13 @@
               <div class="authentications-sso-buttons__button">
                 <a class="sso-button sso-button--apple js-disabled" data-label="Continue with Apple" data-trigger-action="false" data-login-target="appleButton"
                   href="#"><span class="sso-button__logo"><img class="sso-provider-logo"
-                      src="/back/brand/apple-logo.svg"/></span><span class="sso-button__label">Continue with Apple</span></a>
+                      src="{{ asset('images/shared/brand/apple-logo.svg') }}"/></span><span class="sso-button__label">Continue with Apple</span></a>
                 <p class="authentications-sso-button__error authentications-sso-button__error--apple"></p>
               </div>
               <div class="authentications-sso-buttons__button">
                 <div class="sso-button sso-button--google" data-login-target="googleButton">
                   <div class="sso-button__inner js-disabled" aria-labelledby="button-label"><span class="sso-button__logo"><img class="sso-provider-logo"
-                        src="/back/brand/google-logo.svg"/></span><span
+                        src="{{ asset('images/shared/brand/google-logo.svg') }}"/></span><span
                       class="sso-button__label1">Continuar con Google</span></div>
                 </div>
                 <p class="authentications-sso-button__error authentications-sso-button__error--google"></p>

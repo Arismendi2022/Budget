@@ -12,8 +12,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="shortcut icon" href="/back/brand/ynab-tree-logo.svg">
-  <link href="/back/dist/css/auth.css" rel="stylesheet">
+  <link rel="shortcut icon" href="{{ asset('images/shared/brand/ynab-tree-logo.svg' }}">
+  <link href="{{ asset('css/back/auth.css') }}" rel="stylesheet">
 
   <style>
   </style>
@@ -25,7 +25,7 @@
 <div class="page-wrapper">
   <header class="page-header">
     <a title="YNAB" class="ynab-primary-logo launch_app_button" href="/"><img alt=""
-        src="/back/brand/ynab-primary-logo.svg">
+        src="{{ asset('images/back/brand/ynab-primary-logo.svg') }}">
     </a>
   </header>
   <main class="page-main" role="main">
@@ -44,7 +44,7 @@
   <div class="copyright">© Copyright {{ date('Y') }} YNAB LLC. All rights reserved.</div>
 </footer>
 
-<script src="/front/dist/js/jquery-3.7.1.min.js"></script>
+<script src="{{ asset('js/shared/jquery-3.7.1.min.js') }}"></script>
 
 @stack('scripts')
 
