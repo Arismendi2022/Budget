@@ -35,7 +35,7 @@
             <p class="authentications-panel__input-group js-form-email">
               <label class="u-sr-only" for="request_data_email">Email:</label>
               <input class="authentications-panel__email-field required" id="request_data_email_signup" autofocus="autofocus" spellcheck="false" placeholder="Email address"
-                type="email" name="email">
+                type="email" name="email" value="{{ old('email') }}">
               <label class="error" id="email-error" for="request_data_email"></label>
             </p>
             <p class="authentications-panel__input-group js-form-password">

@@ -60,12 +60,13 @@
         <p class="current_password">
           <label for="change_password_current_password">Current Password:</label>
           <span class="password-toggle"><input id="change_password_current_password" skip_errors="true" autocapitalize="none" autocomplete="off" type="password"
-              name="current_password"><label><input type="checkbox" data-password-toggle="">Show</label></span>
+              name="current_password" value="{{ old('current_password') }}"><label><input type="checkbox" data-password-toggle="">Show</label></span>
           <label class="error" id="current_password"></label>
         </p>
         <p class="new_password">
           <label for="user_password">New Password:</label>
-          <span class="password-toggle"><input autocapitalize="none" autocomplete="off" type="password" name="new_password" id="user_password"><label><input type="checkbox"
+          <span class="password-toggle"><input autocapitalize="none" autocomplete="off" type="password" name="new_password" id="user_password" value="{{ old('new_password')
+          }}"><label><input type="checkbox"
                 data-password-toggle="">Show</label></span>
           <label class="error" id="new_password"></label>
         </p>
@@ -135,8 +136,12 @@
           dataType: 'json',
           success: function(response) {
             if(response.status === 'success') {
-              // Aquí puedes manejar una respuesta exitosa, como redirigir al usuario o mostrar un mensaje de éxito.
-
+              // Mostrar el mensaje en el elemento con id "new_password"
+              $('#new_password').text(response.success);
+              // Limpiar el formulario
+              $('#change_password_form').trigger('reset');
+              // Ocultar el botón de cambio de contraseña
+              $('#submit_password_change').prop('disabled', true);
             }
           },
 

@@ -17,7 +17,7 @@
     public function run():void{
       User::create([
         'email'    => 'admin@email.com',
-        'password' => Hash::make('12345'),
+        'password' => Hash::make('password'),
         'type'     => UserType::SuperAdmin,
         'status'   => UserStatus::Active,
       ]);

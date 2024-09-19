@@ -161,12 +161,13 @@
     public function resetPasswordHandler(Request $request){
       //Validate the form
       $request->validate([
-        'new_password' => 'required|min:5|max:20',
+        'new_password' => 'required|min:6|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
 
       ],[
-        'required' => 'Se requiere nueva contraseña.',
-        'min'      => 'La nueva contraseña debe tener al menos 5 caracteres.',
-        'max'      => 'La nueva contraseña no debe exceder más de 20 caracteres.',
+        'required'               => 'Se requiere nueva contraseña.',
+        'min'                    => 'La nueva contraseña debe tener al menos 6 caracteres.',
+        'max'                    => 'La nueva contraseña no debe exceder más de 20 caracteres.',
+        'new_password.regex'     => 'La nueva contraseña debe contener al menos una letra mayúscula, una minúscula, un número y un carácter especial.',
       ]);
 
       $dbToken = DB::table('password_reset_tokens')->where('token',$request->token)->first();
@@ -257,7 +258,7 @@
           'email' => $request->email,
           'token' => $token
         ]);*/
-      } else{
+      }else{
         //
 
       }

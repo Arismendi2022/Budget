@@ -74,8 +74,6 @@
               // Mostrar la sección de éxito
               $('[data-edit-passwords-target="resetSuccessContainer"]').show();
 
-              // Actualizar el email en el mensaje de éxito si es necesario
-              // $('.js-email').text(response.email);
             } else {
               // Mostrar mensajes de error en el DOM
               if(response.errors.new_password) {
