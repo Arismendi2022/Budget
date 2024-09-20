@@ -65,8 +65,7 @@
         </p>
         <p class="new_password">
           <label for="user_password">New Password:</label>
-          <span class="password-toggle"><input autocapitalize="none" autocomplete="off" type="password" name="new_password" id="user_password" value="{{ old('new_password')
-          }}"><label><input type="checkbox"
+          <span class="password-toggle"><input autocapitalize="none" autocomplete="off" type="password" name="new_password" id="user_password"><label><input type="checkbox"
                 data-password-toggle="">Show</label></span>
           <label class="error" id="new_password"></label>
         </p>

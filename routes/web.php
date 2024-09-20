@@ -1,9 +1,9 @@
 <?php
 
+  use App\Http\Controllers\AccountController;
   use App\Http\Controllers\AdminController;
   use App\Http\Controllers\AuthController;
   use Illuminate\Support\Facades\Route;
-  use App\Http\Controllers\AccountController;
 
   Route::get('/',[AdminController::class,'index']);
 
@@ -25,8 +25,11 @@
         Route::post('/send-password-reset-link','sendPasswordResetLink')->name('send_password_reset_link');
         Route::get('/password/reset/{token}','resetForm')->name('reset_password_form');
         Route::post('/reset-password-handler','resetPasswordHandler')->name('reset_password_handler');
-        Route::get('/register', 'registerCreate')->name('register');
-        Route::post('/register', 'registerStore')->name('store');
+        Route::get('/register','registerCreate')->name('register');
+        Route::post('/register','registerStore')->name('store');
+        Route::get('/account/status/{token}','statusAccount')->name('status');
+
+
       });
     });
 
@@ -42,7 +45,7 @@
   });
 
   //Grupo Add Account
-  Route::prefix('account')->name('account.')->group(function() {
+  Route::prefix('account')->name('account.')->group(function(){
     Route::controller(AccountController::class)->group(function(){
       Route::get('/add',[AccountController::class,'addAccount'])->name('add-account');
       Route::post('/create',[AccountController::class,'createAccount'])->name('create-account');

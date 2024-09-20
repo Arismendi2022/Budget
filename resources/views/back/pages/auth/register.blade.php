@@ -47,6 +47,7 @@
 							</span>
               <label class="error" id="password-error" for="request_data_password"></label>
             </p>
+            <span id="general-error" class="error"></span> <!-- Span para errores generales -->
             <p>
               <button type="submit" class="authentications-panel__form-button button button-primary" data-disable-with="Signing Up...">Sign Up</button>
             </p>
@@ -83,70 +84,72 @@
 @endsection
 @push('scripts')
   <script>
-    //Muetra la contraseña
     $(document).ready(function() {
-      const passwordField = $('#request_data_password_signup');
-      const togglePassword = $('#togglePassword');
+      const $passwordField = $('#request_data_password_signup');
+      const $togglePassword = $('#togglePassword');
+      const $emailField = $('#request_data_email_signup');
+      const $form = $('#register-form');
 
-      togglePassword.on('change', function() {
-        // Toggle the type attribute
-        const type = passwordField.attr('type') === 'password' ? 'text' : 'password';
-        passwordField.attr('type', type);
+      // Toggle password visibility
+      $togglePassword.on('change', function() {
+        $passwordField.attr('type', this.checked ? 'text' : 'password');
       });
-    });
 
-    // Ajax guarda el nuevo usuario en la tabla
-    $(document).ready(function() {
-      $('#register-form').on('submit', function(e) {
+      // Clear specific errors on input
+      const fieldsWithErrors = {
+        email: $emailField,
+        password: $passwordField
+      };
+
+      Object.entries(fieldsWithErrors).forEach(([key, $field]) => {
+        $field.on('input', () => $(`#${key}-error`).text(''));
+      });
+
+      // Handle form submission
+      $form.on('submit', function(e) {
         e.preventDefault();
 
-        const formData = $(this).serialize();
-
         $.ajax({
-          url: $(this).attr('action'),
-          method: $(this).attr('method'),
-          data: formData,
+          url: $form.attr('action'),
+          method: $form.attr('method'),
+          data: $form.serialize(),
           dataType: 'json',
           success: function(response) {
-            // Aquí puedes manejar una respuesta exitosa, como redirigir al usuario o mostrar un mensaje de éxito.
+            if(response.status === 'success') {
+              $('#password-error').text(response.success);
+              $form[0].reset();
+            }
           },
+          //Errores de validacion.
           error: function(xhr) {
-            if(xhr.status === 422) { // 422 Errores de validación
+            if(xhr.status === 422) {
               const errors = xhr.responseJSON.errors;
-              let emailHasError = false;
-              let passwordHasError = false;
+              let focusSet = false;
 
-              // Mostrar errores de validación en los campos correspondientes
-              if(errors['email']) {
-                $('#email-error').text(errors['email'][0]);
-                emailHasError = true;
-              }
-              if(errors['password']) {
-                $('#password-error').text(errors['password'][0]);
-                passwordHasError = true;
-              }
-              // Control de enfoque
-              if(emailHasError) {
-                $('#request_data_email_signup').focus();
-              } else if(passwordHasError) {
-                $('#request_data_password_signup').focus();
-                // Limpiar el campo de contraseña
-                $('#request_data_password_signup').val('');
+              Object.entries(fieldsWithErrors).forEach(([field, $field]) => {
+                const errorMessage = errors[field]?.[0] || '';
+                $(`#${field}-error`).text(errorMessage);
+                if(errorMessage) {
+                  $field.val('');
+                  if(!focusSet) {
+                    $field.focus();
+                    focusSet = true;
+                  }
+                }
+              });
+
+              // Manejar error general
+              const generalError = errors['general']?.[0] || '';
+              $('#general-error').text(generalError);
+
+              // Limpiar todos los inputs si hay un error general
+              if(generalError) {
+                Object.values(fieldsWithErrors).forEach($field => $field.val(''));
               }
             }
           }
         });
       });
-
-      // Agregar eventos de entrada específicos para limpiar errores específicos
-      $('#request_data_email_signup').on('input', function() {
-        $('#email-error').text('');
-      });
-
-      $('#request_data_password_signup').on('input', function() {
-        $('#password-error').text('');
-      });
-
     });
 
   </script>

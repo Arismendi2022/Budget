@@ -3,9 +3,11 @@
   namespace App\Http\Controllers;
 
   use App\Helpers\CMail;
+  use App\Helpers\ConstDefaults;
   use App\Models\User;
+  use App\Models\VerificationToken;
   use App\UserStatus;
-  use constDefaults;
+  use App\UserType;
   use Illuminate\Http\Request;
   use Illuminate\Support\Carbon;
   use Illuminate\Support\Facades\Auth;
@@ -88,7 +90,7 @@
     public function sendPasswordResetLink(Request $request){
       //Validate the form
       $request->validate([
-        'email' => 'required|email|exists:users,email',
+        'email' => 'required|email:rfc|exists:users,email',
       ],[
         'email.required' => 'Correo electronico es requerido',
         'email.email'    => 'Dirección de correo electrónico no válida',
@@ -164,10 +166,10 @@
         'new_password' => 'required|min:6|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
 
       ],[
-        'required'               => 'Se requiere nueva contraseña.',
-        'min'                    => 'La nueva contraseña debe tener al menos 6 caracteres.',
-        'max'                    => 'La nueva contraseña no debe exceder más de 20 caracteres.',
-        'new_password.regex'     => 'La nueva contraseña debe contener al menos una letra mayúscula, una minúscula, un número y un carácter especial.',
+        'required'           => 'Se requiere nueva contraseña.',
+        'min'                => 'La nueva contraseña debe tener al menos 6 caracteres.',
+        'max'                => 'La nueva contraseña no debe exceder más de 20 caracteres.',
+        'new_password.regex' => 'La nueva contraseña debe contener al menos una letra mayúscula, una minúscula, un número y un carácter especial.',
       ]);
 
       $dbToken = DB::table('password_reset_tokens')->where('token',$request->token)->first();
@@ -230,40 +232,77 @@
     public function registerStore(Request $request){
       //Validate User registreation Form
       $request->validate([
-        'email'    => 'required|email|lowercase|unique:users|regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
-        'password' => 'required|min:5|max:20',
+        'email'    => 'required|email:rfc,dns|lowercase|unique:users',
+        'password' => 'required|min:6|max:20',
       ],[
         'email.required'    => 'Se requiere correo electrónico.',
         'email.email'       => 'Dirección de correo electrónico no válida.',
         'email.lowercase'   => 'El correo electrónico debe estar en minúsculas.',
         'email.unique'      => 'Esta dirección de correo electrónico ya está registrada.',
-        'email.regex'       => 'El formato del correo electrónico no es válido.',
         'password.required' => 'Se requiere contraseña.',
-        'password.min'      => 'La contraseña debe tener al menos 5 caracteres.',
+        'password.min'      => 'La contraseña debe tener al menos 6 caracteres.',
         'password.max'      => 'La contraseña no debe exceder más de 20 caracteres.',
       ]);
 
-      // Crear el usuario
-      /*$user = User::create([
-        'email'    => $request->email,
-        'password' => Hash::make($request->password),
-      ]);*/
+      // Usar transacción para las operaciones en la base de datos
+      DB::beginTransaction();
+      try{
 
-      if($user){
+        // Crear el usuario
+        $user = User::create([
+          'email'    => $request->email,
+          'password' => Hash::make($request->password),
+        ]);
+
         //Generate token
-        //$token = base64_encode(Str::random(64));
+        $token = base64_encode(Str::random(64));
 
-        /*VerificationToken::create([
-          'type'  => 'admin',
+        VerificationToken::create([
+          'type'  => UserType::Admin,
           'email' => $request->email,
           'token' => $token
-        ]);*/
-      }else{
-        //
+        ]);
+        // Obtener datos del usuario y construir el enlace de verificación
+        $actionLink = route('users.status',['token' => $token]);
 
+        $data = [
+          'action_link' => $actionLink,
+          'users_email' => $request->email,
+        ];
+
+        //Send Activation link to this user email
+        $mail_body = view('email-templates.verify-template',$data)->render();
+
+        $mailConfig = [
+          'from_address'      => 'noreply@ynab.co',
+          'from_name'         => 'Ynab Budget',
+          'recipient_address' => $user->email,
+          'recipient_name'    => $user->name,
+          'subject'           => 'Password Changed',
+          'body'              => $mail_body
+        ];
+
+        if(sendEmail($mailConfig)){
+          DB::commit();
+
+          return response()->json([
+            'status'  => 'success',
+            'success' => 'Por favor revise su correo electrónico para verificar su cuenta antes de continuar.'
+          ],200);
+        }else{
+          // Manejar el caso en que el envío del correo falla
+          DB::rollBack();
+          return response()->json([
+            'errors' => ['general' => ['Error al enviar el correo electrónico.']]
+          ],422);
+        }
+
+      } catch(\Exception $e){
+        DB::rollBack();
+        return response()->json([
+          'errors' => ['general' => ['Se produjo un error. Inténtelo nuevamente más tarde.']]
+        ],422);
       }
-
-
     } //End Method
 
   }

@@ -26,7 +26,7 @@
         },
       "files": [
         "app/helpers/CMail.php",
-        "app/helpers/constants.php"
+        "app/helpers/ConstDefaults.php"
       ]
     },
     "autoload-dev": {

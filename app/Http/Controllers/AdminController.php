@@ -6,8 +6,8 @@
   use App\Models\User;
   use Illuminate\Http\Request;
   use Illuminate\Support\Facades\Auth;
-  use Illuminate\Support\Facades\Hash;
   use Illuminate\Support\Facades\DB;
+  use Illuminate\Support\Facades\Hash;
 
   class AdminController extends Controller
   {
@@ -109,7 +109,7 @@
 
         return response()->json([
           'status'  => 'success',
-          'success' => 'Tu contraseña ha sido cambiada exitosamente. Por favor, inicia sesión con tu nueva contraseña.'
+          'success' => 'Su contraseña ha sido cambiada con éxito.'
         ],200);
 
       } catch(\Exception $e){
@@ -119,7 +119,7 @@
         return response()->json([
           'status' => 'error',
           'errors' => ['new_password' => ['Se produjo un error. Inténtelo nuevamente más tarde.']]
-        ],500);
+        ],422);
       }
     } //End Method
 
