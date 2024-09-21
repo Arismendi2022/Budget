@@ -28,7 +28,7 @@
             </p>
           </div>
         </div>
-        <form id="register-form" class="authentications-panel__form" data-login-target="form" action="{{ route('admin.store') }}" accept-charset="UTF-8" method="POST"
+        <form id="register-form" class="authentications-panel__form" data-login-target="form" action="{{ route('admin.create') }}" accept-charset="UTF-8" method="POST"
           novalidate="novalidate">
           @csrf
           <div data-login-target="identityContainer">
@@ -47,7 +47,7 @@
 							</span>
               <label class="error" id="password-error" for="request_data_password"></label>
             </p>
-            <span id="general-error" class="error"></span> <!-- Span para errores generales -->
+            <span id="general-Message" class="notice"></span> <!-- Span para errores generales -->
             <p>
               <button type="submit" class="authentications-panel__form-button button button-primary" data-disable-with="Signing Up...">Sign Up</button>
             </p>
@@ -116,7 +116,7 @@
           dataType: 'json',
           success: function(response) {
             if(response.status === 'success') {
-              $('#password-error').text(response.success);
+              $('#general-Message').text(response.success);
               $form[0].reset();
             }
           },
@@ -137,13 +137,13 @@
                   }
                 }
               });
+            } else if(xhr.status === 500) {
+              // Manejar error 500
+              const errorMessage = xhr.responseJSON.message || ''; // Accede al mensaje directamente
+              $('#general-Message').text(errorMessage);
 
-              // Manejar error general
-              const generalError = errors['general']?.[0] || '';
-              $('#general-error').text(generalError);
-
-              // Limpiar todos los inputs si hay un error general
-              if(generalError) {
+              // Limpiar todos los inputs si hay un error
+              if(errorMessage) {
                 Object.values(fieldsWithErrors).forEach($field => $field.val(''));
               }
             }

@@ -221,7 +221,7 @@
       }
     } //End Method
 
-    public function registerCreate(Request $request){
+    public function register(Request $request){
       $data = [
         'pageTitle' => 'Register',
       ];
@@ -229,7 +229,7 @@
 
     } //End Method
 
-    public function registerStore(Request $request){
+    public function createUser(Request $request){
       //Validate User registreation Form
       $request->validate([
         'email'    => 'required|email:rfc,dns|lowercase|unique:users',
@@ -258,12 +258,12 @@
         $token = base64_encode(Str::random(64));
 
         VerificationToken::create([
-          'type'  => UserType::Admin,
-          'email' => $request->email,
-          'token' => $token
+          'user_type' => UserType::Admin,
+          'email'     => $request->email,
+          'token'     => $token
         ]);
         // Obtener datos del usuario y construir el enlace de verificación
-        $actionLink = route('users.status',['token' => $token]);
+        $actionLink = route('admin.verify',['token' => $token]);
 
         $data = [
           'action_link' => $actionLink,
@@ -282,7 +282,7 @@
           'body'              => $mail_body
         ];
 
-        if(sendEmail($mailConfig)){
+        if(CMail::send($mailConfig)){
           DB::commit();
 
           return response()->json([
@@ -293,15 +293,17 @@
           // Manejar el caso en que el envío del correo falla
           DB::rollBack();
           return response()->json([
-            'errors' => ['general' => ['Error al enviar el correo electrónico.']]
-          ],422);
+            'status'  => 'error',
+            'message' => 'Error al enviar el correo electrónico.'
+          ],500);
         }
 
       } catch(\Exception $e){
         DB::rollBack();
         return response()->json([
-          'errors' => ['general' => ['Se produjo un error. Inténtelo nuevamente más tarde.']]
-        ],422);
+          'status'  => 'error',
+          'message' => 'Ocurrió un error inesperado. Inténtelo más tarde.'
+        ],500);
       }
     } //End Method
 

@@ -118,13 +118,13 @@
     align="center" class="x_heading3">The world of YNAB awaits—right after you confirm your email!
   </div>
   <div class="email-body">
-    <h3 style="font-size: 20px; font-weight: 700;">Hi there, {{ $user->name }}</h3>
+    <h3 style="font-size: 20px; font-weight: 700;">Hi there, <span style="font-size: 16px; font-weight: 600;">{{ $users_email }}</span></h3>
     <p>Changing your relationship with money starts with a single step—and it's an <strong>easy win</strong>! To unlock all of your potential with YNAB, we just need
       you to confirm your email by clicking the link below:
     </p>
-    <hr>
-    <a href="{{ $actionlink }}" class="reset-button" target="_blank" align="center" role="presentation" valign="middle">Confirm Your Email</a>
-    <hr>
+    <br>
+    <a href="{{ $action_link }}" class="reset-button" target="_blank" align="center" role="presentation" valign="middle">Confirm Your Email</a>
+    <br>
     <p>All set? Perfect. Let's get YNABing!</p>
   </div>
   <div class="email-footer">

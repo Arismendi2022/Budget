@@ -25,11 +25,10 @@
         Route::post('/send-password-reset-link','sendPasswordResetLink')->name('send_password_reset_link');
         Route::get('/password/reset/{token}','resetForm')->name('reset_password_form');
         Route::post('/reset-password-handler','resetPasswordHandler')->name('reset_password_handler');
-        Route::get('/register','registerCreate')->name('register');
-        Route::post('/register','registerStore')->name('store');
-        Route::get('/account/status/{token}','statusAccount')->name('status');
-
-
+        Route::get('/register','register')->name('register');
+        Route::post('/create','createUser')->name('create');
+        Route::get('/account/verify/{token}','verifyAccount')->name('verify');
+        //Route::get('/register-success','registerSuccess')->name('register-success');
       });
     });
 
