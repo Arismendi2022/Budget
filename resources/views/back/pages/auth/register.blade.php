@@ -116,7 +116,7 @@
           dataType: 'json',
           success: function(response) {
             if(response.status === 'success') {
-              $('#general-Message').text(response.success);
+              $('#general-Message').text(response.message);
               $form[0].reset();
             }
           },

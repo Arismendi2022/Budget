@@ -287,7 +287,7 @@
 
           return response()->json([
             'status'  => 'success',
-            'success' => 'Por favor revise su correo electrónico para verificar su cuenta antes de continuar.'
+            'message' => 'Por favor revise su correo electrónico para verificar su cuenta antes de continuar.'
           ],200);
         }else{
           // Manejar el caso en que el envío del correo falla
@@ -307,4 +307,31 @@
       }
     } //End Method
 
+    public function verifyAccount(Request $request,$token){
+      $verifyToken = VerificationToken::where('token',$token)->first();
+
+      if(!is_null($verifyToken)){
+        $users = User::where('email',$verifyToken->email)->first();
+
+        $email = $users->email;
+
+        if(!$users->verified){
+          $users->update([
+            'verified'          => 1,
+            'status'            => UserStatus::Active,
+            'email_verified_at' => Carbon::now()
+          ]);
+          return view('email-templates.confirmation',compact('email'));
+        }else{
+          return redirect()->route('admin.login');
+
+        }
+      }else{
+        return redirect()->back()
+          ->withErrors(['password' => 'Ocurrió un error inesperado. Inténtelo más tarde.'])
+          ->withInput($request->only('password'));
+      }
+    } //End Method
+
   }
+
