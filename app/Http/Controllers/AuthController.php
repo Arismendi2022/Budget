@@ -14,6 +14,7 @@
   use Illuminate\Support\Facades\DB;
   use Illuminate\Support\Facades\Hash;
   use Illuminate\Support\Str;
+  use App\Rules\StrongPassword;
 
   class AuthController extends Controller
   {
@@ -34,14 +35,14 @@
     public function loginHandler(Request $request){
       // Validación para correo electrónico
       $request->validate([
-        'email'    => 'required|email|exists:users,email',
-        'password' => 'required|min:5'
+        'email'    => 'required|email:rfc,dns|exists:users,email',
+        'password' => 'required|min:6'
       ],[
         'email.required'    => 'Se requiere correo electrónico.',
         'email.email'       => 'Dirección de correo electrónico no válida.',
         'email.exists'      => 'El correo electrónico no existe en el sistema.',
         'password.required' => 'Se requiere contraseña.',
-        'password.min'      => 'La contraseña debe tener al menos 5 caracteres.',
+        'password.min'      => 'La contraseña debe tener al menos 6 caracteres.',
       ]);
 
       // Credenciales para autenticación
@@ -58,9 +59,9 @@
           $request->session()->regenerateToken();
 
           return response()->json([
-            'status' => 'error',
-            'errors' => ['password' => 'Su cuenta está inactiva en este momento. Póngase en contacto con soporte técnico en soporte@ynab.co.']
-          ],422);
+            'status'  => 'error',
+            'message' => 'Su cuenta está inactiva en este momento. Póngase en contacto con soporte técnico en soporte@ynab.co.'
+          ],500);
         }
         // Check if account is in Pending mode
         if(auth()->user()->status == UserStatus::Pending){
@@ -69,9 +70,9 @@
           $request->session()->regenerateToken();
 
           return response()->json([
-            'status' => 'error',
-            'errors' => ['password' => 'Su cuenta está actualmente pendiente de aprobación. Por favor, revise su correo electrónico para obtener más instrucciones.']
-          ],422);
+            'status'  => 'error',
+            'message' => 'Su cuenta está actualmente pendiente de aprobación. Por favor, revise su correo electrónico para obtener más instrucciones.'
+          ],500);
         }
 
         // Redirect user to dashboard
@@ -81,8 +82,10 @@
         ]);
       }else{
         return response()->json([
-          'status' => 'error',
-          'errors' => ['password' => 'Contraseña incorrecta.']
+          'success' => false,
+          'errors'  => [
+            'password' => ['La contraseña es incorrecta.']
+          ]
         ],422);
       }
     }//End Method
@@ -233,7 +236,7 @@
       //Validate User registreation Form
       $request->validate([
         'email'    => 'required|email:rfc,dns|lowercase|unique:users',
-        'password' => 'required|min:6|max:20',
+        'password' => ['required','min:6','max:20', new StrongPassword],
       ],[
         'email.required'    => 'Se requiere correo electrónico.',
         'email.email'       => 'Dirección de correo electrónico no válida.',

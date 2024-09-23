@@ -48,6 +48,7 @@
 							</span>
               <label class="error" id="password-error" for="request_data_password"></label>
             </p>
+            <span id="general-Message" class="notice"></span> <!-- Span para errores generales -->
             <p class="authentications-panel__form-options">
               <label for="request_data_remember_me">
                 <input data-login-target="rememberMeInput" type="checkbox" value="1" name="request_data[remember_me]" id="request_data_remember_me">
@@ -111,27 +112,35 @@
   <script>
     //Muetra la contraseña
     $(document).ready(function() {
-      const passwordField = $('#request_data_password');
-      const togglePassword = $('#togglePassword');
+      const $passwordField = $('#request_data_password');
+      const $togglePassword = $('#togglePassword');
+      const $emailField = $('#request_data_email');
+      const $form = $('#login-form');
 
-      togglePassword.on('change', function() {
-        // Toggle the type attribute
-        const type = passwordField.attr('type') === 'password' ? 'text' : 'password';
-        passwordField.attr('type', type);
+      // Toggle password visibility
+      $togglePassword.on('change', function() {
+        $passwordField.attr('type', this.checked ? 'text' : 'password');
       });
-    });
 
-    // Realiza la autenticacion en el login.
-    $(document).ready(function() {
-      $('#login-form').on('submit', function(e) {
+      // Clear specific errors on input
+      const fieldsWithErrors = {
+        email: $emailField,
+        password: $passwordField
+      };
+
+      Object.entries(fieldsWithErrors).forEach(([key, $field]) => {
+        $field.on('input', () => $(`#${key}-error`).text(''));
+      });
+
+      // Realiza la autenticacion en el login.
+      // Handle form submission
+      $form.on('submit', function(e) {
         e.preventDefault();
-
-        const formData = $(this).serialize();
 
         $.ajax({
           url: $(this).attr('action'),
           method: $(this).attr('method'),
-          data: formData,
+          data: $form.serialize(),
           dataType: 'json',
           success: function(response) {
             if(response.status === 'success') {
@@ -141,41 +150,34 @@
           },
 
           error: function(xhr) {
-            if(xhr.status === 422) { // 422 Errores de validación
+            if(xhr.status === 422) {
               const errors = xhr.responseJSON.errors;
-              let emailHasError = false;
-              let passwordHasError = false;
+              let focusSet = false;
 
-              // Mostrar errores de validación en los campos correspondientes
-              if(errors['email']) {
-                $('#email-error').text(errors['email']);
-                emailHasError = true;
-              }
-              if(errors['password']) {
-                $('#password-error').text(errors['password']);
-                passwordHasError = true;
-              }
-              // Control de enfoque
-              if(emailHasError) {
-                $('#request_data_email').focus();
-              } else if(passwordHasError) {
-                $('#request_data_password').focus();
-                // Limpiar el campo de contraseña
-                $('#request_data_password').val('');
+              Object.entries(fieldsWithErrors).forEach(([field, $field]) => {
+                const errorMessage = errors[field]?.[0] || '';
+                $(`#${field}-error`).text(errorMessage);
+                if(errorMessage) {
+                  $field.val('');
+                  if(!focusSet) {
+                    $field.focus();
+                    focusSet = true;
+                  }
+                }
+              });
+            } else if(xhr.status === 500) {
+              // Manejar error 500
+              const errorMessage = xhr.responseJSON.message || ''; // Accede al mensaje directamente
+              $('#general-Message').text(errorMessage);
+
+              // Limpiar todos los inputs si hay un error
+              if(errorMessage) {
+                Object.values(fieldsWithErrors).forEach($field => $field.val(''));
               }
             }
           }
         });
       });
-    });
-
-    // Agregar eventos de entrada específicos para limpiar errores específicos
-    $('#request_data_email').on('input', function() {
-      $('#email-error').text('');  // Limpiar el mensaje de error del email
-    });
-
-    $('#request_data_password').on('input', function() {
-      $('#password-error').text('');  // Limpiar el mensaje de error de la contraseña
     });
 
   </script>
