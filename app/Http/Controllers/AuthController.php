@@ -6,6 +6,7 @@
   use App\Helpers\ConstDefaults;
   use App\Models\User;
   use App\Models\VerificationToken;
+  use App\Rules\StrongPassword;
   use App\UserStatus;
   use App\UserType;
   use Illuminate\Http\Request;
@@ -14,7 +15,6 @@
   use Illuminate\Support\Facades\DB;
   use Illuminate\Support\Facades\Hash;
   use Illuminate\Support\Str;
-  use App\Rules\StrongPassword;
 
   class AuthController extends Controller
   {
@@ -131,11 +131,9 @@
         'user'       => $user
       ];
 
-      $mail_body = view('email-templates.forgot-template',$data)->render();
+      $mail_body = view('emails.forgot-template',$data)->render();
 
       $mailConfig = [
-        'from_address'      => 'noreply@ynab.co',
-        'from_name'         => 'Ynab Budget',
         'recipient_address' => $user->email,
         'recipient_name'    => $user->name,
         'subject'           => 'Reset Password',
@@ -166,13 +164,12 @@
     public function resetPasswordHandler(Request $request){
       //Validate the form
       $request->validate([
-        'new_password' => 'required|min:6|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+        'new_password' => ['required','min:6','max:20',new StrongPassword],
 
       ],[
-        'required'           => 'Se requiere nueva contraseña.',
-        'min'                => 'La nueva contraseña debe tener al menos 6 caracteres.',
-        'max'                => 'La nueva contraseña no debe exceder más de 20 caracteres.',
-        'new_password.regex' => 'La nueva contraseña debe contener al menos una letra mayúscula, una minúscula, un número y un carácter especial.',
+        'required' => 'Se requiere nueva contraseña.',
+        'min'      => 'La nueva contraseña debe tener al menos 6 caracteres.',
+        'max'      => 'La nueva contraseña no debe exceder más de 20 caracteres.',
       ]);
 
       $dbToken = DB::table('password_reset_tokens')->where('token',$request->token)->first();
@@ -199,7 +196,7 @@
         'new_password' => $request->new_password
       ];
 
-      $mail_body = view('email-templates.password-changes-template',$data)->render();
+      $mail_body = view('emails.password-changes-template',$data)->render();
 
       $mailConfig = [
         'from_address'      => 'noreply@ynab.co',
@@ -236,7 +233,7 @@
       //Validate User registreation Form
       $request->validate([
         'email'    => 'required|email:rfc,dns|lowercase|unique:users',
-        'password' => ['required','min:6','max:20', new StrongPassword],
+        'password' => ['required','min:6','max:20',new StrongPassword],
       ],[
         'email.required'    => 'Se requiere correo electrónico.',
         'email.email'       => 'Dirección de correo electrónico no válida.',
@@ -274,11 +271,9 @@
         ];
 
         //Send Activation link to this user email
-        $mail_body = view('email-templates.verify-template',$data)->render();
+        $mail_body = view('emails.verify-template',$data)->render();
 
         $mailConfig = [
-          'from_address'      => 'noreply@ynab.co',
-          'from_name'         => 'Ynab Budget',
           'recipient_address' => $user->email,
           'recipient_name'    => $user->name,
           'subject'           => 'Password Changed',
@@ -324,7 +319,7 @@
             'status'            => UserStatus::Active,
             'email_verified_at' => Carbon::now()
           ]);
-          return view('email-templates.confirmation',compact('email'));
+          return view('emails.confirmation',compact('email'));
         }else{
           return redirect()->route('admin.login');
 
@@ -336,5 +331,7 @@
       }
     } //End Method
 
+
   }
+
 

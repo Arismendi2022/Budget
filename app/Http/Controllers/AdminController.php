@@ -4,6 +4,7 @@
 
   use App\Helpers\CMail;
   use App\Models\User;
+  use App\Rules\StrongPassword;
   use Illuminate\Http\Request;
   use Illuminate\Support\Facades\Auth;
   use Illuminate\Support\Facades\DB;
@@ -69,57 +70,57 @@
             }
           }
         ],
-        'new_password'     => 'required|min:6|max:20|different:current_password|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+        'new_password'     => ['required','min:6','max:20','different:current_password',new StrongPassword],
       ],[
         'new_password.required'  => 'El campo nueva contraseña es obligatorio.',
         'new_password.min'       => 'La nueva contraseña debe tener al menos 6 caracteres.',
         'new_password.max'       => 'La nueva contraseña no debe exceder más de 20 caracteres.',
         'new_password.different' => 'La nueva contraseña debe ser diferente a la contraseña actual.',
-        'new_password.regex'     => 'La nueva contraseña debe contener al menos una letra mayúscula, una minúscula, un número y un carácter especial.',
       ]);
 
       DB::beginTransaction();
       try{
 
-        //Update user password
-        $updated = $user->update([
+        // Actualizar la contraseña del usuario
+        $user->update([
           'password' => Hash::make($request->new_password)
         ]);
 
-        //Send email notification to this user
+        // Preparar datos para el correo
         $data = [
           'user'         => $user,
           'new_password' => $request->new_password,
         ];
 
-        $mail_body = view('email-templates.password-changes-template',$data);
+        // Generar el cuerpo del correo
+        $mailBody = view('emails.password-changes-template', $data)->render();
 
-        $mail_Config = [
-          'from_address'      => 'noreply@ynab.co',
-          'from_name'         => 'Ynab Budget',
+        // Configuración del correo
+        $mailConfig = [
           'recipient_address' => $user->email,
           'recipient_name'    => $user->name,
-          'subject'           => 'Password Changed',
-          'body'              => $mail_body
+          'subject'           => 'Contraseña Cambiada',
+          'body'              => $mailBody
         ];
 
-        CMail::send($mail_Config);
+        // Enviar el correo
+        CMail::send($mailConfig);
 
         DB::commit();
 
         return response()->json([
           'status'  => 'success',
-          'success' => 'Su contraseña ha sido cambiada con éxito.'
-        ],200);
+          'message' => 'Su contraseña ha sido cambiada con éxito.'
+        ], 200);
 
       } catch(\Exception $e){
-        // En caso de cualquier error, revertimos la transacción
         DB::rollBack();
+        \Log::error('Error al cambiar la contraseña: '.$e->getMessage());
 
         return response()->json([
-          'status' => 'error',
-          'errors' => ['new_password' => ['Se produjo un error. Inténtelo nuevamente más tarde.']]
-        ],422);
+          'status'  => 'error',
+          'message' => 'Se produjo un error. Inténtelo nuevamente más tarde.'
+        ],500);
       }
     } //End Method
 

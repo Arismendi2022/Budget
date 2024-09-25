@@ -2,8 +2,8 @@
 
   namespace App\Helpers;
 
-  use PHPMailer\PHPMailer\Exception;
   use PHPMailer\PHPMailer\PHPMailer;
+  use PHPMailer\PHPMailer\Exception;
 
   class CMail
   {
@@ -25,8 +25,8 @@
 
         //Recipients
         $mail->setFrom(
-          isset($config['from_address']) ? $config['from_address'] : config('services.mail.from.address'),
-          isset($config['from_address']) ? $config['from_name'] : config('services.mail.from_name')
+          isset($config['from_address']) ? $config['from_address'] : config('services.mail.from_address'),
+          isset($config['from_name']) ? $config['from_name'] : config('services.mail.from_name')
         );
         $mail->addAddress($config['recipient_address'],isset($config['recipient_name']) ? $config['recipient_name'] : null);
 
@@ -42,7 +42,8 @@
         }
 
       } catch(Exception $e){
-        return false;
+        // En caso de error, puedes retornar el mensaje de error
+        return "Error al enviar el correo: " . $mail->ErrorInfo;
       }
     }
 

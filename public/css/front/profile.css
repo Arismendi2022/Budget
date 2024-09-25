@@ -285,7 +285,7 @@ strong {
   border: 1px solid #d2e3fc;
   color: #3c4043;
   cursor: pointer;
-  font-family: "Google Sans",arial,sans-serif;
+  font-family: "Google Sans", arial, sans-serif;
   font-size: 14px;
   height: 40px;
   letter-spacing: 0.25px;
@@ -520,9 +520,27 @@ a.button.button-destructive {
 }
 /* || MESSAGE ERROR */
 .form p label.error {
-  color: #c40303;
-  margin-top: 3px;
+  color: var(--labelNegative, #C72C1E);
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.007em;
+  margin-top: 0.5rem;
+  width: 100%;
 }
+
+span.notice {
+  color: var(--labelNegative, #C72C1E);
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+
 
 
 

@@ -664,7 +664,7 @@ a:active, a:hover, a:focus, a:visited:active, a:visited:hover, a:visited:focus {
 }
 .form p label.error, .form p label.apple-error, .form p label.google-error {
 	color: #c40303;
-	margin-top: 3px;
+	margin-top: 5px;
 }
 .form p.error, .form p.apple-error, .form p.google-error, .form p label.error, .form p label.apple-error, .form p label.google-error {
 	color: #c40303;

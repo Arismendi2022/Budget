@@ -85,9 +85,9 @@
 @push('scripts')
   <script>
     $(document).ready(function() {
+      const $emailField = $('#request_data_email_signup');
       const $passwordField = $('#request_data_password_signup');
       const $togglePassword = $('#togglePassword');
-      const $emailField = $('#request_data_email_signup');
       const $form = $('#register-form');
 
       // Toggle password visibility

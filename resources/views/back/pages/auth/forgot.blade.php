@@ -37,34 +37,34 @@
 @push('scripts')
   <script>
     // Este enfoque asegura que el mensaje de error se elimine
-    document.addEventListener('DOMContentLoaded', function () {
-      const passwordField = document.getElementById('request_data_email');
-      const errorLabel = document.querySelector('.error[for="request_data_email"]');
 
-      if (passwordField && errorLabel) {
-        passwordField.addEventListener('input', function () {
-          errorLabel.style.display = 'none';
-        });
-      }
-    });
+    $(document).ready(function() {
+      const $emailField = $('#request_data_email');
+      const $form = $('#password-reset-form');
 
-    //Mostrar seccion de exito al enviar el email cambiar password.
-    $(document).ready(function () {
-      $('#password-reset-form').on('submit', function (e) {
+      // Clear specific errors on input
+      const fieldsWithErrors = {
+        email: $emailField,
+      };
+
+      Object.entries(fieldsWithErrors).forEach(([key, $field]) => {
+        $field.on('input', () => $(`#${key}-error`).text(''));
+      });
+
+      //Mostrar seccion de exito al enviar el email cambiar password.
+      $form.on('submit', function(e) {
         e.preventDefault();
-
-        const formData = $(this).serialize();
 
         $.ajax({
           url: $(this).attr('action'),
           method: $(this).attr('method'),
-          data: formData,
+          data: $form.serialize(),
           dataType: 'json',
-          success: function (response) {
+          success: function(response) {
             // Restablecer los mensajes de error
             $('#email-error').hide().text('');
 
-            if (response.success) {
+            if(response.success) {
               // Ocultar la sección del formulario
               $('[data-new-passwords-target="passwordsContainer"]').hide();
 
@@ -75,19 +75,28 @@
               $('.js-email').text(response.email);
             } else {
               // Mostrar mensajes de error en el DOM
-              if (response.errors.email) {
+              if(response.errors.email) {
                 $('#email-error').text(response.errors.email[0]).show();
               }
             }
           },
-          error: function (xhr) {
-            if (xhr.status === 422) { // 422 Errores de validación
+          error: function(xhr) {
+            if(xhr.status === 422) { // 422 Errores de validación
               const errors = xhr.responseJSON.errors;
+              let focusSet = false;
 
               // Mostrar errores de validación en los campos correspondientes
-              if (errors.email) {
-                $('#email-error').text(errors.email[0]).show();
-              }
+              Object.entries(fieldsWithErrors).forEach(([field, $field]) => {
+                const errorMessage = errors[field]?.[0] || '';
+                $(`#${field}-error`).text(errorMessage);
+                if(errorMessage) {
+                  $field.val('');
+                  if(!focusSet) {
+                    $field.focus();
+                    focusSet = true;
+                  }
+                }
+              });
             }
           }
         });

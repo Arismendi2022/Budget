@@ -133,7 +133,6 @@
       });
 
       // Realiza la autenticacion en el login.
-      // Handle form submission
       $form.on('submit', function(e) {
         e.preventDefault();
 

@@ -34,7 +34,6 @@
         'channel'              => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
       ],
     ],
-
     'mail' => [
       'host'         => env('CMAIL_HOST'),
       'username'     => env('CMAIL_USERNAME'),
