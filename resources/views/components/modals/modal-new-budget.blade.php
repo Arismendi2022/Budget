@@ -184,19 +184,9 @@
               <div class="x-select-container">
                 <select class="js-x-select" id="modal-settings-currency-placement">
                   <!---->
-                  <option value="Symbol First">
-                    Before amount (
-                    <bdi>$</bdi>
-                    123,456.78)
-                  </option>
-                  <option value="Symbol Last">
-                    After amount (123,456.78
-                    <bdi>$</bdi>
-                    )
-                  </option>
-                  <option value="Symbol None">
-                    Don't show (123,456.78)
-                  </option>
+                  <option value="Symbol First">Before amount (<bdi>$</bdi>123,456.78)</option>
+                  <option value="Symbol Last">After amount (123,456.78)<bdi>$</bdi>
+                  </option><option value="Symbol None">Don't show (123,456.78)</option>
                 </select>
               </div>
             </div>
@@ -207,21 +197,11 @@
           <div class="x-select-container  ">
             <select class="js-x-select" id="modal-settings-currency-format">
               <!---->
-              <option value="123,456.78">
-                123,456.78
-              </option>
-              <option value="123.456,78">
-                123.456,78
-              </option>
-              <option value="123,456.789">
-                123,456.789
-              </option>
-              <option value="123 456.78">
-                123 456.78
-              </option>
-              <option value="123'456.78">
-                123'456.78
-              </option>
+              <option value="123,456.78">123,456.78</option>
+              <option value="123.456,78">123.456,78</option>
+              <option value="123,456.789">123,456.789</option>
+              <option value="123 456.78">123 456.78</option>
+              <option value="123'456.78">123'456.78</option>
               <option value="123.456">
                 123.456
               </option>
@@ -251,27 +231,13 @@
           <div class="x-select-container  ">
             <select class="js-x-select" id="modal-settings-date-format">
               <!---->
-              <option value="YYYY/MM/DD">
-                2024/12/30
-              </option>
-              <option value="YYYY-MM-DD">
-                2024-12-30
-              </option>
-              <option value="DD-MM-YYYY">
-                30-12-2024
-              </option>
-              <option value="DD/MM/YYYY">
-                30/12/2024
-              </option>
-              <option value="DD.MM.YYYY">
-                30.12.2024
-              </option>
-              <option value="MM/DD/YYYY">
-                12/30/2024
-              </option>
-              <option value="YYYY.MM.DD">
-                2024.12.30
-              </option>
+              <option value="YYYY/MM/DD">2024/12/30</option>
+              <option value="YYYY-MM-DD">2024-12-30</option>
+              <option value="DD-MM-YYYY">30-12-2024</option>
+              <option value="DD/MM/YYYY">30/12/2024</option>
+              <option value="DD.MM.YYYY">30.12.2024</option>
+              <option value="MM/DD/YYYY">12/30/2024</option>
+              <option value="YYYY.MM.DD">2024.12.30</option>
             </select>
           </div>
         </form>
@@ -313,7 +279,7 @@
       selectElements.forEach(selectElement => {
         const container = selectElement.closest('.x-select-container');
 
-        if (container) {
+        if(container) {
           selectElement.addEventListener('focus', () => {
             container.classList.add('focused');
           });
@@ -330,7 +296,7 @@
       const modalOverlay = document.getElementById('ember150');
 
       cancelBtn.addEventListener('click', () => {
-        modalOverlay.classList.remove('modal-overlay','active'); // Cierra el modal del menú
+        modalOverlay.classList.remove('modal-overlay', 'active'); // Cierra el modal del menú
       });
     });
 

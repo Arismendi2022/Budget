@@ -230,8 +230,8 @@
     } //End Method
 
     public function createUser(Request $request){
-      //Validate User registreation Form
-      $request->validate([
+      // Validación
+      $validatedData = $request->validate([
         'email'    => 'required|email:rfc,dns|lowercase|unique:users',
         'password' => ['required','min:6','max:20',new StrongPassword],
       ],[
@@ -245,90 +245,83 @@
       ]);
 
       // Usar transacción para las operaciones en la base de datos
-      DB::beginTransaction();
-      try{
-
+      return DB::transaction(function() use ($validatedData,$request){
         // Crear el usuario
         $user = User::create([
-          'email'    => $request->email,
-          'password' => Hash::make($request->password),
+          'email'    => $validatedData['email'],
+          'password' => Hash::make($validatedData['password']),
         ]);
 
-        //Generate token
+        // Generar token (manteniendo la versión original)
         $token = base64_encode(Str::random(64));
 
         VerificationToken::create([
           'user_type' => UserType::Admin,
-          'email'     => $request->email,
+          'email'     => $user->email,
           'token'     => $token
         ]);
-        // Obtener datos del usuario y construir el enlace de verificación
+
+        // Construir el enlace de verificación
         $actionLink = route('admin.verify',['token' => $token]);
 
-        $data = [
+        // Preparar datos para la vista del correo
+        $mailData = [
           'action_link' => $actionLink,
-          'users_email' => $request->email,
+          'users_email' => $user->email,
         ];
 
-        //Send Activation link to this user email
-        $mail_body = view('emails.verify-template',$data)->render();
+        // Renderizar el cuerpo del correo
+        $mailBody = view('emails.verify-template',$mailData)->render();
 
+        // Configurar el correo
         $mailConfig = [
           'recipient_address' => $user->email,
-          'recipient_name'    => $user->name,
-          'subject'           => 'Password Changed',
-          'body'              => $mail_body
+          'recipient_name'    => $user->name ?? '',
+          'subject'           => 'Verificación de cuenta',
+          'body'              => $mailBody
         ];
 
-        if(CMail::send($mailConfig)){
-          DB::commit();
-
-          return response()->json([
-            'status'  => 'success',
-            'message' => 'Por favor revise su correo electrónico para verificar su cuenta antes de continuar.'
-          ],200);
-        }else{
-          // Manejar el caso en que el envío del correo falla
-          DB::rollBack();
-          return response()->json([
-            'status'  => 'error',
-            'message' => 'Error al enviar el correo electrónico.'
-          ],500);
+        // Enviar el correo
+        if(!CMail::send($mailConfig)){
+          throw new \Exception('Error al enviar el correo electrónico.');
         }
 
-      } catch(\Exception $e){
-        DB::rollBack();
         return response()->json([
-          'status'  => 'error',
-          'message' => 'Ocurrió un error inesperado. Inténtelo más tarde.'
-        ],500);
-      }
+          'status'  => 'success',
+          'message' => 'Por favor revise su correo electrónico para verificar su cuenta antes de continuar.'
+        ],200);
+      });
     } //End Method
 
     public function verifyAccount(Request $request,$token){
+      // Buscar el token de verificación
       $verifyToken = VerificationToken::where('token',$token)->first();
 
-      if(!is_null($verifyToken)){
-        $users = User::where('email',$verifyToken->email)->first();
-
-        $email = $users->email;
-
-        if(!$users->verified){
-          $users->update([
-            'verified'          => 1,
-            'status'            => UserStatus::Active,
-            'email_verified_at' => Carbon::now()
-          ]);
-          return view('emails.confirmation',compact('email'));
-        }else{
-          return redirect()->route('admin.login');
-
-        }
-      }else{
-        return redirect()->back()
-          ->withErrors(['password' => 'Ocurrió un error inesperado. Inténtelo más tarde.'])
-          ->withInput($request->only('password'));
+      if(!$verifyToken){
+        // Si no se encuentra el token, redirigir con un mensaje de error
+        return redirect()->route('admin.login');
       }
+
+      // Buscar el usuario asociado al token
+      $user = User::where('email',$verifyToken->email)->first();
+
+      if(!$user->verified){
+        // Actualizar el estado del usuario
+        $user->update([
+          'verified'          => true,
+          'status'            => UserStatus::Active,
+          'email_verified_at' => Carbon::now()
+        ]);
+
+        // Eliminar el token de verificación usado
+        $verifyToken->delete();
+
+        // Redirigir a la vista de confirmación
+        return view('emails.confirmation',['email' => $user->email]);
+      }
+
+      // Si el usuario ya está verificado, redirigir al login
+      return redirect()->route('admin.login');
     } //End Method
 
 

@@ -21,7 +21,6 @@
         'pageTitle' => 'Budget | YNAB',
       ];
       // Recuperar todos los usuarios
-      /*$users = User::all();*/
       $users = null;
       $users = User::findOrFail(Auth()->id());
 
