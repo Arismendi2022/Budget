@@ -3,6 +3,8 @@
   use App\Http\Controllers\AccountController;
   use App\Http\Controllers\AdminController;
   use App\Http\Controllers\AuthController;
+  use App\Http\Controllers\BudgetController;
+  use App\Models\BudgetAccount;
   use Illuminate\Support\Facades\Route;
 
   Route::get('/',[AdminController::class,'index']);
@@ -40,6 +42,15 @@
         Route::get('/edit_login','editLogin')->name('edit_login');
         Route::post('/change-password','changePassword')->name('change_password');
       });
+    });
+  });
+
+  //Grupo Add Account
+  Route::prefix('budget')->name('budget.')->group(function(){
+    Route::controller(budgetController::class)->group(function(){
+      Route::post('/create','createBudget')->name('create');
+
+
     });
   });
 

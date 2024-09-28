@@ -1661,7 +1661,6 @@ a:focus-visible, div:focus-visible, li:focus-visible {
 .modal-fresh .modal {
   border-radius: .5rem;
 }
-
 .modal-fresh .modal-fresh-header {
   color: var(--labelPrimary);
   border-bottom: 1px solid var(--separatorSubdued);
@@ -2084,11 +2083,7 @@ select {
 .account-widget input:focus-visible {
   border: .0625rem solid var(--actionPrimary);
 }
-.x-select-container select:focus, input:focus {
-  border: .0625rem solid #3b5eda;
-  border: .0625rem solid var(--inputBorderActive);
-  outline: 0;
-}
+
 /* || ERRORS */
 .account-widget .y-form-field.has-errors input {
   border-bottom-left-radius: 0;
@@ -2111,6 +2106,9 @@ select {
   margin: 0 0 .5em;
   padding: 0;
   color: var(--calloutNegativeLabel);
+}
+ul.warnings{
+  display: none;
 }
 .field-with-error.has-errors ul.errors li {
   color: var(--calloutNegativeLabel);

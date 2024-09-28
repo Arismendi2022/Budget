@@ -1,5 +1,5 @@
 {{-- modal new budget --}}
-<div id="ember150" class="modal-fresh mod-skinny modal-budget-settings ">
+<div id="newBudget" class="modal-fresh mod-skinny modal-budget-settings ">
   <div class="modal" role="dialog" aria-modal="true" style="left: 720px; top: 263.5px;">
     <div class="modal-fresh-header">
       <div class="modal-fresh-title">
@@ -18,20 +18,24 @@
     </div>
     <div class="modal-fresh-body">
       <section>
-        <form>
+        <form id="new-budget-form" action="{{ route('budget.create') }}" method="POST">
+          @csrf
           <label for="budget-name" class="type-body-bold">Budget Name</label>
           <div class="field-with-error">
             <div>
-              <input id="modal-settings-budget-name" class="ember-text-field ember-view modal-budget-settings-name" type="text">
+              <input id="modal-settings-budget-name" name="name" class="ember-text-field ember-view modal-budget-settings-name" type="text" value="{{ old('name') }}">
             </div>
             <!---->
-            <!---->
+            <ul class="errors warnings">
+              <li id="message-error"></li>
+            </ul>
           </div>
+          <!---->
           <div class="modal-budget-settings-currency-fields">
             <div>
               <label for="modal-settings-currency" class="type-body-bold">Currency</label>
               <div class="x-select-container">
-                <select class="js-x-select" id="modal-settings-currency">
+                <select class="js-x-select" id="modal-settings-currency" name="currency">
                   <!----><!---->
                   <optgroup label="Common Currencies">
                     <option value="USD">US Dollar–USD</option>
@@ -182,11 +186,15 @@
                 Currency Placement
               </label>
               <div class="x-select-container">
-                <select class="js-x-select" id="modal-settings-currency-placement">
-                  <!---->
-                  <option value="Symbol First">Before amount (<bdi>$</bdi>123,456.78)</option>
-                  <option value="Symbol Last">After amount (123,456.78)<bdi>$</bdi>
-                  </option><option value="Symbol None">Don't show (123,456.78)</option>
+                <select class="js-x-select" id="modal-settings-currency-placement" name="currency_placement">
+                  <option value="Symbol First">Before amount (
+                    <bdi>$</bdi>
+                    123,456.78)
+                  </option>
+                  <option value="Symbol Last">After amount (123,456.78)
+                    <bdi>$</bdi>
+                  </option>
+                  <option value="Symbol None">Don't show (123,456.78)</option>
                 </select>
               </div>
             </div>
@@ -195,42 +203,26 @@
             Number Format
           </label>
           <div class="x-select-container  ">
-            <select class="js-x-select" id="modal-settings-currency-format">
-              <!---->
+            <select class="js-x-select" id="modal-settings-currency-format" name="number_format">
               <option value="123,456.78">123,456.78</option>
               <option value="123.456,78">123.456,78</option>
               <option value="123,456.789">123,456.789</option>
               <option value="123 456.78">123 456.78</option>
               <option value="123'456.78">123'456.78</option>
-              <option value="123.456">
-                123.456
-              </option>
-              <option value="123,456">
-                123,456
-              </option>
-              <option value="123 456-78">
-                123 456-78
-              </option>
-              <option value="123 456,78">
-                123 456,78
-              </option>
-              <option value="123,456/78">
-                123,456/78
-              </option>
-              <option value="123 456">
-                123 456
-              </option>
-              <option value="1,23,456.78">
-                1,23,456.78
-              </option>
+              <option value="123.456">123.456</option>
+              <option value="123,456">123,456</option>
+              <option value="123 456-78">123 456-78</option>
+              <option value="123 456,78">123 456,78</option>
+              <option value="123,456/78">123,456/78</option>
+              <option value="123 456">123 456</option>
+              <option value="1,23,456.78">1,23,456.78</option>
             </select>
           </div>
           <label for="modal-settings-date-format" class="type-body-bold">
             Date Format
           </label>
           <div class="x-select-container  ">
-            <select class="js-x-select" id="modal-settings-date-format">
-              <!---->
+            <select class="js-x-select" id="modal-settings-date-format" name="date_format">
               <option value="YYYY/MM/DD">2024/12/30</option>
               <option value="YYYY-MM-DD">2024-12-30</option>
               <option value="DD-MM-YYYY">30-12-2024</option>
@@ -257,47 +249,64 @@
 </div>
 @push('scripts')
   <script>
-    //Ajusta el left y top del modal
-    function centrarModal() {
-      const modal = document.querySelector('.modal-fresh .modal');
-      const {innerWidth: width, innerHeight: height} = window;
-      const modalWidth = modal.offsetWidth;
-      const modalHeight = modal.offsetHeight;
+    // Código optimizado para manejar el modal y el formulario
+    $(function() {
+      // Función para centrar el modal
+      function centrarModal() {
+        const $modal = $('.modal-fresh .modal');
+        const width = $(window).innerWidth();
+        const height = $(window).innerHeight();
 
-      modal.style.left = `${(width - modalWidth) / 2}px`;
-      modal.style.top = `${(height - modalHeight) / 2}px`;
-    }
+        $modal.css({
+          left: `${(width - $modal.outerWidth()) / 2}px`,
+          top: `${(height - $modal.outerHeight()) / 2}px`
+        });
+      }
 
-    window.addEventListener('resize', centrarModal);
-    window.addEventListener('load', centrarModal);
-    document.addEventListener('DOMContentLoaded', centrarModal);
-    <!---->
-    //activa el focus a los select
-    document.addEventListener('DOMContentLoaded', () => {
-      const selectElements = document.querySelectorAll('.js-x-select');
+      // Centrar el modal al cargar y redimensionar
+      $(window).on('resize load', centrarModal);
 
-      selectElements.forEach(selectElement => {
-        const container = selectElement.closest('.x-select-container');
+      // Manejar el envío del formulario
+      $('.modal-fresh-footer').on('click', '.ynab-button.primary', function() {
+        const $form = $('#new-budget-form');
 
-        if(container) {
-          selectElement.addEventListener('focus', () => {
-            container.classList.add('focused');
-          });
+        $.ajax({
+          url: $form.attr('action'),
+          method: $form.attr('method'),
+          data: $form.serialize(),
+          dataType: 'json',
+          success: function(response) {
+            if(response.success) {
+              closeModal(); // Llamar a la función para cerrar el modal
+            }
+          },
+          error: function(xhr) {
+            if(xhr.status === 422) {
+              const errors = xhr.responseJSON.errors;
 
-          selectElement.addEventListener('blur', () => {
-            container.classList.remove('focused');
-          });
-        }
+              if(errors.name) {
+                $('.field-with-error').addClass('has-errors');
+                $('.errors').removeClass('warnings'); // Quita la clase 'warnings'
+                $('#message-error').text(errors.name[0]);
+              }
+            } else {
+              // Mensaje genérico para otros errores
+              $('#message-error').text('Ocurrió un error, por favor intenta de nuevo.');
+            }
+          }
+        });
       });
-    });
-    // cierra el modal
-    document.addEventListener('DOMContentLoaded', () => {
-      const cancelBtn = document.querySelector('.secondary')
-      const modalOverlay = document.getElementById('ember150');
 
-      cancelBtn.addEventListener('click', () => {
-        modalOverlay.classList.remove('modal-overlay', 'active'); // Cierra el modal del menú
-      });
+      $('.modal-fresh-footer .ynab-button.secondary').on('click', closeModal);
+
+      // Función para cerrar el modal
+      function closeModal() {
+        $('.errors').addClass('warnings');
+        $('.field-with-error').removeClass('has-errors');
+        $('#message-error').text('');
+        $('#new-budget-form')[0].reset();
+        $('#newBudget').removeClass('modal-overlay active');
+      }
     });
 
   </script>

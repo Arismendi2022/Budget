@@ -3,6 +3,7 @@
   namespace App\Http\Controllers;
 
   use App\Helpers\CMail;
+  use App\Models\BudgetDetail;
   use App\Models\User;
   use App\Rules\StrongPassword;
   use Illuminate\Http\Request;
@@ -21,10 +22,14 @@
         'pageTitle' => 'Budget | YNAB',
       ];
       // Recuperar todos los usuarios
-      $users = null;
-      $users = User::findOrFail(Auth()->id());
+      $users  = null;
+      $budget = null;
 
-      return view('front.pages.dashboard',$data,compact('users'));
+      $users = User::findOrFail(Auth()->id());
+      // Recuperar el presupuesto del usuario
+      $budget = BudgetDetail::where('user_id',$users->id)->first(); // Asegúrate de que 'user_id' es la clave foránea
+
+      return view('front.pages.dashboard',$data,compact('users','budget'));
     }
 
     public function logoutHandler(Request $request){
@@ -92,7 +97,7 @@
         ];
 
         // Generar el cuerpo del correo
-        $mailBody = view('emails.password-changes-template', $data)->render();
+        $mailBody = view('emails.password-changes-template',$data)->render();
 
         // Configuración del correo
         $mailConfig = [
@@ -110,7 +115,7 @@
         return response()->json([
           'status'  => 'success',
           'message' => 'Su contraseña ha sido cambiada con éxito.'
-        ], 200);
+        ],200);
 
       } catch(\Exception $e){
         DB::rollBack();

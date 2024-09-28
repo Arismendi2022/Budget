@@ -12,11 +12,11 @@
       Schema::create('budget_details',function(Blueprint $table){
         $table->id();
         $table->foreignId('user_id')->constrained()->onDelete('cascade');
-        $table->string('name');
-        $table->string('currency',3)->default('USD');
-        $table->enum('currency_placement',['Symbol First','Symbol Last','Symbol None'])->default('Symbol First');
-        $table->string('number_format')->default('123,456.78');
-        $table->string('date_format')->default('MM/DD/YYYY');
+        $table->string('name')->unique();
+        $table->string('currency',3);
+        $table->string('currency_placement');
+        $table->string('number_format');
+        $table->string('date_format');
         $table->timestamps();
       });
     }

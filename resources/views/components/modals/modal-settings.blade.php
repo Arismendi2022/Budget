@@ -5,7 +5,7 @@
     <ul class="modal-list">
       <li>
         <button class="modal-select-budget-create" type="button">
-          <svg class="ynab-new-icon " width="16" height="16">
+          <svg class="ynab-new-icon" width="16" height="16">
             <!---->
             <use href="#icon_sprite_plus_circle_fill">
               <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_plus_circle_fill" fill="none" viewBox="0 0 24 24">
@@ -326,32 +326,19 @@
 
 @push('scripts')
   <script>
-    <!---->
     //Activación modal New Bodget
-    document.addEventListener('DOMContentLoaded', function() {
-      const newBudget = document.querySelector(".modal-select-budget-create");
-      const modalOverlay = document.getElementById('ember150');
-      const modalSettings = document.getElementById('settings-menu');
-      const budgetNameInput = document.getElementById('modal-settings-budget-name');
-
-      // New Budget
-      newBudget.addEventListener('click', () => {
-        modalSettings.classList.add('active');
-        modalSettings.classList.remove('modal-overlay');
-
-        // Esperar a que la clase 'active' se aplique y el modal sea visible
-        setTimeout(() => {
-          centrarModal(modalSettings);
-          budgetNameInput.focus(); // Poner el foco en el input
-        }, 1); // Ajusta el tiempo si es necesario
-
-        modalOverlay.classList.toggle('active');
-        modalOverlay.classList.add('modal-overlay');
-
+    $(document).ready(function() {
+      $('.modal-select-budget-create').on('click', function() {
+        // Muestra el modal
+        $('#newBudget').addClass('modal-overlay active');
+        $('#settings-menu').removeClass('modal-overlay active'); //Cierra el modal settings
+        // Establece el foco en el campo de entrada
+        $('#modal-settings-budget-name').focus();
+        $('#modal-settings-date-format').val('MM/DD/YYYY'); // Establece la opción por defecto en el select
       });
     })
 
-    //Account Settings
+    //Activa modal Account Settings
     $(document).ready(function() {
       $('#accountSettings').on('click', function() {
         $('#settings-menu').removeClass('modal-overlay active'); // cerrar modal quitando clase

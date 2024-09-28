@@ -19,7 +19,7 @@
             <title>Arismendi's Budget</title>
           </svg>
           <div class="sidebar-nav-budget-email">
-            <span class="sidebar-nav-budget-email-budget">{{ $users->name ? $users->name : "Arismendi" }}'s Budget</span>
+            <span class="sidebar-nav-budget-email-budget">{{ $budget->name ?? 'Budget' }}'s Budget</span>
             <span class="sidebar-nav-budget-email-email button-truncate">{{ $users->email }}</span>
           </div>
           <svg class="ynab-new-icon" width="12" height="12">
