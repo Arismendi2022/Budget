@@ -6,7 +6,6 @@
   <div id="content" class="ynab-u content">
     <div class="content-min-break has-budget-views">
       <!---->
-      <!---->
       <header id="ember15" class="budget-header left-to-budget-is-positive">
         <div class="budget-header-flexbox">
           <div class="budget-header-item budget-header-calendar">

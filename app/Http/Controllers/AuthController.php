@@ -78,7 +78,7 @@
         // Redirect user to dashboard
         return response()->json([
           'status'   => 'success',
-          'redirect' => route('admin.dashboard')
+          'redirect' => route('admin.home')
         ]);
       }else{
         return response()->json([

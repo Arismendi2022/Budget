@@ -3,7 +3,6 @@
   namespace App\Http\Controllers;
 
   use App\Helpers\CMail;
-  use App\Models\BudgetDetail;
   use App\Models\User;
   use App\Rules\StrongPassword;
   use Illuminate\Http\Request;
@@ -17,20 +16,19 @@
       return redirect()->route('admin.login');
     }
 
-    public function adminDashboard(Request $request){
+    public function adminHome(Request $request){
+
+      $user   = Auth::user();
+      $budget = $user->budgetDetails()->first();
+
       $data = [
         'pageTitle' => 'Budget | YNAB',
+        'user'      => $user,
+        'budget'    => $budget,
       ];
-      // Recuperar todos los usuarios
-      $users  = null;
-      $budget = null;
 
-      $users = User::findOrFail(Auth()->id());
-      // Recuperar el presupuesto del usuario
-      $budget = BudgetDetail::where('user_id',$users->id)->first(); // Asegúrate de que 'user_id' es la clave foránea
-
-      return view('front.pages.dashboard',$data,compact('users','budget'));
-    }
+      return view('front.pages.home',$data);
+    } //End Method
 
     public function logoutHandler(Request $request){
       Auth::logout();

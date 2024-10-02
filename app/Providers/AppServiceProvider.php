@@ -20,9 +20,9 @@
      * Bootstrap any application services.
      */
     public function boot():void{
-      //Redirect an Authenticated User to dashboard
+      //Redirect an Authenticated User to home
       RedirectIfAuthenticated::redirectUsing(function(){
-        return route('admin.dashboard');
+        return route('admin.home');
       });
 
       //Redirect No Authenticated User to Admin Login Page

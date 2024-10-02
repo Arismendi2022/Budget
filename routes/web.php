@@ -4,7 +4,6 @@
   use App\Http\Controllers\AdminController;
   use App\Http\Controllers\AuthController;
   use App\Http\Controllers\BudgetController;
-  use App\Models\BudgetAccount;
   use Illuminate\Support\Facades\Route;
 
   Route::get('/',[AdminController::class,'index']);
@@ -36,7 +35,7 @@
 
     Route::middleware(['auth','preventBackHistory'])->group(function(){
       Route::controller(AdminController::class)->group(function(){
-        Route::get('/dashboard','adminDashboard')->name('dashboard');
+        Route::get('/home','adminHome')->name('home');
         Route::post('/logout','logoutHandler')->name('logout');
         Route::get('/settings','settingsView')->name('settings');
         Route::get('/edit_login','editLogin')->name('edit_login');
@@ -47,8 +46,10 @@
 
   //Grupo Add Account
   Route::prefix('budget')->name('budget.')->group(function(){
-    Route::controller(budgetController::class)->group(function(){
+    Route::controller(BudgetController::class)->group(function(){
       Route::post('/create','createBudget')->name('create');
+      Route::get('/edit','editBudget')->name('edit');
+      Route::post('/update/{id}','updateBudget')->name('update');
 
 
     });

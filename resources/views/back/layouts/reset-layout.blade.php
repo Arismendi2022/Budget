@@ -44,7 +44,8 @@
   <div class="copyright">© Copyright {{ date('Y') }} YNAB LLC. All rights reserved.</div>
 </footer>
 
-<script src="{{ asset('js/shared/jquery-3.7.1.min.js') }}"></script>
+{{-- <script src="{{ asset('js/shared/jquery-3.7.1.min.js') }}"></script> --}}
+<script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
 
 @stack('scripts')
 

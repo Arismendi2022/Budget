@@ -438,7 +438,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 .ynab-u {
   display: inline-block;
   *display: inline;
-  zoom: 1;
+  transform: 1;
   letter-spacing: normal;
   word-spacing: normal;
   text-rendering: auto;
@@ -512,6 +512,10 @@ button, input {
 }
 button, input, select {
   vertical-align: baseline;
+}
+input, select, textarea {
+  background-color: #fff;
+  background-color: var(--inputBackground);
 }
 .sidebar-nav-menu .sidebar-nav-ynab {
   flex: 0 0 auto;
@@ -1570,7 +1574,7 @@ button[disabled] {
   margin: 0;
   padding: .4rem 0;
   text-align: left;
-  zoom: 1;
+  transform: 1;
 }
 
 /* || LI */
@@ -1758,14 +1762,17 @@ form {
 }
 .modal-fresh input {
   height: 2rem;
+  margin: .5rem 0;
   padding: .25rem .5rem;
 }
-.modal-fresh input {
+.modal-fresh input, .modal-fresh select {
+  border: .0625rem solid #d2d8de;
   border: .0625rem solid var(--inputBorder);
   width: 100%;
   border-radius: .25rem;
 }
 .x-select-container select:focus, input:focus {
+  border: .0625rem solid #3b5eda;
   border: .0625rem solid var(--inputBorderActive);
   outline: 0;
 }
@@ -1907,7 +1914,7 @@ select {
   justify-content: center;
   margin: .3rem .625rem;
   width: 12.75rem;
-  zoom: 1;
+  transform: 1;
   padding: 0;
 }
 
@@ -1944,7 +1951,7 @@ select {
   justify-content: center;
   margin: .3rem .625rem;
   width: 12.75rem;
-  zoom: 1;
+  transform: 1;
   padding: 0;
 }
 .month-picker-months .month-picker-months-item.is-selected {
@@ -2107,7 +2114,7 @@ select {
   padding: 0;
   color: var(--calloutNegativeLabel);
 }
-ul.warnings{
+ul.warnings {
   display: none;
 }
 .field-with-error.has-errors ul.errors li {
@@ -2418,7 +2425,7 @@ ul.warnings{
   margin: 0;
 }
 .modal-generic .modal-content, .modal-generic dl, .modal-popup dl {
-  zoom: 1;
+  transform: 1;
 }
 .modal-popup.account-modal .modal-content .fieldset .section-header {
   font-size: 1rem;
@@ -2771,7 +2778,7 @@ input[type="checkbox"], input[type="radio"] {
 
 /* || CC-SAVE */
 .ynab-table {
-  zoom: 1;
+  transform: 1;
   display: block;
   margin: 0;
   padding: .5em 0 0;

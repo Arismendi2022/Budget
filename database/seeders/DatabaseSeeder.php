@@ -21,7 +21,7 @@
       ]);*/
 
       $this->call([
-        UserSeeder::class,
+        AdminUser::class,
       ]);
     }
 

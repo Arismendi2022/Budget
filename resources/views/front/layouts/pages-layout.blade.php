@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <link href="{{ asset('css/front/main.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('css/front/main.css') }}">
 
   <style>
   </style>
@@ -43,6 +43,8 @@
 <!---->
 @include('components.modals.modal-new-budget')
 <!---->
+@include('components.modals.modal-edit-budget')
+<!---->
 @include('components.modals.modal-calendar')
 <!---->
 @include('components.modals.modal-add-account')
@@ -69,7 +71,8 @@
 
 {{-- footer --}}
 
-<script src="{{ asset('js/shared/jquery-3.7.1.min.js') }}"></script>
+{{-- <script src="{{ asset('js/shared/jquery-3.7.1.min.js') }}"></script> --}}
+<script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
 
 @stack('scripts')
 </body>

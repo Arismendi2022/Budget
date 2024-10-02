@@ -1,6 +1,6 @@
 {{-- modal settings --}}
 <div id="settings-menu" class="ynab-u ynab-new-settings-menu">
-  <div class="modal" role="dialog" aria-modal="true" style="top: 54px; left: 24px;">
+  <div class="modal" role="dialog" aria-modal="true" style="top: 60px; left: 16px;">
     <!---->
     <ul class="modal-list">
       <li>
@@ -334,7 +334,15 @@
         $('#settings-menu').removeClass('modal-overlay active'); //Cierra el modal settings
         // Establece el foco en el campo de entrada
         $('#modal-settings-budget-name').focus();
-        $('#modal-settings-date-format').val('MM/DD/YYYY'); // Establece la opción por defecto en el select
+      });
+    })
+
+    //Activacion modal Busget Settings
+    $(document).ready(function() {
+      $('.modal-select-budget-settings').on('click', function() {
+        // Muestra el modal
+        $('#editBudget').addClass('modal-overlay active');
+        $('#settings-menu').removeClass('modal-overlay active'); //Cierra el modal settings
       });
     })
 

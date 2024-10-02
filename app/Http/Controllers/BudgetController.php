@@ -48,5 +48,24 @@
 
     } // End Method
 
+    public function editBudget(Request $request){
+
+      $user   = Auth::user();
+      $budget = $user->budgetDetails()->first();
+
+      $data = [
+        'user'   => $user,
+        'budget' => $budget,
+      ];
+
+      // Devuelve la vista de edición con los datos del presupuesto
+      return view('modal-edit-budget',$data);
+
+    } //End Method
+    function updateBudget(Request $request){
+
+
+    } //End Method
+
 
   }
