@@ -39,15 +39,15 @@
 </div>
 <!---->
 <!---->
-@include('components.modals.modal-settings')
+@include('front.modals.modal-settings')
 <!---->
-@include('components.modals.modal-new-budget')
+@include('front.modals.modal-new-budget')
 <!---->
-@include('components.modals.modal-edit-budget')
+@include('front.modals.modal-edit-budget')
 <!---->
-@include('components.modals.modal-calendar')
+@include('front.modals.modal-calendar')
 <!---->
-@include('components.modals.modal-add-account')
+@include('front.modals.modal-add-account')
 <!---->
 {{--@include('components.modals.modal-edit-account')--}}
 
@@ -71,8 +71,8 @@
 
 {{-- footer --}}
 
-{{-- <script src="{{ asset('js/shared/jquery-3.7.1.min.js') }}"></script> --}}
-<script src="https://code.jquery.com/jquery-3.7.1.js" crossorigin="anonymous"></script>
+{{-- JQUERY--}}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
 
 @stack('scripts')
 </body>

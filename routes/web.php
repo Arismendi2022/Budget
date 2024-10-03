@@ -49,9 +49,7 @@
     Route::controller(BudgetController::class)->group(function(){
       Route::post('/create','createBudget')->name('create');
       Route::get('/edit','editBudget')->name('edit');
-      Route::post('/update/{id}','updateBudget')->name('update');
-
-
+      Route::post('/update','updateBudget')->name('update');
     });
   });
 

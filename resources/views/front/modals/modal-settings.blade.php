@@ -337,7 +337,7 @@
       });
     })
 
-    //Activacion modal Busget Settings
+    //Activacion modal Budget Settings
     $(document).ready(function() {
       $('.modal-select-budget-settings').on('click', function() {
         // Muestra el modal

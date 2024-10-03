@@ -2102,16 +2102,19 @@ select {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
-/* || UL */
+/* || UL/LI */
 .account-widget .y-form-field ul.errors {
   border-bottom-left-radius: .5rem;
   border-bottom-right-radius: .5rem;
 }
 .field-with-error.has-errors ul.errors, .field-with-error.has-warnings ul.warnings {
   background-color: var(--calloutNegativeProminentBackground);
+  border-bottom-left-radius: .3em;
+  border-bottom-right-radius: .3em;
   font-size: .8em;
   margin: 0 0 .5em;
   padding: 0;
+  color: #3c0d09;
   color: var(--calloutNegativeLabel);
 }
 ul.warnings {

@@ -37,8 +37,8 @@
               <div class="x-select-container">
                 <select class="js-x-select" id="modal-settings-currency" name="currency">
                   <!---->
-                  @foreach (App\Helpers\FormatHelper::getCurrencies() as $group => $currencies)
-                    <optgroup label="{{ $group }}">
+                  @foreach (App\Helpers\FormatHelper::getCurrencies() as $item => $currencies)
+                    <optgroup label="{{ $item }}">
                       @foreach ($currencies as $code => $name)
                         <option value="{{ $code }}">
                           {{ $name }} – {{ $code }}
@@ -55,8 +55,8 @@
               </label>
               <div class="x-select-container">
                 <select class="js-x-select" id="modal-settings-currency-placement" name="currency_placement">
-                  @foreach (App\Helpers\FormatHelper::getPlacement() as $format => $displayPlacement)
-                    <option value="{{ $format }}">
+                  @foreach (App\Helpers\FormatHelper::getPlacement() as $item => $displayPlacement)
+                    <option value="{{ $item }}">
                       {{ $displayPlacement }}
                     </option>
                   @endforeach
@@ -69,8 +69,8 @@
           </label>
           <div class="x-select-container ">
             <select class="js-x-select" id="modal-settings-currency-format" name="number_format">
-              @foreach (App\Helpers\FormatHelper::getNumberFormats() as $format => $displayNumber)
-                <option value="{{ $format }}">
+              @foreach (App\Helpers\FormatHelper::getNumberFormats() as $item => $displayNumber)
+                <option value="{{ $item }}">
                   {{ $displayNumber }}
                 </option>
               @endforeach
@@ -81,8 +81,8 @@
           </label>
           <div class="x-select-container ">
             <select class="js-x-select" id="modal-settings-date-format" name="date_format">
-              @foreach (App\Helpers\FormatHelper::getDateFormats() as $format => $displayDate)
-                <option value="{{ $format }}">
+              @foreach (App\Helpers\FormatHelper::getDateFormats() as $item => $displayDate)
+                <option value="{{ $item }}">
                   {{ $displayDate }}
                 </option>
               @endforeach
@@ -107,20 +107,18 @@
   <script>
     // Código optimizado para manejar el modal y el formulario
     $(function() {
-      var $modal = $('.modal-fresh .modal');
-
-      function centerModal() {
-        if($modal.is(':visible')) {
-          $modal.css({
-            top: ($(window).height() - $modal.outerHeight()) / 2 + 'px',
-            left: ($(window).width() - $modal.outerWidth()) / 2 + 'px'
-          });
-        }
-      }
-
+      // Centra al redimensionar la ventana
+      $(window).on('resize', function() {
+        $('.modal-fresh .modal').css({
+          'top': ($(window).height() - $('.modal-fresh .modal').outerHeight()) / 2 + 'px',
+          'left': ($(window).width() - $('.modal-fresh .modal').outerWidth()) / 2 + 'px'
+        });
+      }).trigger('resize');
 
       // Manejar el envío del formulario
-      $('.modal-fresh-footer').on('click', '.ynab-button.primary', function() {
+      $('.modal-fresh-footer').on('click', '.ynab-button.primary', function(e) {
+        e.preventDefault();
+
         const $form = $('#new-budget-form');
 
         $.ajax({
@@ -160,10 +158,7 @@
       }
 
       // Eventos
-      $('#newBudget').on('shown.bs.modal', centerModal);
-      $(window).on('resize', centerModal);
-      //Cierra el modal
-      $('.modal-fresh-footer .ynab-button.secondary').on('click', closeModal);
+      $('.modal-fresh-footer .ynab-button.secondary').on('click', closeModal); //Cierra el modal
 
     });
 
