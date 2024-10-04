@@ -12,7 +12,7 @@
 
   class AdminController extends Controller
   {
-    public function index(){
+    public function index(Request $request){
       return redirect()->route('admin.login');
     }
 
@@ -28,6 +28,18 @@
       ];
 
       return view('front.pages.home',$data);
+    } //End Method
+
+    public function adminBudgets(Request $request){
+      $user = Auth::user();
+
+      $data = [
+        'pageTitle' => 'Open Budget | YNAB',
+        'user'      => $user
+      ];
+
+      return view('front.pages.budget',$data);
+
     } //End Method
 
     public function logoutHandler(Request $request){

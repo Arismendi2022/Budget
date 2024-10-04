@@ -36,6 +36,7 @@
     Route::middleware(['auth','preventBackHistory'])->group(function(){
       Route::controller(AdminController::class)->group(function(){
         Route::get('/home','adminHome')->name('home');
+        Route::get('/budgets','adminBudgets')->name('budgets');
         Route::post('/logout','logoutHandler')->name('logout');
         Route::get('/settings','settingsView')->name('settings');
         Route::get('/edit_login','editLogin')->name('edit_login');

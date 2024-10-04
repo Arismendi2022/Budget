@@ -5,8 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="description"
-    content="Personal home budget software built with Four Simple Rules to help you quickly gain control of your money, get out of debt, and reach your financial goals!">
+  <meta name="description" content="Personal home budget software built, reach your financial goals!">
+  <meta name="ynab-version" content="24.69.2-hotfix">
+  <meta name="robots" content="noindex">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('pageTitle')</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +16,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans" rel="stylesheet">
   <link rel="shortcut icon" href="{{ asset('images/shared/brand/ynab-tree-logo.svg') }}">
+
   <link href="{{ asset('css/back/auth.css') }}" rel="stylesheet">
+  <!--JQUERY-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <style>
   </style>
@@ -56,8 +61,6 @@
   </footer>
 </div>
 
-{{-- JQUERY--}}
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
 
 @stack('scripts')
 

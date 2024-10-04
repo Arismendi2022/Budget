@@ -21,8 +21,42 @@
   --alphaNeutral50070: rgba(110, 122, 136, 0.698);
   --alphaNeutral5008: rgba(110, 122, 136, 0.078);
   --alphaNeutral70060: rgba(34, 50, 67, 0.6);
+  --alphaSPBlurple40015: rgba(117, 131, 255, 0.149);
+  --alphaSPBlurple40020: rgba(117, 131, 255, 0.2);
+  --alphaSPBlurple40027: rgba(117, 131, 255, 0.271);
+  --alphaSPBlurple50013: rgba(84, 91, 254, 0.129);
+  --alphaSPBlurple50020: rgba(84, 91, 254, 0.2);
+  --alphaSPBlurple50024: rgba(84, 91, 254, 0.239);
+  --alphaSPBlurple80016: rgba(41, 44, 108, 0.161);
+  --alphaSPBlurple8006: rgba(41, 44, 108, 0.059);
+  --alphaSPCoolGrey40012: rgba(114, 116, 132, 0.122);
+  --alphaSPCoolGrey40016: rgba(114, 116, 132, 0.161);
+  --alphaSPCoolGrey40018: rgba(114, 116, 132, 0.18);
+  --alphaSPCoolGrey40020: rgba(114, 116, 132, 0.2);
+  --alphaSPCoolGrey40024: rgba(114, 116, 132, 0.239);
+  --alphaSPCoolGrey40030: rgba(114, 116, 132, 0.302);
+  --alphaSPCoolGrey40032: rgba(114, 116, 132, 0.322);
+  --alphaSPCoolGrey40036: rgba(114, 116, 132, 0.361);
+  --alphaSPCoolGrey40070: rgba(110, 115, 136, 0.698);
+  --alphaSPCoolGrey4008: rgba(114, 116, 132, 0.078);
+  --alphaSPCoolGrey60050: rgba(60, 62, 83, 0.502);
+  --alphaSPCoolGrey60060: rgba(60, 62, 83, 0.6);
+  --alphaSPCoolGrey60080: rgba(60, 62, 83, 0.8);
+  --alphaSPCoolGrey70030: rgba(48, 50, 71, 0.302);
+  --alphaSPCoolGrey70044: rgba(48, 50, 71, 0.439);
+  --alphaSPWarmGrey40012: rgba(192, 190, 187, 0.122);
+  --alphaSPWarmGrey40016: rgba(192, 190, 187, 0.161);
+  --alphaSPWarmGrey40018: rgba(192, 190, 187, 0.18);
+  --alphaSPWarmGrey40020: rgba(192, 190, 187, 0.2);
+  --alphaSPWarmGrey40024: rgba(192, 190, 187, 0.239);
+  --alphaSPWarmGrey40030: rgba(192, 190, 187, 0.302);
+  --alphaSPWarmGrey40032: rgba(192, 190, 187, 0.322);
+  --alphaSPWarmGrey40036: rgba(192, 190, 187, 0.361);
+  --alphaSPWarmGrey40070: rgba(183, 183, 181, 0.698);
+  --alphaSPWarmGrey4008: rgba(192, 190, 187, 0.078);
+  --alphaSPWarmGrey60060: rgba(136, 134, 133, 0.6);
   --brandBlurple100: #ecf0fe;
-  --brandBlurple200: #d5defd;
+  --brandBlurple200: #d8e0fd;
   --brandBlurple300: #acbdfb;
   --brandBlurple400: #829cf8;
   --brandBlurple500: #587bf6;
@@ -50,6 +84,75 @@
   --brandNeutral750: #1a2837;
   --brandNeutral800: #14212f;
   --brandNeutral900: #0c1722;
+  --brandSPBlurple1000: #121330;
+  --brandSPBlurple100: #f1f1ff;
+  --brandSPBlurple200: #d4d5ff;
+  --brandSPBlurple300: #a3acff;
+  --brandSPBlurple400: #7583ff;
+  --brandSPBlurple500: #545bfe;
+  --brandSPBlurple600: #464cd1;
+  --brandSPBlurple700: #383ca3;
+  --brandSPBlurple800: #292c6c;
+  --brandSPBlurple850: #1c1f58;
+  --brandSPBlurple900: #1b1d48;
+  --brandSPCoolGrey1000: #0e0f25;
+  --brandSPCoolGrey100: #ededf5;
+  --brandSPCoolGrey200: #c4c5cf;
+  --brandSPCoolGrey300: #9b9caa;
+  --brandSPCoolGrey400: #727484;
+  --brandSPCoolGrey500: #56596c;
+  --brandSPCoolGrey600: #3c3e53;
+  --brandSPCoolGrey700: #303247;
+  --brandSPCoolGrey800: #262840;
+  --brandSPCoolGrey900: #171930;
+  --brandSPDandelion100: #fef9ed;
+  --brandSPDandelion150: #fdf3d2;
+  --brandSPDandelion200: #fdf1c6;
+  --brandSPDandelion300: #fbe48e;
+  --brandSPDandelion400: #f8d655;
+  --brandSPDandelion500: #f6c91d;
+  --brandSPDandelion50: #fffdf8;
+  --brandSPDandelion600: #daac00;
+  --brandSPDandelion700: #a38100;
+  --brandSPDandelion800: #6d5600;
+  --brandSPDandelion900: #362c05;
+  --brandSPFirefly100: #f1fbe9;
+  --brandSPFirefly200: #dffac4;
+  --brandSPFirefly300: #c2f680;
+  --brandSPFirefly400: #aee865;
+  --brandSPFirefly500: #93d53e;
+  --brandSPFirefly600: #77ba21;
+  --brandSPFirefly700: #508316;
+  --brandSPFirefly800: #346011;
+  --brandSPFirefly900: #1d300d;
+  --brandSPMeadow100: #edfaf4;
+  --brandSPMeadow200: #bbf6dd;
+  --brandSPMeadow300: #6be9b8;
+  --brandSPMeadow400: #41d298;
+  --brandSPMeadow500: #02bc79;
+  --brandSPMeadow600: #029864;
+  --brandSPMeadow700: #01744e;
+  --brandSPMeadow800: #014f39;
+  --brandSPMeadow900: #002b23;
+  --brandSPMulberry100: #feedeb;
+  --brandSPMulberry200: #fdd7d3;
+  --brandSPMulberry300: #faada5;
+  --brandSPMulberry400: #e48585;
+  --brandSPMulberry500: #ce5e66;
+  --brandSPMulberry600: #b83646;
+  --brandSPMulberry700: #912333;
+  --brandSPMulberry800: #6a1020;
+  --brandSPMulberry900: #4c0814;
+  --brandSPWarmGrey1000: #191818;
+  --brandSPWarmGrey100: #f8f6f2;
+  --brandSPWarmGrey200: #edebe7;
+  --brandSPWarmGrey300: #d6d4d1;
+  --brandSPWarmGrey400: #c0bebb;
+  --brandSPWarmGrey500: #aaa8a5;
+  --brandSPWarmGrey600: #888685;
+  --brandSPWarmGrey700: #676564;
+  --brandSPWarmGrey800: #514f4e;
+  --brandSPWarmGrey900: #3b3939;
   --brandSlime100: #f1fbe9;
   --brandSlime200: #e0f7cf;
   --brandSlime300: #c1ee9f;
@@ -69,14 +172,14 @@
   --brandSunset800: #68170f;
   --brandSunset900: #3c0d09;
   --utilityBlack100: #000;
-  --utilityBlack10: rgba(0, 0, 0, 0.1);
-  --utilityBlack12: rgba(0, 0, 0, 0.12);
-  --utilityBlack15: rgba(0, 0, 0, 0.15);
-  --utilityBlack33: rgba(0, 0, 0, 0.33);
-  --utilityBlack4: rgba(0, 0, 0, 0.04);
-  --utilityBlack5: rgba(0, 0, 0, 0.05);
-  --utilityBlack66: rgba(0, 0, 0, 0.66);
-  --utilityBlackTransparent: rgba(0, 0, 0, 0.001);
+  --utilityBlack10: rgba(0, 0, 0, 0.102);
+  --utilityBlack12: rgba(0, 0, 0, 0.122);
+  --utilityBlack15: rgba(0, 0, 0, 0.149);
+  --utilityBlack33: rgba(0, 0, 0, 0.329);
+  --utilityBlack4: rgba(0, 0, 0, 0.039);
+  --utilityBlack5: rgba(0, 0, 0, 0.051);
+  --utilityBlack66: rgba(0, 0, 0, 0.659);
+  --utilityBlackTransparent: rgba(0, 0, 0, 0);
   --utilityMxWidgetBackgroundDark: #121417;
   --utilityMxWidgetBackgroundLight: #f8f9fb;
   --utilitySystemBlue100: #64d2ff;
@@ -131,7 +234,7 @@
   --backgroundSecondaryElevated: #edf1f5;
   --backgroundTableHeader: #edf1f5;
   --backgroundTableRow: #fff;
-  --backgroundTableRowSelected: #d5defd;
+  --backgroundTableRowSelected: #d8e0fd;
   --backgroundTertiary: #d2d8de;
   --backgroundTertiaryElevated: #d2d8de;
   --budgetBarBackground: #edf1f5;
@@ -159,6 +262,8 @@
   --buttonSecondaryBackground: rgba(59, 94, 218, 0.129);
   --buttonSecondaryBackgroundActive: rgba(59, 94, 218, 0.2);
   --buttonSecondaryLabel: #3b5eda;
+  --buttonTertiaryBackground: #edf1f5;
+  --buttonTertiaryBackgroundActive: #d2d8de;
   --calloutNegativeAccent: #c72c1e;
   --calloutNegativeButtonBackground: #c72c1e;
   --calloutNegativeButtonBackgroundActive: #962116;
@@ -168,15 +273,6 @@
   --calloutNegativeProminentBackgroundEmphasis: #f77f73;
   --calloutNegativeSubtleBackground: #feedeb;
   --calloutNegativeSubtleBackgroundEmphasis: #faada5;
-  --calloutSecondaryAccent: #6e7a88;
-  --calloutSecondaryButtonBackground: #405163;
-  --calloutSecondaryButtonBackgroundActive: #223243;
-  --calloutSecondaryButtonForeground: #fff;
-  --calloutSecondaryLabel: #0c1722;
-  --calloutSecondaryProminentBackground: #d2d8de;
-  --calloutSecondaryProminentBackgroundEmphasis: #a5adb6;
-  --calloutSecondarySubtleBackground: rgba(110, 122, 136, 0.122);
-  --calloutSecondarySubtleBackgroundEmphasis: #d2d8de;
   --calloutPositiveAccent: #67c122;
   --calloutPositiveButtonBackground: #4d9119;
   --calloutPositiveButtonBackgroundActive: #346011;
@@ -191,10 +287,19 @@
   --calloutPrimaryButtonBackgroundActive: #374d9b;
   --calloutPrimaryButtonForeground: #ecf0fe;
   --calloutPrimaryLabel: #19223c;
-  --calloutPrimaryProminentBackground: #d5defd;
+  --calloutPrimaryProminentBackground: #d8e0fd;
   --calloutPrimaryProminentBackgroundEmphasis: #829cf8;
   --calloutPrimarySubtleBackground: rgba(59, 94, 218, 0.129);
   --calloutPrimarySubtleBackgroundEmphasis: #acbdfb;
+  --calloutSecondaryAccent: #6e7a88;
+  --calloutSecondaryButtonBackground: #405163;
+  --calloutSecondaryButtonBackgroundActive: #223243;
+  --calloutSecondaryButtonForeground: #fff;
+  --calloutSecondaryLabel: #0c1722;
+  --calloutSecondaryProminentBackground: #d2d8de;
+  --calloutSecondaryProminentBackgroundEmphasis: #a5adb6;
+  --calloutSecondarySubtleBackground: rgba(110, 122, 136, 0.122);
+  --calloutSecondarySubtleBackgroundEmphasis: #d2d8de;
   --calloutWarningAccent: #daac00;
   --calloutWarningButtonBackground: #f6c91d;
   --calloutWarningButtonBackgroundActive: #daac00;
@@ -234,7 +339,8 @@
   --debtChartsSeven: #6d5600;
   --debtChartsSix: #fef9ed;
   --debtChartsThree: #587bf6;
-  --debtChartsTwo: #d5defd;
+  --debtChartsTwo: #d8e0fd;
+  --fillHover: rgba(0, 0, 0, 0.102);
   --fillPrimary: rgba(110, 122, 136, 0.2);
   --fillQuarternary: rgba(110, 122, 136, 0.078);
   --fillSecondary: rgba(110, 122, 136, 0.161);
@@ -255,7 +361,7 @@
   --iconFillTertiary: #d2d8de;
   --iconTwotoneDark: #223243;
   --iconTwotoneLight: #6e7a88;
-  --illustrationBackgroundBlurple200: #d5defd;
+  --illustrationBackgroundBlurple200: #d8e0fd;
   --illustrationBackgroundBlurple300: #acbdfb;
   --illustrationBackgroundBlurple400: #829cf8;
   --illustrationBackgroundBlurple500: #587bf6;
@@ -294,7 +400,7 @@
   --loanChartsWarning: #f6c91d;
   --modalBackgroundAccent: #2c396a;
   --movesSelectedBackground: #3b5eda;
-  --movesStandardBackground: #d5defd;
+  --movesStandardBackground: #d8e0fd;
   --pillBackground: rgba(59, 94, 218, 0.129);
   --pillLabel: #3b5eda;
   --registerSecondaryButtonLabel: #3b5eda;
@@ -309,21 +415,26 @@
   --reportsOne: #587bf6;
   --reportsSeven: #f6c91d;
   --reportsSix: #c1ee9f;
+  --reportsSpendingBreakdownTop10: #c1ee9f;
   --reportsSpendingBreakdownTop1: #3b5eda;
   --reportsSpendingBreakdownTop2: #84dd3e;
   --reportsSpendingBreakdownTop3: #f6c91d;
   --reportsSpendingBreakdownTop4: #fc6350;
   --reportsSpendingBreakdownTop5: #829cf8;
-  --reportsSpendingBreakdownTopOther: #d5defd;
+  --reportsSpendingBreakdownTop6: #a2e66e;
+  --reportsSpendingBreakdownTop7: #f8d655;
+  --reportsSpendingBreakdownTop8: #f77f73;
+  --reportsSpendingBreakdownTop9: #acbdfb;
+  --reportsSpendingBreakdownTopOther: #d8e0fd;
   --reportsTen: #faada5;
   --reportsThree: #374d9b;
   --reportsTwo: #acbdfb;
-  --scrimDefault: rgba(0, 0, 0, 0.1);
-  --scrimInvisible: rgba(0, 0, 0, 0.001);
-  --scrimStrong: rgba(0, 0, 0, 0.66);
+  --scrimDefault: rgba(0, 0, 0, 0.102);
+  --scrimInvisible: rgba(0, 0, 0, 0);
+  --scrimStrong: rgba(0, 0, 0, 0.659);
   --separatorStandard: #d2d8de;
   --separatorStrong: #405163;
-  --separatorSubdued: rgba(0, 0, 0, 0.1);
+  --separatorSubdued: rgba(0, 0, 0, 0.102);
   --settingsHeaderBackground: #fff;
   --sidebarAccountNegativeBalanceBackground: #fff;
   --sidebarBackground: #2c396a;
@@ -331,7 +442,7 @@
   --sidebarButtonBackgroundSelected: #374d9b;
   --sidebarButtonSecondaryBackground: rgba(255, 255, 255, 0.102);
   --sidebarButtonSecondaryBackgroundActive: #374d9b;
-  --sidebarButtonSecondaryBackgroundPressed: rgba(0, 0, 0, 0.15);
+  --sidebarButtonSecondaryBackgroundPressed: rgba(0, 0, 0, 0.149);
   --sidebarButtonTertiaryBackground: rgba(255, 255, 255, 0.149);
   --sidebarButtonTertiaryBackgroundActive: rgba(255, 255, 255, 0.302);
   --sidebarButtonTertiaryBackgroundPressed: rgba(255, 255, 255, 0.349);
@@ -350,7 +461,7 @@
   --viewsErrorSelectedAccent: #fc6350;
   --viewsNeutralBackground: #edf1f5;
   --viewsNeutralBackgroundHover: #d2d8de;
-  --viewsNeutralBackgroundSelected: #d5defd;
+  --viewsNeutralBackgroundSelected: #d8e0fd;
   --viewsNeutralBackgroundSelectedHover: #acbdfb;
   --viewsNeutralSelectedAccent: #3b5eda;
   --viewsWarningBackground: #fbe48e;
@@ -361,14 +472,6 @@
   --viewsWarningLabelSelected: #362c05;
   --viewsWarningSelectedAccent: #daac00;
   color-scheme: light only;
-  --primaryAction: #3B5EDA;
-  --primaryActionDestructive: #C72C1E;
-  --primaryActionSuccess: #67C122;
-  --primaryActionDisabled: #D2D8DE;
-  --primaryActionSelected: #374D9B;
-  --primaryButtonBorder: #A5ADB6;
-  --granite-400: #a5adb6;
-  --granite-300: #d2d8de;
 }
 
 /* || RESET */
@@ -381,8 +484,10 @@ body, html {
   height: 100%;
   overflow: hidden;
   width: 100%;
+  color: #19223c;
   color: var(--labelPrimary);
 }
+
 body, button, html, input, select, textarea {
   font-family: "Figtree", "Helvetica Neue", Helvetica, Arial, sans-serif;
   transition: none;
@@ -405,8 +510,10 @@ button::-moz-focus-inner, input::-moz-focus-inner {
   flex-direction: column;
 }
 .skip-to-content {
-  background-color: var(--calloutSectionStandardProminentBackground);
-  color: var(--calloutSectionStandardLabel);
+  background-color: #d8e0fd;
+  background-color: var(--calloutPrimaryProminentBackground);
+  color: #19223c;
+  color: var(--calloutPrimaryLabel);
   clip: rect(1px, 1px, 1px, 1px);
   height: 1px;
   margin: 0;
@@ -425,6 +532,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
   flex: 0 0 auto;
 }
 .sidebar {
+  background-color: #2c396a;
   background-color: var(--sidebarBackground);
   height: 100%;
   border-right: 1px solid var(--separatorSubdued);
@@ -438,7 +546,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 .ynab-u {
   display: inline-block;
   *display: inline;
-  transform: 1;
+  zoom: 1;
   letter-spacing: normal;
   word-spacing: normal;
   text-rendering: auto;
@@ -463,6 +571,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
   justify-content: center;
   overflow: auto;
   overflow-x: hidden;
+}
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto;
 }
 /* || SIDEBAR NAV */
 .sidebar-resized-collapsed .nav-accounts, .sidebar-resized-collapsed .nav-accounts-empty-state, .sidebar-resized-collapsed .nav-add-account, .sidebar-resized-collapsed .navlink-label, .sidebar-resized-collapsed .referral-program, .sidebar-resized-collapsed .referral-program-banner, .sidebar-resized-collapsed .sidebar-nav-menu-budget, .sidebar-resized-half .nav-account-value, .sidebar-resized-half .referral-program-link-text {
@@ -525,6 +639,12 @@ input, select, textarea {
 svg:not(:root) {
   overflow: hidden;
 }
+.sidebar-nav-arrow {
+  color: #fff;
+  color: var(--sidebarLabelPrimary);
+  flex: 0 0 auto;
+  width: .75rem;
+}
 .ynab-new-icon {
   fill: currentColor;
   stroke: none;
@@ -569,6 +689,249 @@ svg:not(:root) {
 .sidebar-nav-menu:hover {
   background-color: var(--sidebarButtonBackgroundActive);
 }
+
+/* NAV DASHBOARD CREATE BUDGET */
+.dashboard .dashboard-group, .dashboard .dashboard-learn-more, .dashboard .dashboard-learn-more .explore-resources-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.dashboard .dashboard-learn-more {
+  align-items: center;
+  flex: 1 0 0%;
+  padding: 5vh 1rem;
+}
+.dashboard h3 {
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
+.accounts-header .accounts-header-total, .dashboard h3, .family .family-invite-title-m, .ftue-onboarding-extended .ftue-onboarding-title, .join-container h1,
+.loan-account-account-header .loan-account-header-account-details .loan-account-header-account-name,
+.loan-progress-container .loan-progress-intro .loan-progress-balance-remaining .loan-progress-balance-remaining-amount,
+.notifications-callout__count, .petition-container h1, .plan-header-pricing__price, .plan-header__name, .reflect-page-header-group .reflect-page-title,
+.reflect-page-header-group .reflect-page-title button, .reports-inspector .reports-inspector-value, .reports-inspector h2, .reports-title,
+.rollout-card__heading, .spending-breakdown-donut-chart__title .spending-breakdown-donut-chart__title-amount, .type-title-m, .users-budgets h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.dashboard .dashboard-learn-more .explore-resources-heading img {
+  height: fit-content;
+  min-height: 0;
+  width: 100%;
+}
+img {
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+}
+.dashboard .dashboard-group {
+  align-items: center;
+  gap: .75rem;
+  justify-content: center;
+  margin-bottom: .5rem;
+  text-align: center;
+  width: 100%;
+}
+.ynab-button.contrast:not([disabled]) {
+  background-color: rgba(255,255,255,.149);
+  background-color: var(--backgroundDarkSecondary);
+  color: #fff;
+  color: var(--labelDarkBackgroundPrimary);
+}
+
+.resource-image {
+  height: 10vh;
+  min-height: 60px;
+}
+.dashboard .ynab-button {
+  width: 100%;
+}
+a.ynab-button, a.ynab-button:hover {
+  display: inline-flex;
+}
+a.ynab-button {
+  box-sizing: border-box;
+  height: 2rem;
+  text-decoration: none;
+}
+
+.budget-breakdown-assign-money-controls, .budget-breakdown-tbb-card .ynab-breakdown, .budget-breakdown-tbb-card .ynab-breakdown button,
+.budget-breakdown-to-be-budgeted .modal-header, .budget-breakdown-to-be-budgeted-negative, .budget-breakdown-to-be-budgeted-positive,
+.budget-breakdown-view-to-be-budgeted-breakdown, .ftue-onboarding-step, .to-be-budgeted-button, .type-body-large, .ynab-button,
+.ynab-new-inspector-goals .button-link, .ynab-new-inspector-goals .pair-with-loan-button .pair-with-loan-button-title,
+.ynab-new-inspector-goals .type-dropdown .type-dropdown-option {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+/* USERS CONTENT */
+.users-budgets.content {
+  background-color: #edf1f5;
+  background-color: var(--backgroundGroupedPrimary);
+  overflow: auto;
+}
+.users-budgets {
+  padding: 1rem 2rem;
+}
+.users-budgets .budget-picker-section {
+  display: flex;
+  flex-flow: column;
+  margin-bottom: 1.75rem;
+}
+.users-budgets h3 {
+  color: #19223c;
+  color: var(--labelPrimary);
+  margin: 1rem .5rem .5rem 0;
+}
+
+/* BOTTON NEW BUDGET */
+.users-budgets .budgets {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill,minmax(13rem,13rem));
+  grid-template-rows: repeat(auto-fill,12.5rem,1fr);
+}
+.users-budgets .budgets > div.create-new-budget {
+  background-color: #fff;
+  background-color: var(--backgroundGroupedSecondary);
+  padding: 2.6rem .5rem;
+}
+.users-budgets .budgets > div {
+  background-color: #fff;
+  background-color: var(--backgroundGroupedSecondary);
+  border-radius: .75rem;
+  padding: .5rem;
+  position: relative;
+  text-align: center;
+}
+.family-body .budgets-shared-with-you .budgets-shared-with-you-header, .family-form label, .modal-direct-import-status.modal-popup strong, .users-budgets .budgets > div.create-new-budget button {
+  color: #19223c;
+  color: var(--labelPrimary);
+}
+.users-budgets .budgets > div.create-new-budget button,  .users-budgets .select-budget {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.users-budgets .budgets > div.create-new-budget .ynab-new-icon {
+  color: #4d9119;
+  color: var(--labelPositive);
+  margin: 0 1.875rem 1rem 1.875em;
+}
+.users-budgets .budgets > div.create-new-budget:hover .ynab-new-icon {
+  color: #346011;
+  color: var(--labelPositiveActive);
+}
+/* LIST ITEMS */
+.budget-table-container a, .users-budgets .budgets > div a {
+  color: #19223c;
+  color: var(--labelPrimary);
+  text-decoration: none;
+}
+.users-budgets .thumbnail {
+  background-color: rgba(59,94,218,.129);
+  background-color: var(--calloutPrimarySubtleBackground);
+  border-radius: .25rem;
+  height: 9rem;
+  margin-bottom: .5em;
+  width: 100%;
+}
+.users-budgets .last-modified, .users-budgets .select-budget {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.users-budgets .select-budget {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+}
+.users-budgets .thumbnail svg {
+  color: #829cf8;
+  color: var(--calloutPrimaryProminentBackgroundEmphasis);
+  margin-top: 1.5rem;
+  width: 60%;
+}
+.family.family-body .family-content .invite-list-row .member-details .member-email, .users-budgets .budgets > div .last-modified {
+  color: #405163;
+  color: var(--labelSecondary);
+}
+
+/* HOVER STATE */
+.users-budgets .budgets > div:hover .hover-state {
+  display: block;
+}
+.users-budgets .hover-state {
+  background-color: rgba(0,0,0,.66);
+  bottom: 0;
+  color: #fff;
+  color: var(--labelDarkBackgroundPrimary);
+  border-radius: .6875rem;
+  cursor: pointer;
+  display: none;
+  height: 100%;
+  left: 0;
+  padding: 4em .5em .5em;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+}
+.users-budgets .budgets > div:hover .last-modified, .users-budgets .hover-state button {
+  color: #fff;
+  color: var(--labelDarkBackgroundPrimary);
+}
+.users-budgets .hover-state .wants-tombstone-button {
+  bottom: .5em;
+  position: absolute;
+  right: .5em;
+}
+.users-budgets .are-you-sure, .users-budgets .hover-state .ynab-new-icon {
+  color: #fff;
+  color: var(--labelDarkBackgroundPrimary);
+  font-size: .8em;
+}
+/* YOU SURE */
+.users-budgets .are-you-sure {
+  background-color: rgba(0,0,0,.659);
+  background-color: var(--scrimStrong);
+  display: none;
+  bottom: 0;
+  border-radius: .6875rem;
+  font-weight: 700;
+  height: 100%;
+  left: 0;
+  padding: .5em;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+}
+.users-budgets .are-you-sure, .users-budgets .hover-state .ynab-new-icon {
+  color: #fff;
+  color: var(--labelDarkBackgroundPrimary);
+  font-size: .8em;
+}
+.users-budgets .are-you-sure-vertical {
+  height: 6em;
+  left: 0;
+  margin-top: -3em;
+  padding: 0 .5em;
+  position: absolute;
+  top: 50%;
+}
+.users-budgets .actions {
+  display: flex;
+  justify-content: space-around;
+}
+.users-budgets .actions button {
+  margin-top: .5rem;
+}
+
+
 /* || UL NAV MAIN */
 .sidebar hr, .sidebar ul {
   margin: 0;
@@ -840,10 +1203,7 @@ bdi {
 }
 
 /* || ADD ACCOUNTS */
-.ynab-button.contrast:not([disabled]) {
-  background-color: var(--backgroundDarkSecondary);
-  color: var(--labelDarkBackgroundPrimary);
-}
+
 .sidebar .button-sidebar {
   margin: .5rem 1rem;
   height: 1.75rem;
@@ -1719,11 +2079,6 @@ a:focus-visible, div:focus-visible, li:focus-visible {
   border-radius: .5rem;
   height: 2rem;
 }
-button {
-  background: 0 0;
-  border: 0;
-  padding: 0;
-}
 .modal-budget-settings .ynab4-migration .button .ynab-new-icon {
   color: var(--labelSecondary);
 }
@@ -1844,11 +2199,6 @@ select {
   background-color: var(--buttonSecondaryBackground);
   color: var(--buttonSecondaryLabel);
   border: 0;
-}
-.ynab-button {
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.2;
 }
 .ynab-button.secondary:not([disabled]):active,
 .ynab-button.secondary:not([disabled]):hover {
