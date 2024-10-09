@@ -6,8 +6,10 @@
   use App\UserStatus;
   use App\UserType;
   use Illuminate\Database\Eloquent\Factories\HasFactory;
+  use Illuminate\Database\Eloquent\Relations\HasMany;
   use Illuminate\Foundation\Auth\User as Authenticatable;
   use Illuminate\Notifications\Notifiable;
+
 
   class User extends Authenticatable
   {
@@ -37,6 +39,9 @@
       'remember_token',
     ];
 
+    public static function create(array $array){
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -52,10 +57,10 @@
     }
 
     /**
-     * Relación con BudgetDetail
+     * Relación con Budget
      */
-    public function budgetDetails(){
-      return $this->hasMany(BudgetDetail::class);
+    public function budgets():HasMany {
+      return $this->hasMany(Budget::class);
     }
 
 

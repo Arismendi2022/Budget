@@ -46,13 +46,13 @@
 <!---->
 @include('front.modals.modal-settings')
 <!---->
-@include('front.modals.modal-new-budget')
+{{--@include('front.modals.modal-new-budget')--}}
 <!---->
-@include('front.modals.modal-edit-budget')
+{{--@include('front.modals.modal-edit-budget')--}}
 <!---->
 @include('front.modals.modal-calendar')
 <!---->
-@include('front.modals.modal-add-account')
+{{--@include('front.modals.modal-add-account')--}}
 <!---->
 {{--@include('components.modals.modal-edit-account')--}}
 

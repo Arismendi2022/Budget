@@ -4,6 +4,7 @@
 
   use App\Helpers\CMail;
   use App\Models\User;
+  use App\Models\Budget;
   use App\Rules\StrongPassword;
   use Illuminate\Http\Request;
   use Illuminate\Support\Facades\Auth;
@@ -12,14 +13,17 @@
 
   class AdminController extends Controller
   {
-    public function index(Request $request){
-      return redirect()->route('admin.login');
-    }
-
     public function adminHome(Request $request){
+      /**
+       * Verificar si el usuario está autenticado y tiene un presupuesto
+       */
 
       $user   = Auth::user();
-      $budget = $user->budgetDetails()->first();
+      $budget = $user->budgets()->where('is_active',true)->first();
+
+      if($budget === null){
+       return redirect()->route('admin.budgets');
+      }
 
       $data = [
         'pageTitle' => 'Budget | YNAB',
@@ -33,9 +37,12 @@
     public function adminBudgets(Request $request){
       $user = Auth::user();
 
+      //$hideButtons = false;
+
       $data = [
         'pageTitle' => 'Open Budget | YNAB',
-        'user'      => $user
+        'user'      => $user,
+        //'hideButtons' => $hideButtons,
       ];
 
       return view('front.pages.budget',$data);

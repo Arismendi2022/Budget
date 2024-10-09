@@ -2,15 +2,16 @@
 
   namespace App\Http\Controllers;
 
-  use App\Models\BudgetDetail;
   use Illuminate\Http\Request;
   use Illuminate\Support\Facades\Auth;
   use Illuminate\Support\Facades\DB;
+  use App\Models\Budget;
+  use App\Models\User;
 
   class BudgetController extends Controller
   {
 
-    public function createBudget(Request $request){
+    public function CreateBudget(Request $request){
       /**
        * Validate form
        */
@@ -25,7 +26,7 @@
       try{
         DB::transaction(function() use ($request){
           // Guardar detalles del presupuesto
-          BudgetDetail::create([
+          Budget::create([
             'user_id'            => Auth::id(),
             'name'               => $request->name,
             'currency'           => $request->currency,
@@ -45,10 +46,10 @@
 
     } //End Method
 
-    public function editBudget(Request $request){
+   /* public function editBudget(Request $request){
 
       $user   = Auth::user();
-      $budget = $user->budgetDetails()->first();
+      $budget = $user->getBudget()->first();
 
       $data = [
         'user'   => $user,
@@ -58,7 +59,7 @@
       // Devuelve la vista de edición con los datos del presupuesto
       return view('front.modals.modal-edit-budget',$data);
 
-    } //End Method
+    } */ //End Method
 
     public function updateBudget(Request $request){
 

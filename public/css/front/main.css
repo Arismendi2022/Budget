@@ -734,7 +734,7 @@ img {
   width: 100%;
 }
 .ynab-button.contrast:not([disabled]) {
-  background-color: rgba(255,255,255,.149);
+  background-color: rgba(255, 255, 255, .149);
   background-color: var(--backgroundDarkSecondary);
   color: #fff;
   color: var(--labelDarkBackgroundPrimary);
@@ -789,8 +789,8 @@ a.ynab-button {
 .users-budgets .budgets {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fill,minmax(13rem,13rem));
-  grid-template-rows: repeat(auto-fill,12.5rem,1fr);
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 13rem));
+  grid-template-rows: repeat(auto-fill, 12.5rem, 1fr);
 }
 .users-budgets .budgets > div.create-new-budget {
   background-color: #fff;
@@ -809,7 +809,7 @@ a.ynab-button {
   color: #19223c;
   color: var(--labelPrimary);
 }
-.users-budgets .budgets > div.create-new-budget button,  .users-budgets .select-budget {
+.users-budgets .budgets > div.create-new-budget button, .users-budgets .select-budget {
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.2;
@@ -830,7 +830,7 @@ a.ynab-button {
   text-decoration: none;
 }
 .users-budgets .thumbnail {
-  background-color: rgba(59,94,218,.129);
+  background-color: rgba(59, 94, 218, .129);
   background-color: var(--calloutPrimarySubtleBackground);
   border-radius: .25rem;
   height: 9rem;
@@ -865,7 +865,7 @@ a.ynab-button {
   display: block;
 }
 .users-budgets .hover-state {
-  background-color: rgba(0,0,0,.66);
+  background-color: rgba(0, 0, 0, .66);
   bottom: 0;
   color: #fff;
   color: var(--labelDarkBackgroundPrimary);
@@ -894,14 +894,19 @@ a.ynab-button {
   color: var(--labelDarkBackgroundPrimary);
   font-size: .8em;
 }
+/* Cuando el modal está activo, desactivar el hover */
+.modal-active .budget-button:hover {
+  background-color: initial; /* Remueve el hover cuando el modal está activo */
+}
+
 /* YOU SURE */
 .users-budgets .are-you-sure {
-  background-color: rgba(0,0,0,.659);
+  background-color: rgba(0, 0, 0, .659);
   background-color: var(--scrimStrong);
-  display: none;
   bottom: 0;
   border-radius: .6875rem;
   font-weight: 700;
+  display: none;
   height: 100%;
   left: 0;
   padding: .5em;
@@ -909,6 +914,9 @@ a.ynab-button {
   right: 0;
   top: 0;
   width: 100%;
+}
+.modal-active .users-budgets .budgets > div:hover .hover-state {
+  display: none;
 }
 .users-budgets .are-you-sure, .users-budgets .hover-state .ynab-new-icon {
   color: #fff;
@@ -931,6 +939,75 @@ a.ynab-button {
   margin-top: .5rem;
 }
 
+/* MENU SETTINGS */
+.menu {
+  background-color: #fff;
+  background-color: var(--backgroundPrimaryElevated);
+  color: #19223c;
+  color: var(--labelPrimary);
+  border-radius: .25rem;
+  box-shadow: 0 1rem 4rem rgba(0, 0, 0, .2);
+  display: flex;
+  flex-direction: column;
+  display: none;
+  margin: .5rem 0;
+  max-width: 30rem;
+  min-width: 15rem;
+  overflow: auto;
+  padding: .25rem;
+  position: fixed;
+  transition: opacity .2s;
+  z-index: 10006;
+}
+.menu [role="menuitem"] {
+  color: #19223c;
+  color: var(--labelPrimary);
+  align-items: center;
+  border-radius: .25rem;
+  display: flex;
+  gap: .5rem;
+  overflow: clip;
+  padding: .5rem .75rem;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+.menu [role="menuitem"] {
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.menu [role="menuitem"] .ynab-new-icon:first-child {
+  color: #6e7a88;
+  color: var(--iconFillPrimary);
+  margin-right: .5rem;
+  min-width: 1rem;
+}
+.menu [role="separator"] {
+  border-top: 1px solid rgba(0, 0, 0, .102);
+  border-top: 1px solid var(--separatorSubdued);
+  height: 1px;
+  margin: .25rem .75rem;
+}
+.menu .menu-heading {
+  color: #405163;
+  color: var(--labelSecondary);
+  padding: .5rem .75rem;
+  text-align: left;
+  width: 100%;
+}
+.menu .menu-heading {
+  font-size: .75rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.menu [role="menuitem"]:hover:not([disabled]) {
+  background-color: #edf1f5;
+  background-color: var(--backgroundSecondaryElevated);
+}
+
+/* ================================================ */
 
 /* || UL NAV MAIN */
 .sidebar hr, .sidebar ul {
@@ -2020,13 +2097,16 @@ a:focus-visible, div:focus-visible, li:focus-visible {
   outline-width: 1px;
 }
 .modal-fresh.mod-skinny .modal {
-  max-width: 30rem;
+  max-width: 30.1rem;
 }
 .modal-fresh .modal {
   border-radius: .5rem;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, .15)) drop-shadow(0 3px 6px rgba(0, 0, 0, .1));
+  max-width: 40rem;
 }
 .modal-fresh .modal-fresh-header {
   color: var(--labelPrimary);
+  border-bottom: 1px solid rgba(0, 0, 0, .102);
   border-bottom: 1px solid var(--separatorSubdued);
   align-items: center;
   display: flex;
@@ -2040,8 +2120,7 @@ a:focus-visible, div:focus-visible, li:focus-visible {
   font-weight: 600;
   line-height: 1.2;
 }
-.modal-budget-settings .modal-fresh-title,
-.select-budget table {
+.modal-budget-settings .modal-fresh-title, .select-budget table {
   width: 100%;
 }
 .modal-fresh .modal-fresh-title {

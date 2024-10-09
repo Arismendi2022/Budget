@@ -1,5 +1,5 @@
 {{-- modal new budget --}}
-<div id="newBudget" class="modal-fresh mod-skinny modal-budget-settings ">
+<div id="new-budget" class="modal-overlay active modal-fresh mod-skinny modal-budget-settings" style="display: none">
   <div class="modal" role="dialog" aria-modal="true" style="left: 720px; top: 263.5px;">
     <div class="modal-fresh-header">
       <div class="modal-fresh-title">
@@ -7,9 +7,14 @@
           New Budget
           <button class="button" type="button">
             Migrate a YNAB 4 Budget
-            <svg class="ynab-new-icon " width="8" height="8">
+            <svg class="ynab-new-icon" width="8" height="8">
               <!---->
-              <use href="#icon_sprite_chevron_right"></use>
+              <use href="#icon_sprite_chevron_right">
+                <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_right" fill="none" viewBox="0 0 24 24">
+                  <path fill="currentColor" fill-rule="evenodd"
+                    d="M7.4 23.6a1.5 1.5 0 0 1-2 0 1.4 1.4 0 0 1 0-2l10-9.6-10-9.6a1.4 1.4 0 0 1 0-2 1.5 1.5 0 0 1 2 0L18.6 11c.5.6.5 1.4 0 2z" clip-rule="evenodd"></path>
+                </symbol>
+              </use>
             </svg>
           </button>
         </div>
@@ -42,7 +47,7 @@
                     <optgroup label="{{ $item }}">
                       @foreach ($currencies as $code => $name)
                         <option value="{{ $code }}">
-                          {{ $name }} – {{ $code }}
+                          {{ $name }}
                         </option>
                       @endforeach
                     </optgroup>
@@ -94,72 +99,18 @@
       <!---->
     </div>
     <div class="modal-fresh-footer">
-      <button class="ynab-button secondary" type="button">
-        Cancel
-      </button>
-      <button class="ynab-button primary" type="button">
-        Create Budget
-      </button>
+      <button class="ynab-button secondary" type="button">Cancel</button>
+      <button class="ynab-button primary" type="button">Create Budget</button>
     </div>
     <!---->
   </div>
 </div>
+
 @push('scripts')
   <script>
     // Código optimizado para manejar el modal y el formulario
     $(function() {
-      // Centra al redimensionar la ventana
-      $(window).on('resize', function() {
-        $('.modal-fresh .modal').css({
-          'top': ($(window).height() - $('.modal-fresh .modal').outerHeight()) / 2 + 'px',
-          'left': ($(window).width() - $('.modal-fresh .modal').outerWidth()) / 2 + 'px'
-        });
-      }).trigger('resize');
 
-      // Manejar el envío del formulario
-      $('.modal-fresh-footer').on('click', '.ynab-button.primary', function(e) {
-        e.preventDefault();
-
-        const $form = $('#new-budget-form');
-
-        $.ajax({
-          url: $form.attr('action'),
-          method: $form.attr('method'),
-          data: $form.serialize(),
-          dataType: 'json',
-          success: function(response) {
-            if(response.success) {
-              closeModal(); // Llamar a la función para cerrar el modal
-            }
-          },
-          error: function(xhr) {
-            if(xhr.status === 422) {
-              const errors = xhr.responseJSON.errors;
-
-              if(errors.name) {
-                $('.field-with-error').addClass('has-errors');
-                $('.errors').removeClass('warnings'); // Quita la clase 'warnings'
-                $('#message-error').text(errors.name[0]);
-              }
-            } else {
-              // Mensaje genérico para otros errores
-              $('#message-error').text('Ocurrió un error, por favor intenta de nuevo.');
-            }
-          }
-        });
-      });
-
-      // Función para cerrar el modal
-      function closeModal() {
-        $('.errors').addClass('warnings');
-        $('.field-with-error').removeClass('has-errors');
-        $('#message-error').text('');
-        $('#new-budget-form')[0].reset();
-        $('#newBudget').removeClass('modal-overlay active');
-      }
-
-      // Eventos
-      $('.modal-fresh-footer .ynab-button.secondary').on('click', closeModal); //Cierra el modal
 
     });
 

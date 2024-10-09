@@ -11,7 +11,7 @@
           <div class="dashboard">
             <button class="sidebar-nav-menu sibedar-nav-menu-budget js-sidebar-nav-menu user-data" type="button">
               <div class="sidebar-nav-budget-email">
-                <span class="sidebar-nav-budget-email-budget">YNAB</span>
+                <span class="sidebar-nav-budget-email-budget">{{ $budget->name ?? 'YNAB' }}</span>
                 <span class="sidebar-nav-budget-email-email button-truncate">{{ $user->email }}</span>
               </div>
               <svg class="ynab-new-icon sidebar-nav-arrow" width="16" height="16">
@@ -68,7 +68,7 @@
           <!---->
           {{-- Budget List Items --}}
           <div class="budget-list-item">
-            <a href="/b101405d-06e9-47cb-ac6c-02d00d7d06a3/budget">
+            <a href="#">
               <div class="thumbnail">
                 <svg class="ynab-new-icon" width="90" height="90">
                   <!---->
@@ -120,7 +120,7 @@
           <!---->
           {{-- Botton Create New Budgewt --}}
           <div class="create-new-budget">
-            <button type="button">
+            <button type="button" id="openModalButton">
               <svg class="ynab-new-icon" width="80" height="80">
                 <!---->
                 <use href="#icon_sprite_plus_circle_fill">
@@ -140,8 +140,71 @@
       </div>
     </div> <!--End Content-->
     <!---->
-  </div>
+  </div> <!--Contenet Layout-->
+  <!---->
+  {{--   MENU SETTINGS --}}
+  <x-settings-menu :hideButtons="false"/> {{-- Cambia a true si deseas ocultar los botones --}}
+  {{-- NEW BUDGET --}}
+  <!-- Incluir el componente Livewire -->
+  @livewire('create-budget')
+
 @endsection
+@push('scripts')
+  <script>
+    $(function() {
+      // Almacena selectores en variables para mejorar el rendimiento
+      const $menuSettings = $('#menu-settings');
+      const $newBudget = $('#new-budget');
+      const $newBudgetForm = $('#new-budget-form');
+      const $body = $('body');
+
+      // Mostrar el modal menu settings
+      $('.sibedar-nav-menu-budget').on('click', function() {
+        $menuSettings.toggle(); // Alterna la visibilidad del modal
+      });
+
+      // Cierra el modal si se hace clic fuera de él
+      $(document).on('click', function(event) {
+        if(!$(event.target).closest($menuSettings).length && !$(event.target).closest('.sibedar-nav-menu-budget').length) {
+          $menuSettings.hide();
+        }
+      });
+
+      // Mostrar el modal list budget button
+      $('.wants-tombstone-button').on('click', function() {
+        $body.addClass('modal-active');
+        $('.users-budgets .are-you-sure').show();
+      });
+
+      // Cierra el modal list budget button
+      $('.primary').on('click', function() {
+        $body.removeClass('modal-active');
+        $('.are-you-sure').hide();
+      });
+
+      // Al hacer clic en el botón, mostrar el modal
+      $('#openModalButton').on('click', function() {
+        $newBudget.show(); // Mostrar el modal
+        $('#modal-settings-budget-name').focus(); // Enfocar el input
+        centerModal();
+      });
+
+      // Cierra el modal y restablece el formulario
+      $('.secondary').on('click', function() {
+        $newBudget.hide(); // Oculta el modal
+        $newBudgetForm[0].reset(); // Restablece el formulario
+      });
+
+      // Re-centra el modal cuando se redimensiona la ventana
+      $(window).on('resize', function() {
+        if($newBudget.is(':visible')) {
+          centerModal();
+        }
+      });
+    });
+
+  </script>
+@endpush
 
 
 
