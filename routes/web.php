@@ -50,9 +50,9 @@
   //Grupo Add Account
   Route::prefix('budget')->name('budget.')->group(function(){
     Route::controller(BudgetController::class)->group(function(){
-      Route::post('/create','createBudget')->name('create');
-      Route::get('/edit','editBudget')->name('edit');
-      Route::post('/update','updateBudget')->name('update');
+      //Route::post('/create','createBudget')->name('create');
+      //Route::get('/edit','editBudget')->name('edit');
+      //Route::post('/update','updateBudget')->name('update');
     });
   });
 

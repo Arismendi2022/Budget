@@ -23,17 +23,17 @@
     </div>
     <div class="modal-fresh-body">
       <section>
-        <form id="new-budget-form" action="{{ route('budget.create') }}" method="POST">
+        {{--  <form id="new-budget-form" action="{{ route('budget.create') }}" method="POST"> --}}
+        <form id="newBudget-form">
           @csrf
           <label for="budget-name" class="type-body-bold">Budget Name</label>
-          <div class="field-with-error">
+          <div class="field-with-error has-errors">
             <div>
-              <input id="modal-settings-budget-name" name="name" class="ember-text-field ember-view modal-budget-settings-name" type="text" autofocus="" value="{{ old('name')
-               }}">
+              <input id="modal-settings-budget-name" class="ember-text-field ember-view modal-budget-settings-name" type="text" wire:model="name">
             </div>
             <!---->
-            <ul class="errors warnings">
-              <li id="message-error"></li>
+            <ul class="errors ">
+              <li></li>
             </ul>
           </div>
           <!---->
@@ -41,7 +41,7 @@
             <div>
               <label for="modal-settings-currency" class="type-body-bold">Currency</label>
               <div class="x-select-container">
-                <select class="js-x-select" id="modal-settings-currency" name="currency">
+                <select wire:model="currency" class="js-x-select" id="modal-settings-currency">
                   <!---->
                   @foreach (App\Helpers\FormatHelper::getCurrencies() as $item => $currencies)
                     <optgroup label="{{ $item }}">
@@ -60,7 +60,7 @@
                 Currency Placement
               </label>
               <div class="x-select-container">
-                <select class="js-x-select" id="modal-settings-currency-placement" name="currency_placement">
+                <select wire:model="currency_placement" class="js-x-select" id="modal-settings-currency-placement">
                   @foreach (App\Helpers\FormatHelper::getPlacement() as $item => $displayPlacement)
                     <option value="{{ $item }}">
                       {{ $displayPlacement }}
@@ -74,7 +74,7 @@
             Number Format
           </label>
           <div class="x-select-container ">
-            <select class="js-x-select" id="modal-settings-currency-format" name="number_format">
+            <select wire:model="number_format" class="js-x-select" id="modal-settings-currency-format">
               @foreach (App\Helpers\FormatHelper::getNumberFormats() as $item => $displayNumber)
                 <option value="{{ $item }}">
                   {{ $displayNumber }}
@@ -86,7 +86,7 @@
             Date Format
           </label>
           <div class="x-select-container ">
-            <select class="js-x-select" id="modal-settings-date-format" name="date_format">
+            <select wire:model="date_format" class="js-x-select" id="modal-settings-date-format">
               @foreach (App\Helpers\FormatHelper::getDateFormats() as $item => $displayDate)
                 <option value="{{ $item }}">
                   {{ $displayDate }}
@@ -100,7 +100,7 @@
     </div>
     <div class="modal-fresh-footer">
       <button class="ynab-button secondary" type="button">Cancel</button>
-      <button class="ynab-button primary" type="button">Create Budget</button>
+      <button class="ynab-button primary" type="button" wire:click="saveBudget">Create Budget</button>
     </div>
     <!---->
   </div>
@@ -108,11 +108,17 @@
 
 @push('scripts')
   <script>
-    // Código optimizado para manejar el modal y el formulario
     $(function() {
+      const $newBudget = $('#new-budget');
+      const $newBudgetForm = $('#newBudget-form');
 
+      // Cierra el modal y restablece el formulario
+      $('.secondary').on('click', function() {
+        $newBudget.hide(); // Oculta el modal
+        $newBudgetForm[0].reset(); // Restablece el formulario
+      });
 
-    });
+    })
 
   </script>
 @endpush

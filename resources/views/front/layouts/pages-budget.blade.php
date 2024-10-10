@@ -22,6 +22,7 @@
 
   <style>
   </style>
+
   @stack('stylesheets')
 
 </head>
@@ -32,7 +33,7 @@
 
   @yield('content')
 
-</div> <!--End Layout-->
+</div>
 
 @stack('scripts')
 

@@ -546,7 +546,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 .ynab-u {
   display: inline-block;
   *display: inline;
-  zoom: 1;
+  transform: 1;
   letter-spacing: normal;
   word-spacing: normal;
   text-rendering: auto;
@@ -2149,11 +2149,8 @@ a:focus-visible, div:focus-visible, li:focus-visible {
   font-weight: 500;
   line-height: 1.2;
 }
-.button,
-.button-cancel,
-.button-disabled,
-.button-red,
-.button-secondary {
+
+.button, .button-cancel, .button-disabled, .button-red, .button-secondary {
   padding: .375rem 1rem;
   border-radius: .5rem;
   height: 2rem;
@@ -2206,8 +2203,8 @@ form {
   border-radius: .25rem;
 }
 .x-select-container select:focus, input:focus {
-  border: .0625rem solid #3b5eda;
-  border: .0625rem solid var(--inputBorderActive);
+  border: .085rem solid #3b5eda;
+  border: .085rem solid var(--inputBorderActive);
   outline: 0;
 }
 .modal-budget-settings .modal-budget-settings-currency-fields {

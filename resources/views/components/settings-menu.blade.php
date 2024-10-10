@@ -13,7 +13,8 @@
     New Budget
   </button>
   <!---->
-  @if($hideButtons) {{-- Cambié a !$hideButtons para mostrar los botones si hideButtons es false --}}
+  @if($hideButtons)
+    {{-- Cambié a !$hideButtons para mostrar los botones si hideButtons es false --}}
     <a href="#" class="menu-item js-menu-item recent-budgets-view-all" role="menuitem" id="ember102">
       <svg class="ynab-new-icon" width="16" height="16">
         <!---->
@@ -289,3 +290,23 @@
   <!---->
 
 </div>  <!--End Menu Settings-->
+
+@push('scripts')
+  <script>
+    $(function() {
+      const $menuSettings = $('#menu-settings');
+      const $newBudget = $('#new-budget');
+
+      //Abre el modal new busgewt
+      $('.modal-select-budget-create').on('click', function() {
+        // Muestra el modal
+        $newBudget.show(); // Mostrar el modal
+        $('#modal-settings-budget-name').focus(); // Enfocar el input
+        centerModal();
+        $menuSettings.hide();
+      });
+
+    });
+  </script>
+
+@endpush

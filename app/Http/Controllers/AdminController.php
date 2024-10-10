@@ -4,7 +4,6 @@
 
   use App\Helpers\CMail;
   use App\Models\User;
-  use App\Models\Budget;
   use App\Rules\StrongPassword;
   use Illuminate\Http\Request;
   use Illuminate\Support\Facades\Auth;
@@ -22,7 +21,7 @@
       $budget = $user->budgets()->where('is_active',true)->first();
 
       if($budget === null){
-       return redirect()->route('admin.budgets');
+        return redirect()->route('admin.budgets');
       }
 
       $data = [
@@ -36,13 +35,14 @@
 
     public function adminBudgets(Request $request){
       $user = Auth::user();
+      // Obtiene los presupuestos del usuario autenticado
+      $budgets = $user->budgets()->get();
 
-      //$hideButtons = false;
 
       $data = [
         'pageTitle' => 'Open Budget | YNAB',
         'user'      => $user,
-        //'hideButtons' => $hideButtons,
+        'budgets'   => $budgets,
       ];
 
       return view('front.pages.budget',$data);
