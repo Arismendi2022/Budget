@@ -20,8 +20,6 @@
   <link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet">
 
   <link href="{{ asset('css/front/profile.css') }}" rel="stylesheet">
-  <!--JQUERY-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <style>
     body {
@@ -49,6 +47,9 @@
     <div class="copyright">© Copyright {{ date('Y') }} YNAB LLC. All rights reserved.</div>
   </footer>
 </div>
+
+<!--JQUERY-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 @stack('scripts')
 

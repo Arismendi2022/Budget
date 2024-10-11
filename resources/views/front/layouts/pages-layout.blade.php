@@ -18,8 +18,6 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <link rel="stylesheet" href="{{ asset('css/front/main.css') }}">
-  <!--JQUERY-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <style>
   </style>
@@ -44,15 +42,11 @@
 </div>
 <!---->
 <!---->
-@include('front.modals.modal-settings')
-<!---->
-{{--@include('front.modals.modal-new-budget')--}}
-<!---->
 {{--@include('front.modals.modal-edit-budget')--}}
 <!---->
 @include('front.modals.modal-calendar')
 <!---->
-{{--@include('front.modals.modal-add-account')--}}
+@include('front.modals.modal-add-account')
 <!---->
 {{--@include('components.modals.modal-edit-account')--}}
 
@@ -76,6 +70,9 @@
 
 {{-- footer --}}
 
+<!--JQUERY-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{{ asset('js/front/centerModal.js') }}"></script>
 
 @stack('scripts')
 

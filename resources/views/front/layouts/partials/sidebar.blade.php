@@ -16,7 +16,7 @@
                 </path>
               </symbol>
             </use>
-            <title>Arismendi's Budget</title>
+            <title>{{ $budget->name ?? 'YNAB' }}</title>
           </svg>
           <div class="sidebar-nav-budget-email">
             <span class="sidebar-nav-budget-email-budget">{{ $budget->name ?? 'YNAB' }}</span>
@@ -46,7 +46,7 @@
                     </path>
                   </symbol>
                 </use>
-                <title>Arismendi's Budget</title>
+                <title>{{ $budget->name ?? 'YNAB' }}</title>
               </svg>
             </button>
           </li>
@@ -74,7 +74,7 @@
                   d="M8 9.7v6.6l-.1.5-.4.2H4.3l-.1-.2-.2-.2V9.4l.2-.2.1-.1.2-.1h3l.4.2zM14 4v12.2c0 .2 0 .5-.2.6l-.5.3h-2.6l-.5-.3-.2-.6V3.9c0-.2 0-.5.2-.6l.5-.3h2.8l.3.3.1.3zm6 2.9v9.4l-.2.6-.5.2h-2.6l-.5-.2-.2-.6V6.8l.2-.6.5-.2h2.6l.5.2z"
                   clip-rule="evenodd"></path>
               </svg>
-              <div class="navlink-label">Reports</div>
+              <div class="navlink-label">Reflect</div>
             </a>
           </li>
           <li class="navlink navlink-accounts">
@@ -93,169 +93,181 @@
         </ul>
         <!---->
         <div class="nav-accounts">
-          <div class="nav-account onBudget">
-            <div class="nav-account-block">
-              <button id="budget-btn" class="nav-account-name nav-account-name-button user-data" aria-label="collapse BUDGET" type="button">
-                <svg class="ynab-new-icon" width="8px" height="8px">
-                  <!---->
-                  <use href="#icon_sprite_chevron_down">
-                    <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_down" fill="none" viewBox="0 0 24 24">
-                      <path fill="currentColor" fill-rule="evenodd"
-                        d="M13 18.7a1.4 1.4 0 0 1-2 0L.4 7.4a2 2 0 0 1 0-2 1.4 1.4 0 0 1 2 0l9.6 10 9.6-10.2a1.4 1.4 0 0 1 2 0 2 2 0 0 1 0 2.1z" clip-rule="evenodd">
-                      </path>
-                    </symbol>
+          @if(!empty($accounts))
+            {{-- Verifica si hay cuentas --}}
+            <div class="nav-account onBudget">
+              <div class="nav-account-block">
+                <button id="budget-btn" class="nav-account-name nav-account-name-button user-data" aria-label="collapse BUDGET" type="button">
+                  <svg class="ynab-new-icon" width="8px" height="8px">
                     <!---->
-                    <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_right" fill="none" viewBox="0 0 24 24">
-                      <path fill="currentColor" fill-rule="evenodd"
-                        d="M7.4 23.6a1.5 1.5 0 0 1-2 0 1.4 1.4 0 0 1 0-2l10-9.6-10-9.6a1.4 1.4 0 0 1 0-2 1.5 1.5 0 0 1 2 0L18.6 11c.5.6.5 1.4 0 2z" clip-rule="evenodd">
-                      </path>
-                    </symbol>
-                  </use>
-                </svg>
-                <div>BUDGET</div>
-              </button>
-              <div class="nav-account-value nav-account-block-value user-data">
+                    <use href="#icon_sprite_chevron_down">
+                      <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_down" fill="none" viewBox="0 0 24 24">
+                        <path fill="currentColor" fill-rule="evenodd"
+                          d="M13 18.7a1.4 1.4 0 0 1-2 0L.4 7.4a2 2 0 0 1 0-2 1.4 1.4 0 0 1 2 0l9.6 10 9.6-10.2a1.4 1.4 0 0 1 2 0 2 2 0 0 1 0 2.1z" clip-rule="evenodd">
+                        </path>
+                      </symbol>
+                      <!---->
+                      <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_right" fill="none" viewBox="0 0 24 24">
+                        <path fill="currentColor" fill-rule="evenodd"
+                          d="M7.4 23.6a1.5 1.5 0 0 1-2 0 1.4 1.4 0 0 1 0-2l10-9.6-10-9.6a1.4 1.4 0 0 1 0-2 1.5 1.5 0 0 1 2 0L18.6 11c.5.6.5 1.4 0 2z" clip-rule="evenodd">
+                        </path>
+                      </symbol>
+                    </use>
+                  </svg>
+                  <div>BUDGET</div>
+                </button>
+                <div class="nav-account-value nav-account-block-value user-data">
                 <span class="user-data currency positive">
                   <bdi>$</bdi>3,840,000.00</span>
+                </div>
+                <div class="nav-account-icons nav-account-icons-right"></div>
               </div>
-              <div class="nav-account-icons nav-account-icons-right"></div>
-            </div>
-            <div id="budgetDetails">
-              <a id="ember8" href="#" class="nav-account-row" draggable="true">
-                <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account">
-                  <!---->
-                  <svg class="ynab-new-icon edit" width="12" height="12">
+              <div id="budgetDetails">
+                <a id="ember8" href="#" class="nav-account-row" draggable="true">
+                  <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account">
                     <!---->
-                    <use href="#icon_sprite_pencil">
-                      <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_pencil" fill="none" viewBox="0 0 24 24">
-                        <path fill="currentColor" fill-rule="evenodd"
-                          d="m0 23.5 1.1-3.7A4 4 0 0 1 2.2 18l14-14a.5.5 0 0 1 .8 0l3 3a.5.5 0 0 1 0 .8l-14 14c-.5.5-1.1.9-1.8 1L.5 24a.4.4 0 0 1-.5-.5m22-23L23.5 2a1.6 1.6 0 0 1 0 2.3L21.7 6a.5.5 0 0 1-.8 0l-3-3a.5.5 0 0 1 0-.8L19.7.5a1.6 1.6 0 0 1 2.3 0"
-                          clip-rule="evenodd"></path>
-                      </symbol>
-                    </use>
-                  </svg>
-                </div>
-                <div class="nav-account-name user-data" title="Salario">Salario</div>
-                <div class="nav-account-value user-data">
-                  <span class="user-data currency positive"><bdi>$</bdi>3,040,000.00</span>
-                </div>
-                <span id="ember9" class="direct-status-import-icon nav-account-icons nav-account-icons-right">
+                    <svg class="ynab-new-icon edit" width="12" height="12">
+                      <!---->
+                      <use href="#icon_sprite_pencil">
+                        <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_pencil" fill="none" viewBox="0 0 24 24">
+                          <path fill="currentColor" fill-rule="evenodd"
+                            d="m0 23.5 1.1-3.7A4 4 0 0 1 2.2 18l14-14a.5.5 0 0 1 .8 0l3 3a.5.5 0 0 1 0 .8l-14 14c-.5.5-1.1.9-1.8 1L.5 24a.4.4 0 0 1-.5-.5m22-23L23.5 2a1.6 1.6 0 0 1 0 2.3L21.7 6a.5.5 0 0 1-.8 0l-3-3a.5.5 0 0 1 0-.8L19.7.5a1.6 1.6 0 0 1 2.3 0"
+                            clip-rule="evenodd"></path>
+                        </symbol>
+                      </use>
+                    </svg>
+                  </div>
+                  <div class="nav-account-name user-data" title="Salario">Salario</div>
+                  <div class="nav-account-value user-data">
+                    <span class="user-data currency positive"><bdi>$</bdi>3,040,000.00</span>
+                  </div>
+                  <span id="ember9" class="direct-status-import-icon nav-account-icons nav-account-icons-right">
                   <svg class="ynab-new-icon" width="16" height="16">
                     <!---->
                     <use href="#icon_sprite_"></use>
                   </svg>
-                  <!---->
-                </span>
-              </a>
-              <a id="ember10" href="#" class="nav-account-row" draggable="true">
-                <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account">
-                  <!---->
-                  <svg class="ynab-new-icon edit" width="12" height="12">
                     <!---->
-                    <use href="#icon_sprite_pencil">
-                      <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_pencil" fill="none" viewBox="0 0 24 24">
-                        <path fill="currentColor" fill-rule="evenodd"
-                          d="m0 23.5 1.1-3.7A4 4 0 0 1 2.2 18l14-14a.5.5 0 0 1 .8 0l3 3a.5.5 0 0 1 0 .8l-14 14c-.5.5-1.1.9-1.8 1L.5 24a.4.4 0 0 1-.5-.5m22-23L23.5 2a1.6 1.6 0 0 1 0 2.3L21.7 6a.5.5 0 0 1-.8 0l-3-3a.5.5 0 0 1 0-.8L19.7.5a1.6 1.6 0 0 1 2.3 0"
-                          clip-rule="evenodd"></path>
-                      </symbol>
-                    </use>
-                  </svg>
-                </div>
-                <div class="nav-account-name user-data" title="Visa">Visa</div>
-                <div class="nav-account-value user-data">
-                  <span class="user-data currency negative">−<bdi>$</bdi>1,200,000.00</span>
-                </div>
+                </span>
+                </a>
+                <a id="ember10" href="#" class="nav-account-row" draggable="true">
+                  <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account">
+                    <!---->
+                    <svg class="ynab-new-icon edit" width="12" height="12">
+                      <!---->
+                      <use href="#icon_sprite_pencil">
+                        <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_pencil" fill="none" viewBox="0 0 24 24">
+                          <path fill="currentColor" fill-rule="evenodd"
+                            d="m0 23.5 1.1-3.7A4 4 0 0 1 2.2 18l14-14a.5.5 0 0 1 .8 0l3 3a.5.5 0 0 1 0 .8l-14 14c-.5.5-1.1.9-1.8 1L.5 24a.4.4 0 0 1-.5-.5m22-23L23.5 2a1.6 1.6 0 0 1 0 2.3L21.7 6a.5.5 0 0 1-.8 0l-3-3a.5.5 0 0 1 0-.8L19.7.5a1.6 1.6 0 0 1 2.3 0"
+                            clip-rule="evenodd"></path>
+                        </symbol>
+                      </use>
+                    </svg>
+                  </div>
+                  <div class="nav-account-name user-data" title="Visa">Visa</div>
+                  <div class="nav-account-value user-data">
+                    <span class="user-data currency negative">−<bdi>$</bdi>1,200,000.00</span>
+                  </div>
 
-                <span id="ember11" class="direct-status-import-icon nav-account-icons nav-account-icons-right">
+                  <span id="ember11" class="direct-status-import-icon nav-account-icons nav-account-icons-right">
                   <svg class="ynab-new-icon" width="16" height="16">
                     <!---->
                     <use href="#icon_sprite_"></use>
                   </svg>
-                  <!---->
-                </span>
-              </a>
-              <a id="ember12" href="#" class="nav-account-row" draggable="true">
-                <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account">
-                  <!---->
-                  <svg class="ynab-new-icon edit" width="12" height="12">
                     <!---->
-                    <use href="#icon_sprite_pencil">
-                      <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_pencil" fill="none" viewBox="0 0 24 24">
-                        <path fill="currentColor" fill-rule="evenodd"
-                          d="m0 23.5 1.1-3.7A4 4 0 0 1 2.2 18l14-14a.5.5 0 0 1 .8 0l3 3a.5.5 0 0 1 0 .8l-14 14c-.5.5-1.1.9-1.8 1L.5 24a.4.4 0 0 1-.5-.5m22-23L23.5 2a1.6 1.6 0 0 1 0 2.3L21.7 6a.5.5 0 0 1-.8 0l-3-3a.5.5 0 0 1 0-.8L19.7.5a1.6 1.6 0 0 1 2.3 0"
-                          clip-rule="evenodd"></path>
-                      </symbol>
-                    </use>
-                  </svg>
-                </div>
-                <div class="nav-account-name user-data" title="Ahorros">Ahorros</div>
-                <div class="nav-account-value user-data">
-                  <span class="user-data currency positive"><bdi>$</bdi>2,000,000.00</span>
-                </div>
-                <span id="ember13" class="direct-status-import-icon nav-account-icons nav-account-icons-right">
+                </span>
+                </a>
+                <a id="ember12" href="#" class="nav-account-row" draggable="true">
+                  <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account">
+                    <!---->
+                    <svg class="ynab-new-icon edit" width="12" height="12">
+                      <!---->
+                      <use href="#icon_sprite_pencil">
+                        <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_pencil" fill="none" viewBox="0 0 24 24">
+                          <path fill="currentColor" fill-rule="evenodd"
+                            d="m0 23.5 1.1-3.7A4 4 0 0 1 2.2 18l14-14a.5.5 0 0 1 .8 0l3 3a.5.5 0 0 1 0 .8l-14 14c-.5.5-1.1.9-1.8 1L.5 24a.4.4 0 0 1-.5-.5m22-23L23.5 2a1.6 1.6 0 0 1 0 2.3L21.7 6a.5.5 0 0 1-.8 0l-3-3a.5.5 0 0 1 0-.8L19.7.5a1.6 1.6 0 0 1 2.3 0"
+                            clip-rule="evenodd"></path>
+                        </symbol>
+                      </use>
+                    </svg>
+                  </div>
+                  <div class="nav-account-name user-data" title="Ahorros">Ahorros</div>
+                  <div class="nav-account-value user-data">
+                    <span class="user-data currency positive"><bdi>$</bdi>2,000,000.00</span>
+                  </div>
+                  <span id="ember13" class="direct-status-import-icon nav-account-icons nav-account-icons-right">
                   <svg class="ynab-new-icon" width="16" height="16">
                     <!---->
                     <use href="#icon_sprite_"></use>
                   </svg>
-                  <!---->
+                    <!---->
                 </span>
-              </a>
-            </div>
-          </div>
-          <div class="nav-account loan">
-            <div class="nav-account-block">
-              <button id="loan-btn" class="nav-account-name nav-account-name-button user-data" arial-label="collapse LOANS" type="button">
-                <svg class="ynab-new-icon " width="8" height="8">
-                  <!---->
-                  <use href="#icon_sprite_chevron_down">
-                    <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_down" fill="none" viewBox="0 0 24 24">
-                      <path fill="currentColor" fill-rule="evenodd"
-                        d="M13 18.7a1.4 1.4 0 0 1-2 0L.4 7.4a2 2 0 0 1 0-2 1.4 1.4 0 0 1 2 0l9.6 10 9.6-10.2a1.4 1.4 0 0 1 2 0 2 2 0 0 1 0 2.1z" clip-rule="evenodd">
-                      </path>
-                    </symbol>
-                  </use>
-                </svg>
-                <div>LOANS</div>
-              </button>
-              <div class="nav-account-value nav-account-block-value user-data">
-                <span class="user-data currency negative">−<bdi>$</bdi>2,700,000.00</span>
+                </a>
               </div>
-              <div class="nav-account-icons nav-account-icons-right"></div>
             </div>
-
-            <div id="loanDetails">
-              <a id="ember169" href="#" class="nav-account-row" draggable="true">
-                <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account">
-                  <!---->
-                  <svg class="ynab-new-icon edit" width="12" height="12">
+          @endif
+          <!---->
+          @if(!empty($accounts))
+            {{-- Verifica si hay cuentas --}}
+            <div class="nav-account loan">
+              <div class="nav-account-block">
+                <button id="loan-btn" class="nav-account-name nav-account-name-button user-data" arial-label="collapse LOANS" type="button">
+                  <svg class="ynab-new-icon " width="8" height="8">
                     <!---->
-                    <use href="#icon_sprite_pencil">
-                      <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_pencil" fill="none" viewBox="0 0 24 24">
+                    <use href="#icon_sprite_chevron_down">
+                      <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_down" fill="none" viewBox="0 0 24 24">
                         <path fill="currentColor" fill-rule="evenodd"
-                          d="m0 23.5 1.1-3.7A4 4 0 0 1 2.2 18l14-14a.5.5 0 0 1 .8 0l3 3a.5.5 0 0 1 0 .8l-14 14c-.5.5-1.1.9-1.8 1L.5 24a.4.4 0 0 1-.5-.5m22-23L23.5 2a1.6 1.6 0 0 1 0 2.3L21.7 6a.5.5 0 0 1-.8 0l-3-3a.5.5 0 0 1 0-.8L19.7.5a1.6 1.6 0 0 1 2.3 0"
-                          clip-rule="evenodd"></path>
+                          d="M13 18.7a1.4 1.4 0 0 1-2 0L.4 7.4a2 2 0 0 1 0-2 1.4 1.4 0 0 1 2 0l9.6 10 9.6-10.2a1.4 1.4 0 0 1 2 0 2 2 0 0 1 0 2.1z" clip-rule="evenodd">
+                        </path>
                       </symbol>
                     </use>
                   </svg>
-                </div>
-                <div class="nav-account-name user-data" title="ipad Air">ipad Air</div>
-                <div class="nav-account-value user-data">
+                  <div>LOANS</div>
+                </button>
+                <div class="nav-account-value nav-account-block-value user-data">
                   <span class="user-data currency negative">−<bdi>$</bdi>2,700,000.00</span>
                 </div>
-                <span id="ember170" class="direct-status-import-icon nav-account-icons nav-account-icons-right">
+                <div class="nav-account-icons nav-account-icons-right"></div>
+              </div>
+
+              <div id="loanDetails">
+                <a id="ember169" href="#" class="nav-account-row" draggable="true">
+                  <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account">
+                    <!---->
+                    <svg class="ynab-new-icon edit" width="12" height="12">
+                      <!---->
+                      <use href="#icon_sprite_pencil">
+                        <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_pencil" fill="none" viewBox="0 0 24 24">
+                          <path fill="currentColor" fill-rule="evenodd"
+                            d="m0 23.5 1.1-3.7A4 4 0 0 1 2.2 18l14-14a.5.5 0 0 1 .8 0l3 3a.5.5 0 0 1 0 .8l-14 14c-.5.5-1.1.9-1.8 1L.5 24a.4.4 0 0 1-.5-.5m22-23L23.5 2a1.6 1.6 0 0 1 0 2.3L21.7 6a.5.5 0 0 1-.8 0l-3-3a.5.5 0 0 1 0-.8L19.7.5a1.6 1.6 0 0 1 2.3 0"
+                            clip-rule="evenodd"></path>
+                        </symbol>
+                      </use>
+                    </svg>
+                  </div>
+                  <div class="nav-account-name user-data" title="ipad Air">ipad Air</div>
+                  <div class="nav-account-value user-data">
+                    <span class="user-data currency negative">−<bdi>$</bdi>2,700,000.00</span>
+                  </div>
+                  <span id="ember170" class="direct-status-import-icon nav-account-icons nav-account-icons-right">
                   <svg class="ynab-new-icon" width="16" height="16">
                     <!---->
                     <use href="#icon_sprite_"></use>
                   </svg>
-                  <!---->
+                    <!---->
                 </span>
-              </a>
+                </a>
+              </div>
             </div>
-          </div>
-          <!---->
+          @endif
           <!---->
         </div>
         <div class="nav-add-accounts">
+          @if(empty($accounts))
+            <div class="nav-accounts-empty-state">
+              <h5>No Accounts</h5>
+              <p>You can't budget without adding accounts to YNAB first. How about adding one now?</p>
+            </div>
+          @endif
           <!---->
           <button class="ynab-button contrast button-sidebar nav-add-account" type="button">
             <svg class="ynab-new-icon" width="12" height="12">
@@ -312,9 +324,32 @@
     <div class="sidebar-resizer-indicator"></div>
   </div>
 </nav>
+{{--   MENU SETTINGS --}}
+<x-settings-menu :hideButtons="true"/> {{-- Cambia a false si deseas ocultar los botones --}}
+@livewire('create-budget')
 
 @push('scripts')
   <script>
+
+    $(function() {
+      // Mostrar el modal menu settings
+      $('.js-sidebar-nav-menu').on('click', function() {
+        $('#menu-settings').toggle();
+      });
+
+      // Cerrar el menú si se hace clic fuera de él
+      $(document).on('click', function(event) {
+        if(!$(event.target).closest('#menu-settings, .js-sidebar-nav-menu').length) {
+          $('#menu-settings').hide(); // Cierra el menú
+        }
+      });
+    });
+
+    /**
+     *
+     * @type {NodeListOf<Element>}
+     */
+
     const listaItems = document.querySelectorAll('.nav-main li');
     const links = document.querySelectorAll('a.nav-account-row');
 
@@ -322,14 +357,14 @@
     const sidebarBtn = document.querySelector(".sidebar-collapse");
     const iconCollapsed = sidebarBtn.querySelector('use');
 
-    const budgetBtn = document.querySelector('#budget-btn');
-    const loantBtn = document.querySelector('#loan-btn');
+    //const budgetBtn = document.querySelector('#budget-btn');
+    // const loantBtn = document.querySelector('#loan-btn');
 
     const budgetDetails = document.querySelector('#budgetDetails');
     const loanDetails = document.querySelector('#loanDetails');
 
-    const iconUseBudget = budgetBtn.querySelector('use');
-    const iconUseLoan = loantBtn.querySelector('use');
+    //const iconUseBudget = budgetBtn.querySelector('use');
+    //const iconUseLoan = loantBtn.querySelector('use');
 
     const addAccountButton = document.querySelector('.nav-add-accounts');
     const navAccounts = document.querySelector('.nav-accounts');
@@ -377,27 +412,27 @@
     });
 
     // Agregar evento de clic al botón "BUDGET"
-    budgetBtn.addEventListener('click', () => {
-      if(budgetDetails.style.display === 'none') {
-        budgetDetails.style.display = 'block';
-        // Función para cambiar el ícono
-        iconUseBudget.setAttribute('href', '#icon_sprite_chevron_down');
-      } else {
-        budgetDetails.style.display = 'none';
-        iconUseBudget.setAttribute('href', '#icon_sprite_chevron_right');
-      }
-    });
-    // Agregar evento de clic al botón "LOAN"
-    loantBtn.addEventListener('click', () => {
-      if(loanDetails.style.display === 'none') {
-        loanDetails.style.display = 'block';
-        // Función para cambiar el ícono
-        iconUseLoan.setAttribute('href', '#icon_sprite_chevron_down');
-      } else {
-        loanDetails.style.display = 'none';
-        iconUseLoan.setAttribute('href', '#icon_sprite_chevron_right');
-      }
-    });
+    /* budgetBtn.addEventListener('click', () => {
+       if(budgetDetails.style.display === 'none') {
+         budgetDetails.style.display = 'block';
+         // Función para cambiar el ícono
+         iconUseBudget.setAttribute('href', '#icon_sprite_chevron_down');
+       } else {
+         budgetDetails.style.display = 'none';
+         iconUseBudget.setAttribute('href', '#icon_sprite_chevron_right');
+       }
+     });
+     // Agregar evento de clic al botón "LOAN"
+     loantBtn.addEventListener('click', () => {
+       if(loanDetails.style.display === 'none') {
+         loanDetails.style.display = 'block';
+         // Función para cambiar el ícono
+         iconUseLoan.setAttribute('href', '#icon_sprite_chevron_down');
+       } else {
+         loanDetails.style.display = 'none';
+         iconUseLoan.setAttribute('href', '#icon_sprite_chevron_right');
+       }
+     });*/
 
     // Recorrer cada elemento <li> y agregar un evento de clic
     listaItems.forEach(item => {
@@ -475,25 +510,6 @@
       }
     });
 
-    // Activa modal settings
-    const openModalButtons = document.querySelectorAll('.js-sidebar-nav-menu');
-
-    openModalButtons.forEach(button => {
-      button.addEventListener('click', function(event) {
-        const modalActive = document.getElementById('settings-menu');
-        modalActive.classList.add('modal-overlay', 'active');
-        event.stopPropagation(); // Detener la propagación del evento para evitar cierres no deseados
-      });
-    });
-
-    // Cerrar el modal al hacer clic fuera de él
-    document.addEventListener('click', function(event) {
-      const modalActive = document.getElementById('settings-menu');
-      const modal = document.querySelector('.modal');
-      if(modalActive.classList.contains('active') && !modal.contains(event.target) && !event.target.classList.contains('js-sidebar-nav-menu')) {
-        modalActive.classList.remove('modal-overlay', 'active');
-      }
-    });
 
     // modal nav-add-account
     document.addEventListener('DOMContentLoaded', function() {

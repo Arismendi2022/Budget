@@ -27,13 +27,15 @@
         <form id="newBudget-form">
           @csrf
           <label for="budget-name" class="type-body-bold">Budget Name</label>
-          <div class="field-with-error has-errors">
+          <div class="field-with-error {{ $errors->has('name') ? 'has-errors' : '' }}">
             <div>
               <input id="modal-settings-budget-name" class="ember-text-field ember-view modal-budget-settings-name" type="text" wire:model="name">
             </div>
             <!---->
-            <ul class="errors ">
-              <li></li>
+            <ul class="errors {{ $errors->has('name') ? '' : 'warnings' }}">
+              @if ($errors->has('name'))
+                <li>{{ $errors->first('name') }}</li> <!-- Muestra el primer error -->
+              @endif
             </ul>
           </div>
           <!---->
@@ -86,7 +88,7 @@
             Date Format
           </label>
           <div class="x-select-container ">
-            <select wire:model="date_format" class="js-x-select" id="modal-settings-date-format">
+            <select wire:model="date_format" class="js-x-select" id="date-format">
               @foreach (App\Helpers\FormatHelper::getDateFormats() as $item => $displayDate)
                 <option value="{{ $item }}">
                   {{ $displayDate }}
@@ -111,11 +113,18 @@
     $(function() {
       const $newBudget = $('#new-budget');
       const $newBudgetForm = $('#newBudget-form');
+      const $errorDiv = $('.field-with-error');
+      const $errorList = $('.errors');
 
       // Cierra el modal y restablece el formulario
       $('.secondary').on('click', function() {
-        $newBudget.hide(); // Oculta el modal
-        $newBudgetForm[0].reset(); // Restablece el formulario
+        $newBudget.hide();
+        $newBudgetForm[0].reset();
+
+        // Limpia los errores
+        $errorDiv.removeClass('has-errors');
+        $errorList.addClass('warnings');
+        $errorList.empty();
       });
 
     })

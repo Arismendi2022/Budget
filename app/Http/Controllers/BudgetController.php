@@ -16,7 +16,7 @@
        * Validate form
        */
       $request->validate([
-        'name' => 'required|unique:budget_details,name',
+        'name' => 'required|unique:budget,name',
       ],[
         'name.required' => 'Se requiere el nombre del presupuesto',
         'name.unique'   => 'El nombre del presupuesto ya existe',
@@ -63,9 +63,8 @@
 
     public function updateBudget(Request $request){
 
-      dd('Click en Update...');
      /* $request->validate([
-        'name' => 'required|unique:budget_details,name',
+        'name' => 'required|unique:budgets,name',
       ],[
         'name.required' => 'Se requiere el nombre del presupuesto',
         'name.unique'   => 'El nombre del presupuesto ya existe',

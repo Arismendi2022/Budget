@@ -17,8 +17,6 @@
   <link rel="shortcut icon" href="{{ asset('images/shared/brand/ynab-tree-logo.svg') }}">
 
   <link href="{{ asset('css/back/auth.css') }}" rel="stylesheet">
-  <!--JQUERY-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <style>
   </style>
@@ -48,6 +46,9 @@
   <button class="page-footer__privacy-choices js-open-preference-center">Your Privacy Choices</button>
   <div class="copyright">© Copyright {{ date('Y') }} YNAB LLC. All rights reserved.</div>
 </footer>
+
+<!--JQUERY-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 @stack('scripts')
 

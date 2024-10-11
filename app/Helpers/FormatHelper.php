@@ -10,7 +10,6 @@
         "Common Currencies" => [
           "USD" => "US Dollar–USD",
           "GBP" => "UK Pound Sterling–GBP",
-          "COP" => "Colombian Peso–COP",
           "CAD" => "Canadian Dollar–CAD",
           "AUD" => "Australian Dollar–AUD",
           "EUR" => "Euro–EUR",

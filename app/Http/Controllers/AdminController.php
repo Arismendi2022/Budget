@@ -37,12 +37,14 @@
       $user = Auth::user();
       // Obtiene los presupuestos del usuario autenticado
       $budgets = $user->budgets()->get();
-
+      // Encuentra el presupuesto activo
+      $activeBudget = $budgets->where('is_active',true)->first();
 
       $data = [
-        'pageTitle' => 'Open Budget | YNAB',
-        'user'      => $user,
-        'budgets'   => $budgets,
+        'pageTitle'    => 'Open Budget | YNAB',
+        'user'         => $user,
+        'budgets'      => $budgets,
+        'activeBudget' => $activeBudget,
       ];
 
       return view('front.pages.budget',$data);

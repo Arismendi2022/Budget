@@ -15,7 +15,7 @@
   <!---->
   @if($hideButtons)
     {{-- Cambié a !$hideButtons para mostrar los botones si hideButtons es false --}}
-    <a href="#" class="menu-item js-menu-item recent-budgets-view-all" role="menuitem" id="ember102">
+    <a href="{{ route('admin.budgets') }}" class="menu-item js-menu-item recent-budgets-view-all" role="menuitem" id="ember102">
       <svg class="ynab-new-icon" width="16" height="16">
         <!---->
         <use href="#icon_sprite_folder">
@@ -123,7 +123,7 @@
   <div class="menu-separator" role="separator"></div>
   <div class="menu-heading">Account</div>
   <!---->
-  <button class="menu-item js-menu-item modal-select-budget-my-account" role="menuitem" id="ember7" type="button">
+  <button class="menu-item js-menu-item modal-select-budget-my-account" role="menuitem" id="accountSettings" type="button">
     <svg class="ynab-new-icon" width="16" height="16">
       <!---->
       <use href="#icon_sprite_user">
@@ -297,7 +297,7 @@
       const $menuSettings = $('#menu-settings');
       const $newBudget = $('#new-budget');
 
-      //Abre el modal new busgewt
+      //Abre el modal new budget
       $('.modal-select-budget-create').on('click', function() {
         // Muestra el modal
         $newBudget.show(); // Mostrar el modal
@@ -305,6 +305,13 @@
         centerModal();
         $menuSettings.hide();
       });
+
+      //Activa modal Account Settings
+      $('#accountSettings').on('click', function() {
+        $('#settings-menu').removeClass('modal-overlay active'); // cerrar modal quitando clase
+        window.location.href = "{{ route('admin.settings') }}";
+      });
+
 
     });
   </script>

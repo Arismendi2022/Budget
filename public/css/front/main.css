@@ -733,6 +733,24 @@ img {
   text-align: center;
   width: 100%;
 }
+.nav-accounts-empty-state {
+  background-color: var(--sidebarButtonBackgroundActive);
+  border-radius: 5px;
+  margin: .65rem;
+  margin-bottom: 0.65rem;
+  margin-bottom: 0;
+  padding: 1rem;
+}
+.nav-accounts-empty-state h5 {
+  margin: 0;
+}
+.nav-accounts-empty-state p {
+  margin: .2rem 0;
+}
+.nav-accounts-empty-state p, .referral-program-banner:hover .ynab-new-icon {
+  color: var(--sidebarLabelSecondary);
+}
+
 .ynab-button.contrast:not([disabled]) {
   background-color: rgba(255, 255, 255, .149);
   background-color: var(--backgroundDarkSecondary);

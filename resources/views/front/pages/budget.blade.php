@@ -11,7 +11,7 @@
           <div class="dashboard">
             <button class="sidebar-nav-menu sibedar-nav-menu-budget js-sidebar-nav-menu user-data" type="button">
               <div class="sidebar-nav-budget-email">
-                <span class="sidebar-nav-budget-email-budget">{{ $budget->name ?? 'YNAB' }}</span>
+                <span class="sidebar-nav-budget-email-budget">{{ $activeBudget->name ?? 'YNAB' }}</span>
                 <span class="sidebar-nav-budget-email-email button-truncate">{{ $user->email }}</span>
               </div>
               <svg class="ynab-new-icon sidebar-nav-arrow" width="16" height="16">
@@ -70,7 +70,7 @@
           @if($budgets->isNotEmpty())
             @foreach($budgets as $budget)
               <div class="budget-list-item">
-                <a href="#">
+                <a href="{{ route('admin.home') }}">
                   <div class="thumbnail">
                     <svg class="ynab-new-icon" width="90" height="90">
                       <!---->
@@ -149,7 +149,6 @@
   {{--   MENU SETTINGS --}}
   <x-settings-menu :hideButtons="false"/> {{-- Cambia a true si deseas ocultar los botones --}}
   {{-- NEW BUDGET --}}
-  <!-- Incluir el componente Livewire -->
   @livewire('create-budget')
 
 @endsection
@@ -189,6 +188,7 @@
       $('#openModalButton').on('click', function() {
         $newBudget.show(); // Mostrar el modal
         $('#modal-settings-budget-name').focus(); // Enfocar el input
+        $('#modal-settings-date-format').val('MM/DD/YYYY');
         centerModal();
       });
 
