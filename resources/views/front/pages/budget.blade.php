@@ -147,9 +147,10 @@
   </div> <!--Contenet Layout-->
   <!---->
   {{--   MENU SETTINGS --}}
-  <x-settings-menu :hideButtons="false"/> {{-- Cambia a true si deseas ocultar los botones --}}
+  {{-- <x-settings-menu :hideButtons="false"/>  --}}{{-- Cambia a true si deseas ocultar los botones --}}
+  <livewire:admin.settings-menu :hide-buttons="false"/> {{-- Cambia a true si deseas ocultar los botones --}}
   {{-- NEW BUDGET --}}
-  @livewire('create-budget')
+  @livewire('admin.create-budget')
 
 @endsection
 @push('scripts')
@@ -184,20 +185,13 @@
         $('.are-you-sure').hide();
       });
 
-      // Muestra el modal create busget
+      // Muestra el modal create budget
       $('#openModalButton').on('click', function() {
         $newBudget.show(); // Mostrar el modal
         $('#modal-settings-budget-name').focus(); // Enfocar el input
-        $('#modal-settings-date-format').val('MM/DD/YYYY');
         centerModal();
       });
 
-      // Re-centra el modal cuando se redimensiona la ventana
-      $(window).on('resize', function() {
-        if($newBudget.is(':visible')) {
-          centerModal();
-        }
-      });
     });
 
   </script>

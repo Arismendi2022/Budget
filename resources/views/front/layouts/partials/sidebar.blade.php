@@ -325,8 +325,9 @@
   </div>
 </nav>
 {{--   MENU SETTINGS --}}
-<x-settings-menu :hideButtons="true"/> {{-- Cambia a false si deseas ocultar los botones --}}
-@livewire('create-budget')
+{{-- <x-settings-menu :hideButtons="true"/> --}} {{-- Cambia a false si deseas ocultar los botones --}}
+<livewire:admin.settings-menu :hide-buttons="true"/> {{-- Cambia a true si deseas ocultar los botones --}}
+@livewire('admin.create-budget')
 
 @push('scripts')
   <script>

@@ -1,6 +1,6 @@
 <?php
 
-  namespace App\Livewire;
+  namespace App\Livewire\Admin;
 
   use App\Models\Budget;
   use Illuminate\Support\Facades\Auth;
@@ -57,7 +57,7 @@
     }
 
     public function render(){
-      return view('livewire.create-budget');
+      return view('livewire.admin.create-budget');
     }
 
   }

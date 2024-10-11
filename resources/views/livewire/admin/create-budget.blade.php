@@ -127,6 +127,13 @@
         $errorList.empty();
       });
 
+      // Re-centra el modal cuando se redimensiona la ventana
+      $(window).on('resize', function() {
+        if($newBudget.is(':visible')) {
+          centerModal();
+        }
+      });
+
     })
 
   </script>

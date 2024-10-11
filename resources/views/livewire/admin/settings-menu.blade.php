@@ -312,7 +312,6 @@
         window.location.href = "{{ route('admin.settings') }}";
       });
 
-
     });
   </script>
 
