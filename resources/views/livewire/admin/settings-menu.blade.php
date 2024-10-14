@@ -288,11 +288,10 @@
     </svg>
   </button>
   <!---->
-
 </div>  <!--End Menu Settings-->
 
 @push('scripts')
-  <script>
+  <script defer>
     $(function() {
       const $menuSettings = $('#menu-settings');
       const $newBudget = $('#new-budget');
@@ -302,8 +301,8 @@
         // Muestra el modal
         $newBudget.show(); // Mostrar el modal
         $('#modal-settings-budget-name').focus(); // Enfocar el input
-        centerModal();
         $menuSettings.hide();
+        centerModal();
       });
 
       //Activa modal Account Settings

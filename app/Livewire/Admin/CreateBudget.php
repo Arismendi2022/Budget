@@ -42,12 +42,12 @@
         return redirect()->route('admin.home');
 
       } catch(\Exception $e){
-        // Mostrar el mensaje de error en la consola
-        error_log('Error al crear el presupuesto: '.$e->getMessage());
+        // En caso de error, puedes retornar el mensaje de error
+        return "Error al enviar el correo: ".$e->getMessage();
       }
 
     } //End Method
-
+    
     public function mount(){
       // Establecer valores predeterminados a los que ya están en el select
       $this->currency           = 'USD';

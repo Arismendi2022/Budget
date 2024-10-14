@@ -10,15 +10,6 @@
 
     public function mount($hideButtons = false){
       $this->hideButtons = $hideButtons;
-      $this->resetValues();
-    }
-
-    public function resetValues(){
-      // Establecer valores predeterminados
-      $this->currency           = 'USD';
-      $this->currency_placement = 'Symbol First';
-      $this->number_format      = '123,456.78';
-      $this->date_format        = 'MM/DD/YYYY';
     }
 
     public function render(){

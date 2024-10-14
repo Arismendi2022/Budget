@@ -4,6 +4,7 @@
   use App\Http\Controllers\AdminController;
   use App\Http\Controllers\AuthController;
   use App\Http\Controllers\BudgetController;
+  use App\Livewire\Admin\BudgetManager;
   use Illuminate\Support\Facades\Route;
 
   Route::get('/',function(){
@@ -31,7 +32,6 @@
         Route::get('/register','register')->name('register');
         Route::post('/create','createUser')->name('create');
         Route::get('/account/verify/{token}','verifyAccount')->name('verify');
-        //Route::get('/register-success','registerSuccess')->name('register-success');
       });
     });
 
@@ -47,7 +47,7 @@
     });
   });
 
-  //Grupo Add Account
+  //Grupo Add Budget
   Route::prefix('budget')->name('budget.')->group(function(){
     Route::controller(BudgetController::class)->group(function(){
       //Route::get('/edit','editBudget')->name('edit');

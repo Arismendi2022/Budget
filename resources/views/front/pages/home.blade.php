@@ -1,7 +1,6 @@
 @extends('front.layouts.pages-layout')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Budget | YNAB')
 @section('content')
-  {{-- Content Header (Page header) --}}
   {{-- Main content --}}
   <div id="content" class="ynab-u content">
     <div class="content-min-break has-budget-views">

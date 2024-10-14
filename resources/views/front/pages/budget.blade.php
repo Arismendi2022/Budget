@@ -3,7 +3,6 @@
 @section('content')
   <div id="create-budget" class="content-layout user-logged-in">
     <a class="skip-to-content" href="#start-of-content">Skip to content</a>
-    <!---->
     <!--SIDEBAR-->
     <nav id="nav-sidebar" class="ynab-u sidebar logged-in" style="width: 260px;" role="navigation">
       <div class="sidebar-left">
@@ -22,7 +21,8 @@
                   </symbol>
                 </use>
               </svg>
-            </button> <!--End Button-->
+            </button>
+            <!---->
             <div class="dashboard-learn-more">
               <div class="explore-resources-heading">
                 <h3>Explore Resources</h3>
@@ -50,7 +50,8 @@
                 </a>
               </section>
             </div> <!--End Dashboard learn more-->
-          </div> <!--End Dashboard-->
+          </div>
+          <!---->
         </div>
       </div> <!-- Sidebar Left-->
       <!---->
@@ -69,6 +70,7 @@
           {{-- Budget List Items active budget --}}
           @if($budgets->isNotEmpty())
             @foreach($budgets as $budget)
+              <!-- Itera sobre cada presupuesto -->
               <div class="budget-list-item">
                 <a href="{{ route('admin.home') }}">
                   <div class="thumbnail">
@@ -84,14 +86,14 @@
                       </use>
                     </svg>
                   </div>
-                  <button class="select-budget user-data select-budget-name-button" type="button">Arismendi</button>
-                  <div class="last-modified user-data">Last used 13 minutes ago</div>
+                  <button class="select-budget user-data select-budget-name-button" type="button">{{ $budget->name }}</button>
+                  <div class="last-modified user-data">Last used {{ $budget->created_at->diffForHumans() }} </div>
                   <div class="hover-state" title="Arismendi">
-                    <button class="select-budget user-data" type="button">Arismendi</button>
+                    <button class="select-budget user-data" type="button">{{ $budget->name }}</button>
                     <div class="last-modified user-data">
-                      Last used 2 minutes ago
+                      Last used {{ $budget->created_at->diffForHumans() }}
                     </div>
-                    <button class="wants-tombstone-button" type="button">
+                    <button class="wants-tombstone-button" type="button" onclick="event.preventDefault(); event.stopPropagation();">
                       <svg class="ynab-new-icon" width="16" height="16">
                         <!---->
                         <use href="#icon_sprite_trash_can">
@@ -106,12 +108,12 @@
                   </div>
                   <div class="are-you-sure">
                     <div class="are-you-sure-vertical">
-                      Are you sure you want to delete the budget 'Arismendi'?
+                      Are you sure you want to delete the budget '{{ $activeBudget->name }}'?
                       <div class="actions">
-                        <button class="ynab-button primary" type="button">
+                        <button class="ynab-button primary" type="button" onclick="event.preventDefault(); event.stopPropagation();">
                           Cancel
                         </button>
-                        <button class="ynab-button destructive" type="button">
+                        <button class="ynab-button destructive" type="button" onclick="event.preventDefault(); event.stopPropagation();">
                           Delete
                         </button>
                       </div>
@@ -188,7 +190,7 @@
       // Muestra el modal create budget
       $('#openModalButton').on('click', function() {
         $newBudget.show(); // Mostrar el modal
-        $('#modal-settings-budget-name').focus(); // Enfocar el input
+        $('#modal-settings-budget-name').focus();
         centerModal();
       });
 

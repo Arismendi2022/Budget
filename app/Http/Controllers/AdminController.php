@@ -17,28 +17,28 @@
        * Verificar si el usuario está autenticado y tiene un presupuesto
        */
 
-      $user   = Auth::user();
-      $budget = $user->budgets()->where('is_active',true)->first();
+      $user         = Auth::user();
+      $activeBudget = $user->budgets()->where('is_active',true)->first();
 
-      if($budget === null){
+      // Si no hay presupuesto activo, redirige a la vista que contiene el componente Livewire
+      if($activeBudget === null){
         return redirect()->route('admin.budgets');
       }
 
       $data = [
-        'pageTitle' => 'Budget | YNAB',
-        'user'      => $user,
-        'budget'    => $budget,
+        'pageTitle'    => 'Budget | YNAB',
+        'user'         => $user,
+        'activeBudget' => $activeBudget,
       ];
 
       return view('front.pages.home',$data);
+
     } //End Method
 
     public function adminBudgets(Request $request){
-      $user = Auth::user();
-      // Obtiene los presupuestos del usuario autenticado
-      $budgets = $user->budgets()->get();
-      // Encuentra el presupuesto activo
-      $activeBudget = $budgets->where('is_active',true)->first();
+      $user         = Auth::user();
+      $budgets      = $user->budgets()->get(); // Obtiene los presupuestos del usuario autenticado
+      $activeBudget = $budgets->where('is_active',true)->first(); // Encuentra el presupuesto activo
 
       $data = [
         'pageTitle'    => 'Open Budget | YNAB',
