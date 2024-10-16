@@ -7,12 +7,11 @@
   use Illuminate\Support\Facades\DB;
   use Livewire\Component;
 
-  class CreateBudget extends Component
+  class BudgetManager extends Component
   {
     public $name;
     public $currency,$currency_placement,$number_format,$date_format;
-    public $isOpen = false;
-    public $budgets;
+    public $budgetId;
 
     public function mount(){
       $this->currency           = 'USD';
@@ -20,11 +19,6 @@
       $this->number_format      = '123,456.78';
       $this->date_format        = 'MM/DD/YYYY';
     }
-
-    public function render(){
-      return view('livewire.admin.create-budget');
-    }
-
 
     public function saveBudget(){
       /**
@@ -62,11 +56,8 @@
 
     } //End Method
 
-    public function deleteBudget($id){
 
-      dd($id);
-
-    } //End Function
-
-
+    public function render(){
+      return view('livewire.admin.budget-manager');
+    }
   }

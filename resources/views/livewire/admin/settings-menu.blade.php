@@ -303,6 +303,12 @@
         $('#modal-settings-budget-name').focus(); // Enfocar el input
         $menuSettings.hide();
         centerModal();
+
+        // Recuperar y establecer los valores de formatos
+        $('#modal-settings-currency').val('USD');
+        $('#modal-settings-currency-placemen').val('Symbol First');
+        $('#modal-settings-currency-format').val('123,456.78');
+        $('#date-format').val('MM/DD/YYYY');
       });
 
       //Activa modal Account Settings

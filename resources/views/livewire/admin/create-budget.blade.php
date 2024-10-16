@@ -1,5 +1,5 @@
 {{-- modal new budget --}}
-<div id="new-budget" class="modal-overlay active modal-fresh mod-skinny modal-budget-settings" style="display: none">
+<div id="new-budget" class="modal-overlay active modal-fresh mod-skinny modal-budget-settings" style="display: none;">
   <div class="modal" role="dialog" aria-modal="true" style="left: 720px; top: 263.5px;">
     <div class="modal-fresh-header">
       <div class="modal-fresh-title">
@@ -23,7 +23,6 @@
     </div>
     <div class="modal-fresh-body">
       <section>
-        {{--  <form id="new-budget-form" action="{{ route('budget.create') }}" method="POST"> --}}
         <form id="newBudget-form">
           @csrf
           <label for="budget-name" class="type-body-bold">Budget Name</label>
@@ -102,7 +101,7 @@
     </div>
     <div class="modal-fresh-footer">
       <button class="ynab-button secondary" type="button">Cancel</button>
-      <button class="ynab-button primary" type="button" wire:click="saveBudget">Create Budget</button>
+      <button class="ynab-button primary" type="button" wire:click.prevent="saveBudget">Create Budget</button>
     </div>
     <!---->
   </div>

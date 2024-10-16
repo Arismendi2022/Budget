@@ -71,7 +71,7 @@
           @if($budgets->isNotEmpty())
             @foreach($budgets as $budget)
               <!-- Itera sobre cada presupuesto -->
-              <div class="budget-list-item">
+              <div class="budget-list-item" wire:key="{{ $budget->id }}">
                 <a href="{{ route('admin.home') }}">
                   <div class="thumbnail">
                     <svg class="ynab-new-icon" width="90" height="90">
@@ -88,12 +88,12 @@
                   </div>
                   <button class="select-budget user-data select-budget-name-button" type="button">{{ $budget->name }}</button>
                   <div class="last-modified user-data">Last used {{ $budget->created_at->diffForHumans() }} </div>
-                  <div class="hover-state" title="Arismendi">
-                    <button class="select-budget user-data" type="button">{{ $budget->name }}</button>
+                  <div class="hover-state" title="{{ $budget->name }}">
+                    <button class="select-budget user-data" type="button" data-budget-id="{{ $budget->id }}">{{ $budget->name }}</button>
                     <div class="last-modified user-data">
                       Last used {{ $budget->created_at->diffForHumans() }}
                     </div>
-                    <button class="wants-tombstone-button" type="button" onclick="event.preventDefault(); event.stopPropagation();">
+                    <button class="wants-tombstone-button" type="button">
                       <svg class="ynab-new-icon" width="16" height="16">
                         <!---->
                         <use href="#icon_sprite_trash_can">
@@ -106,14 +106,15 @@
                       </svg>
                     </button>
                   </div>
-                  <div class="are-you-sure">
+                  <div class="are-you-sure" style="display: none;">
                     <div class="are-you-sure-vertical">
-                      Are you sure you want to delete the budget '{{ $activeBudget->name }}'?
+                      Are you sure you want to delete the budget '{{ $budget->name }}'?
                       <div class="actions">
                         <button class="ynab-button primary" type="button" onclick="event.preventDefault(); event.stopPropagation();">
                           Cancel
                         </button>
-                        <button class="ynab-button destructive" type="button" onclick="event.preventDefault(); event.stopPropagation();">
+                        <button class="ynab-button destructive" type="button" wire:click="deleteBudget({{ $budget->id }})"
+                          onclick="event.preventDefault(); event.stopPropagation();">
                           Delete
                         </button>
                       </div>
@@ -125,8 +126,8 @@
           @endif
           <!---->
           {{-- Botton Create New Budgewt --}}
-          <div class="create-new-budget">
-            <button type="button" id="openModalButton">
+          <div class="create-new-budget" id="openModalButton">
+            <button type="button">
               <svg class="ynab-new-icon" width="80" height="80">
                 <!---->
                 <use href="#icon_sprite_plus_circle_fill">
@@ -139,6 +140,8 @@
               Create New Budget
             </button>
           </div>
+          {{-- <livewire:admin.open-model-create/> --}}
+          <!---->
         </div>
       </div>
       <div class="budget-picker-section">
@@ -149,10 +152,9 @@
   </div> <!--Contenet Layout-->
   <!---->
   {{--   MENU SETTINGS --}}
-  {{-- <x-settings-menu :hideButtons="false"/>  --}}{{-- Cambia a true si deseas ocultar los botones --}}
   <livewire:admin.settings-menu :hide-buttons="false"/> {{-- Cambia a true si deseas ocultar los botones --}}
-  {{-- NEW BUDGET --}}
-  @livewire('admin.create-budget')
+  {{-- CREATE NEW BUDGET --}}
+  <livewire:admin.budget-manager/>
 
 @endsection
 @push('scripts')
@@ -176,9 +178,14 @@
       });
 
       // Mostrar el modal list budget button
-      $('.wants-tombstone-button').on('click', function() {
-        $body.addClass('modal-active');
-        $('.users-budgets .are-you-sure').show();
+      $('.wants-tombstone-button').on('click', function(e) {
+        event.preventDefault();
+        event.stopPropagation();
+        const $budgetItem = $(this).closest('.budget-list-item');
+
+        // Muestra solo el modal correspondiente
+        $budgetItem.find('.are-you-sure').show();
+        $('body').addClass('modal-active'); // Agrega la clase al body
       });
 
       // Cierra el modal list budget button
@@ -192,6 +199,12 @@
         $newBudget.show(); // Mostrar el modal
         $('#modal-settings-budget-name').focus();
         centerModal();
+
+        // Recuperar y establecer los valores de formatos
+        $('#modal-settings-currency').val('USD');
+        $('#modal-settings-currency-placemen').val('Symbol First');
+        $('#modal-settings-currency-format').val('123,456.78');
+        $('#date-format').val('MM/DD/YYYY');
       });
 
     });
