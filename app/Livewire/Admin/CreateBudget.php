@@ -21,9 +21,9 @@
       $this->date_format        = 'MM/DD/YYYY';
     }
 
-    public function render(){
-      return view('livewire.admin.create-budget');
-    }
+    /* public function render(){
+       return view('livewire.admin.create-budget');
+     }*/
 
 
     public function saveBudget(){
@@ -41,6 +41,8 @@
       // Iniciar transacción
       try{
         DB::transaction(function(){
+          // Desactivar todos los presupuestos activos del usuario
+          auth()->user()->budgets()->update(['is_active' => false]);
           // Guardar detalles del presupuesto
           Budget::create([
             'user_id'            => Auth::id(),
@@ -61,12 +63,6 @@
       };
 
     } //End Method
-
-    public function deleteBudget($id){
-
-      dd($id);
-
-    } //End Function
 
 
   }

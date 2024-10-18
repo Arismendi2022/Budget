@@ -19,7 +19,7 @@
             <title>{{ $budget->name ?? 'YNAB' }}</title>
           </svg>
           <div class="sidebar-nav-budget-email">
-            <span class="sidebar-nav-budget-email-budget">{{ $budget->name ?? 'YNAB' }}</span>
+            <span class="sidebar-nav-budget-email-budget">{{ $activeBudget->name ?? 'YNAB' }}</span>
             <span class="sidebar-nav-budget-email-email button-truncate">{{ $user->email }}</span>
           </div>
           <svg class="ynab-new-icon" width="12" height="12">

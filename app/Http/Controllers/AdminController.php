@@ -25,10 +25,16 @@
         return redirect()->route('admin.budgets');
       }
 
+      // Captura el ID y el nombre del presupuesto desde la solicitud
+      $presupuestoId     = $request->query('id');
+      $budgetName = $request->query('name');
+
+
       $data = [
         'pageTitle'    => 'Budget | YNAB',
         'user'         => $user,
         'activeBudget' => $activeBudget,
+        'budgetName'   => $budgetName, // Agrega el nombre del presupuesto
       ];
 
       return view('front.pages.home',$data);
