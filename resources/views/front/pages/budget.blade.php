@@ -5,16 +5,14 @@
   <livewire:admin.budget-manager/>
   {{-- menu settings --}}
   <livewire:admin.settings-menu :hide-buttons="false"/> {{-- Cambia a true si deseas ocultar los botones --}}
-  @livewire('admin.create-budget')
 
 @endsection
-
 @push('scripts')
   <script>
     $(function() {
       // Almacena selectores en variables para mejorar el rendimiento
       const $menuSettings = $('#menu-settings');
-      const $newBudget = $('#new-budget');
+      const $newBudget = $('#new_budget_modal');
       const $body = $('body');
 
       // Mostrar el modal menu settings
@@ -51,16 +49,20 @@
         $('.are-you-sure').hide(); // Oculta todos los modales
       });
 
-      // Muestra el modal create budget
-      $('#openModalButton').on('click', function() {
-        $newBudget.show(); // Mostrar el modal
+      window.addEventListener('showCreateModalForm', function() {
+        $('#new_budget_modal').show();
         $('#modal-settings-budget-name').focus();
         centerModal();
+      })
+      window.addEventListener('hideCreateModalForm', function() {
+        $('#new_budget_modal').hide();
+      })
 
-        // Recuperar y establecer los valores de formatos
-        $('#modal-settings-currency').val('USD');
-        $('#modal-settings-currency-format').val('123,456.78');
-        $('#date-format').val('MM/DD/YYYY');
+      // Re-centra el modal cuando se redimensiona la ventana
+      $(window).on('resize', function() {
+        if($newBudget.is(':visible')) {
+          centerModal();
+        }
       });
 
     });

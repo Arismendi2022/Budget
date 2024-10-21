@@ -26,8 +26,8 @@
       }
 
       // Captura el ID y el nombre del presupuesto desde la solicitud
-      $presupuestoId     = $request->query('id');
-      $budgetName = $request->query('name');
+      $presupuestoId = $request->query('id');
+      $budgetName    = $request->query('name');
 
 
       $data = [

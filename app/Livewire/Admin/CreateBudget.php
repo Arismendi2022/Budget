@@ -11,7 +11,7 @@
   {
     public $name;
     public $currency,$currency_placement,$number_format,$date_format;
-    public $isOpen = false;
+    public $isOpen = true;
     public $budgets;
 
     public function mount(){
@@ -26,7 +26,7 @@
      }*/
 
 
-    public function saveBudget(){
+    public function SaveBudget(){
       /**
        * Validate form
        */

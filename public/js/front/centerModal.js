@@ -1,6 +1,6 @@
 //Centra el modalsegun tamaño de la ventana.
 function centerModal() {
-  const modal = $('#new-budget .modal');
+  const modal = $('#new_budget_modal .modal');
   const windowSize = {width: $(window).width(), height: $(window).height()};
   const modalSize = {width: modal.outerWidth(), height: modal.outerHeight()};
 

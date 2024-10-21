@@ -1,6 +1,6 @@
 {{-- resources/views/components/settings-menu.blade.php --}}
 <div id="menu-settings" class="menu js-menu ynab-new-menu-settings" role="menu" style="left: 8px; top: 54px; height: auto;">
-  <button id="newBudget" class="menu-item js-menu-item modal-select-budget-create" role="menuitem" type="button">
+  <button id="newBudget" class="menu-item js-menu-item modal-select-budget-create" role="menuitem" type="button" wire:click="openModalCreateBudget">
     <svg class="ynab-new-icon" width="16" height="16">
       <!---->
       <use href="#icon_sprite_plus_circle_fill">
@@ -297,19 +297,19 @@
       const $newBudget = $('#new-budget');
 
       //Abre el modal new budget
-      $('.modal-select-budget-create').on('click', function() {
-        // Muestra el modal
-        $newBudget.show(); // Mostrar el modal
-        $('#modal-settings-budget-name').focus(); // Enfocar el input
-        $menuSettings.hide();
-        centerModal();
+      /* $('.modal-select-budget-create').on('click', function() {
+         // Muestra el modal
+         $newBudget.show(); // Mostrar el modal
+         $('#modal-settings-budget-name').focus(); // Enfocar el input
+         $menuSettings.hide();
+         centerModal();
 
-        // Recuperar y establecer los valores de formatos
-        $('#modal-settings-currency').val('USD');
-        $('#modal-settings-currency-placemen').val('Symbol First');
-        $('#modal-settings-currency-format').val('123,456.78');
-        $('#date-format').val('MM/DD/YYYY');
-      });
+         // Recuperar y establecer los valores de formatos
+         $('#modal-settings-currency').val('USD');
+         $('#modal-settings-currency-placemen').val('Symbol First');
+         $('#modal-settings-currency-format').val('123,456.78');
+         $('#date-format').val('MM/DD/YYYY');
+       });*/
 
       //Activa modal Account Settings
       $('#accountSettings').on('click', function() {

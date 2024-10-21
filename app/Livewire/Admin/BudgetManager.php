@@ -16,14 +16,20 @@
     public $name;
     public $currency,$currency_placement,$number_format,$date_format;
     public $budgetId;
+    public $isUpdateBudgetModal = false;
 
     public function mount(){
       $this->user         = Auth::user();
       $this->activeBudget = $this->user->budgets()->where('is_active',true)->first();
       $this->budgets      = $this->user->budgets;
+      // Formatos por defecto
+      $this->setDefaultFormats();
+    }
 
-
+    public function setDefaultFormats(){
+      $this->name               = null;
       $this->currency           = 'USD';
+      $this->currency_placement = 'Symbol First';
       $this->number_format      = '123,456.78';
       $this->date_format        = 'MM/DD/YYYY';
     }
@@ -34,18 +40,15 @@
         $budget = Budget::find($budgetId);
         if($budget->is_active){
           // Si ya está activo, redirigir al home sin hacer cambios
-          return redirect()->route('admin.home',['id' => $budgetId,'name' => $budget->name]);
+          $this->redirect(route('admin.home',['id' => $budgetId,'name' => $budget->name]));
         }
 
-        // Iniciar una transacción para asegurar que ambos pasos se realicen juntos
         DB::transaction(function() use ($budgetId){
           // Cambiar el campo `is_active` a true para el presupuesto seleccionado
           Budget::where('id',$budgetId)->update(['is_active' => true]);
           Budget::where('user_id',auth()->id())->where('id','!=',$budgetId)->update(['is_active' => false]);
         });
-
-        // Redirigir al home
-        return redirect()->route('admin.home',['id' => $budgetId,'name' => Budget::find($budgetId)->name]);
+        $this->redirect(route('admin.home',['id' => $budgetId,'name' => Budget::find($budgetId)->name]));
 
       } catch(\Exception $e){
         // Manejar cualquier error que ocurra
@@ -54,6 +57,24 @@
 
     } //End Method
 
+    //#[On('open-create-budget-modal')]
+    protected $listeners = ['open-create-budget-modal' => 'openCreateModal'];
+
+    public function openCreateModal(){
+      $this->setDefaultFormats();
+      $this->isUpdateBudgetModal = false;
+      $this->showCreateModalForm();
+    }
+
+    public function showCreateModalForm(){
+      $this->resetErrorBag();
+      $this->dispatch('showCreateModalForm');
+    }
+
+    public function hideCreateModalForm(){
+      $this->dispatch('hideCreateModalForm');
+      $this->isUpdateBudgetModal = false;
+    }
 
     public function saveBudget(){
       /**
@@ -85,7 +106,7 @@
         });
 
         // Redirigir a admin.home
-        return redirect()->route('admin.home');
+        $this->redirect(route('admin.home'));
 
       } catch(\Exception $e){
         // En caso de error, puedes retornar el mensaje de error
@@ -95,33 +116,27 @@
     } //End Method
 
     public function deleteBudget($id){
-      $user   = auth()->user();
-      $budget = $user->budgets()->where('id',$id)->first();
-      // Verificar si el presupuesto existe
-      if($budget){
-        if($budget->is_active){
-          // Actualizar el presupuesto activo
-          $this->activeBudget = null; // O puedes establecerlo en otro presupuesto si lo deseas
-        }
+      $budget = Budget::findOrFail($id);
 
-        $budget->delete();
-        // Emitir evento para que jQuery lo escuche
-        $this->dispatch('budgetDeleted');
-        // Recargar la lista de presupuestos
-        $this->budgets = Budget::all();
-      }
+      //Delete budget
+      $delete = $budget->delete();
+      // Emitir evento para que jQuery lo escuche
+      $this->dispatch('budgetDeleted');
+      // Recargar la lista de presupuestos
+      $this->budgets = Budget::all();
 
-    } //End Method
+    }//End Method
 
-
-    public
-    function render(){
+    public function render(){
       $data = [
         'user'         => $this->user,
         'activeBudget' => $this->activeBudget,
-        'budgets'      => $this->budgets, // Pasar los presupuestos a la vista
+        'budgets'      => auth()->user()->budgets,
       ];
 
       return view('livewire.admin.budget-manager',$data);
     }
+
+
   }
+
