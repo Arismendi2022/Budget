@@ -104,7 +104,8 @@
           ]);
         });
 
-        $this->redirect(route('admin.home'));
+        $this->hideCreateModalForm();
+        $this->dispatch('redirect-home'); // Usamos 'dispatch' en Livewire 3
 
       } catch(\Exception $e){
         // En caso de error, puedes retornar el mensaje de error

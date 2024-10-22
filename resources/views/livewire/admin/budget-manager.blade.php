@@ -265,5 +265,11 @@
 @push('scripts')
   <script>
 
+    Livewire.on('redirect-home', function() {
+      setTimeout(function() {
+        window.location.href = "{{ route('admin.home') }}"; // Redirigir a admin.home
+      }, 500); // 1000 ms = 1 segundos
+    });
+
   </script>
 @endpush
