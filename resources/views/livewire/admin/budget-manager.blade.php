@@ -70,7 +70,7 @@
           @foreach($budgets as $budget)
             <!-- Itera sobre cada presupuesto -->
             <div class="budget-list-item" wire:key="{{ $budget->id }}">
-              <a href="javascript:;" wire:click="setActiveBudget({{ $budget->id }})">
+              <a href="javascript:;" wire:click.prevent="setActiveBudget({{ $budget->id }})">
                 <div class="thumbnail">
                   <svg class="ynab-new-icon" width="90" height="90">
                     <!---->
@@ -254,14 +254,13 @@
       </div>
       <div class="modal-fresh-footer">
         <button class="ynab-button secondary" type="button" wire:click="hideCreateModalForm">Cancel</button>
-        <button class="ynab-button primary" type="button" wire:click="{{ $isUpdateBudgetModal ? 'updateBudget' : 'saveBudget' }}"> {{ $isUpdateBudgetModal ? 'Apply
+        <button class="ynab-button primary" type="button" wire:click.prevent="{{ $isUpdateBudgetModal ? 'updateBudget' : 'saveBudget' }}"> {{ $isUpdateBudgetModal ? 'Apply
         Settings' : 'Create Budget' }}</button>
       </div>
       <!---->
     </div>
   </div>
 </div>
-<livewire:admin.settings-menu/>
 
 @push('scripts')
   <script>

@@ -29,7 +29,6 @@
       $presupuestoId = $request->query('id');
       $budgetName    = $request->query('name');
 
-
       $data = [
         'pageTitle'    => 'Budget | YNAB',
         'user'         => $user,

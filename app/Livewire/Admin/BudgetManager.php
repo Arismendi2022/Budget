@@ -5,6 +5,7 @@
   use App\Models\Budget;
   use Illuminate\Support\Facades\Auth;
   use Illuminate\Support\Facades\DB;
+  use Livewire\Attributes\On;
   use Livewire\Component;
 
   class BudgetManager extends Component
@@ -21,7 +22,7 @@
     public function mount(){
       $this->user         = Auth::user();
       $this->activeBudget = $this->user->budgets()->where('is_active',true)->first();
-      $this->budgets      = $this->user->budgets;
+      $this->budgets      = $this->user->budgets()->orderBy('created_at','desc')->get();
       // Formatos por defecto
       $this->setDefaultFormats();
     }
@@ -40,7 +41,7 @@
         $budget = Budget::find($budgetId);
         if($budget->is_active){
           // Si ya está activo, redirigir al home sin hacer cambios
-          $this->redirect(route('admin.home',['id' => $budgetId,'name' => $budget->name]));
+          $this->redirect(route('admin.home'));
         }
 
         DB::transaction(function() use ($budgetId){
@@ -48,7 +49,7 @@
           Budget::where('id',$budgetId)->update(['is_active' => true]);
           Budget::where('user_id',auth()->id())->where('id','!=',$budgetId)->update(['is_active' => false]);
         });
-        $this->redirect(route('admin.home',['id' => $budgetId,'name' => Budget::find($budgetId)->name]));
+        $this->redirect(route('admin.home'));
 
       } catch(\Exception $e){
         // Manejar cualquier error que ocurra
@@ -57,9 +58,7 @@
 
     } //End Method
 
-    //#[On('open-create-budget-modal')]
-    protected $listeners = ['open-create-budget-modal' => 'openCreateModal'];
-
+    #[On('open-create-budget')]
     public function openCreateModal(){
       $this->setDefaultFormats();
       $this->isUpdateBudgetModal = false;
@@ -105,7 +104,6 @@
           ]);
         });
 
-        // Redirigir a admin.home
         $this->redirect(route('admin.home'));
 
       } catch(\Exception $e){
@@ -116,22 +114,24 @@
     } //End Method
 
     public function deleteBudget($id){
-      $budget = Budget::findOrFail($id);
+      $budget    = Budget::findOrFail($id);
+      $wasActive = $budget->is_active;
 
-      //Delete budget
-      $delete = $budget->delete();
-      // Emitir evento para que jQuery lo escuche
+      $budget->delete();
+      $this->budgets = auth()->user()->budgets;
+
       $this->dispatch('budgetDeleted');
-      // Recargar la lista de presupuestos
-      $this->budgets = Budget::all();
+      // Si el presupuesto eliminado era el activo, actualizar el sidebar
+      if($wasActive){
+        $this->activeBudget = Budget::where('is_active',true)->first();
+        $this->dispatch('updateActiveBudget',$this->activeBudget?->name);
+      }
 
     }//End Method
 
     public function render(){
       $data = [
-        'user'         => $this->user,
-        'activeBudget' => $this->activeBudget,
-        'budgets'      => auth()->user()->budgets,
+        $this->budgets = $this->user->budgets()->orderBy('created_at','desc')->get(),
       ];
 
       return view('livewire.admin.budget-manager',$data);

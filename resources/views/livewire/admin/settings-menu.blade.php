@@ -291,26 +291,8 @@
 </div>  <!--End Menu Settings-->
 
 @push('scripts')
-  <script defer>
+  <script>
     $(function() {
-      const $menuSettings = $('#menu-settings');
-      const $newBudget = $('#new-budget');
-
-      //Abre el modal new budget
-      /* $('.modal-select-budget-create').on('click', function() {
-         // Muestra el modal
-         $newBudget.show(); // Mostrar el modal
-         $('#modal-settings-budget-name').focus(); // Enfocar el input
-         $menuSettings.hide();
-         centerModal();
-
-         // Recuperar y establecer los valores de formatos
-         $('#modal-settings-currency').val('USD');
-         $('#modal-settings-currency-placemen').val('Symbol First');
-         $('#modal-settings-currency-format').val('123,456.78');
-         $('#date-format').val('MM/DD/YYYY');
-       });*/
-
       //Activa modal Account Settings
       $('#accountSettings').on('click', function() {
         $('#settings-menu').removeClass('modal-overlay active'); // cerrar modal quitando clase

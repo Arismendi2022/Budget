@@ -13,8 +13,7 @@
     }
 
     public function openModalCreateBudget(){
-      //dd('Show Settings modal create budget...');
-      $this->dispatch('open-create-budget-modal');
+      $this->dispatch('open-create-budget');
     }
 
     public function render(){
