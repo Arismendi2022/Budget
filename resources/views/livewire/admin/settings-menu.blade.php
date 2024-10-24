@@ -1,6 +1,7 @@
 {{-- resources/views/components/settings-menu.blade.php --}}
 <div id="menu-settings" class="menu js-menu ynab-new-menu-settings" role="menu" style="left: 8px; top: 54px; height: auto;">
-  <button id="newBudget" class="menu-item js-menu-item modal-select-budget-create" role="menuitem" type="button" wire:click="openModalCreateBudget">
+  <button id="newBudget" class="menu-item js-menu-item modal-select-budget-create" role="menuitem" type="button" wire:click="$dispatch('openCreateModal')">
+    {{-- <button id="newBudget" class="menu-item js-menu-item modal-select-budget-create" role="menuitem" type="button" wire:click="openCreateModal"> --}}
     <svg class="ynab-new-icon" width="16" height="16">
       <!---->
       <use href="#icon_sprite_plus_circle_fill">
@@ -297,6 +298,11 @@
       $('#accountSettings').on('click', function() {
         $('#settings-menu').removeClass('modal-overlay active'); // cerrar modal quitando clase
         window.location.href = "{{ route('admin.settings') }}";
+      });
+
+      // Cierra el modal del menú
+      $('#newBudget').on('click', function() {
+        $('#menu-settings').hide();
       });
 
     });

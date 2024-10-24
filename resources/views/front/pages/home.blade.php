@@ -997,8 +997,10 @@
       </div>
       <!---->
     </div>
+    <livewire:admin.budget-manager/>
   </div>
 @endsection
+
 @push('scripts')
   <script>
     // ember18
@@ -1064,6 +1066,27 @@
       });
     });
 
+    $(function() {
+      const $newBudget = $('#new_budget_modal');
+      //Abre modal New Budget
+      window.addEventListener('showCreateModalForm', function() {
+        $('#new_budget_modal').show();
+        $('#modal-settings-budget-name').focus();
+        centerModal();
+      })
+      //Cierra el modal New Budget
+      window.addEventListener('hideCreateModalForm', function() {
+        $('#new_budget_modal').hide();
+      })
+
+      // Re-centra el modal cuando se redimensiona la ventana
+      $(window).on('resize', function() {
+        if($newBudget.is(':visible')) {
+          centerModal();
+        }
+      });
+    });
+
     // Inicializa el calendario con la fecha actual
     document.addEventListener('DOMContentLoaded', function() {
       const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -1100,7 +1123,7 @@
       });
     });
 
-    // Cerrar el modal al hacer clic fuera de él
+    // Cerrar el modal calendar al hacer clic fuera de él
     document.addEventListener('click', function(event) {
       const modalActive = document.getElementById('ember148');
       const modal = document.querySelector('.modal');

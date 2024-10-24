@@ -47,12 +47,13 @@
         $('body').removeClass('modal-active');
         $('.are-you-sure').hide(); // Oculta todos los modales
       });
-
+      //Abre modal New Budget
       window.addEventListener('showCreateModalForm', function() {
         $('#new_budget_modal').show();
         $('#modal-settings-budget-name').focus();
         centerModal();
       })
+      //Cierra el modal New Budget
       window.addEventListener('hideCreateModalForm', function() {
         $('#new_budget_modal').hide();
       })
@@ -63,7 +64,6 @@
           centerModal();
         }
       });
-
     });
 
   </script>

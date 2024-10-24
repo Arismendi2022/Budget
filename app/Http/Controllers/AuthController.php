@@ -293,6 +293,7 @@
       });
     } //End Method
 
+
     public function verifyAccount(Request $request,$token){
       // Buscar el token de verificación
       $verifyToken = VerificationToken::where('token',$token)->first();

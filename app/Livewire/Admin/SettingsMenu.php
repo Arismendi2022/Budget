@@ -12,11 +12,8 @@
       $this->hideButtons = $hideButtons;
     }
 
-    public function openModalCreateBudget(){
-      $this->dispatch('open-create-budget');
-    }
-
     public function render(){
       return view('livewire.admin.settings-menu');
     }
+
   }

@@ -39,9 +39,6 @@
       'remember_token',
     ];
 
-    public static function create(array $array){
-    }
-
     /**
      * Get the attributes that should be cast.
      *
@@ -59,7 +56,7 @@
     /**
      * Relación con Budget
      */
-    public function budgets():HasMany {
+    public function budgets():HasMany{
       return $this->hasMany(Budget::class);
     }
 
