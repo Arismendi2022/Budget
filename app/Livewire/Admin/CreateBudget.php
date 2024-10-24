@@ -11,7 +11,7 @@
 	{
 		public $name;
 		public $currency,$currency_placement,$number_format,$date_format;
-		public $isUpdateBudgetModal = false;
+    public $isUpdateBudgetModal = false;
 
 		public $user;
 		public $budgets;
@@ -76,8 +76,6 @@
 		} //End Method
 
 		public function render(){
-			$this->budgets = auth()->user()->budgets;
-
 			return view('livewire.admin.create-budget');
 		}
 	}

@@ -6,10 +6,27 @@
 
   class SettingsMenu extends Component
   {
-    public $hideButtons = false;
+    public $hideButtons         = false;
+    public $isUpdateBudgetModal = false;
 
     public function mount($hideButtons = false){
       $this->hideButtons = $hideButtons;
+    }
+
+    public function openCreateModal(){
+      $this->isUpdateBudgetModal = false;
+      $this->showCreateModalForm();
+    }
+
+    public function showCreateModalForm(){
+      $this->resetErrorBag();
+      $this->dispatch('showCreateModalForm');
+    }
+
+    public function hideCreateModalForm(){
+      $this->resetErrorBag();
+      $this->dispatch('hideCreateModalForm');
+      $this->isUpdateBudgetModal = false;
     }
 
     public function render(){

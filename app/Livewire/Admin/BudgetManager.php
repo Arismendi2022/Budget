@@ -13,10 +13,11 @@
     public $user;
     public $activeBudget;
     public $budgets;
+    public $isUpdateBudgetModal = false;
 
     public $budgetId;
 
-    #[on('budgetSaved')]
+    #[On('budgetSaved')]
     public function mount(){
       $this->user         = Auth::user();
       $this->activeBudget = $this->user->budgets()->where('is_active',true)->first();
