@@ -4,7 +4,7 @@
   {{-- menu settings --}}
   <livewire:admin.settings-menu :hide-buttons="false"/> {{-- Cambia a true si deseas ocultar los botones --}}
   <livewire:admin.budget-manager/>
-
+  <!---->
 @endsection
 @push('scripts')
   <script>
@@ -65,6 +65,7 @@
           centerModal();
         }
       });
+
     });
 
   </script>

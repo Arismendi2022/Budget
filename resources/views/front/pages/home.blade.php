@@ -997,7 +997,7 @@
       </div>
       <!---->
     </div>
-    <livewire:admin.create-budget/>
+    <livewire:admin.create-budget :fromBudget="false"/>
   </div>
 @endsection
 
@@ -1074,15 +1074,16 @@
         $('#modal-settings-budget-name').focus();
         centerModal();
       })
-
       //Cierra el modal New Budget
       window.addEventListener('hideCreateModalForm', function() {
         $('#new_budget_modal').hide();
       })
-      //Cierra el modal New Budget
-      window.addEventListener('hideCreateModalForm', function() {
-        $('#new_budget_modal').hide();
-      })
+      // Re-centra el modal cuando se redimensiona la ventana
+      $(window).on('resize', function() {
+        if($newBudget.is(':visible')) {
+          centerModal();
+        }
+      });
 
     });
 

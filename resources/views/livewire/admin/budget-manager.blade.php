@@ -147,7 +147,7 @@
     </div>
   </div> <!--End Content-->
   <!---->
-  <livewire:admin.create-budget/>
+  <livewire:admin.create-budget :fromBudget="true"/>
 </div>
 
 @push('scripts')

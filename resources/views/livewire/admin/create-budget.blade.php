@@ -1,6 +1,6 @@
 <div>
   {{-- modal create new budget --}}
-  <div id="new_budget_modal" class="modal-overlay active modal-fresh mod-skinny modal-budget-settings" style="display: none;">
+  <div wire:ignore.self id="new_budget_modal" class="modal-overlay active modal-fresh mod-skinny modal-budget-settings" style="display: none;">
     <div class="modal" role="dialog" aria-modal="true" style="left: 720px; top: 263.5px;">
       <div class="modal-fresh-header">
         <div class="modal-fresh-title">{{ $isUpdateBudgetModal ? 'Budget Settings' : 'New Budget' }}</div>
@@ -8,7 +8,7 @@
           <svg class="ynab-new-icon" width="16" height="16">
             <!---->
             <use href="#icon_sprite_close">
-              <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_close" fill="none" viewBox="0 0 24 24">
+              <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_close" fill="n¶one" viewBox="0 0 24 24">
                 <path fill="currentColor" fill-rule="evenodd"
                   d="M22.5 22.5a1.4 1.4 0 0 1-2 0L12 13.9l-8.6 8.6a1.4 1.4 0 0 1-1.9-2l8.6-8.5-8.6-8.5a1.4 1.4 0 0 1 2-2l8.5 8.6 8.5-8.6a1.4 1.4 0 1 1 2 2L13.9 12l8.6 8.6a1.4 1.4 0 0 1 0 1.9"
                   clip-rule="evenodd"></path>
@@ -104,7 +104,7 @@
         <!---->
       </div>
       <div class="modal-fresh-footer">
-        <button class="ynab-button secondary" type="button" wire:click="hideCreateModalForm">Cancel</button>
+        <button class="ynab-button secondary" type="button" wire:click.prevent="hideCreateModalForm">Cancel</button>
         <button class="ynab-button primary" type="button" wire:click.prevent="{{ $isUpdateBudgetModal ? 'updateBudget' : 'saveBudget' }}"> {{ $isUpdateBudgetModal ? 'Apply
         Settings' : 'Create Budget' }}</button>
       </div>
@@ -116,10 +116,13 @@
 @push('scripts')
   <script>
 
-    Livewire.on('redirect-home', function() {
-      setTimeout(function() {
-        window.location.href = "{{ route('admin.home') }}"; // Redirigir a admin.home
-      }, 700); // 1000 ms = 1 segundos
+    document.addEventListener('DOMContentLoaded', function() {
+      Livewire.on('redirect-home', function() {
+        setTimeout(function() {
+          window.location.href = "{{ route('admin.home') }}"; // Redirigir a admin.home
+        }, 600); // 700 ms = 0.7 segundos
+      });
+
     });
 
   </script>

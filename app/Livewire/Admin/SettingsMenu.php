@@ -19,11 +19,11 @@
     }
 
     public function showCreateModalForm(){
-      $this->resetErrorBag();
       $this->dispatch('showCreateModalForm');
     }
 
     public function hideCreateModalForm(){
+      $this->reset();
       $this->resetErrorBag();
       $this->dispatch('hideCreateModalForm');
       $this->isUpdateBudgetModal = false;

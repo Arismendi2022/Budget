@@ -1,6 +1,5 @@
 {{-- resources/views/components/settings-menu.blade.php --}}
 <div id="menu-settings" class="menu js-menu ynab-new-menu-settings" role="menu" style="left: 8px; top: 54px; height: auto;">
-  {{-- <button id="newBudget" class="menu-item js-menu-item modal-select-budget-create" role="menuitem" type="button" wire:click="$dispatch('openCreateModal')"> --}}
   <button id="newBudget" class="menu-item js-menu-item modal-select-budget-create" role="menuitem" type="button" wire:click="openCreateModal">
     <svg class="ynab-new-icon" width="16" height="16">
       <!---->

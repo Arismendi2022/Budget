@@ -53,7 +53,6 @@
     }
 
     public function showCreateModalForm(){
-      $this->resetErrorBag();
       $this->dispatch('showCreateModalForm');
     }
 
