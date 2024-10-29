@@ -106,7 +106,7 @@
       <div class="modal-fresh-footer">
         <button class="ynab-button secondary" type="button" wire:click.prevent="hideCreateModalForm">Cancel</button>
         <button class="ynab-button primary" type="button" wire:click.prevent="{{ $isUpdateBudgetModal ? 'updateBudget' : 'saveBudget' }}"> {{ $isUpdateBudgetModal ? 'Apply
-        Settings' : 'Create Budget' }}</button>
+             Settings' : 'Create Budget' }}</button>
       </div>
       <!---->
     </div>

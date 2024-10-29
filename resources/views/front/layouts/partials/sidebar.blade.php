@@ -18,10 +18,7 @@
             </use>
             <title>{{ $budget->name ?? 'YNAB' }}</title>
           </svg>
-          <div class="sidebar-nav-budget-email">
-            <span class="sidebar-nav-budget-email-budget">{{ $activeBudget->name ?? 'YNAB' }}</span>
-            <span class="sidebar-nav-budget-email-email button-truncate">{{ $user->email }}</span>
-          </div>
+          <livewire:admin.left-budget-name/>
           <svg class="ynab-new-icon" width="12" height="12">
             <!---->
             <use href="#icon_sprite_caret_down">
@@ -535,13 +532,6 @@
           modalActive.classList.add('modal-overlay', 'active');
         });
       });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-      Livewire.on('refreshSidebar', function() {
-        document.getElementById('active-budget-name').innerText = budget.budgetName;
-      });
-
     });
 
   </script>

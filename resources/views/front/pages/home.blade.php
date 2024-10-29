@@ -1074,6 +1074,7 @@
         $('#modal-settings-budget-name').focus();
         centerModal();
       })
+
       //Cierra el modal New Budget
       window.addEventListener('hideCreateModalForm', function() {
         $('#new_budget_modal').hide();

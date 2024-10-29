@@ -68,12 +68,16 @@
 
         });
 
-        $this->dispatch('budgetSaved');
-        // Redirigir solo si el modal fue abierto desde la vista Budget
+        if(!$this->fromBudget){
+          $this->dispatch('updateBudgetName')->to(LeftBudgetName::class);
+        }
 
         if($this->fromBudget){
+          $this->dispatch('budgetSaved');
           $this->dispatch('redirect-home');
         }
+
+        //Cierra el modal
         $this->hideCreateModalForm();
 
       } catch(\Exception $e){
