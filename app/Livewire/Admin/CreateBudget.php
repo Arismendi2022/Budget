@@ -5,17 +5,17 @@
   use App\Models\Budget;
   use Illuminate\Support\Facades\Auth;
   use Illuminate\Support\Facades\DB;
+  use Livewire\Attributes\On;
   use Livewire\Component;
 
   class CreateBudget extends Component
   {
-    public $name;
-    public $currency,$currency_placement,$number_format,$date_format;
+    public $name,$currency,$currency_placement,$number_format,$date_format;
+
     public $isUpdateBudgetModal = false;
     public $fromBudget          = false;
-
-    public $user;
-    public $budgets;
+    public $isOpenCreateModal   = false;
+    public $user,$budgets;
 
     public function mount($fromBudget = false){
       // Formatos por defecto
@@ -31,11 +31,19 @@
       $this->date_format        = 'MM/DD/YYYY';
     }
 
-    public function hideCreateModalForm(){
-      $this->reset();
-      $this->resetErrorBag();
-      $this->dispatch('hideCreateModalForm');
+    #[On('budget-created')]
+    public function showCreateModalForm(){
+      $this->setDefaultFormats();
       $this->isUpdateBudgetModal = false;
+      $this->isOpenCreateModal   = true;
+
+      $this->dispatch('focusInput');
+    }
+
+    public function hideCreateModalForm(){
+      $this->resetErrorBag();
+      $this->isUpdateBudgetModal = false;
+      $this->isOpenCreateModal   = false;
     }
 
     public function saveBudget(){
@@ -68,12 +76,16 @@
 
         });
 
-        $this->dispatch('budgetSaved');
-        // Redirigir solo si el modal fue abierto desde la vista Budget
+        if(!$this->fromBudget){
+          $this->dispatch('updateBudgetName')->to(LeftBudgetName::class);
+        }
 
         if($this->fromBudget){
+          $this->dispatch('budgetSaved');
           $this->dispatch('redirect-home');
         }
+
+        //Cierra el modal
         $this->hideCreateModalForm();
 
       } catch(\Exception $e){

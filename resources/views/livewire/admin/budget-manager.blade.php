@@ -69,7 +69,7 @@
           @foreach($budgets as $budget)
             <!-- Itera sobre cada presupuesto -->
             <div class="budget-list-item" wire:key="{{ $budget->id }}">
-              <a href="javascript:;" wire:click.prevent="setActiveBudget({{ $budget->id }})">
+              <a href="#" wire:click.prevent="setActiveBudget({{ $budget->id }})">
                 <div class="thumbnail">
                   <svg class="ynab-new-icon" width="90" height="90">
                     <!---->
@@ -152,6 +152,10 @@
 
 @push('scripts')
   <script>
+    // Escuchar el evento 'redirectHome'
+    Livewire.on('redirectHome', function() {
+      window.location.href = "{{ route('admin.home') }}"; // Redirigir a admin.home
+    });
 
   </script>
 @endpush

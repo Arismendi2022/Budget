@@ -1067,23 +1067,17 @@
     });
 
     $(function() {
-      const $newBudget = $('#new_budget_modal');
-      //Abre modal New Budget
-      window.addEventListener('showCreateModalForm', function() {
-        $('#new_budget_modal').show();
-        $('#modal-settings-budget-name').focus();
-        centerModal();
-      })
+      window.addEventListener('focusInput', function() {
+        setTimeout(function() {
+          $('#budget-name').focus();
+          centerModal(); //
+        }, 100); // Retraso de 100 ms
+      });
+
       //Cierra el modal New Budget
       window.addEventListener('hideCreateModalForm', function() {
         $('#new_budget_modal').hide();
       })
-      // Re-centra el modal cuando se redimensiona la ventana
-      $(window).on('resize', function() {
-        if($newBudget.is(':visible')) {
-          centerModal();
-        }
-      });
 
     });
 

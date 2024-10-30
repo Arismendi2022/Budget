@@ -1,6 +1,6 @@
 {{-- resources/views/components/settings-menu.blade.php --}}
 <div id="menu-settings" class="menu js-menu ynab-new-menu-settings" role="menu" style="left: 8px; top: 54px; height: auto;">
-  <button id="newBudget" class="menu-item js-menu-item modal-select-budget-create" role="menuitem" type="button" wire:click="openCreateModal">
+  <button id="newBudget" class="menu-item js-menu-item modal-select-budget-create" role="menuitem" type="button" wire:click.prevent="openCreateModal">
     <svg class="ynab-new-icon" width="16" height="16">
       <!---->
       <use href="#icon_sprite_plus_circle_fill">
@@ -34,7 +34,7 @@
     <div class="menu-separator" role="separator"></div>
     <div class="menu-heading">Current Budget</div>
     <!---->
-    <button class="menu-item js-menu-item modal-select-budget-settings" role="menuitem" id="ember103" type="button">
+    <button class="menu-item js-menu-item modal-select-budget-settings" role="menuitem" id="ember103" type="button" wire:click.prevent="editBudgetModal">
       <svg class="ynab-new-icon" width="16" height="16">
         <!---->
         <use href="#icon_sprite_wrench">
@@ -297,11 +297,6 @@
       $('#accountSettings').on('click', function() {
         $('#settings-menu').removeClass('modal-overlay active'); // cerrar modal quitando clase
         window.location.href = "{{ route('admin.settings') }}";
-      });
-
-      // Cierra el modal del menú
-      $('#newBudget').on('click', function() {
-        $('#menu-settings').hide();
       });
 
     });

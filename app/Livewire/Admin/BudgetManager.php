@@ -30,7 +30,7 @@
         $budget = Budget::find($budgetId);
         if($budget->is_active){
           // Si ya está activo, redirigir al home sin hacer cambios
-          $this->redirect(route('admin.home'));
+          $this->dispatch('redirectHome');
         }
 
         DB::transaction(function() use ($budgetId){
@@ -38,7 +38,7 @@
           Budget::where('id',$budgetId)->update(['is_active' => true]);
           Budget::where('user_id',auth()->id())->where('id','!=',$budgetId)->update(['is_active' => false]);
         });
-        $this->redirect(route('admin.home'));
+        $this->dispatch('redirectHome');
 
       } catch(\Exception $e){
         // Manejar cualquier error que ocurra
@@ -49,11 +49,7 @@
 
     public function openCreateModal(){
       $this->isUpdateBudgetModal = false;
-      $this->showCreateModalForm();
-    }
-
-    public function showCreateModalForm(){
-      $this->dispatch('showCreateModalForm');
+      $this->dispatch('budget-created');
     }
 
     public function deleteBudget($id){
