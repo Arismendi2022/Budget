@@ -16,6 +16,9 @@
     public $activeBudget;
     public $budget,$budgetId;
 
+    public $activeBudget;
+    public $budget,$budgetId;
+
     public function mount($hideButtons = false){
       $this->hideButtons = $hideButtons;
       // Obtener el presupuesto activo del usuario autenticado
@@ -40,7 +43,14 @@
       $this->date_format        = $budget->date_format;
 
       $this->isUpdateBudgetModal = true;
+<<<<<<< HEAD
       //$this->showCreateModalForm();
+=======
+      $this->showCreateModalForm();
+    }
+
+    public function showCreateModalForm(){
+>>>>>>> 8ccedc401746bbfd9b338b7e767555bd2410ae6a
       $this->dispatch('showCreateModalForm');
     }
 

@@ -111,6 +111,15 @@
         </div>
         <!---->
       </div>
+<<<<<<< HEAD
+=======
+      <div class="modal-fresh-footer">
+        <button class="ynab-button secondary" type="button" wire:click.prevent="hideCreateModalForm">Cancel</button>
+        <button class="ynab-button primary" type="button" wire:click.prevent="{{ $isUpdateBudgetModal ? 'updateBudget' : 'saveBudget' }}"> {{ $isUpdateBudgetModal ? 'Apply
+             Settings' : 'Create Budget' }}</button>
+      </div>
+      <!---->
+>>>>>>> 8ccedc401746bbfd9b338b7e767555bd2410ae6a
     </div>
   @endif
   <!---->
