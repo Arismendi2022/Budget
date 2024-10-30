@@ -296,7 +296,7 @@
       //Activa modal Account Settings
       $('#accountSettings').on('click', function() {
         $('#settings-menu').removeClass('modal-overlay active'); // cerrar modal quitando clase
-        window.location.href = "{{ route('admin.settings') }}";
+        window.location.href = {{ route('admin.settings') }};
       });
 
     });

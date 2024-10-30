@@ -53,20 +53,22 @@
     }
 
     public function deleteBudget($id){
-      $budget    = Budget::findOrFail($id);
+      $user = auth()->user();
+
+      $budget    = $user->budgets()->findOrFail($id);
       $wasActive = $budget->is_active;
 
       $budget->delete();
-      $this->budgets = auth()->user()->budgets;
 
+      $this->budgets = $user->budgets;
+      // Despachar evento de presupuesto eliminado
       $this->dispatch('budgetDeleted');
-      // Si el presupuesto eliminado era el activo, actualizar el sidebar
+
       if($wasActive){
-        $this->activeBudget = Budget::where('is_active',true)->first();
+        $this->activeBudget = $user->budgets()->where('is_active',true)->first();
         $this->dispatch('updateActiveBudget',$this->activeBudget?->name);
       }
-
-    }//End Method
+    }
 
     public function render(){
       $data = [

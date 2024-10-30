@@ -1067,14 +1067,12 @@
     });
 
     $(function() {
-<<<<<<< HEAD
       window.addEventListener('focusInput', function() {
         setTimeout(function() {
           $('#budget-name').focus();
           centerModal(); //
         }, 100); // Retraso de 100 ms
       });
-=======
       const $newBudget = $('#new_budget_modal');
       //Abre modal New Budget
       window.addEventListener('showCreateModalForm', function() {
@@ -1082,7 +1080,6 @@
         $('#modal-settings-budget-name').focus();
         centerModal();
       })
->>>>>>> 8ccedc401746bbfd9b338b7e767555bd2410ae6a
 
       //Cierra el modal New Budget
       window.addEventListener('hideCreateModalForm', function() {
