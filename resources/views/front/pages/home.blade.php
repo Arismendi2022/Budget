@@ -997,7 +997,6 @@
       </div>
       <!---->
     </div>
-    <livewire:admin.create-budget :fromBudget="false"/>
   </div>
 @endsection
 

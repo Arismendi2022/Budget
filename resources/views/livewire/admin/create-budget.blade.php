@@ -24,7 +24,7 @@
             <form id="newBudget-form">
               @csrf
               @if($isUpdateBudgetModal)
-                <input type="hidden" name="budget_id" wire:model="budget_id">
+                <input type="hidden" name="budget_id" wire:model="budgetId">
               @endif
               <label for="budget-name" class="type-body-bold">Budget Name</label>
               <div class="field-with-error {{ $errors->has('name') ? 'has-errors' : '' }}">
@@ -132,7 +132,6 @@
       window.addEventListener('focusInput', function() {
         setTimeout(function() {
           $('#budget-name').focus();
-          centerModal(); //
         }, 5); // Retraso de 100 ms
       });
     });

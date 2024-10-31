@@ -9,9 +9,9 @@
   <meta name="ynab-version" content="24.69.2-hotfix">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <link rel="shortcut icon" href="{{ asset('images/shared/brand/ynab-tree-logo.svg') }}">
   <title>@yield('pageTitle')</title>
-
+  <!-- links -->
+  <link rel="shortcut icon" href="{{ asset('images/shared/brand/ynab-tree-logo.svg') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">

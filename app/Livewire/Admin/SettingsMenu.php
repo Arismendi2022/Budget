@@ -2,7 +2,6 @@
 
   namespace App\Livewire\Admin;
 
-  use App\Models\Budget;
   use Illuminate\Support\Facades\Auth;
   use Livewire\Component;
 
@@ -24,23 +23,6 @@
 
     public function openCreateModal(){
       $this->dispatch('budget-created');
-    }
-
-    public function editBudgetModal(){
-
-      $this->budgetId = $this->activeBudget->id;
-      $budget         = Budget::findOrFail($this->budgetId);
-
-      $this->budget_id          = $budget->id;
-      $this->name               = $budget->name;
-      $this->currency           = $budget->currency;
-      $this->currency_placement = $budget->currency_placement;
-      $this->number_format      = $budget->number_format;
-      $this->date_format        = $budget->date_format;
-
-      $this->isUpdateBudgetModal = true;
-      //$this->showCreateModalForm();
-      $this->showCreateModalForm();
     }
 
     public function openEditModal(){

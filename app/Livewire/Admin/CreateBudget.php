@@ -16,6 +16,7 @@
     public $fromBudget          = false;
     public $isOpenCreateModal   = false;
     public $user,$budgets;
+    public $activeBudget,$budget,$budgetId;
 
     public function mount($fromBudget = false){
       // Formatos por defecto
@@ -40,6 +41,24 @@
       $this->dispatch('focusInput');
     }
 
+    #[On('budget-updated')]
+    public function editBudgetModal(){
+      $budget = auth()->user()->budgets()->where('is_active',true)->firstOrFail();
+
+      $this->budgetId           = $budget->id;
+      $this->name               = $budget->name;
+      $this->currency           = $budget->currency;
+      $this->currency_placement = $budget->currency_placement;
+      $this->number_format      = $budget->number_format;
+      $this->date_format        = $budget->date_format;
+
+      $this->isUpdateBudgetModal = true;
+      $this->isOpenCreateModal   = true;
+
+      $this->dispatch('focusInput');
+    }
+
+
     public function hideCreateModalForm(){
       $this->resetErrorBag();
       $this->isUpdateBudgetModal = false;
@@ -50,7 +69,6 @@
       /**
        * Validate form
        */
-
       $this->validate([
         'name' => 'required|unique:budgets,name',
       ],[
@@ -93,6 +111,16 @@
       };
 
     } //End Method
+
+    public function updateBudget(){
+      $this->validate([
+        'name' => 'required|unique:budgets,name,'.$this->budgetId,
+      ],[
+        'name.required' => 'Se requiere el nombre del presupuesto',
+        'name.unique'   => 'El nombre del presupuesto ya existe',
+      ]);
+    } //End Method
+
 
     public function render(){
       return view('livewire.admin.create-budget');

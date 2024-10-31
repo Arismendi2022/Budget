@@ -15,7 +15,7 @@
   <!---->
   @if($hideButtons)
     {{-- Cambié a !$hideButtons para mostrar los botones si hideButtons es false --}}
-    <a href="{{ route('admin.budgets') }}" class="menu-item js-menu-item recent-budgets-view-all" role="menuitem" id="ember102">
+    <a wire:navigate href="{{ route('admin.budgets') }}" class="menu-item js-menu-item recent-budgets-view-all" role="menuitem" id="ember102">
       <svg class="ynab-new-icon" width="16" height="16">
         <!---->
         <use href="#icon_sprite_folder">
@@ -34,7 +34,7 @@
     <div class="menu-separator" role="separator"></div>
     <div class="menu-heading">Current Budget</div>
     <!---->
-    <button class="menu-item js-menu-item modal-select-budget-settings" role="menuitem" id="ember103" type="button" wire:click.prevent="editBudgetModal">
+    <button class="menu-item js-menu-item modal-select-budget-settings" role="menuitem" id="ember103" type="button" wire:click.prevent="openEditModal">
       <svg class="ynab-new-icon" width="16" height="16">
         <!---->
         <use href="#icon_sprite_wrench">
