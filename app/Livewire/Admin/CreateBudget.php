@@ -103,11 +103,11 @@
           $this->dispatch('redirect-home');
         }
 
-        //Cierra el modal
+        /** Cierra el modal */
         $this->hideCreateModalForm();
 
       } catch(\Exception $e){
-        return "Error al enviar el correo: ".$e->getMessage();
+        return "No se pudo guardar el presupuesto. ".$e->getMessage();
       };
 
     } //End Method
@@ -119,10 +119,34 @@
         'name.required' => 'Se requiere el nombre del presupuesto',
         'name.unique'   => 'El nombre del presupuesto ya existe',
       ]);
-    } //End Method
+      try{
+        DB::transaction(function(){
+          $budget = Budget::findOrFail($this->budgetId);
 
+          /** Update Budget */
+          $budget->update([
+            'name'               => $this->name,
+            'currency'           => $this->currency,
+            'currency_placement' => $this->currency_placement,
+            'number_format'      => $this->number_format,
+            'date_format'        => $this->date_format,
+          ]);
+        });
+
+        if(!$this->fromBudget){
+          $this->dispatch('updateBudgetName')->to(LeftBudgetName::class);
+        }
+
+        /** Cierra el modal */
+        $this->hideCreateModalForm();
+
+      } catch(\Exception $e){
+        return "No se pudo actualizar el presupuesto.".$e->getMessage();
+      };
+    } //End Method
 
     public function render(){
       return view('livewire.admin.create-budget');
     }
+
   }

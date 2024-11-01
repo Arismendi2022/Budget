@@ -1119,7 +1119,6 @@
         const modalActive = document.getElementById('ember148');
         modalActive.classList.add('modal-overlay', 'active');
         event.stopPropagation();
-
       });
     });
 

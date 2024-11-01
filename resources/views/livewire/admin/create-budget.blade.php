@@ -29,7 +29,7 @@
               <label for="budget-name" class="type-body-bold">Budget Name</label>
               <div class="field-with-error {{ $errors->has('name') ? 'has-errors' : '' }}">
                 <div>
-                  <input id="budget-name" class="ember-text-field ember-view modal-budget-settings-name" type="text" wire:model="name">
+                  <input id="budget-name" class="ember-text-field ember-view modal-budget-settings-name" autofocus type="text" wire:model="name">
                 </div>
                 <!---->
                 <ul class="errors {{ $errors->has('name') ? '' : 'warnings' }}">
@@ -119,16 +119,13 @@
 @push('scripts')
   <script>
 
-    document.addEventListener('DOMContentLoaded', function() {
+    $(function() {
       Livewire.on('redirect-home', function() {
         setTimeout(function() {
           window.location.href = "{{ route('admin.home') }}"; // Redirigir a admin.home
-        }, 600); // 1000 ms = 1 segundos
+        }, 600); // 600 ms = 0.6 segundos
       });
 
-    });
-
-    $(function() {
       window.addEventListener('focusInput', function() {
         setTimeout(function() {
           $('#budget-name').focus();

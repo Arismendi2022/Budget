@@ -72,7 +72,8 @@
         $this->activeBudget = $user->budgets()->where('is_active',true)->first();
         $this->dispatch('updateActiveBudget',$this->activeBudget?->name);
       }
-    }
+
+    } //End Method
 
     public function render(){
       $data = [
