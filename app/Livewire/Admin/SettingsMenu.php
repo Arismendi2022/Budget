@@ -2,7 +2,6 @@
 
   namespace App\Livewire\Admin;
 
-  use Illuminate\Support\Facades\Auth;
   use Livewire\Component;
 
   class SettingsMenu extends Component
@@ -17,8 +16,6 @@
 
     public function mount($hideButtons = false){
       $this->hideButtons = $hideButtons;
-      // Obtener el presupuesto activo del usuario autenticado
-      $this->activeBudget = Auth::user()->budgets()->where('is_active',true)->first();
     }
 
     public function openCreateModal(){
