@@ -13,7 +13,7 @@
             </div>
             <svg class="ynab-new-icon sidebar-nav-arrow" width="16" height="16">
               <!---->
-              <use href="#icon_sprite_caret_down">
+                 <use href="#icon_sprite_caret_down">
                 <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_caret_down" fill="none" viewBox="0 0 24 24">
                   <path fill="currentColor" d="M11 19.5.2 6.1C-.4 5.2.3 4 1.3 4h21.4c1 0 1.7 1.2 1 2L13.1 19.6a1.4 1.4 0 0 1-2.2 0"></path>
                 </symbol>
@@ -69,7 +69,7 @@
           @foreach($budgets as $budget)
             <!-- Itera sobre cada presupuesto -->
             <div class="budget-list-item" wire:key="{{ $budget->id }}">
-              <a href="javascript:;" wire:click.prevent="setActiveBudget({{ $budget->id }})">
+              <a href="#" wire:click.prevent="setActiveBudget({{ $budget->id }})">
                 <div class="thumbnail">
                   <svg class="ynab-new-icon" width="90" height="90">
                     <!---->
@@ -125,7 +125,7 @@
         @endif
         <!---->
         {{-- Botton Create New Budgewt --}}
-        <div class="create-new-budget" wire:click="openCreateModal">
+        <div class="create-new-budget" wire:click.prevent="openCreateModal">
           <button type="button">
             <svg class="ynab-new-icon" width="80" height="80">
               <!---->
@@ -153,8 +153,35 @@
 @push('scripts')
   <script>
     // Escuchar el evento 'redirectHome'
-    Livewire.on('redirectHome', function() {
+    /*Livewire.on('redirectHome', function() {
       window.location.href = "{{ route('admin.home') }}"; // Redirigir a admin.home
+    });*/
+
+    $(function() {
+      $('.wants-tombstone-button').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const $budgetItem = $(this).closest('.budget-list-item');
+        // Muestra solo el modal correspondiente
+        $budgetItem.find('.are-you-sure').show();
+        $('body').addClass('modal-active'); // Agrega la clase al body
+      });
+
+      // Cierra el modal list budget button
+      $('.primary').on('click', function() {
+        const $body = $('body'); // Asegúrate de que $body esté definido
+        if($body) {
+          $body.removeClass('modal-active');
+        }
+        $('.are-you-sure').hide();
+      });
+
+      // Escuchar el evento de Livewire
+      Livewire.on('closeBudgetDeleted', function() {
+        $('body').removeClass('modal-active');
+        $('.are-you-sure').hide();
+      });
+
     });
 
   </script>

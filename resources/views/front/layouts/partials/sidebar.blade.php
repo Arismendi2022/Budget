@@ -266,7 +266,7 @@
             </div>
           @endif
           <!---->
-          <button class="ynab-button contrast button-sidebar nav-add-account" type="button">
+          <button class="ynab-button contrast button-sidebar nav-add-account" type="button" wire:click.prenvent="openNewAccountModal">
             <svg class="ynab-new-icon" width="12" height="12">
               <!---->
               <use href="#icon_sprite_plus_circle_fill">
@@ -349,27 +349,27 @@
      * @type {NodeListOf<Element>}
      */
 
-    const listaItems = document.querySelectorAll('.nav-main li');
-    const links = document.querySelectorAll('a.nav-account-row');
+    var listaItems = document.querySelectorAll('.nav-main li');
+    var links = document.querySelectorAll('a.nav-account-row');
 
-    const sidebar = document.querySelector(".sidebar");
-    const sidebarBtn = document.querySelector(".sidebar-collapse");
-    const iconCollapsed = sidebarBtn.querySelector('use');
+    var sidebar = document.querySelector(".sidebar");
+    var sidebarBtn = document.querySelector(".sidebar-collapse");
+    var iconCollapsed = sidebarBtn.querySelector('use');
 
     //const budgetBtn = document.querySelector('#budget-btn');
     // const loantBtn = document.querySelector('#loan-btn');
 
-    const budgetDetails = document.querySelector('#budgetDetails');
-    const loanDetails = document.querySelector('#loanDetails');
+    var budgetDetails = document.querySelector('#budgetDetails');
+    var loanDetails = document.querySelector('#loanDetails');
 
     //const iconUseBudget = budgetBtn.querySelector('use');
     //const iconUseLoan = loantBtn.querySelector('use');
 
-    const addAccountButton = document.querySelector('.nav-add-accounts');
-    const navAccounts = document.querySelector('.nav-accounts');
-    const navLabels = document.querySelectorAll('.navlink-label');
+    var addAccountButton = document.querySelector('.nav-add-accounts');
+    var navAccounts = document.querySelector('.nav-accounts');
+    var navLabels = document.querySelectorAll('.navlink-label');
 
-    const tooltipContent = document.querySelector('.tooltip-content');
+    var tooltipContent = document.querySelector('.tooltip-content');
 
     // Colapsa/Expande el sidebar - Espera a que el DOM esté completamente cargado
     document.addEventListener("DOMContentLoaded", function() {

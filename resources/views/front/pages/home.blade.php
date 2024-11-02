@@ -1112,7 +1112,7 @@
     });
 
     // modal calendar
-    document.addEventListener('DOMContentLoaded', function() {
+    /*document.addEventListener('DOMContentLoaded', function() {
       const openButton = document.querySelector('.budget-header-calendar-date-button');
 
       openButton.addEventListener('click', function() {
@@ -1120,16 +1120,16 @@
         modalActive.classList.add('modal-overlay', 'active');
         event.stopPropagation();
       });
-    });
+    });*/
 
     // Cerrar el modal calendar al hacer clic fuera de él
-    document.addEventListener('click', function(event) {
+    /*document.addEventListener('click', function(event) {
       const modalActive = document.getElementById('ember148');
       const modal = document.querySelector('.modal');
       if(modalActive.classList.contains('active') && !modal.contains(event.target) && !event.target.classList.contains('budget-header-calendar-date-button')) {
         modalActive.classList.remove('modal-overlay', 'active');
       }
-    });
+    });*/
 
   </script>
 @endpush

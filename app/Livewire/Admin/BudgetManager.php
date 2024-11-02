@@ -31,6 +31,8 @@
         if($budget->is_active){
           // Si ya está activo, redirigir al home sin hacer cambios
           //$this->dispatch('redirectHome');
+          $this->dispatch('closeBudgetDeleted');
+
           //return $this->redirectRoute('admin.home',navigate:true);
           $this->redirect(route('admin.home'));
         }
@@ -40,6 +42,7 @@
           Budget::where('id',$budgetId)->update(['is_active' => true]);
           Budget::where('user_id',auth()->id())->where('id','!=',$budgetId)->update(['is_active' => false]);
         });
+        $this->dispatch('closeBudgetDeleted');
         //$this->dispatch('redirectHome');
         //return $this->redirectRoute('admin.home',navigate:true);
         $this->redirect(route('admin.home'));
@@ -66,7 +69,7 @@
 
       $this->budgets = $user->budgets;
       // Despachar evento de presupuesto eliminado
-      $this->dispatch('budgetDeleted');
+      $this->dispatch('closeBudgetDeleted');
 
       if($wasActive){
         $this->activeBudget = $user->budgets()->where('is_active',true)->first();

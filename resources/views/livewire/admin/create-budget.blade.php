@@ -122,7 +122,8 @@
     $(function() {
       Livewire.on('redirect-home', function() {
         setTimeout(function() {
-          window.location.href = "{{ route('admin.home') }}"; // Redirigir a admin.home
+          //window.location.href = "{{ route('admin.home') }}"; // Redirigir a admin.home
+          Livewire.navigate("{{ route('admin.home') }}");
         }, 600); // 600 ms = 0.6 segundos
       });
 

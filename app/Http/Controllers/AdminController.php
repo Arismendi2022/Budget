@@ -52,7 +52,7 @@
         'activeBudget' => $activeBudget,
       ];
 
-      return view('front.pages.budget',$data);
+      return view('front.pages.budgets',$data);
 
     } //End Method
 
