@@ -352,117 +352,42 @@
     var listaItems = document.querySelectorAll('.nav-main li');
     var links = document.querySelectorAll('a.nav-account-row');
 
-    var sidebar = document.querySelector(".sidebar");
-    var sidebarBtn = document.querySelector(".sidebar-collapse");
-    var iconCollapsed = sidebarBtn.querySelector('use');
-
-    //const budgetBtn = document.querySelector('#budget-btn');
-    // const loantBtn = document.querySelector('#loan-btn');
-
     var budgetDetails = document.querySelector('#budgetDetails');
     var loanDetails = document.querySelector('#loanDetails');
 
-    //const iconUseBudget = budgetBtn.querySelector('use');
-    //const iconUseLoan = loantBtn.querySelector('use');
+    // Colapsa/Expande el sidebar
+    $(document).on('livewire:navigated', function() {
+      // Constantes para los anchos
+      var EXPANDED_WIDTH = "260px";
+      var COLLAPSED_WIDTH = "56px";
 
-    var addAccountButton = document.querySelector('.nav-add-accounts');
-    var navAccounts = document.querySelector('.nav-accounts');
-    var navLabels = document.querySelectorAll('.navlink-label');
+      // Elementos del DOM usando jQuery
+      var sidebar = $(".sidebar");
+      var sidebarBtn = $(".sidebar-collapse");
+      var iconCollapsed = sidebarBtn.find('use');
+      var navAccounts = $('.nav-accounts');
+      var addAccountButton = $('.nav-add-accounts');
+      var navLabels = $('.navlink-label');
+      var tooltipContent = $('.tooltip-content');
 
-    var tooltipContent = document.querySelector('.tooltip-content');
+      // Función para alternar el estado del sidebar
+      function toggleSidebar() {
+        var isExpanded = sidebar.css('width') === EXPANDED_WIDTH;
+        var newWidth = isExpanded ? COLLAPSED_WIDTH : EXPANDED_WIDTH;
+        var display = isExpanded ? 'none' : 'block';
 
-    // Colapsa/Expande el sidebar - Espera a que el DOM esté completamente cargado
-    document.addEventListener("DOMContentLoaded", function() {
+        // Cambiar el ancho del sidebar y alternar clases/atributos
+        sidebar.css('width', newWidth).toggleClass("sidebar-resized-collapsed", isExpanded);
+        tooltipContent.toggleClass('tooltip-center', !isExpanded);
+        iconCollapsed.attr('href', isExpanded ? '#icon_sprite_sidebar_open' : '#icon_sprite_sidebar_close');
+        sidebarBtn.toggleClass('sidebar-expand', isExpanded).toggleClass('sidebar-collapse', !isExpanded);
 
-      // Agregar un evento de clic al botón
-      sidebarBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("sidebar-resized-collapsed");
-        sidebarBtn.classList.toggle("sidebar-expand");
-        // Verificar el ancho actual y cambiarlo
-        if(sidebar.style.width === "260px") {
-          sidebar.style.width = "56px";
+        // Cambiar visibilidad de elementos
+        navAccounts.add(addAccountButton).add(navLabels).css('display', display);
+      }
 
-          tooltipContent.classList.remove('tooltip-center');
-          iconCollapsed.setAttribute('href', '#icon_sprite_sidebar_open');
-          navAccounts.style.display = "none";
-          addAccountButton.style.display = "none";
-          navLabels.forEach(labels => {
-            labels.style.display = 'none';
-          });
-          // Añadir y eliminar clases
-          sidebarBtn.classList.add('sidebar-expand');
-          sidebarBtn.classList.remove('sidebar-collapse');
-
-        } else {
-          sidebar.style.width = "260px";
-
-          tooltipContent.classList.add('tooltip-center');
-          iconCollapsed.setAttribute('href', '#icon_sprite_sidebar_close');
-          addAccountButton.style.display = "block";
-          navAccounts.style.display = "block";
-          navLabels.forEach(labels => {
-            labels.style.display = 'block';
-          });
-          // Añadir y eliminar clases
-          sidebarBtn.classList.remove('sidebar-expand');
-          sidebarBtn.classList.add('sidebar-collapse');
-        }
-      });
-    });
-
-    // Agregar evento de clic al botón "BUDGET"
-    /* budgetBtn.addEventListener('click', () => {
-       if(budgetDetails.style.display === 'none') {
-         budgetDetails.style.display = 'block';
-         // Función para cambiar el ícono
-         iconUseBudget.setAttribute('href', '#icon_sprite_chevron_down');
-       } else {
-         budgetDetails.style.display = 'none';
-         iconUseBudget.setAttribute('href', '#icon_sprite_chevron_right');
-       }
-     });
-     // Agregar evento de clic al botón "LOAN"
-     loantBtn.addEventListener('click', () => {
-       if(loanDetails.style.display === 'none') {
-         loanDetails.style.display = 'block';
-         // Función para cambiar el ícono
-         iconUseLoan.setAttribute('href', '#icon_sprite_chevron_down');
-       } else {
-         loanDetails.style.display = 'none';
-         iconUseLoan.setAttribute('href', '#icon_sprite_chevron_right');
-       }
-     });*/
-
-    // Recorrer cada elemento <li> y agregar un evento de clic
-    listaItems.forEach(item => {
-      item.addEventListener('click', () => {
-        // Remover la clase 'active' de todos los elementos <li>
-        listaItems.forEach(li => {
-          li.classList.remove('active');
-        });
-
-        // Agregar la clase 'active' solo al elemento <li> que fue clickeado
-        item.classList.add('active');
-        // Quitar la clase 'is-selected' de todos los enlaces
-        links.forEach(l => l.classList.remove('is-selected'));
-      });
-    });
-
-    // Agregar un evento de clic a cada enlace
-    links.forEach(link => {
-      link.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevenir el comportamiento predeterminado del enlace
-
-        // Quitar la clase 'is-selected' de todos los enlaces
-        links.forEach(l => l.classList.remove('is-selected'));
-
-        // Agregar la clase 'is-selected' solo al enlace clicado
-        this.classList.add('is-selected');
-        // Remover la clase 'active' de todos los elementos <li>
-        listaItems.forEach(li => {
-          li.classList.remove('active');
-        });
-      });
+      // Agregar evento de clic al botón usando jQuery
+      sidebarBtn.on("click", toggleSidebar);
     });
 
     // Activa el shift + el punto (.)
@@ -509,17 +434,13 @@
       }
     });
 
-
-    // modal nav-add-account
-    document.addEventListener('DOMContentLoaded', function() {
-      const openButton = document.querySelector('.nav-add-account');
-
-      openButton.addEventListener('click', function() {
-        const modalActive = document.getElementById('ember145');
-        modalActive.classList.add('modal-overlay', 'active');
-
+    //Abre modal add account
+    document.addEventListener('livewire:navigated', () => {
+      $(document).on('click', '.nav-add-account', function() {
+        $('#ember145').addClass('modal-overlay active');
       });
     });
+
 
     //Edit Account
     document.addEventListener('DOMContentLoaded', function() {

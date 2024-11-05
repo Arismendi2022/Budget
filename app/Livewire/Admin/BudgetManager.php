@@ -30,11 +30,9 @@
         $budget = Budget::find($budgetId);
         if($budget->is_active){
           // Si ya está activo, redirigir al home sin hacer cambios
-          //$this->dispatch('redirectHome');
           $this->dispatch('closeBudgetDeleted');
 
-          //return $this->redirectRoute('admin.home',navigate:true);
-          $this->redirect(route('admin.home'));
+          $this->dispatch('redirectHome');
         }
 
         DB::transaction(function() use ($budgetId){
@@ -43,9 +41,8 @@
           Budget::where('user_id',auth()->id())->where('id','!=',$budgetId)->update(['is_active' => false]);
         });
         $this->dispatch('closeBudgetDeleted');
-        //$this->dispatch('redirectHome');
-        //return $this->redirectRoute('admin.home',navigate:true);
-        $this->redirect(route('admin.home'));
+
+        $this->dispatch('redirectHome');
 
       } catch(\Exception $e){
         // Manejar cualquier error que ocurra
