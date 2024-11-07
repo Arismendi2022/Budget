@@ -40,6 +40,23 @@
 
     } //End Method
 
+    public function reflectView(Request $request){
+      $data = [
+        'pageTitle' => 'Spending Breakdown | YNAB'
+      ];
+
+      return view('front.pages.reflect',$data);
+    } //End Method
+
+    public function allAccounts(Request $request){
+      $data = [
+        'pageTitle' => 'All Accounts | YNAB'
+      ];
+
+      return view('front.pages.accounts',$data);
+    } //End Method
+
+
     public function adminBudgets(Request $request){
       $user         = Auth::user();
       $budgets      = $user->budgets()->get(); // Obtiene los presupuestos del usuario autenticado

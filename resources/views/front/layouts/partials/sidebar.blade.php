@@ -1,5 +1,5 @@
 {{-- Main Sidebar Container --}}
-<nav id="ember4" class="ynab-u sidebar logged-in" style="width:260px;" role="navigation">
+<nav id="sidebar" class="ynab-u sidebar logged-in" style="width:260px;" role="navigation">
   <div class="sidebar-left">
     <div class="sidebar-contents">
       <div class="sidebar-nav">
@@ -47,8 +47,8 @@
               </svg>
             </button>
           </li>
-          <li class="navlink navlink-budget active">
-            <a id="ember5" class="ember-view" href="#">
+          <li class="navlink navlink-budget {{ isActive('admin.home') }} ">
+            <a id="ember5" class="ember-view" wire:navigate href="{{ route('admin.home') }}">
               <svg id="icon_sprite_navigation_budget" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" d="M6.2 10.6h.6zm11.7 0h.4-.2z" clip-rule="evenodd"></path>
                 <path fill-rule="evenodd"
@@ -63,8 +63,8 @@
               <div class="navlink-label">Budget</div>
             </a>
           </li>
-          <li class="navlink navlink-reports">
-            <a id="ember6" href="#">
+          <li class="navlink navlink-reports {{ isActive('admin.reflect') }}">
+            <a id="ember6" wire:navigate href="{{ route('admin.reflect') }}">
               <svg id="icon_sprite_navigation_reports" viewBox="0 0 24 24">
                 <path d="M20.6 19H3.4c-.2 0-.4.2-.4.4v1.2c0 .2.2.4.4.4h17.2c.2 0 .4-.2.4-.4v-1.2c0-.2-.2-.4-.4-.4" opacity="0.4"></path>
                 <path fill-rule="evenodd"
@@ -74,8 +74,8 @@
               <div class="navlink-label">Reflect</div>
             </a>
           </li>
-          <li class="navlink navlink-accounts">
-            <a id="ember7" href="#">
+          <li class="navlink navlink-accounts {{ isActive('admin.accounts') }}">
+            <a id="ember7" wire:navigate href="{{ route('admin.accounts') }}">
               <svg id="icon_sprite_navigation_accounts" viewBox="0 0 24 24">
                 <path fill-rule="evenodd"
                   d="M4.6 19h14.8l1.3.7.3.6v1l-.2.5-.5.2H3.7l-.5-.2-.2-.5v-1l.3-.5M20.8 8.6 12.1 3h-.7L3.2 8.6 3 9v.5l.1.4.4.1h17l.4-.1.1-.4V9zm-9-.6-.6-.1-.4-.6a1 1 0 0 1 .2-1.2 1 1 0 0 1 1.2-.2c.2 0 .4.2.5.4a1 1 0 0 1-.1 1.4z"
@@ -309,7 +309,7 @@
                 shift
               </div>
               <div class="shortcut-key ">
-                .
+                :
               </div>
             </div>
           </div>
@@ -327,132 +327,54 @@
 
 @push('scripts')
   <script>
-
     $(function() {
-      // Mostrar el modal menu settings
+      /** Mostrar el modal menu settings */
       $('.js-sidebar-nav-menu').on('click', function() {
         $('#menu-settings').toggle();
       });
 
-      // Cerrar el menú si se hace clic fuera de él
+      /** Cerrar el menú si se hace clic fuera de él */
       $(document).on('click', function(event) {
         if(!$(event.target).closest('#menu-settings, .js-sidebar-nav-menu').length) {
           $('#menu-settings').hide(); // Cierra el menú
         }
       });
 
-    });
+    }); //End function jquery
 
-
-    /**
-     *
-     * @type {NodeListOf<Element>}
-     */
-
-    var listaItems = document.querySelectorAll('.nav-main li');
-    var links = document.querySelectorAll('a.nav-account-row');
-
-    var budgetDetails = document.querySelector('#budgetDetails');
-    var loanDetails = document.querySelector('#loanDetails');
-
-    // Colapsa/Expande el sidebar
-    $(document).on('livewire:navigated', function() {
-      // Constantes para los anchos
-      var EXPANDED_WIDTH = "260px";
-      var COLLAPSED_WIDTH = "56px";
-
-      // Elementos del DOM usando jQuery
-      var sidebar = $(".sidebar");
-      var sidebarBtn = $(".sidebar-collapse");
-      var iconCollapsed = sidebarBtn.find('use');
-      var navAccounts = $('.nav-accounts');
-      var addAccountButton = $('.nav-add-accounts');
-      var navLabels = $('.navlink-label');
-      var tooltipContent = $('.tooltip-content');
+    $(function() {
+      /** Cambiar el ancho del sidebar y alternar clases/atributos */
+      const EXPANDED_WIDTH = "260px";
+      const COLLAPSED_WIDTH = "56px";
 
       // Función para alternar el estado del sidebar
       function toggleSidebar() {
-        var isExpanded = sidebar.css('width') === EXPANDED_WIDTH;
-        var newWidth = isExpanded ? COLLAPSED_WIDTH : EXPANDED_WIDTH;
-        var display = isExpanded ? 'none' : 'block';
+        const isExpanded = $(".sidebar").css('width') === EXPANDED_WIDTH;
+        const newWidth = isExpanded ? COLLAPSED_WIDTH : EXPANDED_WIDTH;
+        const display = isExpanded ? 'none' : 'block';
 
         // Cambiar el ancho del sidebar y alternar clases/atributos
-        sidebar.css('width', newWidth).toggleClass("sidebar-resized-collapsed", isExpanded);
-        tooltipContent.toggleClass('tooltip-center', !isExpanded);
-        iconCollapsed.attr('href', isExpanded ? '#icon_sprite_sidebar_open' : '#icon_sprite_sidebar_close');
-        sidebarBtn.toggleClass('sidebar-expand', isExpanded).toggleClass('sidebar-collapse', !isExpanded);
+        $(".sidebar").css('width', newWidth).toggleClass("sidebar-resized-collapsed", isExpanded);
+        $('.tooltip-content').toggleClass('tooltip-center', !isExpanded);
+        $(".sidebar-collapse").find('use').attr('href', isExpanded ? '#icon_sprite_sidebar_open' : '#icon_sprite_sidebar_close');
+        $(".sidebar-collapse").toggleClass('sidebar-expand', isExpanded).toggleClass('sidebar-collapse', !isExpanded);
 
         // Cambiar visibilidad de elementos
-        navAccounts.add(addAccountButton).add(navLabels).css('display', display);
+        $('.nav-accounts').add($('.nav-add-accounts')).add($('.navlink-label')).css('display', display);
       }
 
       // Agregar evento de clic al botón usando jQuery
-      sidebarBtn.on("click", toggleSidebar);
-    });
+      $(".sidebar-collapse").on("click", toggleSidebar);
 
-    // Activa el shift + el punto (.)
-    document.addEventListener('keydown', function(event) {
-      // Obtener el código de la tecla presionada
-      var keyPressed = event.key;
-      var keyCode = event.code;
-
-      // Verificar si la tecla presionada es '>'
-      if(keyPressed === '>' || keyCode === 'IntlBackslash') {
-        // Verificar si la tecla Shift también está presionada
-        if(event.shiftKey) {
-          // Mostrar un mensaje
-          sidebar.classList.toggle("sidebar-resized-collapsed");
-          sidebarBtn.classList.toggle("sidebar-expand");
-          // Verificar el ancho actual y cambiarlo
-          if(sidebar.style.width === "260px") {
-            sidebar.style.width = "56px";
-            tooltipContent.classList.remove('tooltip-center');
-            iconCollapsed.setAttribute('href', '#icon_sprite_sidebar_open');
-            navAccounts.style.display = "none";
-            addAccountButton.style.display = "none";
-            navLabels.forEach(labels => {
-              labels.style.display = 'none';
-            });
-            // Añadir y eliminar clases
-            sidebarBtn.classList.add('sidebar-expand');
-            sidebarBtn.classList.remove('sidebar-collapse');
-
-          } else {
-            sidebar.style.width = "260px";
-            tooltipContent.classList.add('tooltip-center');
-            iconCollapsed.setAttribute('href', '#icon_sprite_sidebar_close');
-            addAccountButton.style.display = "block";
-            navAccounts.style.display = "block";
-            navLabels.forEach(labels => {
-              labels.style.display = 'block';
-            });
-            // Añadir y eliminar clases
-            sidebarBtn.classList.remove('sidebar-expand');
-            sidebarBtn.classList.add('sidebar-collapse');
-          }
+      // Agregar evento de teclado para Shift + :
+      $(document).on("keydown", function(event) {
+        // Verificar si Shift y la tecla ':' (código 58) están presionadas
+        if(event.shiftKey && event.key === ':') {
+          event.preventDefault(); // Prevenir el comportamiento por defecto
+          toggleSidebar();
         }
-      }
-    });
-
-    //Abre modal add account
-    document.addEventListener('livewire:navigated', () => {
-      $(document).on('click', '.nav-add-account', function() {
-        $('#ember145').addClass('modal-overlay active');
       });
-    });
 
-
-    //Edit Account
-    document.addEventListener('DOMContentLoaded', function() {
-      const editAccountButtons = document.querySelectorAll('.nav-account-icons-left');
-
-      editAccountButtons.forEach(button => {
-        button.addEventListener('click', function() {
-
-          const modalActive = document.getElementById('ember42');
-          modalActive.classList.add('modal-overlay', 'active');
-        });
-      });
     });
 
   </script>

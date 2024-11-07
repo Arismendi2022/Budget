@@ -122,7 +122,6 @@
     $(function() {
       Livewire.on('redirect-home', function() {
         setTimeout(function() {
-          //window.location.href = "{{ route('admin.home') }}"; // Redirigir a admin.home
           Livewire.navigate("{{ route('admin.home') }}");
         }, 600); // 600 ms = 0.6 segundos
       });
@@ -130,7 +129,7 @@
       window.addEventListener('focusInput', function() {
         setTimeout(function() {
           $('#budget-name').focus();
-        }, 5); // Retraso de 100 ms
+        }, 10); // Retraso de 10 ms
       });
     });
 

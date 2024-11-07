@@ -38,6 +38,8 @@
     Route::middleware(['auth','preventBackHistory'])->group(function(){
       Route::controller(AdminController::class)->group(function(){
         Route::get('/home','adminHome')->name('home');
+        Route::get('/reflect','reflectView')->name('reflect');
+        Route::get('/accounts','allAccounts')->name('accounts');
         Route::get('/budgets','adminBudgets')->name('budgets');
         Route::post('/logout','logoutHandler')->name('logout');
         Route::get('/settings','settingsView')->name('settings');

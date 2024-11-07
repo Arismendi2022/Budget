@@ -1,5 +1,5 @@
 @extends('front.layouts.pages-layout')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Budget | YNAB')
+@section('pageTitle', $pageTitle ?? 'Page Title Here')
 @section('content')
   {{-- Main content --}}
   <div id="content" class="ynab-u content">
@@ -998,6 +998,25 @@
       <!---->
     </div>
   </div>
+  <!---->
+  <!-- Tooltip Global -->
+  <div class="tooltip-global">
+    <span role="tooltip" id="ember18" class="tooltip-content" style="top: calc(108px + 0.5rem); left: 687.817px; opacity: 0; transition: opacity 0.2s;">
+      Views Menu
+    </span>
+    <span role="tooltip" id="ember20" class="tooltip-content" style="top: calc(94.5px - 0.5rem); left: 269.458px; opacity: 0; transition: opacity 0.2s;">
+      Add Category Group
+    </span>
+    <span role="tooltip" id="ember23" class="tooltip-content" style="top: calc(80.5px - 0.5rem); left: 430.833px; opacity: 0; transition: opacity 0.2s;">
+      Previous 34 days of assigning and moving money (Rule Three is a thing!)
+    </span>
+    <span role="tooltip" id="ember24" class="tooltip-content" style="top: calc(96.5px - 0.5rem); left: 1253.1px; opacity: 0; transition: opacity 0.2s;">
+      Progress Bars On
+    </span>
+    <span role="tooltip" id="ember25" class="tooltip-content" style="top: calc(96.5px - 0.5rem); left: 1280.82px; opacity: 0; transition: opacity 0.2s;">
+      Progress Bars Off
+    </span>
+  </div>
 @endsection
 
 @push('scripts')
@@ -1088,48 +1107,48 @@
     });
 
     // Inicializa el calendario con la fecha actual
-    document.addEventListener('DOMContentLoaded', function() {
-      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-      let currentDate = new Date(); // Fecha actual
+    /*ocument.addEventListener('DOMContentLoaded', function() {
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        let currentDate = new Date(); // Fecha actual
 
-      const updateCalendar = () => {
-        const currentMonth = monthNames[currentDate.getMonth()];
-        const currentYear = currentDate.getFullYear();
-        document.getElementById('current-date').innerText = `${currentMonth} ${currentYear}`;
-      };
+        const updateCalendar = () => {
+          const currentMonth = monthNames[currentDate.getMonth()];
+          const currentYear = currentDate.getFullYear();
+          document.getElementById('current-date').innerText = `${currentMonth} ${currentYear}`;
+        };
 
-      document.getElementById('prev-month').addEventListener('click', () => {
-        currentDate.setMonth(currentDate.getMonth() - 1);
-        updateCalendar();
+        document.getElementById('prev-month').addEventListener('click', () => {
+          currentDate.setMonth(currentDate.getMonth() - 1);
+          updateCalendar();
+        });
+
+        document.getElementById('next-month').addEventListener('click', () => {
+          currentDate.setMonth(currentDate.getMonth() + 1);
+          updateCalendar();
+        });
+
+        updateCalendar(); // Inicializa el calendario con la fecha actual
       });
 
-      document.getElementById('next-month').addEventListener('click', () => {
-        currentDate.setMonth(currentDate.getMonth() + 1);
-        updateCalendar();
+      // modal calendar
+      document.addEventListener('DOMContentLoaded', function() {
+        const openButton = document.querySelector('.budget-header-calendar-date-button');
+
+        openButton.addEventListener('click', function() {
+          const modalActive = document.getElementById('ember148');
+          modalActive.classList.add('modal-overlay', 'active');
+          event.stopPropagation();
+        });
       });
 
-      updateCalendar(); // Inicializa el calendario con la fecha actual
-    });
-
-    // modal calendar
-    /*document.addEventListener('DOMContentLoaded', function() {
-      const openButton = document.querySelector('.budget-header-calendar-date-button');
-
-      openButton.addEventListener('click', function() {
+      // Cerrar el modal calendar al hacer clic fuera de él
+      document.addEventListener('click', function(event) {
         const modalActive = document.getElementById('ember148');
-        modalActive.classList.add('modal-overlay', 'active');
-        event.stopPropagation();
-      });
-    });*/
-
-    // Cerrar el modal calendar al hacer clic fuera de él
-    /*document.addEventListener('click', function(event) {
-      const modalActive = document.getElementById('ember148');
-      const modal = document.querySelector('.modal');
-      if(modalActive.classList.contains('active') && !modal.contains(event.target) && !event.target.classList.contains('budget-header-calendar-date-button')) {
-        modalActive.classList.remove('modal-overlay', 'active');
-      }
-    });*/
+        const modal = document.querySelector('.modal');
+        if(modalActive.classList.contains('active') && !modal.contains(event.target) && !event.target.classList.contains('budget-header-calendar-date-button')) {
+          modalActive.classList.remove('modal-overlay', 'active');
+        }
+      });*/
 
   </script>
 @endpush
