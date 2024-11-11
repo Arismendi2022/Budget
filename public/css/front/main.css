@@ -54,7 +54,11 @@
   --alphaSPWarmGrey40036: rgba(192, 190, 187, 0.361);
   --alphaSPWarmGrey40070: rgba(183, 183, 181, 0.698);
   --alphaSPWarmGrey4008: rgba(192, 190, 187, 0.078);
-  --alphaSPWarmGrey60060: rgba(136, 134, 133, 0.6);
+  --alphaSPWarmGrey60010: rgba(164, 162, 160, 0.102);
+  --alphaSPWarmGrey60014: rgba(164, 162, 160, 0.141);
+  --alphaSPWarmGrey60017: rgba(164, 162, 160, 0.169);
+  --alphaSPWarmGrey60023: rgba(164, 162, 160, 0.231);
+  --alphaSPWarmGrey60060: rgba(164, 162, 160, 0.6);
   --brandBlurple100: #ecf0fe;
   --brandBlurple200: #d8e0fd;
   --brandBlurple300: #acbdfb;
@@ -95,7 +99,7 @@
   --brandSPBlurple800: #292c6c;
   --brandSPBlurple850: #1c1f58;
   --brandSPBlurple900: #1b1d48;
-  --brandSPCoolGrey1000: #0e0f25;
+  --brandSPCoolGrey1000: #0c0d22;
   --brandSPCoolGrey100: #ededf5;
   --brandSPCoolGrey200: #c4c5cf;
   --brandSPCoolGrey300: #9b9caa;
@@ -105,6 +109,7 @@
   --brandSPCoolGrey700: #303247;
   --brandSPCoolGrey800: #262840;
   --brandSPCoolGrey900: #171930;
+  --brandSPCoolGrey950: #111228;
   --brandSPDandelion100: #fef9ed;
   --brandSPDandelion150: #fdf3d2;
   --brandSPDandelion200: #fdf1c6;
@@ -139,17 +144,17 @@
   --brandSPMulberry300: #faada5;
   --brandSPMulberry400: #e48585;
   --brandSPMulberry500: #ce5e66;
-  --brandSPMulberry600: #b83646;
+  --brandSPMulberry600: #bf2e3b;
   --brandSPMulberry700: #912333;
   --brandSPMulberry800: #6a1020;
   --brandSPMulberry900: #4c0814;
   --brandSPWarmGrey1000: #191818;
   --brandSPWarmGrey100: #f8f6f2;
   --brandSPWarmGrey200: #edebe7;
-  --brandSPWarmGrey300: #d6d4d1;
+  --brandSPWarmGrey300: #dcdad6;
   --brandSPWarmGrey400: #c0bebb;
-  --brandSPWarmGrey500: #aaa8a5;
-  --brandSPWarmGrey600: #888685;
+  --brandSPWarmGrey500: #a4a2a0;
+  --brandSPWarmGrey600: #a4a2a0;
   --brandSPWarmGrey700: #676564;
   --brandSPWarmGrey800: #514f4e;
   --brandSPWarmGrey900: #3b3939;
@@ -484,7 +489,6 @@ body, html {
   height: 100%;
   overflow: hidden;
   width: 100%;
-  color: #19223c;
   color: var(--labelPrimary);
 }
 
@@ -510,7 +514,6 @@ button::-moz-focus-inner, input::-moz-focus-inner {
   flex-direction: column;
 }
 .skip-to-content {
-  background-color: #d8e0fd;
   background-color: var(--calloutPrimaryProminentBackground);
   color: #19223c;
   color: var(--calloutPrimaryLabel);
@@ -532,7 +535,6 @@ button::-moz-focus-inner, input::-moz-focus-inner {
   flex: 0 0 auto;
 }
 .sidebar {
-  background-color: #2c396a;
   background-color: var(--sidebarBackground);
   height: 100%;
   border-right: 1px solid var(--separatorSubdued);
@@ -1967,10 +1969,6 @@ button[disabled] {
 .ynab-new-settings-menu.modal-overlay {
   background-color: var(--scrimInvisible);
 }
-
-:active, :focus {
-  box-shadow: none;
-}
 .modal-overlay {
   background-color: var(--scrimDefault);
   height: 100%;
@@ -2487,6 +2485,10 @@ select {
   display: flex;
   flex-direction: column;
 }
+.account-widget .account-widget-help-box p {
+  margin: 0;
+  text-align: left;
+}
 .account-widget p {
   margin: .3rem 0 1rem;
   color: var(--labelPrimary);
@@ -2496,6 +2498,9 @@ select {
 }
 
 /* || FORM-LABEL */
+.modal-generic label {
+  color: var(--labelPrimary); /* css provisional */
+}
 .account-widget .y-form-field label:first-of-type {
   margin-bottom: .25rem;
 }
@@ -2504,7 +2509,7 @@ select {
   padding: .2625rem 0 .0875rem;
   width: 100%;
 }
-.modal-generic label {
+.modal-generic label{
   font-size: .875rem;
   font-weight: 600;
   line-height: 1.2;
@@ -2517,10 +2522,10 @@ select {
   height: 3rem;
 }
 .account-widget .account-widget-edit-linked-account .account-list-section, .account-widget .account-widget-edit-linked-account .account-list-section label, .account-widget .account-widget-edit-linked-account .y-form-field, .account-widget input {
-  margin-bottom: .25rem;
+  margin-bottom: .25rem !important;
 }
+
 .modal-generic input, .modal-generic select, .modal-generic textarea, .modal-popup input, .modal-popup textarea {
-  border: .0625rem solid #d2d8de;
   border: .0625rem solid var(--inputBorder);
   width: 100%;
   border-radius: .25rem;
@@ -2582,8 +2587,9 @@ ul.warnings {
   justify-content: space-between;
   margin-bottom: .25rem;
   padding: 0 .5em;
-  width: 100%;
+  width: 100%
 }
+
 /* || SPAN */
 .account-widget .account-type-select-button svg {
   padding: .2rem;
@@ -2603,10 +2609,7 @@ ul.warnings {
   margin-right: .75rem;
   margin-top: .25rem;
 }
-.account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-icon .ynab-new-icon.icon-download {
-  height: 1.6rem;
-  width: 1.6rem;
-}
+
 .account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-icon .ynab-new-icon {
   color: var(--actionPrimary);
 }
@@ -2617,15 +2620,18 @@ ul.warnings {
   color: var(--labelPrimary);
   margin-bottom: 0;
 }
-
 .account-widget .separator-text {
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
   border-bottom: 1px solid var(--separatorSubdued);
   line-height: .3rem;
   margin-bottom: 1.5rem;
   margin-top: 1.2rem;
   text-align: center;
   width: 100%;
+}
+.account-widget .separator-text span {
+  background-color: var(--backgroundPrimaryElevated);
+  color: var(--actionSecondary);
+  padding: 0 .625rem;
 }
 .account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-icon .ynab-new-icon.icon-edit {
   height: 1.5rem;
@@ -2765,14 +2771,6 @@ ul.warnings {
 .account-widget em, .modal-import-choose-file em {
   color: var(--labelSecondary);
   font-style: normal;
-}
-
-/* Para controlar la visibilidad de las secciones */
-.account-widget-list-button .ynab-new-icon {
-  display: none; /* Ocultar el icono por defecto */
-}
-.account-widget-list-button.selected .ynab-new-icon {
-  display: inline; /* Mostrar el icono cuando el botón está seleccionado */
 }
 
 /* || SUCCESS */

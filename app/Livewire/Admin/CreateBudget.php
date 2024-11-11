@@ -34,6 +34,7 @@
 
     #[On('budget-created')]
     public function showCreateModalForm(){
+      $this->resetErrorBag();
       $this->setDefaultFormats();
       $this->isUpdateBudgetModal = false;
       $this->isOpenCreateModal   = true;
@@ -58,9 +59,7 @@
       $this->dispatch('focusInput');
     }
 
-
     public function hideCreateModalForm(){
-      $this->resetErrorBag();
       $this->isUpdateBudgetModal = false;
       $this->isOpenCreateModal   = false;
     }

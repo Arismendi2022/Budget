@@ -258,28 +258,8 @@
           @endif
           <!---->
         </div>
-        <div class="nav-add-accounts">
-          @if(empty($accounts))
-            <div class="nav-accounts-empty-state">
-              <h5>No Accounts</h5>
-              <p>You can't budget without adding accounts to YNAB first. How about adding one now?</p>
-            </div>
-          @endif
-          <!---->
-          <button class="ynab-button contrast button-sidebar nav-add-account" type="button" wire:click.prenvent="openNewAccountModal">
-            <svg class="ynab-new-icon" width="12" height="12">
-              <!---->
-              <use href="#icon_sprite_plus_circle_fill">
-                <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_plus_circle_fill" fill="none" viewBox="0 0 24 24">
-                  <path fill="currentColor"
-                    d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24m4.8 13.2h-3.6v3.6c0 .7-.5 1.2-1.2 1.2s-1.2-.5-1.2-1.2v-3.6H7.2c-.7 0-1.2-.5-1.2-1.2s.5-1.2 1.2-1.2h3.6V7.2c0-.7.5-1.2 1.2-1.2s1.2.5 1.2 1.2v3.6h3.6c.7 0 1.2.5 1.2 1.2s-.5 1.2-1.2 1.2">
-                  </path>
-                </symbol>
-              </use>
-            </svg>
-            Add Account
-          </button>
-        </div>
+        <!---->
+        <livewire:admin.add-account/>
         <!---->
       </div>
     </div>
@@ -322,6 +302,7 @@
   </div>
 </nav>
 {{--   MENU SETTINGS --}}
+<!-- Incluye el componente Livewire -->
 <livewire:admin.settings-menu :hide-buttons="true"/>  {{-- Cambia a true si deseas ocultar los botones --}}
 <livewire:admin.create-budget/>
 

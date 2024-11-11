@@ -137,8 +137,7 @@
           <div class="y-form-field field-with-error has-errors" style="display: none">
             <label>Give it a nickname</label>
             <input id="ember163" class="ember-text-field ember-view y-input name-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
-              autocapitalize="words"
-              name="name" type="text">
+              autocapitalize="words" name="name" type="text">
             <ul class="errors">
               <li>This account name already exists.</li>
             </ul>
