@@ -173,15 +173,61 @@
                   </button>
                   <!---->
                 </div>
-                <div class="y-form-field field-with-error  currency-input-group">
-                  <label>
-                    What is your current account balance?
-                  </label>
-                  <input id="balance" class="ember-text-field ember-view y-input balance-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
-                    autocapitalize="none" inputmode="decimal" type="text" wire:model="balance">
-                  <!---->
-                </div>
+                @if($selectedCategory !== 'Loans')
+                  <div class="y-form-field field-with-error  currency-input-group">
+                    <label>
+                      What is your current account balance?
+                    </label>
+                    <input id="balance" class="ember-text-field ember-view y-input balance-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
+                      autocapitalize="none" inputmode="decimal" type="text" wire:model="balance">
+                    <!---->
+                  </div>
+                @endif
                 <!---->
+                @if($selectedCategory === 'Loans')
+                  <div class="add-unlinked-account-split-row">
+                    <div class="add-unlinked-account-current-balance">
+                      <div class="y-form-field field-with-error  currency-input-group">
+                        <label>
+                          Current account balance
+                        </label>
+                        <input id="ember132" class="ember-text-field ember-view y-input current-account-balance-input user-data" autocomplete="nope" autocorrect="off"
+                          spellcheck="false" autocapitalize="none" inputmode="decimal" type="text">
+                        <!---->
+                      </div>
+                    </div>
+                    <div class="add-unlinked-account-interest-rate">
+                      <div class="y-form-field field-with-error  currency-input-group interest-input-group">
+                        <label>Interest rate</label>
+                        <label class="input-icon">%</label>
+                        <input id="ember133" class="ember-text-field ember-view y-input interest-rate-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
+                          autocapitalize="none" inputmode="decimal" type="text">
+                        <!---->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="y-form-field field-with-error  currency-input-group">
+                    <label>
+                      Monthly payment required by your lender
+                    </label>
+                    <input id="ember134" class="ember-text-field ember-view y-input minimum-payment-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
+                      autocapitalize="none" inputmode="decimal" type="text">
+                    <!---->
+                  </div>
+                  <div class="y-form-note ">
+                    <!---->
+                    <div class="note-container">
+                      <em>Enter the total amount you are required to pay your lender each month, including principal, interest, escrow, fees, etc.</em>
+                    </div>
+                  </div>
+                  <div class="y-form-note ">
+                    <!---->
+                    <div class="note-container">
+                      <em>You can add extra payments as a target in your budget later.</em>
+                    </div>
+                  </div>
+                @endif
+
               </div>
               <div class="account-widget-footer">
                 <button disabled="" class="ynab-button primary is-large " type="button">
@@ -224,12 +270,13 @@
               </div>
               <div class="account-widget-body">
                 <div class="account-type-select">
-                  @foreach($accountTypes as $category => $accounts)
+                  @foreach($accountTypes as $category => $data)
                     <div class="account-type-select-group">
                       <h3>{{ $category }}</h3>
-                      <p>Accounts description for {{ $category }}.</p>
-                      @foreach($accounts as $account)
-                        <button class="account-widget-list-button" data-account-type="{{ $account['data-account-type'] }}" wire:click="selectAccount('{{ $account['type'] }}')"
+                      <p>{{ $data['description'] }}</p>
+                      @foreach($data['accounts'] as $account)
+                        <button class="account-widget-list-button" data-account-type="{{ $account['data-account-type'] }}"
+                          wire:click="selectAccount('{{ $account['type'] }}', '{{ $category }}')"
                           type="button">
                           {{ $account['type'] }}
                           @if($selectedAccountType === $account['type'])
