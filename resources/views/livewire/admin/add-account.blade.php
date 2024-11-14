@@ -153,7 +153,7 @@
                 <div class="y-form-field field-with-error ">
                   <label>Give it a nickname</label>
                   <input id="nickname" class="ember-text-field ember-view y-input name-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
-                    autocapitalize="words" autofocus="" type="text" wire:model="nickname">
+                    autocapitalize="words" autofocus="" type="text" wire:model="nickname" wire:input="checkNextButtonState">
                   <!---->
                 </div>
                 <div class="y-form-field field-with-error ">
@@ -191,8 +191,8 @@
                         <label>
                           Current account balance
                         </label>
-                        <input id="ember132" class="ember-text-field ember-view y-input current-account-balance-input user-data" autocomplete="nope" autocorrect="off"
-                          spellcheck="false" autocapitalize="none" inputmode="decimal" type="text">
+                        <input id="balance" class="ember-text-field ember-view y-input current-account-balance-input user-data" autocomplete="nope" autocorrect="off"
+                          spellcheck="false" autocapitalize="none" inputmode="decimal" type="text" wire:model="balance">
                         <!---->
                       </div>
                     </div>
@@ -200,8 +200,8 @@
                       <div class="y-form-field field-with-error  currency-input-group interest-input-group">
                         <label>Interest rate</label>
                         <label class="input-icon">%</label>
-                        <input id="ember133" class="ember-text-field ember-view y-input interest-rate-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
-                          autocapitalize="none" inputmode="decimal" type="text">
+                        <input id="interest" class="ember-text-field ember-view y-input interest-rate-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
+                          autocapitalize="none" inputmode="decimal" type="text" wire:model="interest">
                         <!---->
                       </div>
                     </div>
@@ -210,8 +210,8 @@
                     <label>
                       Monthly payment required by your lender
                     </label>
-                    <input id="ember134" class="ember-text-field ember-view y-input minimum-payment-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
-                      autocapitalize="none" inputmode="decimal" type="text">
+                    <input id="payment" class="ember-text-field ember-view y-input minimum-payment-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
+                      autocapitalize="none" inputmode="decimal" type="text" wire:model="payment">
                     <!---->
                   </div>
                   <div class="y-form-note ">
@@ -230,7 +230,10 @@
 
               </div>
               <div class="account-widget-footer">
-                <button disabled="" class="ynab-button primary is-large " type="button">
+                {{--  <button disabled="" class="ynab-button primary is-large" type="button">
+                   Next
+                 </button> --}}
+                <button class="ynab-button primary is-large" {{ $isNextButtonDisabled ? 'disabled' : '' }}>
                   Next
                 </button>
               </div>
@@ -301,7 +304,8 @@
         </div>
         <!---->
       </div>
-    </div> <!-- End Modal -->
+    </div>
+    <!-- End Modal -->
   @endif
 </div>
 @push('scripts')

@@ -8,21 +8,23 @@
   class AddAccount extends Component
   {
     public $isOpenAccountModal  = false;
-    public $nickname,$account,$balance,$interest,$payment;
+    public $nickname,$balance,$interest,$payment;
     public $currentSection      = 1;
     public $accountTypes        = [];
     public $selectedAccountType = null;
     public $selectedCategory    = null;
 
+    public $isNextButtonDisabled = true;
+
     /** Limpia todos los campos */
     public function resetFields(){
-      $this->nickname            = null;
-      $this->account             = null;
-      $this->balance             = null;
-      $this->interest            = null;
-      $this->payment             = null;
-      $this->selectedAccountType = null;
-      $this->selectedCategory    = null; // Restablece la categoría seleccionada
+      $this->nickname             = null;
+      $this->balance              = null;
+      $this->interest             = null;
+      $this->payment              = null;
+      $this->selectedAccountType  = null;
+      $this->selectedCategory     = null; // Restablece la categoría seleccionada
+      $this->isNextButtonDisabled = true;
     }
 
     public function mount(){
@@ -78,6 +80,23 @@
         $this->currentSection      = 2;
       }
     }
+
+    /**
+     * Habilita boton Next
+     *
+     * @return response()
+     */
+
+    // Méeodo para verificar si el botón "Next" debe estar habilitado
+    public function checkNextButtonState(){
+      $this->isNextButtonDisabled = empty($this->nickname);
+    }
+
+    public function updated($propertyName){
+      $this->dispatch('isDisabledButon');
+
+    }
+
 
     // Metodo para cambiar a la sección especificada
     public function goToSection($section){
