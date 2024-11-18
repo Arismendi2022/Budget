@@ -4,7 +4,7 @@
   use App\Http\Controllers\AdminController;
   use App\Http\Controllers\AuthController;
   use App\Http\Controllers\BudgetController;
-  use App\Livewire\Admin\BudgetManager;
+  use App\Livewire\Admin\FormWizard;
   use Illuminate\Support\Facades\Route;
 
   Route::get('/',function(){
@@ -45,6 +45,7 @@
         Route::get('/settings','settingsView')->name('settings');
         Route::get('/edit_login','editLogin')->name('edit_login');
         Route::post('/change-password','changePassword')->name('change_password');
+
       });
     });
   });

@@ -112,9 +112,8 @@
                 </div>
               </div>
             </div>
-          @endif
-          <!-- Sección para agregar cuenta no vinculada -->
-          @if($currentSection === 2)
+            <!-- Sección para agregar cuenta no vinculada -->
+          @elseif($currentSection === 2)
             <div class="account-widget-step account-widget-add-unlinked-account account-widget-step-with-help-box">
               <div class="account-widget-header">
                 <button aria-label="Back" title="Back" type="button" wire:click="goToSection(1)">
@@ -153,14 +152,14 @@
                 <div class="y-form-field field-with-error ">
                   <label>Give it a nickname</label>
                   <input id="nickname" class="ember-text-field ember-view y-input name-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
-                    autocapitalize="words" autofocus="" type="text" wire:model="nickname" wire:input="checkNextButtonState">
+                    autocapitalize="words" autofocus="" type="text" wire:model="nickname" wire:input="nextButtonState">
                   <!---->
                 </div>
                 <div class="y-form-field field-with-error ">
                   <label>
                     What type of account are you adding?
                   </label>
-                  <button class="account-type-select-button" type="button" wire:click="selectAccountType">
+                  <button class="account-type-select-button" type="button" wire:click="selectAccountType" wire:model="selectedAccountType">
                     {{ $selectedAccountType ?? 'Select account type...' }}
                     <svg class="ynab-new-icon" width="16" height="16">
                       <!---->
@@ -179,7 +178,7 @@
                       What is your current account balance?
                     </label>
                     <input id="balance" class="ember-text-field ember-view y-input balance-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
-                      autocapitalize="none" inputmode="decimal" type="text" wire:model="balance">
+                      autocapitalize="none" inputmode="decimal" type="text" wire:model="balance" wire:input="nextButtonState">
                     <!---->
                   </div>
                 @endif
@@ -192,7 +191,7 @@
                           Current account balance
                         </label>
                         <input id="balance" class="ember-text-field ember-view y-input current-account-balance-input user-data" autocomplete="nope" autocorrect="off"
-                          spellcheck="false" autocapitalize="none" inputmode="decimal" type="text" wire:model="balance">
+                          spellcheck="false" autocapitalize="none" inputmode="decimal" type="text" wire:model="balance" wire:input="nextButtonState">
                         <!---->
                       </div>
                     </div>
@@ -201,7 +200,7 @@
                         <label>Interest rate</label>
                         <label class="input-icon">%</label>
                         <input id="interest" class="ember-text-field ember-view y-input interest-rate-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
-                          autocapitalize="none" inputmode="decimal" type="text" wire:model="interest">
+                          autocapitalize="none" inputmode="decimal" type="text" wire:model="interest" wire:input="nextButtonState">
                         <!---->
                       </div>
                     </div>
@@ -211,7 +210,7 @@
                       Monthly payment required by your lender
                     </label>
                     <input id="payment" class="ember-text-field ember-view y-input minimum-payment-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
-                      autocapitalize="none" inputmode="decimal" type="text" wire:model="payment">
+                      autocapitalize="none" inputmode="decimal" type="text" wire:model="payment" wire:input="nextButtonState">
                     <!---->
                   </div>
                   <div class="y-form-note ">
@@ -230,17 +229,14 @@
 
               </div>
               <div class="account-widget-footer">
-                {{--  <button disabled="" class="ynab-button primary is-large" type="button">
-                   Next
-                 </button> --}}
-                <button class="ynab-button primary is-large" {{ $isNextButtonDisabled ? 'disabled' : '' }}>
+                <button class="ynab-button primary is-large" @if($isButtonDisabled) disabled @endif
+                wire:click="{{ $selectedCategory === 'Loans' ? 'pairCategory' : 'createAccount' }}">
                   Next
                 </button>
               </div>
             </div>
-          @endif
-          <!-- Sección para agregar tipo de cuenta -->
-          @if($currentSection === 3)
+            <!-- Sección para agregar tipo de cuenta -->
+          @elseif($currentSection === 3)
             <div class="account-widget-step account-widget-add-unlinked-account account-widget-step-with-help-box">
               <div class="account-widget-header">
                 <button aria-label="Back" title="Back" type="button" wire:click="goToSection(2)">
@@ -299,6 +295,187 @@
                 </div>
               </div>
             </div>
+            <!-- Sección Optional: Pair a Category -->
+          @elseif($currentSection === 4)
+            <div class="account-widget-step account-widget-loan-category">
+              <div class="account-widget-header">
+                <button aria-label="Back" title="Back" type="button" wire:click="goToSection(2)">
+                  <svg class="ynab-new-icon icon-back" width="16" height="16">
+                    <!---->
+                    <use href="#icon_sprite_chevron_left">
+                      <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_left" fill="none" viewBox="0 0 24 24">
+                        <path fill="currentColor" fill-rule="evenodd"
+                          d="M18.7 23.6a2 2 0 0 1-2.1 0L5.3 13a1.4 1.4 0 0 1 0-2L16.6.4a2 2 0 0 1 2 0c.7.6.7 1.5 0 2L8.6 12l10.2 9.6c.6.5.6 1.4 0 2" clip-rule="evenodd"></path>
+                      </symbol>
+                    </use>
+                  </svg>
+                </button>
+                <div class="account-widget-header-title">
+                  <h1>Optional: Pair a Category</h1>
+                  <!---->
+                </div>
+                <button aria-label="Close" title="Close" type="button" wire:click="hideAccountModalForm">
+                  <svg class="ynab-new-icon icon-close" width="16" height="16">
+                    <!---->
+                    <use href="#icon_sprite_close">
+                      <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_close" fill="none" viewBox="0 0 24 24">
+                        <path fill="currentColor" fill-rule="evenodd"
+                          d="M22.5 22.5a1.4 1.4 0 0 1-2 0L12 13.9l-8.6 8.6a1.4 1.4 0 0 1-1.9-2l8.6-8.5-8.6-8.5a1.4 1.4 0 0 1 2-2l8.5 8.6 8.5-8.6a1.4 1.4 0 1 1 2 2L13.9 12l8.6 8.6a1.4 1.4 0 0 1 0 1.9"
+                          clip-rule="evenodd"></path>
+                      </symbol>
+                    </use>
+                  </svg>
+                </button>
+              </div>
+              <div class="account-widget-body">
+                <label>Pair your loan with a budget category</label>
+                <p class="pairing-your-account-paragraph">Pairing with a budget category helps better show how your payments will affect your debt. Pairing works best when there is
+                  a one-to-one relationship between your loan account and a budget category.</p>
+                <label>Which category do you want to pair your loan with?</label>
+                <div class="account-widget-radio-button-list">
+                  <label class="radio">
+                    <input name="categoryToPair" autofocus="" aria-label="Select an existing category" type="radio" value="existing"
+                      {{ $selectedOption === 'existing' ? 'checked' : '' }}
+                      wire:click="setOption('existing')" checked>
+                    <span>
+                      <div class="account-widget-loan-category-radio-description">
+                        <div class="account-widget-loan-category-radio-description-title">Select an existing category</div>
+                        <div class="account-widget-loan-category-radio-description-subtitle">Pair with a category already in your budget</div>
+                      </div>
+                    </span>
+                  </label>
+                  <label class="radio">
+                    <input name="categoryToPair" aria-label="Create a new category" type="radio" value="new" {{ $selectedOption === 'new' ? 'checked' : '' }}
+                    wire:click="setOption('new')">
+                    <span>
+                      <div class="account-widget-loan-category-radio-description">
+                        <div class="account-widget-loan-category-radio-description-title">Create a new category</div>
+                        <div class="account-widget-loan-category-radio-description-subtitle">Pair with a brand new category</div>
+                      </div>
+                    </span>
+                  </label>
+                </div>
+                <!---->
+                @if ($selectedOption === 'existing')
+                  <div class="y-form-field field-with-error ">
+                    <label>Select a category</label>
+                    <div class="category-select">
+                      <div class="x-select-container  ">
+                        <select wire:model="selectedGroup" wire:input="checkSelection" class="js-x-select type-input account-widget-loan-category-existing-subcategory">
+                          <!---->
+                          <option value="">
+                          </option>
+                          <!---->
+                          <optgroup label="Bills">
+                            <option value="991d1012-7e19-484f-b1ff-30288ae5fd8b">Moto</option>
+                            <option value="f4b9b3ac-8d80-4872-a5bc-b4b629769c40" disabled="">Ipad</option>
+                            <option value="65adefcc-9839-43fe-9274-7ceecc985305" disabled="">🏠 Rent/Mortgage</option>
+                            <option value="18c576f1-25c8-4553-a0ec-4c0c84214fa5">📱 Phone</option>
+                            <option value="f4407b4c-f8a5-42f0-b51f-b82439484c95">💻 Internet</option>
+                            <option value="626f5f5c-1797-440a-b784-e2a473a263bb">⚡️ Utilities</option>
+                          </optgroup>
+                          <optgroup label="Needs">
+                            <option value="64c7e443-94c2-440e-8aea-a7486d96e181">🛒 Groceries</option>
+                            <option value="a78d3d63-274d-4e07-b5a6-1f017bfe7404">🚘 Transportation</option>
+                            <option value="5e1bb6f6-eb4f-4405-9f4a-843c2240ec99">🩺 Medical expenses</option>
+                            <option value="8d303399-5b31-458e-b228-47d256962d7a">😌 Emergency Fund</option>
+                          </optgroup>
+                          <optgroup label="Wants">
+                            <option value="5063cad6-b03e-45ab-9618-e2ccdb172b93">🍽️ Dining out</option>
+                            <option value="4b698ede-bae6-43f8-870b-5b09ad6ce876">🍿 Entertainment</option>
+                            <option value="c46e638e-bb99-4ae4-801b-19de95c47105">🏝️ Vacation</option>
+                            <option value="0aab788f-9e1e-4a22-930f-2789f97cef9b">❗️Stuff I forgot to budget for</option>
+                            <option value="77775bcd-2b8e-49f1-ab12-b1ca3425f633">🌳 YNAB subscription</option>
+                          </optgroup>
+                        </select>
+                      </div>
+                    </div>
+                    <!---->
+                  </div>
+                  <!---->
+                @elseif ($selectedOption === 'new')
+                  <div class="y-form-field field-with-error ">
+                    <label>Give your category a name</label>
+                    <input id="nickname" wire:model="nickname" class="ember-text-field ember-view y-input account-widget-loan-category-new-subcategory"
+                      autocomplete="nope" autocorrect="off"
+                      spellcheck="false" autocapitalize="words" type="text">
+                    <!---->
+                  </div>
+                  <div class="y-form-field field-with-error ">
+                    <label>Add to category group:</label>
+                    <div class="category-select">
+                      <div class="x-select-container  ">
+                        <select wire:model="selectedGroup" wire:input="checkSelection" class="js-x-select type-input account-widget-loan-category-existing-group">
+                          <!---->
+                          <option value=""></option>
+                          <option value="-1">New Category Group</option>
+                          <option value="b62a8fe0-1d56-4174-9fab-310b9a830ef8">Bills</option>
+                          <option value="a10a34dc-b9cf-4c5d-9987-7ab766b3885a">Needs</option>
+                          <option value="713dc656-ca29-4b2a-a908-41ed6188fdba">Wants</option>
+                        </select>
+                      </div>
+                    </div>
+                    <!---->
+                  </div>
+                @endif
+                <!---->
+              </div>
+              <div class="account-widget-footer">
+                <button class="ynab-button secondary is-large  skip-pairing" type="button">
+                  Skip
+                </button>
+                <button class="ynab-button primary is-large" type="button" {{ $selectedGroup ? '' : 'disabled' }}>
+                  Next
+                </button>
+              </div>
+              <!---->
+            </div>
+            <!-- Sección Success! -->
+          @elseif($currentSection === 5)
+            <div class="account-widget-step account-widget-success-screen">
+              <div class="account-widget-header">
+                <div class="hidden-header-button"></div>
+                <div class="account-widget-header-title">
+                  <h1>Add Unlinked Account</h1>
+                  <!---->
+                </div>
+                <button aria-label="Close" title="Close" type="button" wire:click="hideAccountModalForm">
+                  <svg class="ynab-new-icon icon-close" width="16" height="16">
+                    <!---->
+                    <use href="#icon_sprite_close">
+                      <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_close" fill="none" viewBox="0 0 24 24">
+                        <path fill="currentColor" fill-rule="evenodd"
+                          d="M22.5 22.5a1.4 1.4 0 0 1-2 0L12 13.9l-8.6 8.6a1.4 1.4 0 0 1-1.9-2l8.6-8.5-8.6-8.5a1.4 1.4 0 0 1 2-2l8.5 8.6 8.5-8.6a1.4 1.4 0 1 1 2 2L13.9 12l8.6 8.6a1.4 1.4 0 0 1 0 1.9"
+                          clip-rule="evenodd"></path>
+                      </symbol>
+                    </use>
+                  </svg>
+                </button>
+              </div>
+              <div class="account-widget-body">
+                <svg class="ynab-new-icon icon-checkmark-circle" width="16" height="16">
+                  <!---->
+                  <use href="#icon_sprite_check_circle_fill">
+                    <symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check_circle_fill" fill="none" viewBox="0 0 24 24">
+                      <path fill="currentColor"
+                        d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24M8.7 17.1l-4.3-4.3a1.2 1.2 0 0 1 0-1.7 1.2 1.2 0 0 1 1.7 0l3.5 3.5 8.3-8.3a1 1 0 0 1 1.6 0 1.2 1.2 0 0 1 0 1.7l-9 9.1a1.2 1.2 0 0 1-1.8 0"></path>
+                    </symbol>
+                  </use>
+                </svg>
+                <h3>Success!</h3>
+                <p>Add transactions on the web or in our mobile apps. You can also download a transaction file from your institution and use <a
+                    href="#" onclick="return false;" target="_blank" rel="noopener noreferrer">File-Based Import</a>.</p>
+              </div>
+              <div class="account-widget-footer">
+                <button class="ynab-button secondary is-large  js-add-another-account-btn" type="button" wire:click="goToSection(1)">
+                  Add Another
+                </button>
+                <button class="ynab-button primary is-large " type="button" wire:click="hideAccountModalForm">
+                  Done
+                </button>
+              </div>
+            </div>
+            <!---->
           @endif
           <!---->
         </div>

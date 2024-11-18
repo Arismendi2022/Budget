@@ -14,17 +14,21 @@
     public $selectedAccountType = null;
     public $selectedCategory    = null;
 
-    public $isNextButtonDisabled = true;
+    public $isButtonDisabled = true;
+    public $selectedOption   = 'existing';
+    public $selectedGroup    = '';
 
     /** Limpia todos los campos */
     public function resetFields(){
-      $this->nickname             = null;
-      $this->balance              = null;
-      $this->interest             = null;
-      $this->payment              = null;
-      $this->selectedAccountType  = null;
-      $this->selectedCategory     = null; // Restablece la categoría seleccionada
-      $this->isNextButtonDisabled = true;
+      $this->nickname            = null;
+      $this->balance             = null;
+      $this->interest            = null;
+      $this->payment             = null;
+      $this->selectedAccountType = null;
+      $this->selectedCategory    = null;
+      $this->isButtonDisabled    = true;
+      $this->selectedGroup       = '';
+      $this->selectedOption      = 'existing';
     }
 
     public function mount(){
@@ -82,19 +86,39 @@
     }
 
     /**
-     * Habilita boton Next
-     *
-     * @return response()
+     * Activa el boton Next cuando los campos tiene datos.
+     * @return void
      */
-
-    // Méeodo para verificar si el botón "Next" debe estar habilitado
-    public function checkNextButtonState(){
-      $this->isNextButtonDisabled = empty($this->nickname);
+    public function nextButtonState(){
+      if($this->selectedCategory === 'Budget' || $this->selectedCategory === 'Tracking'){
+        $this->isButtonDisabled = empty($this->nickname) || empty($this->selectedAccountType) || empty($this->balance);
+      }else if($this->selectedCategory === 'Loans'){
+        $this->isButtonDisabled = !$this->nickname || !$this->selectedAccountType || !$this->balance || !$this->interest || !$this->payment;
+      }
     }
 
-    public function updated($propertyName){
-      $this->dispatch('isDisabledButon');
+    // Función para emparejar categoría
+    public function pairCategory(){
+      $this->currentSection = 4;
+    }
 
+    // activa los radio buttons
+    public function setOption($option){
+      $this->selectedOption = $option; // Cambiar opción seleccionada
+      $this->selectedGroup  = '';
+    }
+
+    //Activa del boton Next de Pair a Category
+    public function checkSelection(){
+      // Aquí puedes manejar cualquier lógica adicional si es necesario
+    }
+
+    public function saveBugetTracking($value = ''){
+      //
+    }
+
+    public function saveMortgageLoans($value = ''){
+      //
     }
 
 
@@ -106,6 +130,7 @@
     public function render(){
       return view('livewire.admin.add-account');
     }
+
   }
 
 
