@@ -3,7 +3,6 @@
   namespace Database\Seeders;
 
   use Illuminate\Database\Seeder;
-  use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -22,6 +21,8 @@
 
       $this->call([
         AdminUser::class,
+        CategorySeeder::class,
+        CategoryGroupSeeder::class,
       ]);
     }
 

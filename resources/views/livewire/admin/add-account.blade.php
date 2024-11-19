@@ -363,30 +363,16 @@
                       <div class="x-select-container  ">
                         <select wire:model="selectedGroup" wire:input="checkSelection" class="js-x-select type-input account-widget-loan-category-existing-subcategory">
                           <!---->
-                          <option value="">
-                          </option>
-                          <!---->
-                          <optgroup label="Bills">
-                            <option value="991d1012-7e19-484f-b1ff-30288ae5fd8b">Moto</option>
-                            <option value="f4b9b3ac-8d80-4872-a5bc-b4b629769c40" disabled="">Ipad</option>
-                            <option value="65adefcc-9839-43fe-9274-7ceecc985305" disabled="">🏠 Rent/Mortgage</option>
-                            <option value="18c576f1-25c8-4553-a0ec-4c0c84214fa5">📱 Phone</option>
-                            <option value="f4407b4c-f8a5-42f0-b51f-b82439484c95">💻 Internet</option>
-                            <option value="626f5f5c-1797-440a-b784-e2a473a263bb">⚡️ Utilities</option>
-                          </optgroup>
-                          <optgroup label="Needs">
-                            <option value="64c7e443-94c2-440e-8aea-a7486d96e181">🛒 Groceries</option>
-                            <option value="a78d3d63-274d-4e07-b5a6-1f017bfe7404">🚘 Transportation</option>
-                            <option value="5e1bb6f6-eb4f-4405-9f4a-843c2240ec99">🩺 Medical expenses</option>
-                            <option value="8d303399-5b31-458e-b228-47d256962d7a">😌 Emergency Fund</option>
-                          </optgroup>
-                          <optgroup label="Wants">
-                            <option value="5063cad6-b03e-45ab-9618-e2ccdb172b93">🍽️ Dining out</option>
-                            <option value="4b698ede-bae6-43f8-870b-5b09ad6ce876">🍿 Entertainment</option>
-                            <option value="c46e638e-bb99-4ae4-801b-19de95c47105">🏝️ Vacation</option>
-                            <option value="0aab788f-9e1e-4a22-930f-2789f97cef9b">❗️Stuff I forgot to budget for</option>
-                            <option value="77775bcd-2b8e-49f1-ab12-b1ca3425f633">🌳 YNAB subscription</option>
-                          </optgroup>
+                          <option value=""></option>
+                          @foreach($categoriesByGroup as $group)
+                            <optgroup label="{{ $group->name }}">
+                              @foreach($group->categories as $category)
+                                <option value="{{ $category->id }}">
+                                  {{ $category->name }}
+                                </option>
+                              @endforeach
+                            </optgroup>
+                          @endforeach
                         </select>
                       </div>
                     </div>
@@ -409,9 +395,9 @@
                           <!---->
                           <option value=""></option>
                           <option value="-1">New Category Group</option>
-                          <option value="b62a8fe0-1d56-4174-9fab-310b9a830ef8">Bills</option>
-                          <option value="a10a34dc-b9cf-4c5d-9987-7ab766b3885a">Needs</option>
-                          <option value="713dc656-ca29-4b2a-a908-41ed6188fdba">Wants</option>
+                          @foreach($categoryGroups as $group)
+                            <option value="{{ $group->id }}" wire:key="group-{{ $group->id }}">{{ $group->name }}</option>
+                          @endforeach
                         </select>
                       </div>
                     </div>

@@ -3,6 +3,8 @@
   namespace App\Livewire\Admin;
 
   use App\Helpers\AccountHelper;
+  use App\Models\Category;
+  use App\Models\CategoryGroup;
   use Livewire\Component;
 
   class AddAccount extends Component
@@ -17,6 +19,10 @@
     public $isButtonDisabled = true;
     public $selectedOption   = 'existing';
     public $selectedGroup    = '';
+    public $categoryGroups;
+    public $categories;
+    public $categoriesByGroup;
+
 
     /** Limpia todos los campos */
     public function resetFields(){
@@ -33,6 +39,10 @@
 
     public function mount(){
       $this->accountTypes = AccountHelper::getAccountTypes();
+
+      $this->categoryGroups = CategoryGroup::all(); // Obtiene todos los grupos de categorías
+      // Carga los grupos de categorías con sus categorías
+      $this->categoriesByGroup = CategoryGroup::with('categories')->get();
     }
 
     public function addAccountModal(){

@@ -132,6 +132,14 @@
         $field.on('input', () => $(`#${key}-error`).text(''));
       });
 
+      // Manejar el evento de pulsación de tecla en el campo de contraseña
+      $('#request_data_password').on('keypress', function(event) {
+        if(event.which === 13) {
+          event.preventDefault();
+          $('#login-form').submit();
+        }
+      });
+
       // Realiza la autenticacion en el login.
       $form.on('submit', function(e) {
         e.preventDefault();
