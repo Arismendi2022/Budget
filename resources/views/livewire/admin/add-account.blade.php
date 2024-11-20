@@ -230,7 +230,7 @@
               </div>
               <div class="account-widget-footer">
                 <button class="ynab-button primary is-large" @if($isButtonDisabled) disabled @endif
-                wire:click="{{ $selectedCategory === 'Loans' ? 'pairCategory' : 'createAccount' }}">
+                wire:click="{{ $selectedCategory === 'Loans' ? 'pairCategory' : 'saveBudgetTracking' }}">
                   Next
                 </button>
               </div>
@@ -357,10 +357,10 @@
                 </div>
                 <!---->
                 @if ($selectedOption === 'existing')
-                  <div class="y-form-field field-with-error ">
+                  <div class="y-form-field field-with-error">
                     <label>Select a category</label>
                     <div class="category-select">
-                      <div class="x-select-container  ">
+                      <div class="x-select-container">
                         <select wire:model="selectedGroup" wire:input="checkSelection" class="js-x-select type-input account-widget-loan-category-existing-subcategory">
                           <!---->
                           <option value=""></option>
@@ -395,8 +395,8 @@
                           <!---->
                           <option value=""></option>
                           <option value="-1">New Category Group</option>
-                          @foreach($categoryGroups as $group)
-                            <option value="{{ $group->id }}" wire:key="group-{{ $group->id }}">{{ $group->name }}</option>
+                          @foreach($categoriesByGroup as $group)
+                            <option value="{{ $group->id }}">{{ $group->name }}</option>
                           @endforeach
                         </select>
                       </div>
@@ -407,10 +407,10 @@
                 <!---->
               </div>
               <div class="account-widget-footer">
-                <button class="ynab-button secondary is-large  skip-pairing" type="button">
+                <button class="ynab-button secondary is-large  skip-pairing" type="button" wire:click="saveMortgageLoansSkip">
                   Skip
                 </button>
-                <button class="ynab-button primary is-large" type="button" {{ $selectedGroup ? '' : 'disabled' }}>
+                <button class="ynab-button primary is-large" type="button" {{ $selectedGroup ? '' : 'disabled' }} wire:click="saveMortgageLoans">
                   Next
                 </button>
               </div>

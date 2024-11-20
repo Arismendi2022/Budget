@@ -21,8 +21,8 @@
 
       $this->call([
         AdminUser::class,
-        CategorySeeder::class,
-        CategoryGroupSeeder::class,
+        BudgetCategorySeeder::class,
+        BudgetGroupSeeder::class,
       ]);
     }
 

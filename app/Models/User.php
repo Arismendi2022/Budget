@@ -60,5 +60,4 @@
       return $this->hasMany(Budget::class);
     }
 
-
   }

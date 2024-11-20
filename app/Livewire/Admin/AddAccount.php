@@ -3,8 +3,7 @@
   namespace App\Livewire\Admin;
 
   use App\Helpers\AccountHelper;
-  use App\Models\Category;
-  use App\Models\CategoryGroup;
+  use App\Models\BudgetGroup;
   use Livewire\Component;
 
   class AddAccount extends Component
@@ -19,8 +18,6 @@
     public $isButtonDisabled = true;
     public $selectedOption   = 'existing';
     public $selectedGroup    = '';
-    public $categoryGroups;
-    public $categories;
     public $categoriesByGroup;
 
 
@@ -40,9 +37,8 @@
     public function mount(){
       $this->accountTypes = AccountHelper::getAccountTypes();
 
-      $this->categoryGroups = CategoryGroup::all(); // Obtiene todos los grupos de categorías
-      // Carga los grupos de categorías con sus categorías
-      $this->categoriesByGroup = CategoryGroup::with('categories')->get();
+      // Obtiene todos los grupos y categorías
+      $this->categoriesByGroup = BudgetGroup::with('categories')->get();
     }
 
     public function addAccountModal(){
@@ -123,12 +119,19 @@
       // Aquí puedes manejar cualquier lógica adicional si es necesario
     }
 
-    public function saveBugetTracking($value = ''){
-      //
+    /** Guarda la cuenta de budget o Tracking en la tabla */
+    public function saveBudgetTracking(){
+      dd('Save Budget Tracking...');
     }
 
-    public function saveMortgageLoans($value = ''){
-      //
+    /** Guarda la cuenta de Loans en la tabla */
+    public function saveMortgageLoans(){
+      dd('Save Mortgage Loans...');
+    }
+
+    /** Guarda la cuenta de Loans sin asignar categoria */
+    public function saveMortgageLoansSkip(){
+      dd('Save Mortgage Loans sin categoria...');
     }
 
 
