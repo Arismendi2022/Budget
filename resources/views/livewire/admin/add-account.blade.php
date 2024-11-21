@@ -1,6 +1,54 @@
 <div>
+  <div class="nav-accounts">
+    @if(!$accounts->isEmpty())
+      @foreach($accountGroups as $group)
+        <div class="nav-account {{ $group->type === 'Budget' ? 'onBudget' : ($group->type === 'Loans' ? 'loan' : 'offBudget') }}">
+          <div class="nav-account-block">
+            <button class="nav-account-name nav-account-name-button user-data" aria-label="collapse {{ strtoupper($group->type) }}" type="button">
+              <svg class="ynab-new-icon" width="8" height="8">
+                <use href="#icon_sprite_chevron_down"></use>
+              </svg>
+              <div>{{ strtoupper($group->type) }}</div>
+            </button>
+            <div class="nav-account-value nav-account-block-value user-data">
+              <span class="user-data currency tabular-nums {{ $group->total_balance >= 0 ? 'positive' : 'negative' }}">
+                  {{ $group->total_balance < 0 ? '−' : '' }}<bdi>$</bdi>{{ number_format(abs($group->total_balance), 2, ',', '.') }}
+              </span>
+            </div>
+            <div class="nav-account-icons nav-account-icons-right"></div>
+          </div>
+
+          @foreach($group->accounts as $account)
+            <a id="ember{{ $account->id }}" draggable="true"
+              class="nav-account-row {{ $account->is_selected ? 'is-selected' : '' }}"
+              href="#"
+              data-account-id="{{ $account->id }}">
+              <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account">
+                <svg class="ynab-new-icon edit" width="12" height="12">
+                  <use href="#icon_sprite_pencil"></use>
+                </svg>
+              </div>
+              <div class="nav-account-name user-data" title="{{ $account->name }}">
+                {{ $account->name }}
+              </div>
+              <div class="nav-account-value user-data">
+                <span class="user-data currency tabular-nums {{ $account->balance >= 0 ? 'positive' : 'negative' }}">
+                    {{ $account->balance < 0 ? '−' : '' }}<bdi>$</bdi>{{ number_format(abs($account->balance), 2, ',', '.') }}
+                </span>
+              </div>
+              <span class="direct-status-import-icon nav-account-icons nav-account-icons-right">
+                <svg class="ynab-new-icon" width="16" height="16">
+                    <use href="#icon_sprite_"></use>
+                </svg>
+              </span>
+            </a>
+          @endforeach
+        </div>
+      @endforeach
+    @endif
+  </div>
   <div class="nav-add-accounts">
-    @if(empty($accounts))
+    @if($accounts->isEmpty())
       <div class="nav-accounts-empty-state">
         <h5>No Accounts</h5>
         <p>You can't budget without adding accounts to YNAB first. How about adding one now?</p>

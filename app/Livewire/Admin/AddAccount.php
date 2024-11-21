@@ -3,6 +3,7 @@
   namespace App\Livewire\Admin;
 
   use App\Helpers\AccountHelper;
+  use App\Models\Budget;
   use App\Models\BudgetGroup;
   use Livewire\Component;
 
@@ -19,7 +20,7 @@
     public $selectedOption   = 'existing';
     public $selectedGroup    = '';
     public $categoriesByGroup;
-
+    public $accounts;
 
     /** Limpia todos los campos */
     public function resetFields(){
@@ -35,10 +36,17 @@
     }
 
     public function mount(){
-      $this->accountTypes = AccountHelper::getAccountTypes();
+      // Obtenemos el presupuesto activo del usuario actual
+      $activeBudget = Budget::where('user_id',auth()->id())->where('is_active',true)->first();
 
+      // Obtenemos las cuentas usando la relación
+      $this->accounts = $activeBudget->budgetAccounts;
+
+      // Obtiene los tipos de cuentas que se muestran Select Account type
+      $this->accountTypes = AccountHelper::getAccountTypes();
       // Obtiene todos los grupos y categorías
       $this->categoriesByGroup = BudgetGroup::with('categories')->get();
+
     }
 
     public function addAccountModal(){
