@@ -4,7 +4,9 @@
 
   use App\Helpers\AccountHelper;
   use App\Models\Budget;
+  use App\Models\BudgetAccount;
   use App\Models\BudgetGroup;
+  use Illuminate\Support\Facades\DB;
   use Livewire\Component;
 
   class AddAccount extends Component
@@ -13,6 +15,7 @@
     public $nickname,$balance,$interest,$payment;
     public $currentSection      = 1;
     public $accountTypes        = [];
+    public $showGroups          = [];
     public $selectedAccountType = null;
     public $selectedCategory    = null;
 
@@ -20,7 +23,9 @@
     public $selectedOption   = 'existing';
     public $selectedGroup    = '';
     public $categoriesByGroup;
-    public $accounts;
+    public $accounts,$activeBudgetId;
+
+    public $accountGroups; // Nueva propiedad para los grupos
 
     /** Limpia todos los campos */
     public function resetFields(){
@@ -38,16 +43,23 @@
     public function mount(){
       // Obtenemos el presupuesto activo del usuario actual
       $activeBudget = Budget::where('user_id',auth()->id())->where('is_active',true)->first();
+      // Asignamos el ID
+      $this->activeBudgetId = $activeBudget->id;
 
-      // Obtenemos las cuentas usando la relación
-      $this->accounts = $activeBudget->budgetAccounts;
+      // Agregar el agrupamiento de cuentas
+      $this->updateAccountLists();
 
       // Obtiene los tipos de cuentas que se muestran Select Account type
       $this->accountTypes = AccountHelper::getAccountTypes();
       // Obtiene todos los grupos y categorías
       $this->categoriesByGroup = BudgetGroup::with('categories')->get();
 
-    }
+      // Inicializar todos los grupos como expandidos
+      foreach($this->accountGroups as $group){
+        $this->showGroups[$group->type] = true;
+      }
+
+    } //End Mount
 
     public function addAccountModal(){
       $this->resetFields();
@@ -105,9 +117,15 @@
      */
     public function nextButtonState(){
       if($this->selectedCategory === 'Budget' || $this->selectedCategory === 'Tracking'){
-        $this->isButtonDisabled = empty($this->nickname) || empty($this->selectedAccountType) || empty($this->balance);
+        $this->isButtonDisabled = $this->nickname === '' ||
+                                  $this->selectedAccountType === '' ||
+                                  ($this->balance === '' && $this->balance !== '0');
       }else if($this->selectedCategory === 'Loans'){
-        $this->isButtonDisabled = !$this->nickname || !$this->selectedAccountType || !$this->balance || !$this->interest || !$this->payment;
+        $this->isButtonDisabled = $this->nickname === '' ||
+                                  $this->selectedAccountType === '' ||
+                                  ($this->balance === '' && $this->balance !== '0') ||
+                                  ($this->interest === '' && $this->interest !== '0') ||
+                                  ($this->payment === '' && $this->payment !== '0');
       }
     }
 
@@ -129,8 +147,47 @@
 
     /** Guarda la cuenta de budget o Tracking en la tabla */
     public function saveBudgetTracking(){
-      dd('Save Budget Tracking...');
-    }
+      $this->validate([
+        'nickname' => 'required|unique:budget_accounts,nickname',
+      ],[
+        'nickname.required' => 'Se requiere el nombre de la cuenta.',
+        'nickname.unique'   => 'Este nombre de cuenta ya existe.',
+      ]);
+
+      // Convertir la primera letra de nickname a mayúscula
+      $this->nickname = ucfirst($this->nickname);
+
+      if(in_array($this->selectedAccountType,['Credit Card','Line of Credit'])){
+        $this->balance = is_numeric($this->balance) ? abs($this->balance) * -1 : 0;
+      }else{
+        $this->balance = is_numeric($this->balance) ? $this->balance : 0;
+      }
+
+      //Iniciar transacción
+      try{
+        DB::transaction(function(){
+
+          BudgetAccount::create([
+            'budget_id'     => $this->activeBudgetId,
+            'nickname'      => $this->nickname,
+            'account_group' => $this->selectedCategory,
+            'account_type'  => $this->selectedAccountType,
+            'balance'       => $this->balance,
+          ]);
+
+          // Cambiar a la sección de éxito
+          $this->currentSection = 5;
+        });
+
+      } catch(\Exception $e){
+        // Nueva sintaxis para Livewire 3
+        $this->dispatch('console-error',[
+          'error' => $e->getMessage()
+        ]);
+
+        return false;
+      }
+    } //End Method
 
     /** Guarda la cuenta de Loans en la tabla */
     public function saveMortgageLoans(){
@@ -142,7 +199,6 @@
       dd('Save Mortgage Loans sin categoria...');
     }
 
-
     // Metodo para cambiar a la sección especificada
     public function goToSection($section){
       $this->currentSection = $section;
@@ -150,6 +206,60 @@
 
     public function render(){
       return view('livewire.admin.add-account');
+    }
+
+    // Nueva función para manejar las actualizaciones
+    private function updateAccountLists(){
+      // Actualizar las cuentas del sidebar
+      $this->budgetAccounts = BudgetAccount::where('budget_id',$this->activeBudgetId)->get();
+
+      // Actualizar las cuentas
+      $this->accounts = BudgetAccount::where('budget_id',$this->activeBudgetId)->get();
+
+      // Actualizar el agrupamiento de cuentas
+      $this->accountGroups = $this->accounts->groupBy('account_group')->map(function($accounts){
+        $groupType = $accounts->first()->account_group;
+
+        // Asegurar que el grupo esté expandido por defecto
+        $this->showGroups[$groupType] = true;
+
+        return (object)[
+          'type'          => $groupType,
+          'accounts'      => $accounts->map(function($account){
+            return (object)[
+              'id'          => $account->id,
+              'budget_id'   => $this->activeBudgetId,
+              'nickname'    => $account->nickname,
+              'balance'     => $account->balance,
+              'is_selected' => false
+            ];
+          }),
+          'total_balance' => $accounts->sum('balance')
+        ];
+      });
+
+    } //End Method
+
+    //Toggle expand/collapsed para los grupos de cuentas
+    public function toggleGroup($type){
+      if(!isset($this->showGroups[$type])){
+        $this->showGroups[$type] = true;
+      }
+      $this->showGroups[$type] = !$this->showGroups[$type];
+    }  //End Method
+
+    //cierra el modal success y actualiza cuentas
+    public function hideAccountModal(){
+      $this->hideAccountModalForm();
+      // Llamar a la función de actualización
+      $this->updateAccountLists();
+    }
+
+    //cierra el modal success y actualiza cuentas
+    public function goToSectionModal(){
+      $this->currentSection = 1;
+      // Llamar a la función de actualización
+      $this->updateAccountLists();
     }
 
   }

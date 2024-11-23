@@ -133,6 +133,11 @@
       });
     });
 
+    // Para Livewire 3
+    Livewire.on('console-error', data => {
+      console.error('Error:', data.error);
+    });
+
   </script>
 @endpush
 

@@ -106,8 +106,13 @@
         $this->hideCreateModalForm();
 
       } catch(\Exception $e){
-        return "No se pudo guardar el presupuesto. ".$e->getMessage();
-      };
+        // Nueva sintaxis para Livewire 3
+        $this->dispatch('console-error',[
+          'error' => $e->getMessage()
+        ]);
+
+        return false;
+      }
 
     } //End Method
 

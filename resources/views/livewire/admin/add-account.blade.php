@@ -4,49 +4,50 @@
       @foreach($accountGroups as $group)
         <div class="nav-account {{ $group->type === 'Budget' ? 'onBudget' : ($group->type === 'Loans' ? 'loan' : 'offBudget') }}">
           <div class="nav-account-block">
-            <button class="nav-account-name nav-account-name-button user-data" aria-label="collapse {{ strtoupper($group->type) }}" type="button">
+            <button class="nav-account-name nav-account-name-button user-data" aria-label="collapse {{ strtoupper($group->type) }}" type="button"
+              wire:click="toggleGroup('{{ $group->type }}')">
               <svg class="ynab-new-icon" width="8" height="8">
-                <use href="#icon_sprite_chevron_down"></use>
+                <use href="#icon_sprite_chevron_{{ $showGroups[$group->type] ?? false ? 'down' : 'right' }}"></use>
               </svg>
               <div>{{ strtoupper($group->type) }}</div>
             </button>
             <div class="nav-account-value nav-account-block-value user-data">
               <span class="user-data currency tabular-nums {{ $group->total_balance >= 0 ? 'positive' : 'negative' }}">
-                  {{ $group->total_balance < 0 ? '−' : '' }}<bdi>$</bdi>{{ number_format(abs($group->total_balance), 2, ',', '.') }}
+                {{ $group->total_balance < 0 ? '−' : '' }}<bdi>$</bdi>{{ number_format(abs($group->total_balance), 2, ',', '.') }}
               </span>
             </div>
             <div class="nav-account-icons nav-account-icons-right"></div>
           </div>
-
-          @foreach($group->accounts as $account)
-            <a id="ember{{ $account->id }}" draggable="true"
-              class="nav-account-row {{ $account->is_selected ? 'is-selected' : '' }}"
-              href="#"
-              data-account-id="{{ $account->id }}">
-              <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account">
-                <svg class="ynab-new-icon edit" width="12" height="12">
-                  <use href="#icon_sprite_pencil"></use>
-                </svg>
-              </div>
-              <div class="nav-account-name user-data" title="{{ $account->name }}">
-                {{ $account->name }}
-              </div>
-              <div class="nav-account-value user-data">
-                <span class="user-data currency tabular-nums {{ $account->balance >= 0 ? 'positive' : 'negative' }}">
+          @if($showGroups[$group->type] ?? false)
+            @foreach($group->accounts as $account)
+              <a id="ember{{ $account->id }}" draggable="true" class="nav-account-row {{ $account->is_selected ? 'is-selected' : '' }}" href="/accounts/{{ $account->id }}"
+                data-account-id="{{ $account->id }}">
+                <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account">
+                  <svg class="ynab-new-icon edit" width="12" height="12">
+                    <use href="#icon_sprite_pencil"></use>
+                  </svg>
+                </div>
+                <div class="nav-account-name user-data" title="{{ $account->nickname }}">
+                  {{ $account->nickname }}
+                </div>
+                <div class="nav-account-value user-data">
+                  <span class="user-data currency tabular-nums {{ $account->balance >= 0 ? 'positive' : 'negative' }}">
                     {{ $account->balance < 0 ? '−' : '' }}<bdi>$</bdi>{{ number_format(abs($account->balance), 2, ',', '.') }}
-                </span>
-              </div>
-              <span class="direct-status-import-icon nav-account-icons nav-account-icons-right">
-                <svg class="ynab-new-icon" width="16" height="16">
+                  </span>
+                </div>
+                <span id="ember{{ $account->id + 1 }}" class="direct-status-import-icon nav-account-icons nav-account-icons-right">
+                  <svg class="ynab-new-icon" width="16" height="16">
                     <use href="#icon_sprite_"></use>
-                </svg>
+                  </svg>
               </span>
-            </a>
-          @endforeach
+              </a>
+            @endforeach
+          @endif
         </div>
       @endforeach
     @endif
   </div>
+  <!---->
   <div class="nav-add-accounts">
     @if($accounts->isEmpty())
       <div class="nav-accounts-empty-state">
@@ -197,13 +198,18 @@
                   <span class="header-strong">Let's go!</span>
                   And don’t worry—if you change your mind, you can link your account at any time.
                 </p>
-                <div class="y-form-field field-with-error ">
+                <div class="y-form-field field-with-error {{ $errors->has('nickname') ? 'has-errors' : '' }}">
                   <label>Give it a nickname</label>
                   <input id="nickname" class="ember-text-field ember-view y-input name-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
                     autocapitalize="words" autofocus="" type="text" wire:model="nickname" wire:input="nextButtonState">
                   <!---->
+                  <ul class="errors {{ $errors->has('nickname') ? '' : 'warnings' }}">
+                    @if ($errors->has('nickname'))
+                      <li>{{ $errors->first('nickname') }}</li>
+                    @endif
+                  </ul>
                 </div>
-                <div class="y-form-field field-with-error ">
+                <div class="y-form-field field-with-error">
                   <label>
                     What type of account are you adding?
                   </label>
@@ -473,7 +479,7 @@
                   <h1>Add Unlinked Account</h1>
                   <!---->
                 </div>
-                <button aria-label="Close" title="Close" type="button" wire:click="hideAccountModalForm">
+                <button aria-label="Close" title="Close" type="button" wire:click="hideAccountModal">
                   <svg class="ynab-new-icon icon-close" width="16" height="16">
                     <!---->
                     <use href="#icon_sprite_close">
@@ -501,10 +507,10 @@
                     href="#" onclick="return false;" target="_blank" rel="noopener noreferrer">File-Based Import</a>.</p>
               </div>
               <div class="account-widget-footer">
-                <button class="ynab-button secondary is-large  js-add-another-account-btn" type="button" wire:click="goToSection(1)">
+                <button class="ynab-button secondary is-large  js-add-another-account-btn" type="button" wire:click="goToSectionModal">
                   Add Another
                 </button>
-                <button class="ynab-button primary is-large " type="button" wire:click="hideAccountModalForm">
+                <button class="ynab-button primary is-large " type="button" wire:click="hideAccountModal">
                   Done
                 </button>
               </div>
@@ -528,6 +534,11 @@
           $('#nickname').focus();
         }, 10); // Retraso de 10 ms
       });
+    });
+
+    // Para Livewire 3
+    Livewire.on('console-error', data => {
+      console.error('Error:', data.error);
     });
 
   </script>

@@ -534,6 +534,9 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 .nav-account-block .nav-account-name svg, .sidebar, .sidebar .nav-main, .sidebar .sidebar-nav-menu {
   flex: 0 0 auto;
 }
+.nav-account-name::selection {
+  background: 0 0;
+}
 .sidebar {
   background-color: var(--sidebarBackground);
   height: 100%;
@@ -754,9 +757,7 @@ img {
 }
 
 .ynab-button.contrast:not([disabled]) {
-  background-color: rgba(255, 255, 255, .149);
   background-color: var(--backgroundDarkSecondary);
-  color: #fff;
   color: var(--labelDarkBackgroundPrimary);
 }
 
@@ -1180,6 +1181,10 @@ button, input, select, textarea {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
 .nav-account-block .nav-account-icons {
   flex: 0 0 auto;
   height: 1rem;
@@ -1300,12 +1305,14 @@ bdi {
 }
 
 /* || ADD ACCOUNTS */
-
 .sidebar .button-sidebar {
   margin: .5rem 1rem;
   height: 1.75rem;
+  min-height: 1.75rem;
   padding: .25rem 1rem;
+  margin-top: 0.75rem;
 }
+
 button:focus {
   outline-color: var(--actionPrimary);
   outline: 0;
@@ -2509,7 +2516,7 @@ select {
   padding: .2625rem 0 .0875rem;
   width: 100%;
 }
-.modal-generic label{
+.modal-generic label {
   font-size: .875rem;
   font-weight: 600;
   line-height: 1.2;

@@ -185,6 +185,24 @@
           }
         });
       });
+
+      // Carga en el botón mientras se procesa el login.
+      $('#login-form').on('submit', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+          url: this.action,
+          method: 'POST',
+          data: $(this).serialize(),
+          success: () => {
+            $('#login-button')
+              .prop('disabled', true)
+              .css('opacity', '0.50')
+              .text('Logging In...');
+            this.submit();
+          }
+        });
+      });
     });
 
   </script>
