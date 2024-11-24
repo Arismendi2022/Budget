@@ -2554,14 +2554,14 @@ select {
 }
 .field-with-error.has-errors .users-form-input, .field-with-error.has-errors input, .field-with-error.has-errors select {
   border-color: var(--calloutNegativeProminentBackground) !important;
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 /* || UL/LI */
 .account-widget .y-form-field ul.errors {
-  border-bottom-left-radius: .5rem;
-  border-bottom-right-radius: .5rem;
+  border-bottom-left-radius: .5rem !important;
+  border-bottom-right-radius: .5rem !important;
 }
 .field-with-error.has-errors ul.errors, .field-with-error.has-warnings ul.warnings {
   background-color: var(--calloutNegativeProminentBackground);
@@ -2570,7 +2570,6 @@ select {
   font-size: .8em;
   margin: 0 0 .5em;
   padding: 0;
-  color: #3c0d09;
   color: var(--calloutNegativeLabel);
 }
 ul.warnings {

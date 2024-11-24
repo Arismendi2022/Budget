@@ -203,7 +203,7 @@
                   <input id="nickname" class="ember-text-field ember-view y-input name-input user-data" autocomplete="nope" autocorrect="off" spellcheck="false"
                     autocapitalize="words" autofocus="" type="text" wire:model="nickname" wire:input="nextButtonState">
                   <!---->
-                  <ul class="errors {{ $errors->has('nickname') ? '' : 'warnings' }}">
+                  <ul class="errors{{ $errors->has('nickname') ? '' : 'warnings' }}">
                     @if ($errors->has('nickname'))
                       <li>{{ $errors->first('nickname') }}</li>
                     @endif
@@ -226,7 +226,7 @@
                   </button>
                   <!---->
                 </div>
-                @if($selectedCategory !== 'Loans')
+                @if($selectedCategoryGroup !== 'Loans')
                   <div class="y-form-field field-with-error  currency-input-group">
                     <label>
                       What is your current account balance?
@@ -237,7 +237,7 @@
                   </div>
                 @endif
                 <!---->
-                @if($selectedCategory === 'Loans')
+                @if($selectedCategoryGroup === 'Loans')
                   <div class="add-unlinked-account-split-row">
                     <div class="add-unlinked-account-current-balance">
                       <div class="y-form-field field-with-error  currency-input-group">
@@ -284,7 +284,7 @@
               </div>
               <div class="account-widget-footer">
                 <button class="ynab-button primary is-large" @if($isButtonDisabled) disabled @endif
-                wire:click="{{ $selectedCategory === 'Loans' ? 'pairCategory' : 'saveBudgetTracking' }}">
+                wire:click="{{ $selectedCategoryGroup === 'Loans' ? 'pairCategory' : 'saveBudgetTracking' }}">
                   Next
                 </button>
               </div>
@@ -479,7 +479,7 @@
                   <h1>Add Unlinked Account</h1>
                   <!---->
                 </div>
-                <button aria-label="Close" title="Close" type="button" wire:click="hideAccountModal">
+                <button aria-label="Close" title="Close" type="button" wire:click="closeBudgetAccount">
                   <svg class="ynab-new-icon icon-close" width="16" height="16">
                     <!---->
                     <use href="#icon_sprite_close">
@@ -507,10 +507,10 @@
                     href="#" onclick="return false;" target="_blank" rel="noopener noreferrer">File-Based Import</a>.</p>
               </div>
               <div class="account-widget-footer">
-                <button class="ynab-button secondary is-large  js-add-another-account-btn" type="button" wire:click="goToSectionModal">
+                <button class="ynab-button secondary is-large  js-add-another-account-btn" type="button" wire:click="addAnotherAccount">
                   Add Another
                 </button>
-                <button class="ynab-button primary is-large " type="button" wire:click="hideAccountModal">
+                <button class="ynab-button primary is-large " type="button" wire:click="closeBudgetAccount">
                   Done
                 </button>
               </div>
