@@ -329,7 +329,7 @@
                       <p>{{ $data['description'] }}</p>
                       @foreach($data['accounts'] as $account)
                         <button class="account-widget-list-button" data-account-type="{{ $account['data-account-type'] }}"
-                          wire:click="selectAccount('{{ $account['type'] }}', '{{ $category }}')"
+                          wire:click="selectAccount('{{ $account['type'] }}', '{{ $category }}', '{{ $account['data-account-type'] }}')"
                           type="button">
                           {{ $account['type'] }}
                           @if($selectedAccountType === $account['type'])
@@ -461,7 +461,7 @@
                 <!---->
               </div>
               <div class="account-widget-footer">
-                <button class="ynab-button secondary is-large  skip-pairing" type="button" wire:click="saveMortgageLoansSkip">
+                <button class="ynab-button secondary is-large  skip-pairing" type="button" wire:click="saveMortgageLoans">
                   Skip
                 </button>
                 <button class="ynab-button primary is-large" type="button" {{ $selectedGroup ? '' : 'disabled' }} wire:click="saveMortgageLoans">

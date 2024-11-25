@@ -11,7 +11,7 @@
           "USD" => "US Dollar–USD",
           "GBP" => "UK Pound Sterling–GBP",
           "CAD" => "Canadian Dollar–CAD",
-          "AUD" => "Australian Dollar–AUD",
+          "COP" => "Colombian Peso–COP",
           "EUR" => "Euro–EUR",
         ],
         "All Currencies"    => [

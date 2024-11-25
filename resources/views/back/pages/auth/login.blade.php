@@ -197,7 +197,7 @@
           success: () => {
             $('#login-button')
               .prop('disabled', true)
-              .css('opacity', '0.50')
+              .css('opacity', '0.35')
               .text('Logging In...');
             this.submit();
           }
