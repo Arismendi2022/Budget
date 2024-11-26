@@ -22,7 +22,7 @@
             @foreach($group->accounts as $account)
               <a id="ember{{ $account->id }}" draggable="true" class="nav-account-row {{ $account->is_selected ? 'is-selected' : '' }}" href="/accounts/{{ $account->id }}"
                 data-account-id="{{ $account->id }}">
-                <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account">
+                <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account" wire:click="openEditAccountModal({{ $account->id }})" onclick="event.preventDefault(); openEditAccountModal({{ $account->id }});">
                   <svg class="ynab-new-icon edit" width="12" height="12">
                     <use href="#icon_sprite_pencil"></use>
                   </svg>
@@ -456,6 +456,19 @@
                       </div>
                     </div>
                     <!---->
+                    @if($selectedGroup == -1)
+                      <div class="y-form-field field-with-error {{ $errors->has('newMasterCategory') ? 'has-errors' : '' }}">
+                        <label>New category group name</label>
+                        <input id="newMasterCategory" class="ember-text-field ember-view y-input account-widget-loan-category-new-master-category" autocomplete="nope"
+                          autocorrect="off" spellcheck="false" autocapitalize="words" type="text" wire:model="newMasterCategory" wire:input="nextButtonState">
+                        <!---->
+                        <ul class="errors{{ $errors->has('newMasterCategory') ? '' : 'warnings' }}">
+                          @if ($errors->has('newMasterCategory'))
+                            <li>{{ $errors->first('newMasterCategory') }}</li>
+                          @endif
+                        </ul>
+                      </div>
+                    @endif
                   </div>
                 @endif
                 <!---->
@@ -464,7 +477,7 @@
                 <button class="ynab-button secondary is-large  skip-pairing" type="button" wire:click="saveMortgageLoans">
                   Skip
                 </button>
-                <button class="ynab-button primary is-large" type="button" {{ $selectedGroup ? '' : 'disabled' }} wire:click="saveMortgageLoans">
+                <button class="ynab-button primary is-large" type="button" @if(!$this->isNextButtonEnabled()) disabled @endif wire:click="saveMortgageLoans">
                   Next
                 </button>
               </div>

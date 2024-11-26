@@ -45,9 +45,9 @@
                   <div class="x-select-container">
                     <select wire:model="currency" class="js-x-select" id="modal-settings-currency">
                       <!---->
-                      @foreach (App\Helpers\FormatHelper::getCurrencies() as $item => $currencies)
+                      @foreach ($currencies as $item => $currencyGroup)
                         <optgroup label="{{ $item }}">
-                          @foreach ($currencies as $code => $name)
+                          @foreach ($currencyGroup as $code => $name)
                             <option value="{{ $code }}"
                               {{ $isUpdateBudgetModal && isset($budget) && $budget['currency'] === $code ? 'selected' : '' }}>
                               {{ $name }}
@@ -64,7 +64,7 @@
                   </label>
                   <div class="x-select-container">
                     <select wire:model="currency_placement" class="js-x-select" id="modal-settings-currency-placement">
-                      @foreach (App\Helpers\FormatHelper::getPlacement() as $item => $displayPlacement)
+                      @foreach ($placement as $item => $displayPlacement)
                         <option value="{{ $item }}"
                           {{ $isUpdateBudgetModal && isset($budget) && $budget['currency_placement'] === $code ? 'selected' : '' }}>
                           {{ $displayPlacement }}
@@ -79,7 +79,7 @@
               </label>
               <div class="x-select-container ">
                 <select wire:model="number_format" class="js-x-select" id="modal-settings-currency-format">
-                  @foreach (App\Helpers\FormatHelper::getNumberFormats() as $item => $displayNumber)
+                  @foreach ($numberFormats as $item => $displayNumber)
                     <option value="{{ $item }}"
                       {{ $isUpdateBudgetModal && isset($budget) && $budget['number_format'] === $code ? 'selected' : '' }}>
                       {{ $displayNumber }}
@@ -92,7 +92,7 @@
               </label>
               <div class="x-select-container ">
                 <select wire:model="date_format" class="js-x-select" id="date-format">
-                  @foreach (App\Helpers\FormatHelper::getDateFormats() as $item => $displayDate)
+                  @foreach ($dateFormats as $item => $displayDate)
                     <option value="{{ $item }}"
                       {{ $isUpdateBudgetModal && isset($budget) && $budget['date_format'] === $code ? 'selected' : '' }}>
                       {{ $displayDate }}

@@ -24,13 +24,13 @@
     public $categoriesByGroup;
     public $accounts,$activeBudgetId,$dataAccountType;
     public $accountGroups,$selectedDataAccountType;
+    public $newMasterCategory     = '';
 
     // Constantes para los tipos de categoría
     const ACCOUNT_TYPES        = ['CreditCard','LineOfCredit'];
     const LOAN_CATEGORY_GROUPS = ['Mortgages','Loans'];
-
     const CATEGORY_MAP
-      = ['Budget Accounts' => 'Budget','Tracking Accounts' => 'Tracking','Mortgages and Loans' => 'Loans',];
+                               = ['Budget Accounts' => 'Budget','Tracking Accounts' => 'Tracking','Mortgages and Loans' => 'Loans',];
 
     /** Limpia todos los campos */
     public function resetFields(){
@@ -92,13 +92,12 @@
       if(array_key_exists($category,self::CATEGORY_MAP)){
         $this->selectedAccountType     = $type;
         $this->selectedCategoryGroup   = self::CATEGORY_MAP[$category];
-        $this->selectedDataAccountType = $dataAccountType; // Captura el data-account-type
+        $this->selectedDataAccountType = $dataAccountType;
         $this->currentSection          = 2;
       }
     }
 
     public function nextButtonState(){
-      // Verifica si los campos comunes están vacíos
       $isCommonFieldsEmpty = empty($this->nickname) || empty($this->selectedAccountType) || ($this->balance === '' || $this->balance === null);
 
       if($this->selectedCategoryGroup === 'Budget' || $this->selectedCategoryGroup === 'Tracking'){
@@ -108,13 +107,8 @@
       }
     }
 
-    public function pairCategory(){
-      $this->currentSection = 4;
-    }
-
-    public function setOption($option){
-      $this->selectedOption = $option;
-      $this->selectedGroup  = '';
+    public function isNextButtonEnabled(){
+      return !empty($this->nickname) && !empty($this->selectedGroup) && ($this->selectedGroup != -1 ? true : !empty($this->newMasterCategory));
     }
 
     public function checkSelection(){
@@ -122,54 +116,47 @@
     }
 
     private function validateNickname(){
-      $this->validate(['nickname' => 'required|unique:budget_accounts,nickname',],['nickname.required' => 'Se requiere el nombre de la cuenta.','nickname.unique' => 'Este nombre de cuenta ya existe.',]);
+      $this->validate([
+        'nickname' => 'required|unique:budget_accounts,nickname',
+      ],[
+        'nickname.required' => 'Se requiere el nombre de la cuenta.',
+        'nickname.unique'   => 'Este nombre de cuenta ya existe.',
+      ]);
 
       $this->nickname = ucfirst($this->nickname);
     }
 
+    private function saveAccount($isLoan = false){
+      $this->validateNickname();
+      $this->balance = $this->calculateBalance();
+
+      try{
+        DB::transaction(function() use ($isLoan){
+          $data = ['budget_id' => $this->activeBudgetId,'nickname' => $this->nickname,'account_group' => $this->selectedCategoryGroup,'account_type' => $this->selectedAccountType,'balance' => $this->balance,];
+
+          if($isLoan){
+            $data['interest'] = $this->interest;
+            $data['payment']  = $this->payment;
+          }
+
+          BudgetAccount::create($data);
+          $this->currentSection = 5;
+        });
+      } catch(\Exception $e){
+        $this->dispatch('console-error',['error' => $e->getMessage()]);
+        return false;
+      }
+    }
+
     public function saveBudgetTracking(){
-      $this->validateNickname(); // Llamada al metodo de validación
-      $this->balance = $this->calculateBalance();
+      $this->saveAccount(false);
+    }
 
-      try{
-        DB::transaction(function(){
-          BudgetAccount::create(['budget_id' => $this->activeBudgetId,'nickname' => $this->nickname,'account_group' => $this->selectedCategoryGroup,'account_type' => $this->selectedAccountType,'balance' => $this->balance,]);
-
-          $this->currentSection = 5;
-        });
-      } catch(\Exception $e){
-        $this->dispatch('console-error',['error' => $e->getMessage()]);
-
-        return false;
-      }
-
-    } //End Mtethod
-
-    /**
-     * Guarda las cuentas de hipotecas y prestamos
-     *
-     * @return false|void
-     */
     public function saveMortgageLoans(){
-      $this->validateNickname(); // Llamada al metodo de validación
-      $this->balance = $this->calculateBalance();
-
-      try{
-        DB::transaction(function(){
-          BudgetAccount::create(['budget_id' => $this->activeBudgetId,'nickname' => $this->nickname,'account_group' => $this->selectedCategoryGroup,'account_type' => $this->selectedAccountType,'balance' => $this->balance,'interest' => $this->interest,'payment' => $this->payment,]);
-
-          $this->currentSection = 5;
-        });
-      } catch(\Exception $e){
-        $this->dispatch('console-error',['error' => $e->getMessage()]);
-
-        return false;
-      }
-
-    } //End Method
+      $this->saveAccount(true);
+    }
 
     private function calculateBalance(){
-      /* Determina si el balance debe ser negativo según el tipo de cuenta o grupo de categoría. */
       $isNegativeBalance = in_array($this->selectedDataAccountType,self::ACCOUNT_TYPES) || in_array($this->selectedCategoryGroup,self::LOAN_CATEGORY_GROUPS);
       $balance           = is_numeric($this->balance) ? $this->balance : 0;
 
@@ -215,7 +202,26 @@
       $this->updateAccountLists();
     }
 
+    public function pairCategory(){
+      $this->currentSection    = 4;
+      $this->selectedOption    = 'existing';
+      $this->selectedGroup     = '';
+      $this->newMasterCategory = '';
+    }
+
+    public function setOption($option){
+      $this->selectedOption    = $option;
+      $this->selectedGroup     = '';
+      $this->newMasterCategory = '';
+    }
+
+    public function openEditAccountModal($accountId){
+      dd('El ID de la cuenta seleccionada es: '.$accountId);
+    }
+
     public function render(){
       return view('livewire.admin.add-account');
     }
+
+
   }

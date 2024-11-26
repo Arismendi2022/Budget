@@ -2,6 +2,7 @@
 
   namespace App\Livewire\Admin;
 
+  use App\Helpers\FormatHelper;
   use App\Models\Budget;
   use Illuminate\Support\Facades\Auth;
   use Illuminate\Support\Facades\DB;
@@ -12,6 +13,8 @@
   {
     public $name,$currency,$currency_placement,$number_format,$date_format;
 
+    public $currencies,$numberFormats,$placement,$dateFormats;
+
     public $isUpdateBudgetModal = false;
     public $fromBudget          = false;
     public $isOpenCreateModal   = false;
@@ -20,9 +23,19 @@
 
     public function mount($fromBudget = false){
       // Formatos por defecto
+      $this->loadFormats(); // Llama al metodo que carga los formatos
       $this->setDefaultFormats();
       $this->fromBudget = $fromBudget;
     }
+
+    public function loadFormats(){
+      // Cargar las formatos de divisas, simbolos, numeros y fechads desde el helper
+      $this->currencies    = FormatHelper::getCurrencies();
+      $this->placement     = FormatHelper::getPlacement();
+      $this->numberFormats = FormatHelper::getNumberFormats();
+      $this->dateFormats   = FormatHelper::getDateFormats();
+
+    }//End Method
 
     public function setDefaultFormats(){
       $this->name               = null;
@@ -82,14 +95,7 @@
           auth()->user()->budgets()->update(['is_active' => false]);
 
           // Guardar detalles del presupuesto
-          Budget::create([
-            'user_id'            => Auth::id(),
-            'name'               => $this->name,
-            'currency'           => $this->currency,
-            'currency_placement' => $this->currency_placement,
-            'number_format'      => $this->number_format,
-            'date_format'        => $this->date_format,
-          ]);
+          Budget::create(['user_id' => Auth::id(),'name' => $this->name,'currency' => $this->currency,'currency_placement' => $this->currency_placement,'number_format' => $this->number_format,'date_format' => $this->date_format,]);
 
         });
 
@@ -107,9 +113,7 @@
 
       } catch(\Exception $e){
         // Nueva sintaxis para Livewire 3
-        $this->dispatch('console-error',[
-          'error' => $e->getMessage()
-        ]);
+        $this->dispatch('console-error',['error' => $e->getMessage()]);
 
         return false;
       }
@@ -123,18 +127,13 @@
         'name.required' => 'Se requiere el nombre del presupuesto',
         'name.unique'   => 'El nombre del presupuesto ya existe',
       ]);
+
       try{
         DB::transaction(function(){
           $budget = Budget::findOrFail($this->budgetId);
 
           /** Update Budget */
-          $budget->update([
-            'name'               => $this->name,
-            'currency'           => $this->currency,
-            'currency_placement' => $this->currency_placement,
-            'number_format'      => $this->number_format,
-            'date_format'        => $this->date_format,
-          ]);
+          $budget->update(['name' => $this->name,'currency' => $this->currency,'currency_placement' => $this->currency_placement,'number_format' => $this->number_format,'date_format' => $this->date_format,]);
         });
 
         if(!$this->fromBudget){
