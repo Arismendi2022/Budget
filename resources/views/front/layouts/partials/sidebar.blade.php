@@ -136,6 +136,7 @@
 <!-- Incluye el componente Livewire -->
 <livewire:admin.settings-menu :hide-buttons="true"/>  {{-- Cambia a true si deseas ocultar los botones --}}
 <livewire:admin.create-budget/>
+<livewire:admin.edit-account/>
 
 @push('scripts')
   <script>

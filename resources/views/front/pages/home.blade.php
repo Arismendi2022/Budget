@@ -998,6 +998,10 @@
       <!---->
     </div>
   </div>
+  <!---->
+  {{-- Opcional por el momento --}}
+  @include('front.modals.modal-calendar')
+  <!---->
   <!-- Tooltip Global -->
   <div class="tooltip-global">
     <span role="tooltip" id="ember18" class="tooltip-content" style="top: calc(108px + 0.5rem); left: 687.817px; opacity: 0; transition: opacity 0.2s;">
@@ -1107,48 +1111,48 @@
     });
 
     // Inicializa el calendario con la fecha actual
-    /*ocument.addEventListener('DOMContentLoaded', function() {
-        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        let currentDate = new Date(); // Fecha actual
+    document.addEventListener('DOMContentLoaded', function() {
+      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      let currentDate = new Date(); // Fecha actual
 
-        const updateCalendar = () => {
-          const currentMonth = monthNames[currentDate.getMonth()];
-          const currentYear = currentDate.getFullYear();
-          document.getElementById('current-date').innerText = `${currentMonth} ${currentYear}`;
-        };
+      const updateCalendar = () => {
+        const currentMonth = monthNames[currentDate.getMonth()];
+        const currentYear = currentDate.getFullYear();
+        document.getElementById('current-date').innerText = `${currentMonth} ${currentYear}`;
+      };
 
-        document.getElementById('prev-month').addEventListener('click', () => {
-          currentDate.setMonth(currentDate.getMonth() - 1);
-          updateCalendar();
-        });
-
-        document.getElementById('next-month').addEventListener('click', () => {
-          currentDate.setMonth(currentDate.getMonth() + 1);
-          updateCalendar();
-        });
-
-        updateCalendar(); // Inicializa el calendario con la fecha actual
+      document.getElementById('prev-month').addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        updateCalendar();
       });
 
-      // modal calendar
-      document.addEventListener('DOMContentLoaded', function() {
-        const openButton = document.querySelector('.budget-header-calendar-date-button');
-
-        openButton.addEventListener('click', function() {
-          const modalActive = document.getElementById('ember148');
-          modalActive.classList.add('modal-overlay', 'active');
-          event.stopPropagation();
-        });
+      document.getElementById('next-month').addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        updateCalendar();
       });
 
-      // Cerrar el modal calendar al hacer clic fuera de él
-      document.addEventListener('click', function(event) {
+      updateCalendar(); // Inicializa el calendario con la fecha actual
+    });
+
+    // modal calendar
+   /* document.addEventListener('DOMContentLoaded', function() {
+      const openButton = document.querySelector('.budget-header-calendar-date-button');
+
+      openButton.addEventListener('click', function() {
         const modalActive = document.getElementById('ember148');
-        const modal = document.querySelector('.modal');
-        if(modalActive.classList.contains('active') && !modal.contains(event.target) && !event.target.classList.contains('budget-header-calendar-date-button')) {
-          modalActive.classList.remove('modal-overlay', 'active');
-        }
-      });*/
+        modalActive.classList.add('modal-overlay', 'active');
+        event.stopPropagation();
+      });
+    });*/
+
+    // Cerrar el modal calendar al hacer clic fuera de él
+    /*document.addEventListener('click', function(event) {
+      const modalActive = document.getElementById('ember148');
+      const modal = document.querySelector('.modal');
+      if(modalActive.classList.contains('active') && !modal.contains(event.target) && !event.target.classList.contains('budget-header-calendar-date-button')) {
+        modalActive.classList.remove('modal-overlay', 'active');
+      }
+    });*/
 
   </script>
 @endpush

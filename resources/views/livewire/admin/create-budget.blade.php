@@ -133,6 +133,13 @@
       });
     });
 
+   /* const isOpenCreateModal = true; // Cambia esto según tu lógica
+
+    if(isOpenCreateModal) {
+      const modal = document.getElementById('new_budget_modal');
+      centerModal('#new_budget_modal'); // Centra el modal
+    }*/
+
     // Para Livewire 3
     Livewire.on('console-error', data => {
       console.error('Error:', data.error);

@@ -1988,7 +1988,7 @@ button[disabled] {
 
 /* || MODAL */
 .modal-overlay.active > .modal {
-  transform: scale(1);
+  transform: scale(1) !important;
   opacity: 1;
   -ms-filter: none;
   filter: none;
@@ -2870,9 +2870,9 @@ ul.warnings {
   display: table;
 }
 .modal-popup.account-modal .modal-content dl:first-child {
-  margin-top: 0;
+  margin-top: 0 !important;
 }
-.modal-popup.account-modal .modal-content dl:last-child {
+.modal-popup.account-modal .modal-content dl:first-child {
   margin: 0;
 }
 .modal-generic .modal-content, .modal-generic dl, .modal-popup dl {
@@ -2978,7 +2978,7 @@ textarea {
   text-align: left;
 }
 .field-with-error .ynab-new-currency-input.legacy-currency-input .ember-text-field {
-  border-width: .0625rem;
+  border-width: .0625rem !important;
 }
 .ynab-new-currency-input.is-editing .input-wrapper input {
   display: block;
@@ -3369,6 +3369,43 @@ span.text-danger {
   text-align: center;
   width: 100%;
 }
+
+/* EDIT ACCOUNT LOANS */
+.modal-budget-move-money .loan-dropdown button, .modal-budget-overspending .loan-dropdown button, .modal-popup.account-modal .modal-content select {
+  height: 2rem;
+}
+.modal-popup.account-modal .modal-content .split-fieldset {
+  display: flex;
+  justify-content: space-between;
+}
+.modal-popup.account-modal .modal-content .split-fieldset .fieldset:first-child {
+  width: 60%;
+}
+.modal-popup.account-modal .modal-content .split-fieldset .fieldset:last-child {
+  width: 35%;
+}
+.modal-popup .js-x-select {
+  margin-bottom: .5em;
+}
+.modal-popup select {
+  width: 100%;
+}
+.modal-popup.account-modal .modal-content .med-info {
+  color: var(--labelSecondary);
+  font-size: .8rem;
+  margin-bottom: 1rem;
+}
+
+.modal-popup.account-modal .modal-content .info {
+  color: var(--labelSecondary);
+  font-size: .75rem;
+}
+.info {
+  margin-top: .5em;
+}
+
+
+
 
 
 

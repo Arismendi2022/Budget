@@ -22,7 +22,8 @@
             @foreach($group->accounts as $account)
               <a id="ember{{ $account->id }}" draggable="true" class="nav-account-row {{ $account->is_selected ? 'is-selected' : '' }}" href="/accounts/{{ $account->id }}"
                 data-account-id="{{ $account->id }}">
-                <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account" wire:click="openEditAccountModal({{ $account->id }})" onclick="event.preventDefault(); openEditAccountModal({{ $account->id }});">
+                <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account"
+                  wire:click="openEditAccountModal ({{ $account->id }})" onclick="event.preventDefault(); event.stopPropagation()">
                   <svg class="ynab-new-icon edit" width="12" height="12">
                     <use href="#icon_sprite_pencil"></use>
                   </svg>
@@ -549,6 +550,13 @@
       });
     });
 
+   /* const isOpenAccountModal = true; // Cambia esto según tu lógica
+
+    if(isOpenAccountModal) {
+      const modal = document.getElementById('add_account');
+      centerModal('#add_account'); // Centra el modal
+    }
+*/
     // Para Livewire 3
     Livewire.on('console-error', data => {
       console.error('Error:', data.error);

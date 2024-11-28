@@ -216,7 +216,7 @@
     }
 
     public function openEditAccountModal($accountId){
-      dd('El ID de la cuenta seleccionada es: '.$accountId);
+      $this->dispatch('account-edit',$accountId);
     }
 
     public function render(){
