@@ -2876,7 +2876,7 @@ ul.warnings {
   margin: 0;
 }
 .modal-generic .modal-content, .modal-generic dl, .modal-popup dl {
-  transform: 1;
+  zoom: 1;
 }
 .modal-popup.account-modal .modal-content .fieldset .section-header {
   font-size: 1rem;
@@ -2894,6 +2894,7 @@ ul.warnings {
   float: left;
   margin: 0;
   padding-bottom: .25rem;
+  width: 35%;
 }
 .modal-popup dt {
   font-size: .875rem;
@@ -3390,19 +3391,23 @@ span.text-danger {
 .modal-popup select {
   width: 100%;
 }
+/* Paired Budget Category */
 .modal-popup.account-modal .modal-content .med-info {
   color: var(--labelSecondary);
   font-size: .8rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1rem !important;
 }
 
-.modal-popup.account-modal .modal-content .info {
-  color: var(--labelSecondary);
-  font-size: .75rem;
+.modal-popup.account-modal .modal-content .space-vertical > * {
+  margin-bottom: .5em;
 }
-.info {
-  margin-top: .5em;
+
+.modal-popup.account-modal .modal-content .space-vertical > :last-child {
+  margin-bottom: 0;
 }
+
+
+
 
 
 

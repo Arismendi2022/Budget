@@ -56,7 +56,7 @@
                         <input id="balance" class="ember-text-field ember-view" placeholder="What is the balance of this account right now?"
                           title="Working Balance" aria-label="Working Balance" type="text" wire:model="balance">
                         <button class="user-data currency tabular-nums positive">
-                          <bdi>$</bdi>{{ number_format($balance, 2, ',', '.') }} <!-- Formatea el balance aquí -->
+                          <bdi>$</bdi>
                         </button>
                       </div>
                       <!---->
@@ -71,6 +71,23 @@
           </div>
           <!---->
           <hr>
+          @if($accountGroupType !== 'Loans')
+            <div class="fieldset edit-direct-import-toggle">
+              <dl>
+                <dt class="section-header">Financial Institution Connection</dt>
+                <dd class="user-data">
+                  <button class="ynab-button primary   link-to-bank" type="button">
+                    Link Account
+                  </button>
+                  <div class="info">
+                    Link your account to your financial institution and import transactions without ever leaving YNAB.
+                  </div>
+                  <!---->
+                </dd>
+              </dl>
+            </div>
+          @endif
+          <!---->
           @if($accountGroupType === 'Loans')
             <div class="fieldset">
               <dl>
@@ -83,31 +100,16 @@
                 <dd class="modal-account-settings-type ">
                   <div class="field-with-error">
                     <div>
-                      <div class="x-select-container ">
-                        <select class="js-x-select">
-                          <!---->
-                          <option value="Mortgage">
-                            Mortgage
-                          </option>
-                          <option value="AutoLoan">
-                            Auto Loan
-                          </option>
-                          <option value="StudentLoan">
-                            Student Loan
-                          </option>
-                          <option value="PersonalLoan">
-                            Personal Loan
-                          </option>
-                          <option value="MedicalDebt">
-                            Medical Debt
-                          </option>
-                          <option value="OtherDebt">
-                            Other Debt
-                          </option>
+                      <div class="x-select-container">
+                        <select class="js-x-select" wire:model="dataAccountType">
+                          @foreach(App\Helpers\LoanTypesHelper::getLoanOptions() as $option)
+                            <option value="{{ $option['type'] }}">
+                              {{ $option['data-account-type'] }}
+                            </option>
+                          @endforeach
                         </select>
                       </div>
                     </div>
-                    <!---->
                     <!---->
                   </div>
                 </dd>
@@ -123,7 +125,8 @@
                         <div id="ember143" class="ynab-new-currency-input is-editing legacy-currency-input">
                           <!---->
                           <div class="input-wrapper">
-                            <input id="ember144" class="ember-text-field ember-view" title="Minimum Monthly Payment" aria-label="Minimum Monthly Payment" type="text">
+                            <input id="ember144" class="ember-text-field ember-view" title="Minimum Monthly Payment" aria-label="Minimum Monthly Payment" type="text"
+                              wire:model="payment">
                             <button class="user-data currency tabular-nums positive">
                               <bdi>$</bdi>
                               120,00
@@ -147,7 +150,7 @@
                         <div id="ember145" class="ynab-new-currency-input is-editing legacy-currency-input">
                           <!---->
                           <div class="input-wrapper">
-                            <input id="ember146" class="ember-text-field ember-view" title="Interest Rate (%)" aria-label="Interest Rate (%)" type="text">
+                            <input id="ember146" class="ember-text-field ember-view" title="Interest Rate (%)" aria-label="Interest Rate (%)" type="text" wire:model="interest">
                             <button class="user-data currency tabular-nums positive">
                               <bdi>$</bdi>
                               10,00
@@ -171,35 +174,17 @@
                   <div class="med-info">
                     Pairing a category helps you create realistic payoff plans, and keep track of your progress.
                   </div>
-                  <button class="ynab-button secondary   unpair-loan-category" type="button">
-                    Unpair Category
-                  </button>
-                  <div class="info">
-                    Paired with
+                  <button class="ynab-button secondary   unpair-loan-category" type="button">Unpair Category</button>
+                  <div class="info">Paired with
                     "<a href="#" class="paired-subcategory-name">MackBook</a>"
                   </div>
                 </dd>
               </dl>
             </div>
-            <!---->
             <hr>
-          @endif
-          <!---->
-          <div class="fieldset edit-direct-import-toggle">
-            <dl>
-              <dt class="section-header">Financial Institution Connection</dt>
-              @if($accountGroupType !== 'Loans')
-                <dd class="user-data">
-                  <button class="ynab-button primary   link-to-bank" type="button">
-                    Link Account
-                  </button>
-                  <div class="info">
-                    Link your account to your financial institution and import transactions without ever leaving YNAB.
-                  </div>
-                </dd>
-              @endif
-              <!---->
-              @if($accountGroupType === 'Loans')
+            <div class="fieldset account-di-connection">
+              <dl>
+                <dt class="section-header">Financial Institution Connection</dt>
                 <dd class="space-vertical">
                   <div class="med-info">
                     New transactions are unable to import into loan accounts.
@@ -209,19 +194,21 @@
                   </button>
                   <!---->
                 </dd>
-              @endif
-            </dl>
-          </div>
+              </dl>
+            </div>
+          @endif
           <!---->
         </div>
         <div class="modal-actions top-border">
-          <button class="ynab-button destructive left-button" type="button">
+          <button class="ynab-button destructive   left-button" type="button">
+
             Delete Account
+
           </button>
-          <button class="ynab-button secondary button-cancel" type="button" wire:click="hideEditAccountModalForm">
+          <button class="ynab-button secondary   button-cancel" type="button">
             Cancel
           </button>
-          <button class="ynab-button primary js-primary-action save-account-button" type="button">
+          <button class="ynab-button primary   js-primary-action save-account-button" type="button">
             Save
           </button>
         </div>

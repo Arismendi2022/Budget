@@ -34,15 +34,16 @@
 
     /** Limpia todos los campos */
     public function resetFields(){
-      $this->nickname              = null;
-      $this->balance               = null;
-      $this->interest              = null;
-      $this->payment               = null;
-      $this->selectedAccountType   = null;
-      $this->selectedCategoryGroup = null;
-      $this->isButtonDisabled      = true;
-      $this->selectedGroup         = '';
-      $this->selectedOption        = 'existing';
+      $this->nickname                = null;
+      $this->balance                 = null;
+      $this->interest                = null;
+      $this->payment                 = null;
+      $this->selectedAccountType     = null;
+      $this->selectedDataAccountType = null;
+      $this->selectedCategoryGroup   = null;
+      $this->isButtonDisabled        = true;
+      $this->selectedGroup           = '';
+      $this->selectedOption          = 'existing';
     }
 
     public function mount(){
@@ -132,7 +133,8 @@
 
       try{
         DB::transaction(function() use ($isLoan){
-          $data = ['budget_id' => $this->activeBudgetId,'nickname' => $this->nickname,'account_group' => $this->selectedCategoryGroup,'account_type' => $this->selectedAccountType,'balance' => $this->balance,];
+          $data = ['budget_id'         => $this->activeBudgetId,'nickname' => $this->nickname,'account_group' => $this->selectedCategoryGroup,
+                   'data_account_type' => $this->selectedDataAccountType,'account_type' => $this->selectedAccountType,'balance' => $this->balance,];
 
           if($isLoan){
             $data['interest'] = $this->interest;

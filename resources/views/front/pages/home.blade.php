@@ -1092,7 +1092,7 @@
       window.addEventListener('focusInput', function() {
         setTimeout(function() {
           $('#budget-name').focus();
-          centerModal(); //
+          //centerModal(); //
         }, 100); // Retraso de 100 ms
       });
       const $newBudget = $('#new_budget_modal');
@@ -1100,7 +1100,7 @@
       window.addEventListener('showCreateModalForm', function() {
         $('#new_budget_modal').show();
         $('#modal-settings-budget-name').focus();
-        centerModal();
+       // centerModal();
       })
 
       //Cierra el modal New Budget

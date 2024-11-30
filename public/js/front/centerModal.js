@@ -1,5 +1,6 @@
 //Centra el modalsegun tamaño de la ventana.
-/*function centerModal(selector) {
+/*
+function centerModal(selector) {
   const modal = document.querySelector(selector);
   if(!modal) return;
 
@@ -26,4 +27,5 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', () => {
     centerModal('.modal'); // Replace with your modal selector
   });
-});*/
+});
+*/

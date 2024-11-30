@@ -15,6 +15,7 @@
         $table->string('nickname')->unique();
         $table->text('notes')->nullable();
         $table->string('account_group');
+        $table->string('data_account_type');
         $table->string('account_type');
         $table->decimal('balance',10,2);
         $table->decimal('interest',5,2)->default(0);

@@ -11,7 +11,7 @@
 
     public $isOpenEditAccountModal = false;
     public $accountId,$accountGroupType;
-    public $nickname,$balance;
+    public $nickname,$balance,$dataAccountType,$interest,$payment;
 
     #[On('account-edit')]
     public function showEditAccountModalForm($accountId){
@@ -20,7 +20,11 @@
       $this->accountId        = $accountId;
       $this->accountGroupType = $budgetAccount->account_group;
       $this->nickname         = $budgetAccount->nickname;
-      $this->balance          = $budgetAccount->balance;
+      // Formatear el balance como moneda
+      $this->balance        = number_format($budgetAccount->balance,2,',','.');
+      $this->dataAccountType = $budgetAccount->data_account_type;
+      $this->interest       = number_format($budgetAccount->interest,2,',','.');
+      $this->payment        = number_format($budgetAccount->payment,2,',','.');
       $this->resetErrorBag();
       $this->isOpenEditAccountModal = true;
       $this->dispatch('focusInput');
