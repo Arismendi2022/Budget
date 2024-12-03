@@ -133,7 +133,12 @@
           $budget = Budget::findOrFail($this->budgetId);
 
           /** Update Budget */
-          $budget->update(['name' => $this->name,'currency' => $this->currency,'currency_placement' => $this->currency_placement,'number_format' => $this->number_format,'date_format' => $this->date_format,]);
+          $budget->update([
+            'name'               => $this->name,
+            'currency'           => $this->currency,
+            'currency_placement' => $this->currency_placement,
+            'number_format'      => $this->number_format,
+            'date_format'        => $this->date_format,]);
         });
 
         if(!$this->fromBudget){

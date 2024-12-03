@@ -12,28 +12,28 @@
     public static function getLoanOptions(){
       return [
         [
-          'type'              => 'Mortgage',
           'data-account-type' => 'Mortgage',
+          'type'              => 'Mortgage',
         ],
         [
-          'type'              => 'AutoLoan',
-          'data-account-type' => 'Auto Loan',
+          'data-account-type' => 'AutoLoan',
+          'type'              => 'Auto Loan',
         ],
         [
-          'type'              => 'StudentLoan',
-          'data-account-type' => 'Student Loan',
+          'data-account-type' => 'StudentLoan',
+          'type'              => 'Student Loan',
         ],
         [
-          'type'              => 'PersonalLoan',
-          'data-account-type' => 'Personal Loan',
+          'data-account-type' => 'PersonalLoan',
+          'type'              => 'Personal Loan',
         ],
         [
-          'type'              => 'MedicalDebt',
-          'data-account-type' => 'Medical Debt',
+          'data-account-type' => 'MedicalDebt',
+          'type'              => 'Medical Debt',
         ],
         [
-          'type'              => 'OtherDebt',
-          'data-account-type' => 'Other Debt',
+          'data-account-type' => 'OtherDebt',
+          'type'              => 'Other Debt',
         ],
       ];
     }

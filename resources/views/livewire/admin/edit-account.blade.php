@@ -1,7 +1,7 @@
 <div>
   {{-- Care about people's approval and you will be their prisoner. --}}
   @if($isOpenEditAccountModal)
-    <div id="editAccount" class="modal-overlay active ynab-u modal-popup account-modal">
+    <div id="edit_account" class="modal-overlay active ynab-u modal-popup account-modal">
       <div class="modal" role="dialog" aria-modal="true" style="left: 720px; top: 172px;">
         <div class="modal-header modal-header-with-close">
         <span class="modal-header-with-close-title">
@@ -25,12 +25,16 @@
             <dl>
               <dt>Account Nickname</dt>
               <dd class="user-data">
-                <div class="field-with-error">
+                <div class="field-with-error {{ $errors->has('nickname') ? 'has-errors' : '' }}">
                   <div>
                     <input id="nickname" wire:model="nickname">
                   </div>
                   <!---->
-                  <!---->
+                  <ul class="errors{{ $errors->has('nickname') ? '' : 'warnings' }}">
+                    @if ($errors->has('nickname'))
+                      <li>{{ $errors->first('nickname') }}</li>
+                    @endif
+                  </ul>
                 </div>
               </dd>
             </dl>
@@ -39,7 +43,7 @@
             <dl>
               <dt>Account Notes</dt>
               <dd class="user-data">
-                <textarea aria-label="Account Notes"></textarea>
+                <textarea aria-label="Account Notes" wire:model="notes"></textarea>
               </dd>
             </dl>
           </div>
@@ -57,6 +61,7 @@
                           title="Working Balance" aria-label="Working Balance" type="text" wire:model="balance">
                         <button class="user-data currency tabular-nums positive">
                           <bdi>$</bdi>
+                          1800,00
                         </button>
                       </div>
                       <!---->
@@ -72,20 +77,22 @@
           <!---->
           <hr>
           @if($accountGroupType !== 'Loans')
-            <div class="fieldset edit-direct-import-toggle">
-              <dl>
-                <dt class="section-header">Financial Institution Connection</dt>
-                <dd class="user-data">
-                  <button class="ynab-button primary   link-to-bank" type="button">
-                    Link Account
-                  </button>
-                  <div class="info">
-                    Link your account to your financial institution and import transactions without ever leaving YNAB.
-                  </div>
-                  <!---->
-                </dd>
-              </dl>
-            </div>
+            @if($dataAccountType !== 'Cash')
+              <div class="fieldset edit-direct-import-toggle">
+                <dl>
+                  <dt class="section-header">Financial Institution Connection</dt>
+                  <dd class="user-data">
+                    <button class="ynab-button primary  link-to-bank" type="button">
+                      Link Account
+                    </button>
+                    <div class="info">
+                      Link your account to your financial institution and import transactions without ever leaving YNAB.
+                    </div>
+                    <!---->
+                  </dd>
+                </dl>
+              </div>
+            @endif
           @endif
           <!---->
           @if($accountGroupType === 'Loans')
@@ -103,8 +110,8 @@
                       <div class="x-select-container">
                         <select class="js-x-select" wire:model="dataAccountType">
                           @foreach(App\Helpers\LoanTypesHelper::getLoanOptions() as $option)
-                            <option value="{{ $option['type'] }}">
-                              {{ $option['data-account-type'] }}
+                            <option value="{{ $option['data-account-type'] }}">
+                              {{ $option['type'] }}
                             </option>
                           @endforeach
                         </select>
@@ -176,7 +183,7 @@
                   </div>
                   <button class="ynab-button secondary   unpair-loan-category" type="button">Unpair Category</button>
                   <div class="info">Paired with
-                    "<a href="#" class="paired-subcategory-name">MackBook</a>"
+                    "<a href="#" class="paired-subcategory-name">{{ $nickname }}</a>"
                   </div>
                 </dd>
               </dl>
@@ -200,15 +207,14 @@
           <!---->
         </div>
         <div class="modal-actions top-border">
-          <button class="ynab-button destructive   left-button" type="button">
-
+          <button class="ynab-button destructive left-button" type="button" wire:click="deleteAccount">
             Delete Account
-
           </button>
-          <button class="ynab-button secondary   button-cancel" type="button">
+          <button class="ynab-button secondary button-cancel" type="button" wire:click="hideEditAccountModalForm">
             Cancel
           </button>
-          <button class="ynab-button primary   js-primary-action save-account-button" type="button">
+          <button class="ynab-button primary js-primary-action save-account-button" type="button"
+            wire:click="{{ $accountGroupType === 'Loans' ? 'updateMortgageLoans' : 'updateBudgetTracking' }}">
             Save
           </button>
         </div>
@@ -229,13 +235,6 @@
         }, 10); // Retraso de 10 ms
       });
     });
-
-    /* const isOpenEditAccountModal = true; // Cambia esto según tu lógica
-
-     if(isOpenEditAccountModal) {
-       const modal = document.getElementById('editAccount');
-       centerModal('#editAccount'); // Centra el modal
-     }*/
 
   </script>
 @endpush

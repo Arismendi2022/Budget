@@ -7,6 +7,7 @@
   use App\Models\BudgetAccount;
   use App\Models\BudgetGroup;
   use Illuminate\Support\Facades\DB;
+  use Livewire\Attributes\On;
   use Livewire\Component;
 
   class AddAccount extends Component
@@ -22,7 +23,7 @@
     public $selectedOption        = 'existing';
     public $selectedGroup         = '';
     public $categoriesByGroup;
-    public $accounts,$activeBudgetId,$dataAccountType;
+    public $budgetAccounts,$activeBudgetId,$dataAccountType;
     public $accountGroups,$selectedDataAccountType;
     public $newMasterCategory     = '';
 
@@ -57,6 +58,12 @@
       foreach($this->accountGroups as $group){
         $this->showGroups[$group->type] = true;
       }
+
+    }
+
+    #[On('account-refresh')]
+    public function accountRefresh(){
+      $this->updateAccountLists();
     }
 
     public function addAccountModal(){
@@ -133,8 +140,12 @@
 
       try{
         DB::transaction(function() use ($isLoan){
-          $data = ['budget_id'         => $this->activeBudgetId,'nickname' => $this->nickname,'account_group' => $this->selectedCategoryGroup,
-                   'data_account_type' => $this->selectedDataAccountType,'account_type' => $this->selectedAccountType,'balance' => $this->balance,];
+          $data = ['budget_id'     => $this->activeBudgetId,
+                   'nickname'      => $this->nickname,
+                   'account_group' => $this->selectedCategoryGroup,
+                   'data_type'     => $this->selectedDataAccountType,
+                   'account_type'  => $this->selectedAccountType,
+                   'balance'       => $this->balance,];
 
           if($isLoan){
             $data['interest'] = $this->interest;
@@ -175,15 +186,15 @@
 
     private function updateAccountLists(){
       $this->budgetAccounts = BudgetAccount::where('budget_id',$this->activeBudgetId)->get();
-      $this->accounts       = BudgetAccount::where('budget_id',$this->activeBudgetId)->get();
+      //$this->accounts       = BudgetAccount::where('budget_id',$this->activeBudgetId)->get();
 
-      $this->accountGroups = $this->accounts->groupBy('account_group')->map(function($accounts){
-        $groupType                    = $accounts->first()->account_group;
+      $this->accountGroups = $this->budgetAccounts->groupBy('account_group')->map(function($budgetAccounts){
+        $groupType                    = $budgetAccounts->first()->account_group;
         $this->showGroups[$groupType] = true;
 
-        return (object)['type' => $groupType,'accounts' => $accounts->map(function($account){
+        return (object)['type' => $groupType,'accounts' => $budgetAccounts->map(function($account){
           return (object)['id' => $account->id,'budget_id' => $this->activeBudgetId,'nickname' => $account->nickname,'balance' => $account->balance,'is_selected' => false];
-        }),'total_balance'     => $accounts->sum('balance')];
+        }),'total_balance'     => $budgetAccounts->sum('balance')];
       });
     }
 

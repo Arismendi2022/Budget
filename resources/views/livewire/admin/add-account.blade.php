@@ -1,6 +1,6 @@
 <div>
   <div class="nav-accounts">
-    @if(!$accounts->isEmpty())
+    @if(!$budgetAccounts->isEmpty())
       @foreach($accountGroups as $group)
         <div class="nav-account {{ $group->type === 'Budget' ? 'onBudget' : ($group->type === 'Loans' ? 'loan' : 'offBudget') }}">
           <div class="nav-account-block">
@@ -50,7 +50,7 @@
   </div>
   <!---->
   <div class="nav-add-accounts">
-    @if($accounts->isEmpty())
+    @if($budgetAccounts->isEmpty())
       <div class="nav-accounts-empty-state">
         <h5>No Accounts</h5>
         <p>You can't budget without adding accounts to YNAB first. How about adding one now?</p>
@@ -550,13 +550,7 @@
       });
     });
 
-   /* const isOpenAccountModal = true; // Cambia esto según tu lógica
 
-    if(isOpenAccountModal) {
-      const modal = document.getElementById('add_account');
-      centerModal('#add_account'); // Centra el modal
-    }
-*/
     // Para Livewire 3
     Livewire.on('console-error', data => {
       console.error('Error:', data.error);

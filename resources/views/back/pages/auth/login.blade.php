@@ -109,13 +109,14 @@
   </section>
 @endsection
 @push('scripts')
+
   <script>
-    //Muetra la contraseña
     $(document).ready(function() {
       const $passwordField = $('#request_data_password');
       const $togglePassword = $('#togglePassword');
       const $emailField = $('#request_data_email');
       const $form = $('#login-form');
+      const $loginButton = $('#login-button');
 
       // Toggle password visibility
       $togglePassword.on('change', function() {
@@ -124,7 +125,8 @@
 
       // Clear specific errors on input
       const fieldsWithErrors = {
-        email: $emailField,
+        email:
+        $emailField,
         password: $passwordField
       };
 
@@ -132,79 +134,45 @@
         $field.on('input', () => $(`#${key}-error`).text(''));
       });
 
-      // Manejar el evento de pulsación de tecla en el campo de contraseña
-      $('#request_data_password').on('keypress', function(event) {
+      // Submit form on Enter key press in password field
+      $passwordField.on('keypress', function(event) {
         if(event.which === 13) {
           event.preventDefault();
-          $('#login-form').submit();
+          $form.submit();
         }
       });
 
-      // Realiza la autenticacion en el login.
-      $form.on('submit', function(e) {
+      // Handle form submission
+      function handleFormSubmit(e) {
         e.preventDefault();
+        $loginButton.prop('disabled', true).css('opacity', '0.35').text('Logging In...');
 
         $.ajax({
-          url: $(this).attr('action'),
-          method: $(this).attr('method'),
+          url: $form.attr('action'),
+          method: $form.attr('method'),
           data: $form.serialize(),
           dataType: 'json',
           success: function(response) {
             if(response.status === 'success') {
-              // Redirige al dashboard si el inicio de sesión es exitoso
               window.location.href = response.redirect;
             }
           },
-
           error: function(xhr) {
-            if(xhr.status === 422) {
-              const errors = xhr.responseJSON.errors;
-              let focusSet = false;
-
+            if(xhr.status === 422 || xhr.status === 500) {
+              const errors = xhr.responseJSON.errors || {};
               Object.entries(fieldsWithErrors).forEach(([field, $field]) => {
-                const errorMessage = errors[field]?.[0] || '';
+                const errorMessage = errors[field] ?.[0] || '';
                 $(`#${field}-error`).text(errorMessage);
-                if(errorMessage) {
-                  $field.val('');
-                  if(!focusSet) {
-                    $field.focus();
-                    focusSet = true;
-                  }
-                }
+                if(errorMessage) $field.val('');
               });
-            } else if(xhr.status === 500) {
-              // Manejar error 500
-              const errorMessage = xhr.responseJSON.message || ''; // Accede al mensaje directamente
-              $('#general-Message').text(errorMessage);
-
-              // Limpiar todos los inputs si hay un error
-              if(errorMessage) {
-                Object.values(fieldsWithErrors).forEach($field => $field.val(''));
-              }
+              $loginButton.prop('disabled', false).css('opacity', '1').text('Login');
             }
           }
         });
-      });
+      }
 
-      // Carga en el botón mientras se procesa el login.
-      $('#login-form').on('submit', function(e) {
-        e.preventDefault();
-
-        $.ajax({
-          url: this.action,
-          method: 'POST',
-          data: $(this).serialize(),
-          success: () => {
-            $('#login-button')
-              .prop('disabled', true)
-              .css('opacity', '0.35')
-              .text('Logging In...');
-            this.submit();
-          }
-        });
-      });
+      $form.on('submit', handleFormSubmit);
     });
-
   </script>
 @endpush
 

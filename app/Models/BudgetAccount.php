@@ -16,7 +16,7 @@
         'nickname',
         'notes',
         'account_group',
-        'data_account_type',
+        'data_type',
         'account_type',
         'balance',
         'interest',

@@ -1987,8 +1987,8 @@ button[disabled] {
 }
 
 /* || MODAL */
-.modal-overlay.active > .modal {
-  transform: scale(1) !important;
+.modal-overlay.active>.modal {
+  transform: scale(1);
   opacity: 1;
   -ms-filter: none;
   filter: none;
@@ -2876,7 +2876,7 @@ ul.warnings {
   margin: 0;
 }
 .modal-generic .modal-content, .modal-generic dl, .modal-popup dl {
-  zoom: 1;
+  transform: 1;
 }
 .modal-popup.account-modal .modal-content .fieldset .section-header {
   font-size: 1rem;
