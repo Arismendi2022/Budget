@@ -30,6 +30,7 @@
       $this->payment          = $this->formatCurrency($budgetAccount->payment);
       $this->resetErrorBag();
       $this->isOpenEditAccountModal = true;
+
       $this->dispatch('focusInput');
     }
 
@@ -64,6 +65,7 @@
         });
 
         $this->dispatch('account-refresh');
+
       } catch(\Exception $e){
         $this->dispatch('console-error',['error' => $e->getMessage()]);
         return false;
@@ -101,6 +103,7 @@
         });
 
         $this->dispatch('account-refresh');
+
       } catch(\Exception $e){
         $this->dispatch('console-error',['error' => $e->getMessage()]);
         return false;

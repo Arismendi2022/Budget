@@ -550,8 +550,6 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 }
 .ynab-u {
   display: inline-block;
-  *display: inline;
-  transform: 1;
   letter-spacing: normal;
   word-spacing: normal;
   text-rendering: auto;
@@ -1987,7 +1985,7 @@ button[disabled] {
 }
 
 /* || MODAL */
-.modal-overlay.active>.modal {
+.modal-overlay.active > .modal {
   transform: scale(1);
   opacity: 1;
   -ms-filter: none;
@@ -3405,6 +3403,8 @@ span.text-danger {
 .modal-popup.account-modal .modal-content .space-vertical > :last-child {
   margin-bottom: 0;
 }
+
+
 
 
 

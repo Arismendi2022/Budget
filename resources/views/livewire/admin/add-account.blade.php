@@ -19,30 +19,32 @@
             <div class="nav-account-icons nav-account-icons-right"></div>
           </div>
           @if($showGroups[$group->type] ?? false)
-            @foreach($group->accounts as $account)
-              <a id="ember{{ $account->id }}" draggable="true" class="nav-account-row {{ $account->is_selected ? 'is-selected' : '' }}" href="/accounts/{{ $account->id }}"
-                data-account-id="{{ $account->id }}">
-                <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account"
-                  wire:click="openEditAccountModal ({{ $account->id }})" onclick="event.preventDefault(); event.stopPropagation()">
-                  <svg class="ynab-new-icon edit" width="12" height="12">
-                    <use href="#icon_sprite_pencil"></use>
-                  </svg>
-                </div>
-                <div class="nav-account-name user-data" title="{{ $account->nickname }}">
-                  {{ $account->nickname }}
-                </div>
-                <div class="nav-account-value user-data">
-                  <span class="user-data currency tabular-nums {{ $account->balance >= 0 ? 'positive' : 'negative' }}">
-                    {{ $account->balance < 0 ? '−' : '' }}<bdi>$</bdi>{{ number_format(abs($account->balance), 2, ',', '.') }}
-                  </span>
-                </div>
-                <span id="ember{{ $account->id + 1 }}" class="direct-status-import-icon nav-account-icons nav-account-icons-right">
-                  <svg class="ynab-new-icon" width="16" height="16">
-                    <use href="#icon_sprite_"></use>
-                  </svg>
-              </span>
-              </a>
-            @endforeach
+            <div id="accounts-container-{{ $group->type }}" class="accounts-container">
+              @foreach($group->accounts as $account)
+                <a id="ember{{ $account->id }}" draggable="true" class="nav-account-row {{ $account->is_selected ? 'is-selected' : '' }}" href="/accounts/{{ $account->id }}"
+                  data-account-id="{{ $account->id }}">
+                  <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account"
+                    wire:click="openEditAccountModal({{ $account->id }})" onclick="event.preventDefault(); event.stopPropagation()">
+                    <svg class="ynab-new-icon edit" width="12" height="12">
+                      <use href="#icon_sprite_pencil"></use>
+                    </svg>
+                  </div>
+                  <div class="nav-account-name user-data" title="{{ $account->nickname }}">
+                    {{ $account->nickname }}
+                  </div>
+                  <div class="nav-account-value user-data">
+                    <span class="user-data currency tabular-nums {{ $account->balance >= 0 ? 'positive' : 'negative' }}">
+                        {{ $account->balance < 0 ? '−' : '' }}<bdi>$</bdi>{{ number_format(abs($account->balance), 2, ',', '.') }}
+                    </span>
+                  </div>
+                  <span id="ember{{ $account->id + 1 }}" class="direct-status-import-icon nav-account-icons nav-account-icons-right">
+                    <svg class="ynab-new-icon" width="16" height="16">
+                        <use href="#icon_sprite_"></use>
+                    </svg>
+                </span>
+                </a>
+              @endforeach
+            </div>
           @endif
         </div>
       @endforeach
@@ -554,6 +556,43 @@
     // Para Livewire 3
     Livewire.on('console-error', data => {
       console.error('Error:', data.error);
+    });
+
+    /* script para drag and drop */
+    document.addEventListener('DOMContentLoaded', () => {
+      const containers = document.querySelectorAll('.accounts-container'); // Selecciona todos los contenedores
+
+      containers.forEach(container => {
+        let draggedItem = null;
+
+        container.addEventListener('dragstart', (e) => {
+          draggedItem = e.target;
+          e.dataTransfer.effectAllowed = 'move';
+        });
+
+        container.addEventListener('dragenter', (e) => {
+          const target = e.target.closest('.nav-account-row');
+          if(target && target !== draggedItem) {
+            container.insertBefore(draggedItem, target.nextSibling);
+          }
+        });
+
+        container.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+        });
+
+        container.addEventListener('drop', (e) => {
+          e.preventDefault();
+
+          // Obtener los IDs en el nuevo orden dentro del grupo
+          const orderedIds = Array.from(container.querySelectorAll('.nav-account-row'))
+            .map(item => item.dataset.accountId);
+
+          // Usar Livewire.dispatch para enviar el evento
+          Livewire.dispatch('reorderAccounts', [orderedIds]);
+        });
+      });
     });
 
   </script>

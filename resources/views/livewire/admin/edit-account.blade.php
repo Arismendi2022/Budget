@@ -1,7 +1,7 @@
 <div>
   {{-- Care about people's approval and you will be their prisoner. --}}
   @if($isOpenEditAccountModal)
-    <div id="edit_account" class="modal-overlay active ynab-u modal-popup account-modal">
+    <div id="editAccount" class="modal-overlay active ynab-u modal-popup account-modal">
       <div class="modal" role="dialog" aria-modal="true" style="left: 720px; top: 172px;">
         <div class="modal-header modal-header-with-close">
         <span class="modal-header-with-close-title">
@@ -235,6 +235,19 @@
         }, 10); // Retraso de 10 ms
       });
     });
+
+    // Para Livewire 3
+    Livewire.on('console-error', data => {
+      console.error('Error:', data.error);
+    });
+
+
+    // Centra el modal al abrir la ventana desarrollador
+   /* const isOpenEditAccountModal = true; // Cambia esto según tu lógica
+
+    if (isOpenEditAccountModal) {
+      centerModal('#editAccount'); // Cambia al ID específico de tu modal
+    }*/
 
   </script>
 @endpush

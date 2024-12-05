@@ -22,7 +22,7 @@
     public $isButtonDisabled      = true;
     public $selectedOption        = 'existing';
     public $selectedGroup         = '';
-    public $categoriesByGroup;
+    public $categoriesByGroup,$accountId;
     public $budgetAccounts,$activeBudgetId,$dataAccountType;
     public $accountGroups,$selectedDataAccountType;
     public $newMasterCategory     = '';
@@ -47,6 +47,9 @@
       $this->selectedOption          = 'existing';
     }
 
+    // Registrar el listener para el evento `reorderAccounts`
+    protected $listeners = ['reorderAccounts'];
+
     public function mount(){
       $activeBudget         = Budget::where('user_id',auth()->id())->where('is_active',true)->first();
       $this->activeBudgetId = $activeBudget->id;
@@ -59,7 +62,7 @@
         $this->showGroups[$group->type] = true;
       }
 
-    }
+    } //End Method
 
     #[On('account-refresh')]
     public function accountRefresh(){
@@ -155,11 +158,12 @@
           BudgetAccount::create($data);
           $this->currentSection = 5;
         });
+
       } catch(\Exception $e){
         $this->dispatch('console-error',['error' => $e->getMessage()]);
         return false;
       }
-    }
+    } //End Method
 
     public function saveBudgetTracking(){
       $this->saveAccount(false);
@@ -185,8 +189,7 @@
     }
 
     private function updateAccountLists(){
-      $this->budgetAccounts = BudgetAccount::where('budget_id',$this->activeBudgetId)->get();
-      //$this->accounts       = BudgetAccount::where('budget_id',$this->activeBudgetId)->get();
+      $this->budgetAccounts = BudgetAccount::where('budget_id',$this->activeBudgetId)->orderBy('ordering')->get();
 
       $this->accountGroups = $this->budgetAccounts->groupBy('account_group')->map(function($budgetAccounts){
         $groupType                    = $budgetAccounts->first()->account_group;
@@ -196,7 +199,7 @@
           return (object)['id' => $account->id,'budget_id' => $this->activeBudgetId,'nickname' => $account->nickname,'balance' => $account->balance,'is_selected' => false];
         }),'total_balance'     => $budgetAccounts->sum('balance')];
       });
-    }
+    } //End Mtehod
 
     public function toggleGroup($type){
       if(!isset($this->showGroups[$type])){
@@ -232,9 +235,19 @@
       $this->dispatch('account-edit',$accountId);
     }
 
+    public function reorderAccounts(array $orderedIds){
+      /* Funcion (Drag and Drop) */
+      foreach($orderedIds as $index => $id){
+        BudgetAccount::where('id',$id)->update(['ordering' => $index + 1]);
+      }
+
+      // Actualizar la lista de cuentas después de guardar
+      $this->updateAccountLists();
+
+    } //End Method
+
     public function render(){
       return view('livewire.admin.add-account');
     }
-
 
   }
