@@ -1976,7 +1976,10 @@ button[disabled] {
 }
 .modal-overlay {
   background-color: var(--scrimDefault);
-  height: 100%;
+  display: flex; /* Activa Flexbox */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100vh;
   left: 0;
   position: absolute;
   top: 0;
@@ -3403,6 +3406,7 @@ span.text-danger {
 .modal-popup.account-modal .modal-content .space-vertical > :last-child {
   margin-bottom: 0;
 }
+
 
 
 

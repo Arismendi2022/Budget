@@ -2,7 +2,8 @@
 <div>
   @if($isOpenCreateModal)
     <div id="new_budget_modal" class="modal-overlay active modal-fresh mod-skinny modal-budget-settings">
-      <div class="modal" role="dialog" aria-modal="true" style="left: 720px; top: 263.5px;">
+      {{-- <div class="modal" role="dialog" aria-modal="true" style="left: 720px; top: 263.5px;"> --}}
+      <div class="modal" role="dialog" aria-modal="true">
         <div class="modal-fresh-header">
           <div class="modal-fresh-title">{{ $isUpdateBudgetModal ? 'Budget Settings' : 'New Budget' }}</div>
           <button class="modal-fresh-close" aria-label="Close" title="Close" type="button" wire:click="hideCreateModalForm">
@@ -132,13 +133,6 @@
         }, 10); // Retraso de 10 ms
       });
     });
-
-   /* const isOpenCreateModal = true; // Cambia esto según tu lógica
-
-    if(isOpenCreateModal) {
-      const modal = document.getElementById('new_budget_modal');
-      centerModal('#new_budget_modal'); // Centra el modal
-    }*/
 
     // Para Livewire 3
     Livewire.on('console-error', data => {

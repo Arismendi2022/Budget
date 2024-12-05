@@ -46,7 +46,6 @@
 <!--JQUERY-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.6/Sortable.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="{{ asset('js/front/centerModal.js') }}"></script>
 
 @stack('scripts')
 
