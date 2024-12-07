@@ -45,16 +45,9 @@
         Route::get('/settings','settingsView')->name('settings');
         Route::get('/edit_login','editLogin')->name('edit_login');
         Route::post('/change-password','changePassword')->name('change_password');
+        Route::get('/transaction','adminTransaction')->name('transaction');
 
       });
-    });
-  });
-
-  //Grupo Add Budget
-  Route::prefix('budget')->name('budget.')->group(function(){
-    Route::controller(BudgetController::class)->group(function(){
-      //Route::get('/edit','editBudget')->name('edit');
-      //Route::post('/update','updateBudget')->name('update');
     });
   });
 

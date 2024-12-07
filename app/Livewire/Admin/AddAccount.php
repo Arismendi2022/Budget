@@ -30,8 +30,7 @@
     // Constantes para los tipos de categoría
     const ACCOUNT_TYPES        = ['CreditCard','LineOfCredit'];
     const LOAN_CATEGORY_GROUPS = ['Mortgages','Loans'];
-    const CATEGORY_MAP
-                               = ['Budget Accounts' => 'Budget','Tracking Accounts' => 'Tracking','Mortgages and Loans' => 'Loans',];
+    const CATEGORY_MAP         = ['Budget Accounts' => 'Budget','Tracking Accounts' => 'Tracking','Mortgages and Loans' => 'Loans',];
 
     /** Limpia todos los campos */
     public function resetFields(){
@@ -48,7 +47,7 @@
     }
 
     // Registrar el listener para el evento `reorderAccounts`
-    protected $listeners = ['reorderAccounts'];
+    protected $listeners = ['updateOrder'];
 
     public function mount(){
       $activeBudget         = Budget::where('user_id',auth()->id())->where('is_active',true)->first();
@@ -58,9 +57,15 @@
       $this->accountTypes      = AccountHelper::getAccountTypes();
       $this->categoriesByGroup = BudgetGroup::with('categories')->get();
 
-      foreach($this->accountGroups as $group){
+      /*foreach($this->accountGroups as $group){
         $this->showGroups[$group->type] = true;
+      }*/
+
+      // Inicializa el estado de los grupos dinámicamente
+      foreach($this->accountGroups as $group){
+        $this->showGroups[$group->type] = true; // Inicializa cada grupo como colapsado
       }
+
 
     } //End Method
 
@@ -189,24 +194,40 @@
     }
 
     private function updateAccountLists(){
-      $this->budgetAccounts = BudgetAccount::where('budget_id',$this->activeBudgetId)->orderBy('ordering')->get();
+      $this->budgetAccounts = BudgetAccount::where('budget_id',$this->activeBudgetId)
+        ->orderBy('account_group')
+        ->orderBy('ordering')
+        ->get();
 
+      // Agrupar las cuentas por grupo
       $this->accountGroups = $this->budgetAccounts->groupBy('account_group')->map(function($budgetAccounts){
         $groupType                    = $budgetAccounts->first()->account_group;
         $this->showGroups[$groupType] = true;
 
-        return (object)['type' => $groupType,'accounts' => $budgetAccounts->map(function($account){
-          return (object)['id' => $account->id,'budget_id' => $this->activeBudgetId,'nickname' => $account->nickname,'balance' => $account->balance,'is_selected' => false];
-        }),'total_balance'     => $budgetAccounts->sum('balance')];
+        return (object)[
+          'type'          => $groupType,
+          'accounts'      => $budgetAccounts->map(function($account){
+            return (object)[
+              'id'          => $account->id,
+              'budget_id'   => $this->activeBudgetId,
+              'nickname'    => $account->nickname,
+              'balance'     => $account->balance,
+              'is_selected' => false
+            ];
+          }),
+          'total_balance' => $budgetAccounts->sum('balance')
+        ];
       });
+
     } //End Mtehod
 
-    public function toggleGroup($type){
-      if(!isset($this->showGroups[$type])){
-        $this->showGroups[$type] = true;
-      }
-      $this->showGroups[$type] = !$this->showGroups[$type];
-    }
+    /* public function toggleGroup($type){
+       if(!isset($this->showGroups[$type])){
+         $this->showGroups[$type] = true;
+       }
+       $this->showGroups[$type] = !$this->showGroups[$type];
+     }*/
+
 
     public function closeBudgetAccount(){
       $this->hideAccountModalForm();
@@ -235,16 +256,16 @@
       $this->dispatch('account-edit',$accountId);
     }
 
-    public function reorderAccounts(array $orderedIds){
-      /* Funcion (Drag and Drop) */
-      foreach($orderedIds as $index => $id){
-        BudgetAccount::where('id',$id)->update(['ordering' => $index + 1]);
+    public function updateOrder($groupType,$order){
+      // Asegurarse de que las cuentas se actualicen en el orden correcto
+      foreach($order as $index => $accountId){
+        BudgetAccount::where('id',$accountId)
+          ->where('account_group',$groupType)
+          ->update(['ordering' => $index + 1]);
       }
-
-      // Actualizar la lista de cuentas después de guardar
+      // Recargar cuentas después de actualizar
       $this->updateAccountLists();
-
-    } //End Method
+    }
 
     public function render(){
       return view('livewire.admin.add-account');

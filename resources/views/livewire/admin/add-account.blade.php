@@ -5,7 +5,7 @@
         <div class="nav-account {{ $group->type === 'Budget' ? 'onBudget' : ($group->type === 'Loans' ? 'loan' : 'offBudget') }}">
           <div class="nav-account-block">
             <button class="nav-account-name nav-account-name-button user-data" aria-label="collapse {{ strtoupper($group->type) }}" type="button"
-              wire:click="toggleGroup('{{ $group->type }}')">
+              onclick="toggleGroup('{{ $group->type }}')">
               <svg class="ynab-new-icon" width="8" height="8">
                 <use href="#icon_sprite_chevron_{{ $showGroups[$group->type] ?? false ? 'down' : 'right' }}"></use>
               </svg>
@@ -21,7 +21,7 @@
           @if($showGroups[$group->type] ?? false)
             <div id="accounts-container-{{ $group->type }}" class="accounts-container">
               @foreach($group->accounts as $account)
-                <a id="ember{{ $account->id }}" draggable="true" class="nav-account-row {{ $account->is_selected ? 'is-selected' : '' }}" href="/accounts/{{ $account->id }}"
+                <a id="ember{{ $account->id }}" draggable="true" class="nav-account-row {{ $account->is_selected ? 'is-selected' : '' }}" href=" {{ route("admin.transaction") }}"
                   data-account-id="{{ $account->id }}">
                   <div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account"
                     wire:click="openEditAccountModal({{ $account->id }})" onclick="event.preventDefault(); event.stopPropagation()">
@@ -559,41 +559,60 @@
     });
 
     /* script para drag and drop */
-    document.addEventListener('DOMContentLoaded', () => {
-      const containers = document.querySelectorAll('.accounts-container'); // Selecciona todos los contenedores
+    document.addEventListener('DOMContentLoaded', function() {
+      const groupContainers = document.querySelectorAll('.accounts-container');
 
-      containers.forEach(container => {
-        let draggedItem = null;
+      groupContainers.forEach(container => {
+        let draggedElement = null;
 
-        container.addEventListener('dragstart', (e) => {
-          draggedItem = e.target;
-          e.dataTransfer.effectAllowed = 'move';
-        });
-
-        container.addEventListener('dragenter', (e) => {
-          const target = e.target.closest('.nav-account-row');
-          if(target && target !== draggedItem) {
-            container.insertBefore(draggedItem, target.nextSibling);
+        container.addEventListener('dragstart', (event) => {
+          if(event.target.classList.contains('nav-account-row')) {
+            draggedElement = event.target;
+            event.dataTransfer.effectAllowed = 'move';
           }
         });
 
-        container.addEventListener('dragover', (e) => {
-          e.preventDefault();
-          e.dataTransfer.dropEffect = 'move';
+        container.addEventListener('dragover', (event) => {
+          event.preventDefault();
+          const target = event.target.closest('.nav-account-row');
+          if(target && target !== draggedElement) {
+            const bounding = target.getBoundingClientRect();
+            const offset = event.clientY - bounding.top;
+
+            if(offset > bounding.height / 2) {
+              target.parentNode.insertBefore(draggedElement, target.nextSibling);
+            } else {
+              target.parentNode.insertBefore(draggedElement, target);
+            }
+          }
         });
 
-        container.addEventListener('drop', (e) => {
-          e.preventDefault();
-
-          // Obtener los IDs en el nuevo orden dentro del grupo
-          const orderedIds = Array.from(container.querySelectorAll('.nav-account-row'))
-            .map(item => item.dataset.accountId);
-
-          // Usar Livewire.dispatch para enviar el evento
-          Livewire.dispatch('reorderAccounts', [orderedIds]);
+        container.addEventListener('drop', () => {
+          const items = container.querySelectorAll('.nav-account-row');
+          const order = Array.from(items).map(item => item.dataset.accountId);
+          const groupType = container.id.replace('accounts-container-', '');
+          // Emitir evento de Livewire para actualizar el orden del grupo
+          Livewire.dispatch('updateOrder', [groupType, order]);
         });
       });
     });
+
+    //Colapsa/explande el grupo de cuentas
+    function toggleGroup(groupType) {
+      const container = document.getElementById(`accounts-container-${groupType}`);
+
+      // Verifica si el contenedor está visible y alterna su visibilidad
+      if(container) {
+        const isHidden = container.style.display === 'none';
+        container.style.display = isHidden ? 'block' : 'none';
+
+        // Cambia el ícono del botón según el estado
+        const icon = document.querySelector(`button[onclick="toggleGroup('${groupType}')"] svg use`);
+        if(icon) {
+          icon.setAttribute('href', `#icon_sprite_chevron_${isHidden ? 'down' : 'right'}`);
+        }
+      }
+    }
 
   </script>
 @endpush

@@ -56,6 +56,14 @@
       return view('front.pages.accounts',$data);
     } //End Method
 
+    public function adminTransaction(Request $request){
+      $data = [
+        'PageTitle' => 'Account Transactions | YNAB'
+      ];
+
+      return view('front.pages.accounttransaction',$data);
+    }
+
 
     public function adminBudgets(Request $request){
       $user         = Auth::user();
@@ -168,6 +176,5 @@
         ],500);
       }
     } //End Method
-
 
   }

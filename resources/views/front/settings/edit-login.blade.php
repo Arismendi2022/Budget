@@ -85,11 +85,12 @@
 @push('scripts')
   <script>
     $(document).ready(function() {
-      // Función para validar el formulario de cambio de contraseña
+      // Declarar $form aquí para que esté disponible en todo el script
+      const $form = $('#change_password_form');
+
       function validatePasswordForm() {
         const currentPassword = $('#change_password_current_password').val().trim();
         const newPassword = $('#user_password').val().trim();
-        const $form = $('#change_password_form');
 
         // Habilitar el botón solo si ambos campos tienen datos
         const isValid = currentPassword !== '' && newPassword !== '';

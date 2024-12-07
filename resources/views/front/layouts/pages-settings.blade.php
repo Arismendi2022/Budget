@@ -10,7 +10,7 @@
   <meta name="robots" content="noindex">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <link rel="shortcut icon" href="{{ asset('images/front/brand/ynab-tree-logo.svg') }}">
+  <link rel="shortcut icon" href="{{ asset('images/shared/brand/ynab-tree-logo.svg') }}">
   <title>@yield('pageTitle')</title>
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
