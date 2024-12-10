@@ -3,12 +3,14 @@
   namespace App\Http\Controllers;
 
   use App\Helpers\CMail;
+  use App\Models\BudgetAccount;
   use App\Models\User;
   use App\Rules\StrongPassword;
   use Illuminate\Http\Request;
   use Illuminate\Support\Facades\Auth;
   use Illuminate\Support\Facades\DB;
   use Illuminate\Support\Facades\Hash;
+
 
   class AdminController extends Controller
   {
@@ -55,15 +57,6 @@
 
       return view('front.pages.accounts',$data);
     } //End Method
-
-    public function adminTransaction(Request $request){
-      $data = [
-        'PageTitle' => 'Account Transactions | YNAB'
-      ];
-
-      return view('front.pages.accounttransaction',$data);
-    }
-
 
     public function adminBudgets(Request $request){
       $user         = Auth::user();
@@ -175,6 +168,27 @@
           'message' => 'Se produjo un error. Inténtelo nuevamente más tarde.'
         ],500);
       }
+    } //End Method
+
+    public function showAccountDetail($accountId){
+      // Busca la cuenta por su ID
+      //$account = BudgetAccount::findOrFail($id);
+
+      // Buscar la cuenta asociada al presupuesto activo.
+      $account = BudgetAccount::where('id',$accountId)
+        ->whereHas('budget',function($query){
+          $query->where('is_active',true);
+        })->first();
+
+
+      // Crea un array con los datos
+      $data = [
+        'account'   => $account,
+        'pageTitle' => "Account Details | YNAB ",
+      ];
+
+      return view('front.pages.account_details',$data);
+
     } //End Method
 
   }
