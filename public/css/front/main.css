@@ -3582,6 +3582,165 @@ div.accounts-toolbar .file-picker, div.accounts-toolbar .transaction-search, div
 	margin: 0 0 0 1rem;
 	padding: 0;
 }
+.accounts-header .accounts-header-balances-amount.accounts-header-balances-amount-negative, .accounts-header .accounts-header-balances-cleared .currency.negative, .accounts-header .accounts-header-balances-uncleared .currency.negative, .accounts-header .accounts-header-balances-working .currency.negative, .accounts-header .accounts-header-overspending .currency.negative, .accounts-header .accounts-header-payment .currency.negative, .accounts-header .accounts-header-selected-total .currency.negative {
+	color: var(--labelPrimary);
+}
+.accounts-header .accounts-header-balances-right {
+	align-items: center;
+	display: flex;
+	flex: 0 1 auto;
+	margin-left: auto;
+	overflow: hidden;
+}
+/*  Overspending and Payment */
+.accounts-header .accounts-header-balances-right .overspending-and-payment {
+	display: flex;
+	flex: 0 1 auto;
+}
+.accounts-header .accounts-header-overspending, .accounts-header .accounts-header-payment {
+	margin-left: auto;
+	margin-right: 1rem;
+}
+.accounts-header .header-currency-label .currency.zero {
+	background-color: var(--categoryBalanceZeroBackground);
+	color: var(--categoryBalanceZeroLabel);
+}
+.accounts-header .header-currency-label span.currency {
+	border-radius: 1000px;
+	color: var(--labelPrimary);
+	display: inline-block;
+	font-size: .88rem;
+	padding: .205rem .5rem .125rem;
+}
+.accounts-header .accounts-header-overspending .accounts-header-label, .accounts-header .accounts-header-payment .accounts-header-label, .accounts-header .header-currency-label .accounts-header-label {
+	font-style: normal;
+}
+.accounts-header .accounts-header-balances-right .accounts-header-label {
+	align-items: center;
+	display: flex;
+	gap: .25rem;
+}
+/* Toolbar Right */
+div.accounts-toolbar .accounts-toolbar-right {
+	align-items: center;
+	display: flex;
+	justify-content: flex-end;
+	padding-left: 2rem;
+	padding-right: 1rem;
+}
+.loan-paired-category-card .paired-category-card-minimized-items .paired-category-available-label, div.accounts-toolbar button {
+	white-space: nowrap;
+}
+.ghost-button.is-dropdown > .ynab-new-icon {
+	margin-left: .5rem;
+	margin-right: 0;
+}
+/* Search */
+.transaction-search {
+	display: inline-block;
+	height: 2rem;
+	margin-top: .125rem;
+	transition-duration: .25s;
+	transition-property: width;
+	width: 12rem;
+}
+.transaction-search .transaction-search-inner {
+	position: relative;
+	width: 100%;
+}
+.transaction-search .transaction-search-icon {
+	left: 0;
+	margin: 0;
+}
+.transaction-search .transaction-search-cancel-icon, .transaction-search .transaction-search-icon {
+	color: var(--iconFillPrimary);
+	align-items: center;
+	display: flex;
+	height: 2rem;
+	justify-content: center;
+	position: absolute;
+	width: 2rem;
+	z-index: 2;
+}
+div.accounts-toolbar .accounts-toolbar-right .transaction-search .ynab-new-icon {
+	margin-left: 0;
+}
+.transaction-search-input::placeholder {
+	color: var(--labelTertiary);
+}
+.transaction-search .transaction-search-input {
+	left: 0;
+	position: absolute;
+	top: 0;
+	border-radius: .25rem;
+	border: 1px solid var(--inputBorder);
+	color: var(--labelPrimary);
+	background-color: var(--backgroundPrimary);
+	height: 2rem;
+	outline: 0;
+	padding: 0 0 0 1.75rem;
+	width: 100%;
+	z-index: 1;
+}
+.transaction-search .transaction-search-input {
+	font-size: .875rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+.transaction-search.is-active {
+	width: 18rem;
+}
+.transaction-search.is-active .transaction-search-input {
+	border: 1px solid var(--actionPrimary);
+}
+
+/* LOANS */
+.loan-account-account-header {
+	color: var(--labelPrimary);
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	border-bottom: 1px solid var(--separatorStandard);
+}
+.loan-account-account-header .loan-account-header-balances {
+	background-color: var(--headerBackground);
+	display: flex;
+	flex-direction: row;
+	gap: 1.5rem;
+	padding: 1rem;
+}
+.loan-account-account-header .loan-account-header-element {
+	display: flex;
+	flex-direction: column;
+	gap: .125rem;
+}
+.loan-account-account-header .loan-account-header-element .loan-account-header-element-amount {
+	min-height: 1.5rem;
+}
+.loan-account-account-header .loan-account-header-element .loan-account-header-element-label {
+	color: var(--labelSecondary);
+}
+b, strong {
+	font-weight: 700;
+}
+
+/* Estilo para el espacio reservado JQUERY UI */
+.ui-state-highlight {
+	height: 25%;
+	background-color: transparent;
+	border: 1px dashed transparent;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

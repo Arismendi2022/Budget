@@ -63,5 +63,27 @@
               d="M11 21.7h9.2a1.1 1.1 0 1 1 0 2.3H11a10.3 10.3 0 1 1 0-20.6h5.8V.6a.6.6 0 0 1 .9-.5l5.7 4a.6.6 0 0 1 0 1l-5.7 4a.6.6 0 0 1-1-.5V5.7H11a8 8 0 0 0-8 8 8 8 0 0 0 8 8"
               clip-rule="evenodd"></path>
     </symbol>
+    <!-- question circxle -->
+    <symbol id="icon_sprite_question_mark_circle" fill="none" viewBox="0 0 24 24">
+        <path fill="currentColor" fill-rule="evenodd"
+              d="M12 24a12 12 0 1 1 0-24 12 12 0 0 1 0 24m0-22a10 10 0 1 0 0 20 10 10 0 0 0 0-20m1.1 12-.5.5h-1.1L11 14c0-3.3 2.8-3 2.8-5.5 0-.8-1-1.5-1.9-1.5-1 0-2 .7-2 1.5l.2.8a.5.5 0 0 1-.5.7h-1l-.5-.4L8 8.5C8 6.5 9.8 5 12 5s4 1.6 4 3.5c0 3.2-2.9 3-2.9 5.5M12 16a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 12 16"
+              clip-rule="evenodd"></path>
+    </symbol>
+    <!-- caret down -->
+    <symbol id="icon_sprite_caret_down" fill="none" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M11 19.5.2 6.1C-.4 5.2.3 4 1.3 4h21.4c1 0 1.7 1.2 1 2L13.1 19.6a1.4 1.4 0 0 1-2.2 0"></path>
+    </symbol>
+    <!-- search -->
+    <symbol id="icon_sprite_search" fill="none" viewBox="0 0 24 24">
+        <path fill="currentColor" fill-rule="evenodd"
+              d="M10 0a10 10 0 0 1 8 15.9l5.3 4.5a2 2 0 0 1 .1 3 2 2 0 0 1-3-.1l-4.5-5.4A10 10 0 1 1 9.9 0m0 17.8A7.8 7.8 0 1 0 10 2a7.8 7.8 0 0 0 0 15.7"
+              clip-rule="evenodd"></path>
+    </symbol>
+    <!-- close circle -->
+    <symbol id="icon_sprite_close_circle_fill" fill="none" viewBox="0 0 24 24">
+        <path fill="currentColor"
+              d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24m5.2 17.2a1.2 1.2 0 0 1-1.7 0L12 13.7l-3.5 3.5a1.2 1.2 0 0 1-1.7 0 1.2 1.2 0 0 1 0-1.7l3.5-3.5-3.5-3.5a1.2 1.2 0 0 1 0-1.7 1.2 1.2 0 0 1 1.7 0l3.5 3.5 3.5-3.5a1.2 1.2 0 0 1 1.7 0 1.2 1.2 0 0 1 0 1.7L13.7 12l3.5 3.5c.4.4.4 1.2 0 1.7"></path>
+    </symbol>
+
 </svg>
 
