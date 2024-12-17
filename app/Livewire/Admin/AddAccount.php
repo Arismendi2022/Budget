@@ -57,10 +57,6 @@
 			$this->accountTypes      = AccountHelper::getAccountTypes();
 			$this->categoriesByGroup = BudgetGroup::with('categories')->get();
 			
-			/*foreach($this->accountGroups as $group){
-				$this->showGroups[$group->type] = true;
-			}*/
-			
 			// Inicializa el estado de los grupos dinámicamente
 			foreach($this->accountGroups as $group){
 				$this->showGroups[$group->type] = true; // Inicializa cada grupo como colapsado
@@ -146,8 +142,11 @@
 			$this->validateNickname();
 			$this->balance = $this->calculateBalance();
 			
+			// Calcular la fecha de pago
+			$payoffDate = $this->calculatePayoffDate($this->balance,$this->interest,$this->payment);
+			
 			try{
-				DB::transaction(function() use ($isLoan){
+				DB::transaction(function() use ($isLoan,$payoffDate){
 					$data = ['budget_id'     => $this->activeBudgetId,
 					         'nickname'      => $this->nickname,
 					         'account_group' => $this->selectedCategoryGroup,
@@ -156,18 +155,28 @@
 					         'balance'       => $this->balance,];
 					
 					if($isLoan){
-						$data['interest'] = $this->interest;
-						$data['payment']  = $this->payment;
+						$data['interest']    = $this->interest;
+						$data['payment']     = $this->payment;
+						$data['payoff_date'] = $payoffDate;
 					}
 					
 					BudgetAccount::create($data);
 					$this->currentSection = 5;
 				});
 				
+				// Código que puede lanzar una excepción
+			} catch(\Illuminate\Database\QueryException $e){
+				// Captura errores de la base de datos
+				Log::error('Error de base de datos: '.$e->getMessage());
+				$this->dispatch('console-error',['error' => 'Error de base de datos: '.$e->getMessage()]);
+				return false;
 			} catch(\Exception $e){
-				$this->dispatch('console-error',['error' => $e->getMessage()]);
+				// Captura errores generales
+				Log::error('Error: '.$e->getMessage());
+				$this->dispatch('console-error',['error' => 'Error: '.$e->getMessage()]);
 				return false;
 			}
+			
 		} //End Method
 		
 		public function saveBudgetTracking(){
@@ -264,6 +273,23 @@
 			// Recargar cuentas después de actualizar
 			$this->updateAccountLists();
 		}
+		
+		//funcion para calcular la fecha final de pago.
+		private function calculatePayoffDate($balance,$interestRate,$minimumPayment){
+			$interestRateDecimal = $interestRate / 100;
+			$months              = 0;
+			$balance             = abs($balance); // Asegurarse de que el saldo sea positivo
+			
+			while($balance > 0){
+				$interest = $balance * $interestRateDecimal / 12;
+				$balance  = $balance + $interest - $minimumPayment;
+				$months++;
+			}
+			
+			// Devolver la fecha en formato Y-m-d
+			return now()->addMonths($months);
+			
+		} //End Method
 		
 		
 		public function render(){
