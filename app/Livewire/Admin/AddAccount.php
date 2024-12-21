@@ -47,7 +47,7 @@
 		}
 		
 		// Registrar el listener para el evento `reorderAccounts`
-		protected $listeners = ['updateAccountOrder'];
+		protected $listeners = ['updateOrder'];
 		
 		public function mount(){
 			$activeBudget         = Budget::where('user_id',auth()->id())->where('is_active',true)->first();
@@ -142,8 +142,11 @@
 			$this->validateNickname();
 			$this->balance = $this->calculateBalance();
 			
-			// Calcular la fecha de pago
-			$payoffDate = $this->calculatePayoffDate($this->balance,$this->interest,$this->payment);
+			// Solo calcular la fecha de pago si es un préstamo
+			$payoffDate = null;
+			if($isLoan){
+				$payoffDate = $this->calculatePayoffDate($this->balance,$this->interest,$this->payment);
+			}
 			
 			try{
 				DB::transaction(function() use ($isLoan,$payoffDate){
@@ -165,15 +168,8 @@
 				});
 				
 				// Código que puede lanzar una excepción
-			} catch(\Illuminate\Database\QueryException $e){
-				// Captura errores de la base de datos
-				Log::error('Error de base de datos: '.$e->getMessage());
-				$this->dispatch('console-error',['error' => 'Error de base de datos: '.$e->getMessage()]);
-				return false;
 			} catch(\Exception $e){
-				// Captura errores generales
-				Log::error('Error: '.$e->getMessage());
-				$this->dispatch('console-error',['error' => 'Error: '.$e->getMessage()]);
+				$this->dispatch('console-error',['error' => $e->getMessage()]);
 				return false;
 			}
 			
@@ -265,16 +261,17 @@
 			$this->dispatch('account-edit',$accountId);
 		}
 		
-		public function updateAccountOrder($sortedAccounts){
+		public function updateOrder($orderedIds){
 			// Actualiza el campo 'ordering' para cada cuenta
-			foreach($sortedAccounts as $index => $accountId){
-				BudgetAccount::where('id',$accountId)->update(['ordering' => $index + 1]);
+			foreach($orderedIds as $position => $accountId){
+				BudgetAccount::where('id',$accountId)->update(['ordering' => $position + 1]);
 			}
+			
 			// Recargar cuentas después de actualizar
 			$this->updateAccountLists();
 		}
 		
-		//funcion para calcular la fecha final de pago.
+		//funcion para calcular la feca final de pago.
 		private function calculatePayoffDate($balance,$interestRate,$minimumPayment){
 			$interestRateDecimal = $interestRate / 100;
 			$months              = 0;
@@ -290,7 +287,6 @@
 			return now()->addMonths($months);
 			
 		} //End Method
-		
 		
 		public function render(){
 			return view('livewire.admin.add-account');

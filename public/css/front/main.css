@@ -3882,9 +3882,7 @@ span.text-danger {
   margin-bottom: 0;
 }
 
-/** -------------------------------------- */
 /** ------- ACCOUNT DETAILS -------------- */
-
 .content .content-min-break, .placeholder .content-min-break {
   height: 100%;
   min-width: 50rem;
@@ -4265,8 +4263,7 @@ b, strong {
 }
 
 /* Estilo para el espacio reservado JQUERY UI */
-.ui-state-highlight {
-  height: 25%;
+.sortable-placeholder {
   background-color: transparent;
   border: 1px dashed transparent;
 }
