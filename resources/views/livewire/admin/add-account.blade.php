@@ -609,7 +609,8 @@
 
 					draggedElement = event.target;
 					draggedElement.style.opacity = '0.9';
-					placeholder.style.height = `${draggedElement.offsetHeight}px`;
+					//placeholder.style.height = `${draggedElement.offsetHeight}px`;
+					placeholder.style.height = `${draggedElement.offsetHeight + 7}px`;
 					event.dataTransfer.setData('text/plain', '');
 					event.dataTransfer.effectAllowed = 'move';
 				});
@@ -647,7 +648,6 @@
 				});
 			});
 		});
-	
 	
 	</script>
 @endpush
