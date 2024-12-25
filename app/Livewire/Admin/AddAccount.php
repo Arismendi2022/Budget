@@ -47,7 +47,7 @@
 		}
 		
 		// Registrar el listener para el evento `reorderAccounts`
-		protected $listeners = ['updateOrder'];
+		protected $listeners = ['updateAccountOrder'];
 		
 		public function mount(){
 			$activeBudget         = Budget::where('user_id',auth()->id())->where('is_active',true)->first();
@@ -261,12 +261,11 @@
 			$this->dispatch('account-edit',$accountId);
 		}
 		
-		public function updateOrder($orderedIds){
+		public function updateAccountOrder($sortedAccounts){
 			// Actualiza el campo 'ordering' para cada cuenta
-			foreach($orderedIds as $position => $accountId){
-				BudgetAccount::where('id',$accountId)->update(['ordering' => $position + 1]);
+			foreach($sortedAccounts as $index => $accountId){
+				BudgetAccount::where('id',$accountId)->update(['ordering' => $index + 1]);
 			}
-			
 			// Recargar cuentas después de actualizar
 			$this->updateAccountLists();
 		}

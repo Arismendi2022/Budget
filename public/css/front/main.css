@@ -1305,11 +1305,14 @@ button, input, select, textarea {
 	-khtml-user-drag: element;
 	-webkit-user-drag: element;
 }
-
+/* Estilo para el espacio reservado JQUERY UI */
+.sortable-placeholder {
+	background-color: transparent;
+	border: 1px dashed transparent;
+}
 .nav-account-row {
 	border-radius: .375rem;
 }
-
 .nav-account-row .nav-account-icons {
 	flex: 0 0 auto;
 	height: 1rem;
@@ -3423,7 +3426,7 @@ textarea {
 	padding: .1875rem;
 }
 
-.ynab-new-currency-input .input-wrapper .currency {
+.category-input-export-copy input[type="text"], .category-input-export-export-as-template, .ftue-onboarding-message, .ftue-onboarding-needs, .modal-account-calendar .modal, .modal-fresh .modal-fresh-body .type-body, .ynab-new-currency-input .input-wrapper .currency, .ynab-new-dropdown-container span, .ynab-new-inspector-goals, .ynab-new-inspector-goals .actions .actions-left .button-link, .ynab-new-inspector-goals .actions .actions-right .button-link, .ynab-new-inspector-goals .actions .goal-actions-delete-cancel .button-link, .ynab-new-inspector-goals .goal-message, .ynab-new-inspector-goals .target-behavior-dropdown, .ynab-new-inspector-goals .target-behavior-dropdown .type-dropdown-label, .ynab-new-inspector-goals .ynab-new-inspector-goals-calendar-select {
 	font-size: .875rem;
 	font-weight: 500;
 	line-height: 1.2;
@@ -4259,7 +4262,6 @@ div.accounts-toolbar .accounts-toolbar-right .transaction-search .ynab-new-icon 
 b, strong {
 	font-weight: 700;
 }
-
 /* YNAB GRIP */
 .ynab-grid {
 	display: flex;
@@ -4419,17 +4421,14 @@ b, strong {
 	top: 0;
 	width: .375rem;
 }
-
 .ynab-grid-cell-accountName {
 	width: 10%;
 }
-
 @media all {
 	.ynab-grid-cell-accountName {
 		display: none !important;
 	}
 }
-
 .ynab-grid-header .ynab-grid-header-column-sort-area .label {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -4439,20 +4438,16 @@ b, strong {
 .ynab-grid-cell-date {
 	width: 6rem;
 }
-
 .ynab-grid-cell-memo, .ynab-grid-cell-payeeName {
 	width: 16%;
 }
-
 .ynab-grid-header-row .sort-icon {
 	position: absolute;
 	right: .5rem;
 }
-
 .ynab-grid-header-row .is-sorting {
 	color: var(--labelSecondary);
 }
-
 @media all {
 	.ynab-grid-cell-subCategoryName {
 		display: table-cell !important;
@@ -4728,54 +4723,143 @@ b, strong {
 	position: relative;
 	top: -.1em;
 }
+.ynab-new-currency-input .button-calculator {
+	cursor: pointer;
+	flex: 0 0 auto;
+	opacity: 0;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	width: 1.125rem;
+}
+.ynab-new-currency-input:not(.is-disabled):hover .button-calculator {
+	opacity: 1;
+	-ms-filter: none;
+	filter: none;
+}
+.ynab-new-currency-input .icon-calculator {
+	height: 1rem;
+	width: 1rem;
+	fill: var(--iconFillSecondary);
+	margin: .125rem 0 0 .125rem;
+	stroke: none;
+}
+.ynab-new-currency-input .button-calculator:hover .icon-calculator {
+	fill: var(--actionPrimary);
+}
+.ynab-grid-body-row .ynab-grid-cell-cleared {
+	text-overflow: clip;
+	padding: 0 .4rem !important;
+	text-align: left;
+}
 
+/*  GRID ACTIONS */
+.ynab-grid-actions.is-add-row {
+	display: table;
+}
+.ynab-grid-actions {
+	background-color: var(--backgroundTableRowSelected);
+	cursor: default;
+	text-align: right;
+}
+.ynab-grid-actions .buttons-container {
+	overflow: visible;
+	position: relative;
+}
+.ynab-grid-actions .ynab-grid-actions-buttons {
+	position: absolute;
+	right: .125rem;
+	top: .375rem;
+}
+.ynab-grid-actions .button {
+	border-width: .0625rem;
+	margin-right: .3rem;
+	padding: .2rem 1.1rem;
+}
+.button-cancel-small {
+	line-height: 1;
+	border: .0625rem solid var(--actionPrimary);
+	color: var(--registerSecondaryButtonLabel);
+}
+.button-cancel-small, .button-primary-small {
+	height: 1.5rem;
+	border-radius: .5rem;
+	padding: 0 1rem;
+}
+.ynab-grid-actions .button:focus, .ynab-grid-actions .button:hover {
+	background-color: var(--buttonPrimaryBackgroundActive);
+	border-color: var(--buttonPrimaryBackgroundActive);
+	color: var(--labelDarkBackgroundPrimary);
+}
+.button-primary-small {
+	background-color: var(--buttonPrimaryBackground);
+	border: .0625rem solid transparent;
+	border-top-width: 0.0625rem;
+	border-right-width: 0.0625rem;
+	border-bottom-width: 0.0625rem;
+	border-left-width: 0.0625rem;
+	color: var(--labelDarkBackgroundPrimary);
+	text-align: center;
+}
+.ynab-grid-actions .button:last-child {
+	margin-right: 0;
+}
 
+/*  REGISTER ACTION BAR */
+.register-action-bar-container .register-action-bar-inner.show {
+	visibility: visible;
+}
 
+.register-action-bar-container.show {
+	bottom: 0;
+	margin-bottom: 3rem;
+	transition: margin-bottom .2s;
+}
+.register-action-bar-container {
+	bottom: -3rem;
+	display: flex;
+	justify-content: center;
+	pointer-events: none;
+	position: absolute;
+	width: 100%;
+	z-index: 10000;
+}
+.register-action-bar-container .register-action-bar-inner.show {
+	visibility: visible;
+}
+.register-action-bar-container .register-action-bar-inner {
+	align-items: center;
+	display: flex;
+	padding: .5rem;
+	background-color: var(--actionbarBackground);
+	color: var(--labelDarkBackgroundPrimary);
+	border-radius: .75rem;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,.12),0 3px 6px 0 rgba(0,0,0,.15);
+	max-width: calc(100% - (24px*2));
+	pointer-events: auto;
+	visibility: hidden;
+}
+.register-action-bar-container .register-action-bar-inner button {
+	padding: .5rem;
+}
+.ghost-button.contrast {
+	color: var(--labelDarkBackgroundPrimary);
+}
+.register-action-bar-container .register-action-bar-inner hr {
+	background-color: var(--iconTwotoneDark);
+	height: 1rem;
+	margin: 0 .5rem;
+	width: 1px;
+}
+.register-action-bar-container .register-action-bar-inner button:active, .register-action-bar-container .register-action-bar-inner button:hover {
+	background-color: rgba(255,255,255,.15);
+	border-color: transparent;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* BODY EMPTY */
+.ynab-grid-body-empty {
+	border: 0;
+	height: 35px;
+}
 
 
 
