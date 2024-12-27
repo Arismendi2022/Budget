@@ -3916,7 +3916,8 @@ span.text-danger {
 }
 
 .accounts-header {
-	zoom: 1;
+	/* zoom: 1; */
+	transform: scale(1); /* Escala el elemento al 100% */
 	overflow: visible;
 	position: inherit;
 }
@@ -4833,8 +4834,8 @@ b, strong {
 	background-color: var(--actionbarBackground);
 	color: var(--labelDarkBackgroundPrimary);
 	border-radius: .75rem;
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,.12),0 3px 6px 0 rgba(0,0,0,.15);
-	max-width: calc(100% - (24px*2));
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 3px 6px 0 rgba(0, 0, 0, .15);
+	max-width: calc(100% - (24px * 2));
 	pointer-events: auto;
 	visibility: hidden;
 }
@@ -4851,7 +4852,7 @@ b, strong {
 	width: 1px;
 }
 .register-action-bar-container .register-action-bar-inner button:active, .register-action-bar-container .register-action-bar-inner button:hover {
-	background-color: rgba(255,255,255,.15);
+	background-color: rgba(255, 255, 255, .15);
 	border-color: transparent;
 }
 

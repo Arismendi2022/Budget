@@ -354,42 +354,44 @@
             Set view options like date range, reconciliation status, and more.
           </span>
 						</button>
-						<div id="transaction_search" class="transaction-search js-transaction-search ">
-							<div class="transaction-search-inner">
-								<div class="transaction-search-icon">
-									<svg class="ynab-new-icon" width="12" height="12">
-										<!---->
-										<use href="#icon_sprite_search">
-											<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_search" fill="none"
-															viewBox="0 0 24 24">
-												<path fill="currentColor" fill-rule="evenodd"
-															d="M10 0a10 10 0 0 1 8 15.9l5.3 4.5a2 2 0 0 1 .1 3 2 2 0 0 1-3-.1l-4.5-5.4A10 10 0 1 1 9.9 0m0 17.8A7.8 7.8 0 1 0 10 2a7.8 7.8 0 0 0 0 15.7"
-															clip-rule="evenodd"></path>
-											</symbol>
-										</use>
-									</svg>
+						@if($account->account_group !== 'Loans')
+							<div id="transaction_search" class="transaction-search js-transaction-search ">
+								<div class="transaction-search-inner">
+									<div class="transaction-search-icon">
+										<svg class="ynab-new-icon" width="12" height="12">
+											<!---->
+											<use href="#icon_sprite_search">
+												<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_search" fill="none"
+																viewBox="0 0 24 24">
+													<path fill="currentColor" fill-rule="evenodd"
+																d="M10 0a10 10 0 0 1 8 15.9l5.3 4.5a2 2 0 0 1 .1 3 2 2 0 0 1-3-.1l-4.5-5.4A10 10 0 1 1 9.9 0m0 17.8A7.8 7.8 0 1 0 10 2a7.8 7.8 0 0 0 0 15.7"
+																clip-rule="evenodd"></path>
+												</symbol>
+											</use>
+										</svg>
+									</div>
+									<input id="search_Input" class="ember-text-field ember-view transaction-search-input"
+												 placeholder="Search {{$account->nickname}}"
+												 aria-label="Find the transactions you're looking for..."
+												 title="Find the transactions you're looking for..." spellcheck="false" autocomplete="off"
+												 type="text">
+									<!---->
+									<button class="transaction-search-cancel-icon js-transaction-search-cancel-icon" style="display: none"
+													type="button">
+										<svg class="ynab-new-icon" width="12" height="12">
+											<!---->
+											<use href="#icon_sprite_close_circle_fill">
+												<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_close_circle_fill" fill="none"
+																viewBox="0 0 24 24">
+													<path fill="currentColor"
+																d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24m5.2 17.2a1.2 1.2 0 0 1-1.7 0L12 13.7l-3.5 3.5a1.2 1.2 0 0 1-1.7 0 1.2 1.2 0 0 1 0-1.7l3.5-3.5-3.5-3.5a1.2 1.2 0 0 1 0-1.7 1.2 1.2 0 0 1 1.7 0l3.5 3.5 3.5-3.5a1.2 1.2 0 0 1 1.7 0 1.2 1.2 0 0 1 0 1.7L13.7 12l3.5 3.5c.4.4.4 1.2 0 1.7"></path>
+												</symbol>
+											</use>
+										</svg>
+									</button>
 								</div>
-								<input id="search_Input" class="ember-text-field ember-view transaction-search-input"
-											 placeholder="Search {{$account->nickname}}"
-											 aria-label="Find the transactions you're looking for..."
-											 title="Find the transactions you're looking for..." spellcheck="false" autocomplete="off"
-											 type="text">
-								<!---->
-								<button class="transaction-search-cancel-icon js-transaction-search-cancel-icon" style="display: none"
-												type="button">
-									<svg class="ynab-new-icon" width="12" height="12">
-										<!---->
-										<use href="#icon_sprite_close_circle_fill">
-											<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_close_circle_fill" fill="none"
-															viewBox="0 0 24 24">
-												<path fill="currentColor"
-															d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24m5.2 17.2a1.2 1.2 0 0 1-1.7 0L12 13.7l-3.5 3.5a1.2 1.2 0 0 1-1.7 0 1.2 1.2 0 0 1 0-1.7l3.5-3.5-3.5-3.5a1.2 1.2 0 0 1 0-1.7 1.2 1.2 0 0 1 1.7 0l3.5 3.5 3.5-3.5a1.2 1.2 0 0 1 1.7 0 1.2 1.2 0 0 1 0 1.7L13.7 12l3.5 3.5c.4.4.4 1.2 0 1.7"></path>
-											</symbol>
-										</use>
-									</svg>
-								</button>
 							</div>
-						</div>
+						@endif
 					</div>
 				</div>
 			@endif
@@ -1062,38 +1064,29 @@
 @push('scripts')
 	<script>
 		// expande el input de search dar click...
-		const input = document.getElementById('search_Input');
-		const container = document.getElementById('transaction_search');
-
-		input.addEventListener('click', function (event) {
-			container.classList.add('is-active');
-			event.stopPropagation();
-		});
-
-		document.addEventListener('click', function () {
-			container.classList.remove('is-active');
-		});
-
-		// Mostrar el botón cuando hay texto en el input search
 		document.addEventListener('DOMContentLoaded', function () {
+			const input = document.getElementById('search_Input');
+			const container = document.getElementById('transaction_search');
 			const searchInput = document.querySelector('.transaction-search-input');
 			const cancelButton = document.querySelector('.js-transaction-search-cancel-icon');
 
-			// Mostrar botón de cancelar cuando se escribe algo
-			searchInput.addEventListener('input', function () {
-				if (this.value.trim().length > 0) {
-					cancelButton.style.display = 'block';
-				} else {
-					cancelButton.style.display = 'none';
-				}
+			// Agregar clase is-active al contenedor cuando se hace clic en el input
+			input.addEventListener('click', function (event) {
+				container.classList.add('is-active');
+				event.stopPropagation();
 			});
 
-			// Limpiar campo de búsqueda y ocultar botón de cancelar
-			cancelButton.addEventListener('click', function () {
-				searchInput.value = '';
-				this.style.display = 'none';
+			// Quitar clase is-active al hacer clic fuera del contenedor
+			document.addEventListener('click', function () {
+				container.classList.remove('is-active');
+			});
+
+			// Mostrar/ocultar botón de cancelar según el contenido del input
+			searchInput.addEventListener('input', function () {
+				cancelButton.style.display = this.value.trim().length > 0 ? 'block' : 'none';
 			});
 		});
+
 
 		// Escuchar el evento de clic en el documento activa checkbox
 		document.addEventListener('click', function (e) {

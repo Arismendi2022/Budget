@@ -34,7 +34,7 @@
 						<div id="accounts-container-{{ $group->type }}" class="accounts-container">
 							@foreach($group->accounts as $account)
 								<a id="ember{{ $account->id }}" draggable="true" class="nav-account-row {{ isSelected('admin.account-detail', ['id' => $account->id]) }}"
-									 href="{{ route('admin.account-detail', ['id' => $account->id]) }}" data-account-id="{{ $account->id }}">
+									 wire:ignore wire:navigate href="{{ route('admin.account-detail', ['id' => $account->id]) }}" data-account-id="{{ $account->id }}">
 									<div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account"
 											 wire:click="openEditAccountModal({{ $account->id }})"
 											 onclick="event.preventDefault(); event.stopPropagation()">
@@ -596,27 +596,59 @@
 		}
 
 		/* Funcion para Drag & Drop :: Jquery UI */
-		$('.accounts-container').sortable({
-			placeholder: {
-				element: function (currentItem) {
-					return $('<div class="sortable-placeholder"></div>')
-						.css('margin-bottom', '2px').height(currentItem.height())[0];
-				},
-				update: function (container, p) {
-					return;
-				}
-			},
-			handle: ".user-data",
-			start: function (event, ui) {
-				ui.item.css('opacity', '0.7');
-			},
-			stop: function (event, ui) {
-				ui.item.css('opacity', '1');
-				let sortedAccounts = $(this).sortable('toArray', {attribute: 'data-account-id'});
-				Livewire.dispatch('updateAccountOrder', {sortedAccounts: sortedAccounts});
-			}
+		document.addEventListener('DOMContentLoaded', () => {
+			const groupContainers = document.querySelectorAll('.accounts-container');
+
+			groupContainers.forEach(container => {
+				let draggedElement = null;
+				let placeholder = document.createElement('div');
+				placeholder.classList.add('drag-placeholder');
+
+				container.addEventListener('dragstart', event => {
+					if (!event.target.classList.contains('nav-account-row')) return;
+
+					draggedElement = event.target;
+					draggedElement.style.opacity = '0.9';
+					//placeholder.style.height = `${draggedElement.offsetHeight}px`;
+					placeholder.style.height = `${draggedElement.offsetHeight + 3}px`;
+					event.dataTransfer.setData('text/plain', '');
+					event.dataTransfer.effectAllowed = 'move';
+				});
+
+				container.addEventListener('dragend', () => {
+					if (draggedElement) {
+						draggedElement.style.opacity = '1';
+						placeholder.remove();
+						draggedElement = null;
+					}
+				});
+
+				container.addEventListener('dragover', event => {
+					event.preventDefault();
+
+					const target = event.target.closest('.nav-account-row');
+					if (!target || target === draggedElement) return;
+
+					const offset = event.clientY - target.getBoundingClientRect().top;
+					target.parentNode.insertBefore(
+						placeholder,
+						offset > target.offsetHeight / 2 ? target.nextSibling : target
+					);
+				});
+
+				container.addEventListener('drop', () => {
+					if (draggedElement) {
+						placeholder.parentNode.replaceChild(draggedElement, placeholder);
+						const order = Array.from(container.querySelectorAll('.nav-account-row'))
+							.map(item => item.dataset.accountId);
+
+						// Call Livewire method to update order
+						Livewire.dispatch('updateOrder', {orderedIds: order});
+					}
+				});
+			});
 		});
-	
+		
 	</script>
 @endpush
 

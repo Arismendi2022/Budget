@@ -47,7 +47,7 @@
 		}
 		
 		// Registrar el listener para el evento `reorderAccounts`
-		protected $listeners = ['updateAccountOrder'];
+		protected $listeners = ['updateOrder'];
 		
 		public function mount(){
 			$activeBudget         = Budget::where('user_id',auth()->id())->where('is_active',true)->first();
@@ -261,11 +261,12 @@
 			$this->dispatch('account-edit',$accountId);
 		}
 		
-		public function updateAccountOrder($sortedAccounts){
+		public function updateOrder($orderedIds){
 			// Actualiza el campo 'ordering' para cada cuenta
-			foreach($sortedAccounts as $index => $accountId){
-				BudgetAccount::where('id',$accountId)->update(['ordering' => $index + 1]);
+			foreach($orderedIds as $position => $accountId){
+				BudgetAccount::where('id',$accountId)->update(['ordering' => $position + 1]);
 			}
+			
 			// Recargar cuentas después de actualizar
 			$this->updateAccountLists();
 		}
@@ -286,6 +287,10 @@
 			return now()->addMonths($months);
 			
 		} //End Method
+		
+		public function navigateToAccount($accountId){
+			return redirect()->route('admin.account-detail',['id' => $accountId]);
+		}
 		
 		public function render(){
 			return view('livewire.admin.add-account');
