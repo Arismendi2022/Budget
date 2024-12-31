@@ -47,7 +47,7 @@
               </svg>
             </button>
           </li>
-          <li class="navlink navlink-budget {{ isActive('admin.home') }} ">
+          <li class="navlink navlink-budget {{ Route::is('admin.home') ? 'active' : '' }} ">
             <a id="ember5" class="ember-view" wire:navigate href="{{ route('admin.home') }}">
               <svg id="icon_sprite_navigation_budget" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" d="M6.2 10.6h.6zm11.7 0h.4-.2z" clip-rule="evenodd"></path>
@@ -63,7 +63,7 @@
               <div class="navlink-label">Budget</div>
             </a>
           </li>
-          <li class="navlink navlink-reports {{ isActive('admin.reflect') }}">
+          <li class="navlink navlink-reports {{ Route::is('admin.reflect') ? 'active' : '' }} ">
             <a id="ember6" wire:navigate href="{{ route('admin.reflect') }}">
               <svg id="icon_sprite_navigation_reports" viewBox="0 0 24 24">
                 <path d="M20.6 19H3.4c-.2 0-.4.2-.4.4v1.2c0 .2.2.4.4.4h17.2c.2 0 .4-.2.4-.4v-1.2c0-.2-.2-.4-.4-.4" opacity="0.4"></path>
@@ -74,7 +74,7 @@
               <div class="navlink-label">Reflect</div>
             </a>
           </li>
-          <li class="navlink navlink-accounts {{ isActive('admin.accounts') }}">
+          <li class="navlink navlink-accounts {{ Route::is('admin.accounts') ? 'active' : '' }} ">
             <a id="ember7" wire:navigate href="{{ route('admin.accounts') }}">
               <svg id="icon_sprite_navigation_accounts" viewBox="0 0 24 24">
                 <path fill-rule="evenodd"
@@ -187,9 +187,17 @@
           toggleSidebar();
         }
       });
-
     });
 
-  </script>
+   // Agregar la clase active al elemento clicado.
+    /*document.querySelectorAll('.nav-main .navlink').forEach(item => {
+	    item.addEventListener('click', event => {
+		    document.querySelectorAll('.nav-main .navlink').forEach(el => el.classList.remove('active'));
+		    item.classList.add('active');
+	    });
+    });*/
+	
+	
+	</script>
 @endpush
 

@@ -28,7 +28,6 @@
       "files": [
         "app/helpers/CMail.php",
         "app/helpers/ConstDefaults.php",
-        "app/helpers/ActiveClass.php",
         "app/Helpers/AccountHelper.php",
         "app/Helpers/LoanTypesHelper.php"
       ]

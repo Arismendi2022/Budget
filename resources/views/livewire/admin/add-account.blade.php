@@ -3,9 +3,8 @@
 		@if(!$budgetAccounts->isEmpty())
 			@foreach($accountGroups as $group)
 				<div class="nav-account {{ $group->type === 'Budget' ? 'onBudget' : ($group->type === 'Loans' ? 'loan' : 'offBudget') }}">
-					<div class="nav-account-block">
-						<button class="nav-account-name nav-account-name-button user-data" aria-label="collapse {{ strtoupper($group->type) }}" type="button"
-										onclick="toggleGroup('{{ $group->type }}')">
+					<div class="nav-account-block" wire:click="toggleGroup('{{ $group->type }}')">
+						<button class="nav-account-name nav-account-name-button user-data" aria-label="collapse {{ strtoupper($group->type) }}" type="button">
 							<svg class="ynab-new-icon" width="8" height="8">
 								<use href="#icon_sprite_chevron_{{ $showGroups[$group->type] ?? false ? 'down' : 'right' }}">
 									<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_down" fill="none" viewBox="0 0 24 24">
@@ -33,8 +32,8 @@
 					@if($showGroups[$group->type] ?? false)
 						<div id="accounts-container-{{ $group->type }}" class="accounts-container">
 							@foreach($group->accounts as $account)
-								<a id="ember{{ $account->id }}" draggable="true" class="nav-account-row {{ isSelected('admin.account-detail', ['id' => $account->id]) }}"
-									 wire:ignore wire:navigate href="{{ route('admin.account-detail', ['id' => $account->id]) }}" data-account-id="{{ $account->id }}">
+								<a id="ember{{ $account->id }}" draggable="true" class="nav-account-row {{ $account->id == $activeAccountId ? 'is-selected' : '' }} "
+									 href="{{ route('admin.account-detail', ['id' => $account->id]) }}" data-account-id="{{ $account->id }}">
 									<div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account"
 											 wire:click="openEditAccountModal({{ $account->id }})"
 											 onclick="event.preventDefault(); event.stopPropagation()">
@@ -578,24 +577,7 @@
 			console.error('Error:', data.error);
 		});
 
-		// Colapsa/explande el grupo de cuentas
-		function toggleGroup(groupType) {
-			const container = document.getElementById(`accounts-container-${groupType}`);
-
-			// Verifica si el contenedor está visible y alterna su visibilidad
-			if (container) {
-				const isHidden = container.style.display === 'none';
-				container.style.display = isHidden ? 'block' : 'none';
-
-				// Cambia el ícono del botón según el estado
-				const icon = document.querySelector(`button[onclick="toggleGroup('${groupType}')"] svg use`);
-				if (icon) {
-					icon.setAttribute('href', `#icon_sprite_chevron_${isHidden ? 'down' : 'right'}`);
-				}
-			}
-		}
-
-		/* Funcion para Drag & Drop :: Jquery UI */
+		// Funcion para Drag & Drop :: Jquery UI
 		document.addEventListener('DOMContentLoaded', () => {
 			const groupContainers = document.querySelectorAll('.accounts-container');
 
@@ -609,7 +591,6 @@
 
 					draggedElement = event.target;
 					draggedElement.style.opacity = '0.9';
-					//placeholder.style.height = `${draggedElement.offsetHeight}px`;
 					placeholder.style.height = `${draggedElement.offsetHeight + 3}px`;
 					event.dataTransfer.setData('text/plain', '');
 					event.dataTransfer.effectAllowed = 'move';
@@ -636,19 +617,20 @@
 					);
 				});
 
-				container.addEventListener('drop', () => {
+				container.addEventListener('drop', event => {
+					event.preventDefault(); // Evitar que se expanda la sección
 					if (draggedElement) {
 						placeholder.parentNode.replaceChild(draggedElement, placeholder);
 						const order = Array.from(container.querySelectorAll('.nav-account-row'))
 							.map(item => item.dataset.accountId);
 
-						// Call Livewire method to update order
+						// Llamar al metodo Livewire para actualizar el orden
 						Livewire.dispatch('updateOrder', {orderedIds: order});
 					}
 				});
 			});
 		});
-		
+	
 	</script>
 @endpush
 

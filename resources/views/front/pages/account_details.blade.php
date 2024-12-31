@@ -1071,10 +1071,12 @@
 			const cancelButton = document.querySelector('.js-transaction-search-cancel-icon');
 
 			// Agregar clase is-active al contenedor cuando se hace clic en el input
-			input.addEventListener('click', function (event) {
-				container.classList.add('is-active');
-				event.stopPropagation();
-			});
+			if (input) {
+				input.addEventListener('click', function (event) {
+					container.classList.add('is-active');
+					event.stopPropagation();
+				});
+			}
 
 			// Quitar clase is-active al hacer clic fuera del contenedor
 			document.addEventListener('click', function () {
@@ -1082,11 +1084,21 @@
 			});
 
 			// Mostrar/ocultar botón de cancelar según el contenido del input
-			searchInput.addEventListener('input', function () {
-				cancelButton.style.display = this.value.trim().length > 0 ? 'block' : 'none';
-			});
-		});
+			if (searchInput) { // Verificar si searchInput existe
+				searchInput.addEventListener('input', function () {
+					cancelButton.style.display = this.value.trim().length > 0 ? 'block' : 'none';
+				});
+			}
 
+			// Agregar evento al botón de cancelar para limpiar el input
+			if (cancelButton) { // Verificar si cancelButton existe
+				cancelButton.addEventListener('click', function () {
+					searchInput.value = ''; // Limpiar el contenido del input
+					cancelButton.style.display = 'none'; // Ocultar el botón de cancelar
+					container.classList.remove('is-active'); // Opcional: cerrar el contenedor
+				});
+			}
+		});
 
 		// Escuchar el evento de clic en el documento activa checkbox
 		document.addEventListener('click', function (e) {

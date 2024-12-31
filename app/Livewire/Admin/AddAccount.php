@@ -26,6 +26,7 @@
 		public $budgetAccounts,$activeBudgetId,$dataAccountType;
 		public $accountGroups,$selectedDataAccountType;
 		public $newMasterCategory     = '';
+		public $activeAccountId;
 		
 		// Constantes para los tipos de categoría
 		const ACCOUNT_TYPES        = ['CreditCard','LineOfCredit'];
@@ -47,21 +48,30 @@
 		}
 		
 		// Registrar el listener para el evento `reorderAccounts`
-		protected $listeners = ['updateOrder'];
+		protected $listeners = ['updateOrder','handleDragEnd'];
+		
 		
 		public function mount(){
 			$activeBudget         = Budget::where('user_id',auth()->id())->where('is_active',true)->first();
 			$this->activeBudgetId = $activeBudget->id;
 			
+			// Inicializa el ID de la cuenta activa desde la ruta o con el valor predeterminado
+			$this->activeAccountId = request()->route('id');
+			
 			$this->updateAccountLists();
 			$this->accountTypes      = AccountHelper::getAccountTypes();
 			$this->categoriesByGroup = BudgetGroup::with('categories')->get();
 			
-			// Inicializa el estado de los grupos dinámicamente
-			foreach($this->accountGroups as $group){
-				$this->showGroups[$group->type] = true; // Inicializa cada grupo como colapsado
-			}
+			// Recuperar el estado de los grupos desde la sesión o inicializarlo como vacío
+			$this->showGroups = session()->get('showGroups',[]);
 			
+			// Si no hay estado guardado en la sesión, inicializar todos los grupos como expandidos
+			if(empty($this->showGroups)){
+				$this->showGroups = collect($this->accountGroups)
+					->pluck('type') // Obtiene los tipos de grupo
+					->mapWithKeys(fn($type) => [$type => true]) // Inicializa cada grupo como expandido
+					->toArray();
+			}
 			
 		} //End Method
 		
@@ -206,8 +216,7 @@
 			
 			// Agrupar las cuentas por grupo
 			$this->accountGroups = $this->budgetAccounts->groupBy('account_group')->map(function($budgetAccounts){
-				$groupType                    = $budgetAccounts->first()->account_group;
-				$this->showGroups[$groupType] = true;
+				$groupType = $budgetAccounts->first()->account_group;
 				
 				return (object)[
 					'type'          => $groupType,
@@ -225,14 +234,6 @@
 			});
 			
 		} //End Mtehod
-		
-		/* public function toggleGroup($type){
-			 if(!isset($this->showGroups[$type])){
-				 $this->showGroups[$type] = true;
-			 }
-			 $this->showGroups[$type] = !$this->showGroups[$type];
-		 }*/
-		
 		
 		public function closeBudgetAccount(){
 			$this->hideAccountModalForm();
@@ -266,12 +267,12 @@
 			foreach($orderedIds as $position => $accountId){
 				BudgetAccount::where('id',$accountId)->update(['ordering' => $position + 1]);
 			}
-			
 			// Recargar cuentas después de actualizar
 			$this->updateAccountLists();
+			
 		}
 		
-		//funcion para calcular la feca final de pago.
+		//funcion para calcular la fecha final de pago.
 		private function calculatePayoffDate($balance,$interestRate,$minimumPayment){
 			$interestRateDecimal = $interestRate / 100;
 			$months              = 0;
@@ -288,12 +289,24 @@
 			
 		} //End Method
 		
-		public function navigateToAccount($accountId){
-			return redirect()->route('admin.account-detail',['id' => $accountId]);
+		
+		public function toggleGroup($type){
+			// Alternar el estado del grupo
+			$this->showGroups[$type] = !($this->showGroups[$type] ?? true);
+			// Guardar el estado actualizado en la sesión
+			session()->put('showGroups',$this->showGroups);
 		}
 		
 		public function render(){
 			return view('livewire.admin.add-account');
 		}
 		
+		// Esta nueva función actualiza la cuenta activa
+		public function updateActiveAccount($accountId){
+			// Actualiza el ID de la cuenta activa
+			$this->activeAccountId = $accountId;
+		}
+		
 	}
+	
+	
