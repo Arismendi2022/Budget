@@ -572,7 +572,7 @@
 			});
 		});
 
-		// Para Livewire 3
+		// Muestra los errores en consola
 		Livewire.on('console-error', data => {
 			console.error('Error:', data.error);
 		});
@@ -630,6 +630,44 @@
 				});
 			});
 		});
+
+		//Evita que la pagina se recarge
+		$(document).on('click', '.nav-account-row', function (event) {
+			event.preventDefault();
+
+			var $this = $(this);
+			var url = $this.attr('href');
+			var accountId = $this.data('account-id');
+
+			$.ajax({
+				url: url,
+				type: 'GET',
+				headers: {
+					'X-Requested-With': 'XMLHttpRequest'
+				},
+				success: function (response) {
+					// Actualizar el contenido principal
+					$('.content-min-break').html(response.content);
+
+					// Actualizar el título de la página
+					document.title = response.title;
+
+					// Actualizar URL sin recargar
+					window.history.pushState({}, '', url);
+
+					// Actualizar la selección visual
+					$('.nav-account-row').removeClass('is-selected');
+					$this.addClass('is-selected');
+
+					// Reinicializar los eventos del buscador
+					initializeSearchEvents();
+				},
+				error: function (xhr) {
+					console.error('Error al cargar los detalles de la cuenta:', xhr);
+				}
+			});
+		});
+	
 	
 	</script>
 @endpush

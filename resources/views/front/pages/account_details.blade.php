@@ -1064,41 +1064,47 @@
 @push('scripts')
 	<script>
 		// expande el input de search dar click...
-		document.addEventListener('DOMContentLoaded', function () {
+		// Función para inicializar eventos de búsqueda
+		function initializeSearchEvents() {
 			const input = document.getElementById('search_Input');
 			const container = document.getElementById('transaction_search');
 			const searchInput = document.querySelector('.transaction-search-input');
 			const cancelButton = document.querySelector('.js-transaction-search-cancel-icon');
 
-			// Agregar clase is-active al contenedor cuando se hace clic en el input
-			if (input) {
+			if (input && container) {
 				input.addEventListener('click', function (event) {
 					container.classList.add('is-active');
 					event.stopPropagation();
 				});
 			}
 
-			// Quitar clase is-active al hacer clic fuera del contenedor
-			document.addEventListener('click', function () {
-				container.classList.remove('is-active');
-			});
-
-			// Mostrar/ocultar botón de cancelar según el contenido del input
-			if (searchInput) { // Verificar si searchInput existe
+			if (searchInput) {
 				searchInput.addEventListener('input', function () {
-					cancelButton.style.display = this.value.trim().length > 0 ? 'block' : 'none';
+					if (cancelButton) {
+						cancelButton.style.display = this.value.trim().length > 0 ? 'block' : 'none';
+					}
 				});
 			}
 
-			// Agregar evento al botón de cancelar para limpiar el input
-			if (cancelButton) { // Verificar si cancelButton existe
+			if (cancelButton && searchInput) {
 				cancelButton.addEventListener('click', function () {
-					searchInput.value = ''; // Limpiar el contenido del input
-					cancelButton.style.display = 'none'; // Ocultar el botón de cancelar
-					container.classList.remove('is-active'); // Opcional: cerrar el contenedor
+					searchInput.value = '';
+					cancelButton.style.display = 'none';
+					container.classList.remove('is-active');
 				});
+			}
+		}
+
+		// Evento para clic fuera
+		document.addEventListener('click', function () {
+			const container = document.getElementById('transaction_search');
+			if (container) {
+				container.classList.remove('is-active');
 			}
 		});
+
+		// Inicializar en carga de página
+		document.addEventListener('DOMContentLoaded', initializeSearchEvents);
 
 		// Escuchar el evento de clic en el documento activa checkbox
 		document.addEventListener('click', function (e) {

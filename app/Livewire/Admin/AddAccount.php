@@ -297,14 +297,13 @@
 			session()->put('showGroups',$this->showGroups);
 		}
 		
-		public function render(){
-			return view('livewire.admin.add-account');
-		}
-		
 		// Esta nueva función actualiza la cuenta activa
 		public function updateActiveAccount($accountId){
-			// Actualiza el ID de la cuenta activa
 			$this->activeAccountId = $accountId;
+		}
+		
+		public function render(){
+			return view('livewire.admin.add-account');
 		}
 		
 	}
