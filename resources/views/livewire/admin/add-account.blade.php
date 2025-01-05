@@ -578,7 +578,7 @@
 		});
 
 		// Funcion para Drag & Drop :: Jquery UI
-		document.addEventListener('DOMContentLoaded', () => {
+		/*document.addEventListener('DOMContentLoaded', () => {
 			const groupContainers = document.querySelectorAll('.accounts-container');
 
 			groupContainers.forEach(container => {
@@ -629,7 +629,14 @@
 					}
 				});
 			});
+		});*/
+
+		// Escuchar el evento Livewire y reinicializar Drag & Drop
+
+		window.addEventListener('groupToggled', function () {
+			initializeDragAndDrop() // Re-inicializar el drag and drop
 		});
+
 
 		//Evita que la pagina se recarge
 		$(document).on('click', '.nav-account-row', function (event) {

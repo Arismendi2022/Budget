@@ -295,6 +295,8 @@
 			$this->showGroups[$type] = !($this->showGroups[$type] ?? true);
 			// Guardar el estado actualizado en la sesión
 			session()->put('showGroups',$this->showGroups);
+			
+			$this->dispatch('groupToggled');
 		}
 		
 		// Esta nueva función actualiza la cuenta activa
