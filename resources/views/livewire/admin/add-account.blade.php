@@ -577,67 +577,6 @@
 			console.error('Error:', data.error);
 		});
 
-		// Funcion para Drag & Drop :: Jquery UI
-		/*document.addEventListener('DOMContentLoaded', () => {
-			const groupContainers = document.querySelectorAll('.accounts-container');
-
-			groupContainers.forEach(container => {
-				let draggedElement = null;
-				let placeholder = document.createElement('div');
-				placeholder.classList.add('drag-placeholder');
-
-				container.addEventListener('dragstart', event => {
-					if (!event.target.classList.contains('nav-account-row')) return;
-
-					draggedElement = event.target;
-					draggedElement.style.opacity = '0.9';
-					placeholder.style.height = `${draggedElement.offsetHeight + 3}px`;
-					event.dataTransfer.setData('text/plain', '');
-					event.dataTransfer.effectAllowed = 'move';
-				});
-
-				container.addEventListener('dragend', () => {
-					if (draggedElement) {
-						draggedElement.style.opacity = '1';
-						placeholder.remove();
-						draggedElement = null;
-					}
-				});
-
-				container.addEventListener('dragover', event => {
-					event.preventDefault();
-
-					const target = event.target.closest('.nav-account-row');
-					if (!target || target === draggedElement) return;
-
-					const offset = event.clientY - target.getBoundingClientRect().top;
-					target.parentNode.insertBefore(
-						placeholder,
-						offset > target.offsetHeight / 2 ? target.nextSibling : target
-					);
-				});
-
-				container.addEventListener('drop', event => {
-					event.preventDefault(); // Evitar que se expanda la sección
-					if (draggedElement) {
-						placeholder.parentNode.replaceChild(draggedElement, placeholder);
-						const order = Array.from(container.querySelectorAll('.nav-account-row'))
-							.map(item => item.dataset.accountId);
-
-						// Llamar al metodo Livewire para actualizar el orden
-						Livewire.dispatch('updateOrder', {orderedIds: order});
-					}
-				});
-			});
-		});*/
-
-		// Escuchar el evento Livewire y reinicializar Drag & Drop
-
-		window.addEventListener('groupToggled', function () {
-			initializeDragAndDrop() // Re-inicializar el drag and drop
-		});
-
-
 		//Evita que la pagina se recarge
 		$(document).on('click', '.nav-account-row', function (event) {
 			event.preventDefault();
@@ -665,6 +604,9 @@
 					// Actualizar la selección visual
 					$('.nav-account-row').removeClass('is-selected');
 					$this.addClass('is-selected');
+
+					// Remover la clase active del elemento "Budget"
+					$('.navlink-budget').removeClass('active');
 
 					// Reinicializar los eventos del buscador
 					initializeSearchEvents();

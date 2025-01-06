@@ -5,7 +5,6 @@
 	use App\Helpers\AccountHelper;
 	use App\Models\Budget;
 	use App\Models\BudgetAccount;
-	use App\Models\BudgetGroup;
 	use Illuminate\Support\Facades\DB;
 	use Livewire\Attributes\On;
 	use Livewire\Component;
@@ -27,6 +26,7 @@
 		public $accountGroups,$selectedDataAccountType;
 		public $newMasterCategory     = '';
 		public $activeAccountId;
+		public $selectedAccountId     = null;
 		
 		// Constantes para los tipos de categoría
 		const ACCOUNT_TYPES        = ['CreditCard','LineOfCredit'];
@@ -59,8 +59,7 @@
 			$this->activeAccountId = request()->route('id');
 			
 			$this->updateAccountLists();
-			$this->accountTypes      = AccountHelper::getAccountTypes();
-			$this->categoriesByGroup = BudgetGroup::with('categories')->get();
+			$this->accountTypes = AccountHelper::getAccountTypes();
 			
 			// Recuperar el estado de los grupos desde la sesión o inicializarlo como vacío
 			$this->showGroups = session()->get('showGroups',[]);
@@ -289,20 +288,20 @@
 			
 		} //End Method
 		
-		
 		public function toggleGroup($type){
 			// Alternar el estado del grupo
 			$this->showGroups[$type] = !($this->showGroups[$type] ?? true);
 			// Guardar el estado actualizado en la sesión
 			session()->put('showGroups',$this->showGroups);
 			
+			// Emitir evento para reinicializar drag & drop
 			$this->dispatch('groupToggled');
 		}
 		
 		// Esta nueva función actualiza la cuenta activa
-		public function updateActiveAccount($accountId){
+		/*public function updateActiveAccount($accountId){
 			$this->activeAccountId = $accountId;
-		}
+		}*/
 		
 		public function render(){
 			return view('livewire.admin.add-account');

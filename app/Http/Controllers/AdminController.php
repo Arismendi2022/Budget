@@ -177,30 +177,24 @@
 		} //End Method
 		
 		public function showAccountDetail($accountId){
-			// Buscar la cuenta asociada al presupuesto activo.
-			$account = BudgetAccount::where('id',$accountId)
-				->whereHas('budget',function($query){
-					$query->where('is_active',true);
-				})->first();
+			$account = BudgetAccount::with('budget')
+				->whereHas('budget',fn($query) => $query->where('is_active',true))
+				->firstWhere('id',$accountId);
+			
+			$data = [
+				'account'   => $account,
+				'pageTitle' => "{$account->nickname} | {$account->budget->name}",
+			];
 			
 			if(request()->ajax()){
-				// Para AJAX, renderiza la vista parcial y devuelve el HTML
-				$view = view('front.pages.account_details',[
-					'account'   => $account,
-					'pageTitle' => "{$account->nickname} | {$account->budget->name}",
-				])->renderSections(); // Esto renderizará las secciones de la vista
-				
 				return response()->json([
-					'content'   => $view['content'], // Solo la sección de contenido
-					'pageTitle' => "{$account->nickname} | {$account->budget->name}"
+					'content' => view('front.pages.account_details',$data)->renderSections()['content'],
+					'title'   => $data['pageTitle'],
 				]);
 			}
 			
-			// Para peticiones normales, retorna la vista completa
-			return view('front.pages.account_details',[
-				'account'   => $account,
-				'pageTitle' => "{$account->nickname} | {$account->budget->name}",
-			]);
+			return view('front.pages.account_details',$data);
 		} //End Method
+		
 		
 	}

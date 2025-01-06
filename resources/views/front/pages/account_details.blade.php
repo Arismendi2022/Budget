@@ -1,4 +1,5 @@
-@extends('front.layouts.pages-layout')@section('pageTitle', $pageTitle ?? 'Page Title Here')
+@extends('front.layouts.pages-layout')
+@section('pageTitle', $pageTitle ?? 'Page Title Here')
 @section('content')
 	
 	<div class="content-min-break register-flex-columns ">

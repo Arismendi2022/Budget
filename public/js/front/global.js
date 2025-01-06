@@ -41,62 +41,80 @@ document.addEventListener('click', function () {
 // Inicializar en carga de página
 document.addEventListener('DOMContentLoaded', initializeSearchEvents);
 
-// funcion drag & drop
-function initializeDragAndDrop() {
-	const groupContainers = document.querySelectorAll('.accounts-container');
+// Función principal de inicialización del drag & drop
+document.addEventListener('DOMContentLoaded', () => {
+	function initDragAndDrop() {
+		const groupContainers = document.querySelectorAll('.accounts-container');
 
-	groupContainers.forEach(container => {
-		let draggedElement = null;
-		let placeholder = document.createElement('div');
-		placeholder.classList.add('drag-placeholder');
+		groupContainers.forEach(container => {
+			let draggedElement = null;
+			const placeholder = createPlaceholder();
 
-		container.addEventListener('dragstart', event => {
-			if (!event.target.classList.contains('nav-account-row')) return;
-
-			draggedElement = event.target;
-			draggedElement.style.opacity = '0.9';
-			placeholder.style.height = `${draggedElement.offsetHeight + 3}px`;
-			event.dataTransfer.setData('text/plain', '');
-			event.dataTransfer.effectAllowed = 'move';
-		});
-
-		container.addEventListener('dragend', () => {
-			if (draggedElement) {
-				draggedElement.style.opacity = '1';
-				placeholder.remove();
-				draggedElement = null;
+			function createPlaceholder() {
+				const el = document.createElement('div');
+				el.classList.add('drag-placeholder');
+				el.style.display = 'none';
+				container.appendChild(el);
+				return el;
 			}
+
+			container.addEventListener('dragstart', event => {
+				if (!event.target.classList.contains('nav-account-row')) return;
+
+				draggedElement = event.target;
+				draggedElement.style.opacity = '0.9';
+
+				// Actualizar altura del placeholder
+				placeholder.style.height = `${draggedElement.offsetHeight + 5}px`;
+				placeholder.style.display = 'block';
+
+				event.dataTransfer.setData('text/plain', '');
+				event.dataTransfer.effectAllowed = 'move';
+			});
+
+			container.addEventListener('dragend', () => {
+				if (draggedElement) {
+					draggedElement.style.opacity = '1';
+					placeholder.style.display = 'none';
+					draggedElement = null;
+				}
+			});
+
+			container.addEventListener('dragover', event => {
+				event.preventDefault();
+
+				const target = event.target.closest('.nav-account-row');
+				if (!target || target === draggedElement) return;
+
+				const offset = event.clientY - target.getBoundingClientRect().top;
+				target.parentNode.insertBefore(
+					placeholder,
+					offset > target.offsetHeight / 2 ? target.nextSibling : target
+				);
+				placeholder.style.display = 'block';
+			});
+
+			container.addEventListener('drop', event => {
+				event.preventDefault();
+				if (draggedElement) {
+					placeholder.parentNode.replaceChild(draggedElement, placeholder);
+					container.appendChild(placeholder); // Mantener el placeholder en el DOM
+					placeholder.style.display = 'none';
+
+					const order = Array.from(container.querySelectorAll('.nav-account-row'))
+						.map(item => item.dataset.accountId);
+					Livewire.dispatch('updateOrder', {orderedIds: order});
+				}
+			});
 		});
+	}
 
-		container.addEventListener('dragover', event => {
-			event.preventDefault();
+	// Inicializar y manejar eventos livewire
+	initDragAndDrop();
 
-			const target = event.target.closest('.nav-account-row');
-			if (!target || target === draggedElement) return;
+	if (typeof Livewire !== 'undefined') {
+		Livewire.on('groupToggled', () => setTimeout(initDragAndDrop, 100));
+	}
 
-			const offset = event.clientY - target.getBoundingClientRect().top;
-			target.parentNode.insertBefore(
-				placeholder,
-				offset > target.offsetHeight / 2 ? target.nextSibling : target
-			);
-		});
-
-		container.addEventListener('drop', event => {
-			event.preventDefault();
-			if (draggedElement) {
-				placeholder.parentNode.replaceChild(draggedElement, placeholder);
-				const order = Array.from(container.querySelectorAll('.nav-account-row'))
-					.map(item => item.dataset.accountId);
-
-				// Llamar al metodo Livewire para actualizar el orden
-				Livewire.dispatch('updateOrder', {orderedIds: order});
-			}
-		});
-	});
-};
-
-// Ejecutar la función al cargar la página
-document.addEventListener('DOMContentLoaded', initializeDragAndDrop);
-
-
+});
                    
