@@ -146,7 +146,7 @@
 			// Handle form submission
 			function handleFormSubmit(e) {
 				e.preventDefault();
-				$loginButton.prop('disabled', true).css('opacity', '0.40').text('Logging In...');
+				$loginButton.prop('disabled', true).css('opacity', '0.30').text('Logging In...');
 
 				$.ajax({
 					url: $form.attr('action'),

@@ -33,7 +33,7 @@
 						<div id="accounts-container-{{ $group->type }}" class="accounts-container">
 							@foreach($group->accounts as $account)
 								<a id="ember{{ $account->id }}" draggable="true" class="nav-account-row {{ $account->id == $activeAccountId ? 'is-selected' : '' }} "
-									 href="{{ route('admin.account-detail', ['id' => $account->id]) }}" data-account-id="{{ $account->id }}">
+									 href="{{ route('admin.account-detail', ['id' => $account->id]) }}" data-account-id="{{ $account->id }}" >
 									<div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account"
 											 wire:click="openEditAccountModal({{ $account->id }})"
 											 onclick="event.preventDefault(); event.stopPropagation()">
@@ -578,44 +578,45 @@
 		});
 
 		//Evita que la pagina se recarge
-		$(document).on('click', '.nav-account-row', function (event) {
-			event.preventDefault();
-
-			var $this = $(this);
-			var url = $this.attr('href');
-			var accountId = $this.data('account-id');
-
-			$.ajax({
-				url: url,
-				type: 'GET',
-				headers: {
-					'X-Requested-With': 'XMLHttpRequest'
-				},
-				success: function (response) {
-					// Actualizar el contenido principal
-					$('.content-min-break').html(response.content);
-
-					// Actualizar el título de la página
-					document.title = response.title;
-
-					// Actualizar URL sin recargar
-					window.history.pushState({}, '', url);
-
-					// Actualizar la selección visual
-					$('.nav-account-row').removeClass('is-selected');
-					$this.addClass('is-selected');
-
-					// Remover la clase active del elemento "Budget"
-					$('.navlink-budget').removeClass('active');
-
-					// Reinicializar los eventos del buscador
-					initializeSearchEvents();
-				},
-				error: function (xhr) {
-					console.error('Error al cargar los detalles de la cuenta:', xhr);
-				}
-			});
-		});
+		/*	$(document).on('click', '.nav-account-row', function (event) {
+				event.preventDefault();
+	
+				var $this = $(this);
+				var url = $this.attr('href');
+				var accountId = $this.data('account-id');
+	
+				$.ajax({
+					url: url,
+					type: 'GET',
+					headers: {
+						'X-Requested-With': 'XMLHttpRequest'
+					},
+					success: function (response) {
+						// Actualizar el contenido principal
+						$('.content-min-break').html(response.content);
+	
+						// Actualizar el título de la página
+						document.title = response.title;
+	
+						// Actualizar URL sin recargar
+						window.history.pushState({}, '', url);
+	
+						// Actualizar la selección visual
+						$('.nav-account-row').removeClass('is-selected');
+						$this.addClass('is-selected');
+	
+						// Remover la clase active del elemento "Budget"
+						$('.navlink-budget').removeClass('active');
+	
+						// Reinicializar los eventos del buscador
+						initializeSearchEvents();
+						
+					},
+					error: function (xhr) {
+						console.error('Error al cargar los detalles de la cuenta:', xhr);
+					}
+				});
+			});*/
 	
 	
 	</script>

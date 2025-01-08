@@ -15,10 +15,8 @@
 	class AdminController extends Controller
 	{
 		public function adminHome(Request $request){
-			/**
-			 * Verificar si el usuario está autenticado y tiene un presupuesto
-			 */
-			
+		
+			//Verificar si el usuario está autenticado y tiene un presupuesto
 			$user         = Auth::user();
 			$activeBudget = $user->budgets()->where('is_active',true)->first();
 			
@@ -177,6 +175,23 @@
 		} //End Method
 		
 		public function showAccountDetail($accountId){
+			// Buscar la cuenta asociada al presupuesto activo.
+			$account = BudgetAccount::where('id',$accountId)
+				->whereHas('budget',function($query){
+					$query->where('is_active',true);
+				})->first();
+			
+			$data = [
+				'account'   => $account,
+				'pageTitle' => "{$account->nickname} | {$account->budget->name}",
+			];
+			
+			return view('front.pages.account_details',$data);
+			
+		} //End Method
+		
+		
+		/*public function showAccountDetail($accountId){
 			$account = BudgetAccount::with('budget')
 				->whereHas('budget',fn($query) => $query->where('is_active',true))
 				->firstWhere('id',$accountId);
@@ -194,7 +209,7 @@
 			}
 			
 			return view('front.pages.account_details',$data);
-		} //End Method
+		} //End Method*/
 		
 		
 	}

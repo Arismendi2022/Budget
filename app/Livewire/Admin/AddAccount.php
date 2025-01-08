@@ -26,7 +26,6 @@
 		public $accountGroups,$selectedDataAccountType;
 		public $newMasterCategory     = '';
 		public $activeAccountId;
-		public $selectedAccountId     = null;
 		
 		// Constantes para los tipos de categoría
 		const ACCOUNT_TYPES        = ['CreditCard','LineOfCredit'];
@@ -299,9 +298,10 @@
 		}
 		
 		// Esta nueva función actualiza la cuenta activa
-		/*public function updateActiveAccount($accountId){
+		public function updateActiveAccount($accountId){
+			session()->put('showGroups',$this->showGroups);
 			$this->activeAccountId = $accountId;
-		}*/
+		}
 		
 		public function render(){
 			return view('livewire.admin.add-account');
