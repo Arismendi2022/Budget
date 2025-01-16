@@ -54,7 +54,7 @@
         </p>
       </form>
       <hr>
-      <form class="form registration-form" id="change_password_form" action="{{ route('admin.change_password') }}" accept-charset="UTF-8" data-remote="true" method="POST"
+      <form class="form registration-form" id="change_password_form" action="{{ route('admin.change-password') }}" accept-charset="UTF-8" data-remote="true" method="POST"
         novalidate="novalidate">
         @csrf
         <h3>Change Password</h3>

@@ -9,21 +9,18 @@
 	{
 		
 		public $addTransaction = false;
-		public $isCheched = false;
 		
 		// Escuchar el evento 'closeModal'
 		protected $listeners = ['closeTransaction'];
 		
 		#[On('addAccountEvent')]
 		public function handleAddAccount(){
-			// Lógica para manejar el evento
 			//dd('message','Se ha añadido una nueva cuenta.');
 			$this->addTransaction = true;
 			
 		}
-		
-	 
-		// Metodo para cerrar el modal
+	
+		// Metodo para cerrar el elemento transacciones
 		public function closeTransaction(){
 			$this->addTransaction = false;
 		}

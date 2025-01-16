@@ -20,15 +20,15 @@
      * Bootstrap any application services.
      */
     public function boot():void{
-      //Redirect an Authenticated User to home
+      //Redirect an Authenticated User to budget
       RedirectIfAuthenticated::redirectUsing(function(){
-        return route('admin.home');
+        return route('admin.budget');
       });
 
       //Redirect No Authenticated User to Admin Login Page
       Authenticate::redirectUsing(function(){
         //Session::flash('fail');
-        return route('admin.login');
+        return route('users.login');
       });
 
       // Definir la regla 'lowercase'

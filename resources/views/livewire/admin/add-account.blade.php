@@ -33,7 +33,7 @@
 						<div id="accounts-container-{{ $group->type }}" class="accounts-container">
 							@foreach($group->accounts as $account)
 								<a id="ember{{ $account->id }}" draggable="true" class="nav-account-row {{ $account->id == $activeAccountId ? 'is-selected' : '' }} "
-									 href="{{ route('admin.account-detail', ['id' => $account->id]) }}" data-account-id="{{ $account->id }}" >
+									 href="{{ route('accounts.assign', ['id' => $account->id]) }}" data-account-id="{{ $account->id }}">
 									<div class="nav-account-icons nav-account-icons-left js-nav-account-icons-left" title="Edit Account"
 											 wire:click="openEditAccountModal({{ $account->id }})"
 											 onclick="event.preventDefault(); event.stopPropagation()">
@@ -617,7 +617,7 @@
 					}
 				});
 			});*/
-	
+		
 	
 	</script>
 @endpush

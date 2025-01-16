@@ -5,6 +5,7 @@
 	use Illuminate\Database\Eloquent\Factories\HasFactory;
 	use Illuminate\Database\Eloquent\Model;
 	use Illuminate\Database\Eloquent\Relations\BelongsTo;
+	use Ramsey\Uuid\Uuid;
 	
 	class BudgetAccount extends Model
 	{
@@ -12,6 +13,7 @@
 		
 		protected $fillable
 			= [
+				'uuid',
 				'budget_id',
 				'nickname',
 				'notes',
@@ -35,5 +37,21 @@
 		public function budget():BelongsTo{
 			return $this->belongsTo(Budget::class);
 		}
+		
+		// Boot method para manejar eventos del modelo
+		protected static function boot(){
+			parent::boot();
+			
+			// Evento que se ejecuta antes de crear un nuevo registro
+			static::creating(function($model){
+				// Generar y asignar un UUID
+				$model->uuid = Uuid::uuid4()->toString();
+			});
+		}
+		
+		public function setNameAttribute($value){
+			$this->attributes['nickname'] = Str::ucfirst($value);
+		}
+		
 		
 	}

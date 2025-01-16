@@ -5,6 +5,7 @@
 	use App\Helpers\AccountHelper;
 	use App\Models\Budget;
 	use App\Models\BudgetAccount;
+	use App\Models\BudgetGroup;
 	use Illuminate\Support\Facades\DB;
 	use Livewire\Attributes\On;
 	use Livewire\Component;
@@ -26,6 +27,7 @@
 		public $accountGroups,$selectedDataAccountType;
 		public $newMasterCategory     = '';
 		public $activeAccountId;
+		public $BudgetAccount;
 		
 		// Constantes para los tipos de categoría
 		const ACCOUNT_TYPES        = ['CreditCard','LineOfCredit'];
@@ -49,7 +51,6 @@
 		// Registrar el listener para el evento `reorderAccounts`
 		protected $listeners = ['updateOrder','handleDragEnd'];
 		
-		
 		public function mount(){
 			$activeBudget         = Budget::where('user_id',auth()->id())->where('is_active',true)->first();
 			$this->activeBudgetId = $activeBudget->id;
@@ -58,7 +59,8 @@
 			$this->activeAccountId = request()->route('id');
 			
 			$this->updateAccountLists();
-			$this->accountTypes = AccountHelper::getAccountTypes();
+			$this->accountTypes      = AccountHelper::getAccountTypes();
+			$this->categoriesByGroup = BudgetGroup::with('categories')->get();
 			
 			// Recuperar el estado de los grupos desde la sesión o inicializarlo como vacío
 			$this->showGroups = session()->get('showGroups',[]);
@@ -143,7 +145,6 @@
 				'nickname.unique'   => 'Este nombre de cuenta ya existe.',
 			]);
 			
-			$this->nickname = ucfirst($this->nickname);
 		}
 		
 		private function saveAccount($isLoan = false){
@@ -230,6 +231,11 @@
 					'total_balance' => $budgetAccounts->sum('balance')
 				];
 			});
+			
+			// Inicializa el estado de los grupos dinámicamente
+			foreach($this->accountGroups as $group){
+				$this->showGroups[$group->type] = true; // Inicializa cada grupo como expandido
+			}
 			
 		} //End Mtehod
 		

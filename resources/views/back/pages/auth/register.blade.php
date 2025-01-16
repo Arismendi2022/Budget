@@ -24,11 +24,11 @@
           <div data-login-target="loginSubheader">
             <p>
               Have an account?
-              <a data-action="login#trackClickedSignUp" href="{{ route('admin.login') }}">Log in.</a>
+              <a data-action="login#trackClickedSignUp" href="{{ route('users.login') }}">Log in.</a>
             </p>
           </div>
         </div>
-        <form id="register-form" class="authentications-panel__form" data-login-target="form" action="{{ route('admin.create') }}" accept-charset="UTF-8" method="POST"
+        <form id="register-form" class="authentications-panel__form" data-login-target="form" action="{{ route('users.create') }}" accept-charset="UTF-8" method="POST"
           novalidate="novalidate">
           @csrf
           <div data-login-target="identityContainer">

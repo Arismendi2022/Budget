@@ -1,5 +1,5 @@
 @extends('back.layouts.auth-layout')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Admin Login')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Users Login')
 @section('content')
 	<section id="login-screen" class="authentications-section" data-controller="login" data-login-otp-form-outlet="#otp-form">
 		<div class="authentications-section__inner">
@@ -25,11 +25,11 @@
 					<div data-login-target="loginSubheader">
 						<p>
 							New to YNAB?
-							<a data-action="login#trackClickedSignUp" href="{{ route('admin.register') }}">Sign up today.</a>
+							<a data-action="login#trackClickedSignUp" href="{{ route('users.register') }}">Sign up today.</a>
 						</p>
 					</div>
 				</div>
-				<form id="login-form" class="authentications-panel__form" data-login-target="form" action="{{ route('admin.login_handler') }}" accept-charset="UTF-8" method="POST"
+				<form id="login-form" class="authentications-panel__form" data-login-target="form" action="{{ route('users.login_handler') }}" accept-charset="UTF-8" method="POST"
 							novalidate="novalidate">
 					@csrf
 					<div data-login-target="identityContainer">
@@ -53,7 +53,7 @@
 							<label for="request_data_remember_me">
 								<input data-login-target="rememberMeInput" type="checkbox" value="1" name="request_data[remember_me]" id="request_data_remember_me">
 								Keep me logged in
-							</label> <a href="{{ route('admin.forgot') }}">Forgot password?</a>
+							</label> <a href="{{ route('users.forgot') }}">Forgot password?</a>
 						</p>
 						<p>
 							<button name="login" type="submit" id="login-button" class="authentications-panel__form-button button button-primary" data-disable-with="Logging In...">Log In
@@ -146,7 +146,7 @@
 			// Handle form submission
 			function handleFormSubmit(e) {
 				e.preventDefault();
-				$loginButton.prop('disabled', true).css('opacity', '0.30').text('Logging In...');
+				$loginButton.prop('disabled', true).css('opacity', '0.60').text('Logging In...');
 
 				$.ajax({
 					url: $form.attr('action'),

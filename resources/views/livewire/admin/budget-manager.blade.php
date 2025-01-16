@@ -181,7 +181,7 @@
       // Escuchar el evento 'redirectHome'
       Livewire.on('redirectHome', function() {
         // Redirigir a Home y recargar la página
-        Livewire.navigate('{{ route("admin.home") }}');
+        Livewire.navigate('{{ route("admin.budget") }}');
       });
 
     });

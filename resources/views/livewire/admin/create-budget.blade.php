@@ -121,9 +121,9 @@
   <script>
 
     $(function() {
-      Livewire.on('redirect-home', function() {
+      Livewire.on('redirect-budget', function() {
         setTimeout(function() {
-          Livewire.navigate("{{ route('admin.home') }}");
+          Livewire.navigate("{{ route('admin.budget') }}");
         }, 600); // 600 ms = 0.6 segundos
       });
 

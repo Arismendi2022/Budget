@@ -59,7 +59,7 @@
 											<!---->
 											<div class="input-wrapper">
 												<input id="balance" class="ember-text-field ember-view" placeholder="What is the balance of this account right now?"
-													title="Working Balance" aria-label="Working Balance" type="text" wire:model="balance">
+															 title="Working Balance" aria-label="Working Balance" type="text" wire:model="balance">
 												<button class="user-data currency tabular-nums positive">
 													<bdi>$</bdi>
 													1800,00
@@ -134,7 +134,7 @@
 													<!---->
 													<div class="input-wrapper">
 														<input id="ember144" class="ember-text-field ember-view" title="Minimum Monthly Payment" aria-label="Minimum Monthly Payment" type="text"
-															wire:model="payment">
+																	 wire:model="payment">
 														<button class="user-data currency tabular-nums positive">
 															<bdi>$</bdi>
 															120,00
@@ -215,7 +215,7 @@
 						Cancel
 					</button>
 					<button class="ynab-button primary js-primary-action save-account-button" type="button"
-						wire:click="{{ $accountGroupType === 'Loans' ? 'updateMortgageLoans' : 'updateBudgetTracking' }}">
+									wire:click="{{ $accountGroupType === 'Loans' ? 'updateMortgageLoans' : 'updateBudgetTracking' }}">
 						Save
 					</button>
 				</div>
@@ -241,14 +241,6 @@
 		Livewire.on('console-error', data => {
 			console.error('Error:', data.error);
 		});
-
-
-		// Centra el modal al abrir la ventana desarrollador
-		/* const isOpenEditAccountModal = true; // Cambia esto según tu lógica
- 
-		 if (isOpenEditAccountModal) {
-			 centerModal('#editAccount'); // Cambia al ID específico de tu modal
-		 }*/
 	
 	</script>
 @endpush

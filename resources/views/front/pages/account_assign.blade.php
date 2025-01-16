@@ -880,7 +880,6 @@
 			}
 		});
 	
-	
 	</script>
 @endpush
 

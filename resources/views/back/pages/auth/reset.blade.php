@@ -5,7 +5,7 @@
     <div class="passwords-container" data-edit-passwords-target="resetPasswordContainer">
       <div class="js-main_screen_or_otp_app_or_otp_backup_code">
         <h2>Reset your password</h2>
-        <form id="password-reset-form" class="form js-form" action="{{ route('admin.reset_password_handler', ['token'=>$token]) }}" accept-charset="UTF-8" data-remote="true"
+        <form id="password-reset-form" class="form js-form" action="{{ route('users.reset_password_handler', ['token'=>$token]) }}" accept-charset="UTF-8" data-remote="true"
           method="POST" novalidate="novalidate">
           @csrf
           <input value="{{ request()->token }}" autocomplete="off" type="hidden" name="token">
@@ -27,7 +27,7 @@
           </p>
         </form>
         <p>
-          <a href="{{ route('admin.login') }}">Return to log in</a>
+          <a href="{{ route('users.login') }}">Return to log in</a>
         </p>
       </div>
     </div>

@@ -32,7 +32,7 @@
           </p>
         </div>
         <div class="right">
-          <p><a class="button" href="{{ route('admin.edit_login') }}">Change Email &amp; Password</a></p>
+          <p><a class="button" href="{{ route('admin.edit-login') }}">Change Email &amp; Password</a></p>
         </div>
       </div>
       <div class="sso-container sso-container-apple secondary-container">

@@ -47,8 +47,8 @@
               </svg>
             </button>
           </li>
-          <li class="navlink navlink-budget {{ Route::is('admin.home') ? 'active' : '' }} ">
-            <a id="ember5" class="ember-view" wire:navigate href="{{ route('admin.home') }}">
+          <li class="navlink navlink-budget {{ Route::is('admin.budget') ? 'active' : '' }} ">
+            <a id="ember5" class="ember-view" wire:navigate href="{{ route('admin.budget') }}">
               <svg id="icon_sprite_navigation_budget" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" d="M6.2 10.6h.6zm11.7 0h.4-.2z" clip-rule="evenodd"></path>
                 <path fill-rule="evenodd"

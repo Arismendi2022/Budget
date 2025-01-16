@@ -5,91 +5,7 @@
 	<div class="content-min-break has-budget-views">
 		<!---->
 		<header id="ember15" class="budget-header left-to-budget-is-positive">
-			<div class="budget-header-flexbox">
-				<div class="budget-header-item budget-header-calendar">
-					<button id="prev-month" class="budget-header-calendar-prev " aria-label="previous month budget" type="button">
-						<svg class="ynab-new-icon " width="30" height="30">
-							<!---->
-							<use href="#icon_sprite_chevron_left_circle">
-								<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_left_circle" fill="none" viewBox="0 0 24 24">
-									<path fill="currentColor"
-												d="M12 24a12 12 0 0 0 12-12c0-6.6-5.5-12-12-12A12 12 0 0 0 0 12a12 12 0 0 0 12 12m0-2A10 10 0 0 1 2 12a10 10 0 1 1 10 10m2.3-4.2a1 1 0 0 0 0-1.2L9.5 12l4.8-4.5a1 1 0 0 0 0-1.3 1 1 0 0 0-1.2 0L8 11c-.6.6-.6 1.7 0 2.3l5 4.6c.3.3 1 .3 1.2 0"></path>
-								</symbol>
-							</use>
-						</svg>
-					</button>
-					<div class="budget-header-calendar-date">
-						<button class="budget-header-calendar-date-button" type="button">
-							<span id="current-date">Jun 2024</span>
-							<svg class="ynab-new-icon " width="12" height="12">
-								<!---->
-								<use href="#icon_sprite_caret_down">
-									<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_caret_down" fill="none" viewBox="0 0 24 24">
-										<path fill="currentColor" d="M11 19.5.2 6.1C-.4 5.2.3 4 1.3 4h21.4c1 0 1.7 1.2 1 2L13.1 19.6a1.4 1.4 0 0 1-2.2 0"></path>
-									</symbol>
-								</use>
-							</svg>
-						</button>
-						<button class="budget-header-calendar-note user-data" title="" type="button">
-							Enter a note...
-						</button>
-					</div>
-					<button id="next-month" class="budget-header-calendar-next" aria-label="next month budget" type="button">
-						<svg class="ynab-new-icon " width="30" height="30">
-							<!---->
-							<use href="#icon_sprite_chevron_right_circle">
-								<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_right_circle" fill="none" viewBox="0 0 24 24">
-									<path fill="currentColor"
-												d="M12 .4A12 12 0 0 0 0 12.2a12 12 0 0 0 24 0A12 12 0 0 0 12 .4m0 2A9.8 9.8 0 1 1 12 22a10 10 0 0 1-10-9.8c0-5.5 4.5-9.8 10-9.8m-2.3 4a1 1 0 0 0 0 1.3l4.8 4.5-4.8 4.4a1 1 0 0 0 0 1.3c.3.3.9.3 1.2 0l5-4.6c.6-.6.6-1.7 0-2.3l-5-4.5c-.3-.3-1-.3-1.2 0"></path>
-								</symbol>
-							</use>
-						</svg>
-					</button>
-					<!---->
-				</div>
-				<div class="budget-header-item budget-header-totals ">
-					<div class="to-be-budgeted is-positive ">
-						<div class="to-be-budgeted-heading-wrapper">
-							<h1 id="ember17-heading">
-								<div class="to-be-budgeted-amount">
-									<span class="user-data currency positive"><bdi>$</bdi>3,820,000.00</span>
-									<svg class="ynab-new-icon " width="16" height="16" aria-hidden="true">
-										<!---->
-										<use href="#icon_sprite_info_circle_fill">
-											<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_info_circle_fill" fill="none" viewBox="0 0 24 24">
-												<path fill="currentColor" fill-rule="evenodd"
-															d="M12 24a12 12 0 1 1 0-24 12 12 0 0 1 0 24m.8-16A1.6 1.6 0 0 1 11 6.5 1.6 1.6 0 0 1 12.8 5a1.6 1.6 0 0 1 1.7 1.5A1.6 1.6 0 0 1 12.8 8m.7 3.4L12 16.6c-.2.5.1 1 .6 1.3l.3.4v.2l-.5.5H11a1.5 1.5 0 0 1-1.5-1.9L11 12a1 1 0 0 0-.6-1.3l-.3-.4V10l.5-.5H12a1.5 1.5 0 0 1 1.5 1.9"
-															clip-rule="evenodd"></path>
-											</symbol>
-										</use>
-									</svg>
-								</div>
-								<div class="to-be-budgeted-label">
-									Ready to Assign
-								</div>
-							</h1>
-							<button class="to-be-budgeted-view-breakdown" aria-label="View Ready to Assign Breakdown" type="button"></button>
-						</div>
-						<button class="to-be-budgeted-auto-assign to-be-budgeted-button" aria-label="Assign" aria-describedby="ember17-heading" type="button">
-							<span class="label">Assign</span>
-							<svg class="ynab-new-icon " width="16" height="16" aria-hidden="true">
-								<!---->
-								<use href="#icon_sprite_caret_down">
-									<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_caret_down" fill="none" viewBox="0 0 24 24">
-										<path fill="currentColor" d="M11 19.5.2 6.1C-.4 5.2.3 4 1.3 4h21.4c1 0 1.7 1.2 1 2L13.1 19.6a1.4 1.4 0 0 1-2.2 0"></path>
-									</symbol>
-								</use>
-							</svg>
-						</button>
-					</div>
-				</div>
-				<div class="budget-header-item budget-header-days budget-header-days">
-					<div>
-						<div class="budget-header-days-age">8 days</div>
-						<div class="budget-header-days-label" title="Keep Age of Money above 30 and congrats, you're following Rule Four!">Age of Money</div>
-					</div>
-				</div>
-			</div>
+			@livewire('admin.header-calendar')
 		</header>
 		<section class="budget-view-row">
 			<ul class="budget-view-buttons">
@@ -995,9 +911,9 @@
 			</aside>
 		</div>
 		<!---->
+		@livewire('admin.header-calendar')
 	</div>
-	{{-- Opcional por el momento --}}
-	@include('front.modals.modal-calendar')
+	
 	<!-- Tooltip Global -->
 	<div class="tooltip-global">
     <span role="tooltip" id="ember18" class="tooltip-content" style="top: calc(108px + 0.5rem); left: 687.817px; opacity: 0; transition: opacity 0.2s;">
@@ -1091,8 +1007,9 @@
 			window.addEventListener('focusInput', function () {
 				setTimeout(function () {
 					$('#budget-name').focus();
-				}, 100); // Retraso de 100 ms
+				}, 50); // Retraso de 50 ms
 			});
+
 			const $newBudget = $('#new_budget_modal');
 			//Abre modal New Budget
 			window.addEventListener('showCreateModalForm', function () {
@@ -1104,52 +1021,7 @@
 			window.addEventListener('hideCreateModalForm', function () {
 				$('#new_budget_modal').hide();
 			})
-
 		});
-
-		// Inicializa el calendario con la fecha actual
-		document.addEventListener('DOMContentLoaded', function () {
-			const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-			let currentDate = new Date(); // Fecha actual
-
-			const updateCalendar = () => {
-				const currentMonth = monthNames[currentDate.getMonth()];
-				const currentYear = currentDate.getFullYear();
-				document.getElementById('current-date').innerText = `${currentMonth} ${currentYear}`;
-			};
-
-			document.getElementById('prev-month').addEventListener('click', () => {
-				currentDate.setMonth(currentDate.getMonth() - 1);
-				updateCalendar();
-			});
-
-			document.getElementById('next-month').addEventListener('click', () => {
-				currentDate.setMonth(currentDate.getMonth() + 1);
-				updateCalendar();
-			});
-
-			updateCalendar(); // Inicializa el calendario con la fecha actual
-		});
-
-		// modal calendar
-		/* document.addEventListener('DOMContentLoaded', function() {
-			 const openButton = document.querySelector('.budget-header-calendar-date-button');
-
-			 openButton.addEventListener('click', function() {
-				 const modalActive = document.getElementById('ember148');
-				 modalActive.classList.add('modal-overlay', 'active');
-				 event.stopPropagation();
-			 });
-		 });*/
-
-		// Cerrar el modal calendar al hacer clic fuera de él
-		/*document.addEventListener('click', function(event) {
-			const modalActive = document.getElementById('ember148');
-			const modal = document.querySelector('.modal');
-			if(modalActive.classList.contains('active') && !modal.contains(event.target) && !event.target.classList.contains('budget-header-calendar-date-button')) {
-				modalActive.classList.remove('modal-overlay', 'active');
-			}
-		});*/
 		
 	
 	</script>

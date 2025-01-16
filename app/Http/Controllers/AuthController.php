@@ -78,7 +78,7 @@
         // Redirect user to dashboard
         return response()->json([
           'status'   => 'success',
-          'redirect' => route('admin.home')
+          'redirect' => route('admin.budget')
         ]);
       }else{
         return response()->json([
@@ -124,7 +124,7 @@
       }
 
       //Create clickable action link
-      $actionLink = route('admin.reset_password_form',['token' => $token]);
+      $actionLink = route('users.reset_password_form',['token' => $token]);
 
       $data = [
         'actionlink' => $actionLink,
@@ -154,7 +154,7 @@
       $isTokenExists = DB::table('password_reset_tokens')->where('token',$token)->first();
 
       if(!$isTokenExists){
-        return redirect()->route('admin.forgot')->withErrors(['email' => 'Token no válido. Solicita otro enlace para restablecer contraseña.']);;
+        return redirect()->route('users.forgot')->withErrors(['email' => 'Token no válido. Solicita otro enlace para restablecer contraseña.']);;
       }else{
 
         return view('back.pages.auth.reset')->with(['token' => $token]);
@@ -262,7 +262,7 @@
         ]);
 
         // Construir el enlace de verificación
-        $actionLink = route('admin.verify',['token' => $token]);
+        $actionLink = route('users.verify',['token' => $token]);
 
         // Preparar datos para la vista del correo
         $mailData = [
@@ -300,7 +300,7 @@
 
       if(!$verifyToken){
         // Si no se encuentra el token, redirigir con un mensaje de error
-        return redirect()->route('admin.login');
+        return redirect()->route('users.login');
       }
 
       // Buscar el usuario asociado al token
@@ -322,7 +322,7 @@
       }
 
       // Si el usuario ya está verificado, redirigir al login
-      return redirect()->route('admin.login');
+      return redirect()->route('users.login');
     } //End Method
 
 

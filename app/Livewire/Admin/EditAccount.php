@@ -89,8 +89,6 @@
 					'nickname.unique'   => 'Este nombre de cuenta ya existe.',
 				]
 			);
-			
-			$this->nickname = ucfirst($this->nickname);
 		}
 		
 		private function convertToDecimal($value){

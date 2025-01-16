@@ -14,15 +14,15 @@
 	
 	class AdminController extends Controller
 	{
-		public function adminHome(Request $request){
-		
+		public function adminBudget(Request $request){
+			
 			//Verificar si el usuario está autenticado y tiene un presupuesto
 			$user         = Auth::user();
 			$activeBudget = $user->budgets()->where('is_active',true)->first();
 			
 			// Si no hay presupuesto activo, redirige a la vista que contiene el componente Livewire
 			if($activeBudget === null){
-				return redirect()->route('admin.budgets');
+				return redirect()->route('admin.budget');
 			}
 			
 			// Captura el ID y el nombre del presupuesto desde la solicitud
@@ -82,7 +82,7 @@
 			Auth::logout();
 			$request->session()->invalidate();
 			$request->session()->regenerateToken();
-			return redirect()->route('admin.login');
+			return redirect()->route('users.login');
 		}  //End Method
 		
 		public function settingsView(Request $request){
@@ -174,7 +174,7 @@
 			}
 		} //End Method
 		
-		public function showAccountDetail($accountId){
+		public function accountAssign($accountId){
 			// Buscar la cuenta asociada al presupuesto activo.
 			$account = BudgetAccount::where('id',$accountId)
 				->whereHas('budget',function($query){
@@ -186,30 +186,8 @@
 				'pageTitle' => "{$account->nickname} | {$account->budget->name}",
 			];
 			
-			return view('front.pages.account_details',$data);
+			return view('front.pages.account_assign',$data);
 			
 		} //End Method
-		
-		
-		/*public function showAccountDetail($accountId){
-			$account = BudgetAccount::with('budget')
-				->whereHas('budget',fn($query) => $query->where('is_active',true))
-				->firstWhere('id',$accountId);
-			
-			$data = [
-				'account'   => $account,
-				'pageTitle' => "{$account->nickname} | {$account->budget->name}",
-			];
-			
-			if(request()->ajax()){
-				return response()->json([
-					'content' => view('front.pages.account_details',$data)->renderSections()['content'],
-					'title'   => $data['pageTitle'],
-				]);
-			}
-			
-			return view('front.pages.account_details',$data);
-		} //End Method*/
-		
 		
 	}

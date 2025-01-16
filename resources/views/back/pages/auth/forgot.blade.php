@@ -8,7 +8,7 @@
         No sweat. Enter the email address you signed up with and we'll send you instructions to reset your password.
       </p>
       <hr>
-      <form class="form js-form" id="password-reset-form" action="{{ route('admin.send_password_reset_link') }}" method="POST" accept-charset="UTF-8" novalidate>
+      <form class="form js-form" id="password-reset-form" action="{{ route('users.send_password_reset_link') }}" method="POST" accept-charset="UTF-8" novalidate>
         @csrf
         <p class="js-form-email">
           <label for="request_data_email">Email:</label>
@@ -19,7 +19,7 @@
           <button name="button" type="submit" class="button button-primary" data-disable-with="Sending Reset Instructions...">Send Reset Instructions</button>
         </p>
         <p>
-          <a href="{{ route('admin.login') }}">Return to log in</a>
+          <a href="{{ route('users.login') }}">Return to log in</a>
         </p>
       </form>
     </section>
@@ -29,7 +29,7 @@
         Instructions to reset your password have been sent to <strong class="js-email"></strong>.
       </p>
       <p>
-        <a class="button" href="{{ route('admin.login') }}">Return to log in</a>
+        <a class="button" href="{{ route('users.login') }}">Return to log in</a>
       </p>
     </section>
   </div>

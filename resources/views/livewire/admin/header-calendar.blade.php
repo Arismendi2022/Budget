@@ -1,0 +1,204 @@
+<div>
+	{{-- The whole world belongs to you. --}}
+	<div class="budget-header-flexbox">
+		<div class="budget-header-item budget-header-calendar">
+			<button id="prev-month" class="budget-header-calendar-prev " aria-label="previous month budget" type="button" wire:click="previousMonth">
+				<svg class="ynab-new-icon " width="30" height="30">
+					<!---->
+					<use href="#icon_sprite_chevron_left_circle">
+						<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_left_circle" fill="none" viewBox="0 0 24 24">
+							<path fill="currentColor"
+										d="M12 24a12 12 0 0 0 12-12c0-6.6-5.5-12-12-12A12 12 0 0 0 0 12a12 12 0 0 0 12 12m0-2A10 10 0 0 1 2 12a10 10 0 1 1 10 10m2.3-4.2a1 1 0 0 0 0-1.2L9.5 12l4.8-4.5a1 1 0 0 0 0-1.3 1 1 0 0 0-1.2 0L8 11c-.6.6-.6 1.7 0 2.3l5 4.6c.3.3 1 .3 1.2 0"></path>
+						</symbol>
+					</use>
+				</svg>
+			</button>
+			<div class="budget-header-calendar-date">
+				<button class="budget-header-calendar-date-button" type="button" wire:click="openCalendarModal">
+					<span id="current-date">{{ $formattedDate }}</span>
+					<svg class="ynab-new-icon " width="12" height="12">
+						<!---->
+						<use href="#icon_sprite_caret_down">
+							<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_caret_down" fill="none" viewBox="0 0 24 24">
+								<path fill="currentColor" d="M11 19.5.2 6.1C-.4 5.2.3 4 1.3 4h21.4c1 0 1.7 1.2 1 2L13.1 19.6a1.4 1.4 0 0 1-2.2 0"></path>
+							</symbol>
+						</use>
+					</svg>
+				</button>
+				<button class="budget-header-calendar-note user-data" title="" type="button">
+					Enter a note...
+				</button>
+			</div>
+			<button id="next-month" class="budget-header-calendar-next" aria-label="next month budget" type="button" wire:click="nextMonth">
+				<svg class="ynab-new-icon " width="30" height="30">
+					<!---->
+					<use href="#icon_sprite_chevron_right_circle">
+						<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_right_circle" fill="none" viewBox="0 0 24 24">
+							<path fill="currentColor"
+										d="M12 .4A12 12 0 0 0 0 12.2a12 12 0 0 0 24 0A12 12 0 0 0 12 .4m0 2A9.8 9.8 0 1 1 12 22a10 10 0 0 1-10-9.8c0-5.5 4.5-9.8 10-9.8m-2.3 4a1 1 0 0 0 0 1.3l4.8 4.5-4.8 4.4a1 1 0 0 0 0 1.3c.3.3.9.3 1.2 0l5-4.6c.6-.6.6-1.7 0-2.3l-5-4.5c-.3-.3-1-.3-1.2 0"></path>
+						</symbol>
+					</use>
+				</svg>
+			</button>
+			<!---->
+			@if($showTodayButton)
+				<button class="ynab-button secondary button budget-header-go-to-today" type="button" wire:click="goToToday">
+					Today
+				</button>
+			@endif
+		</div>
+		<div class="budget-header-item budget-header-totals ">
+			<div class="to-be-budgeted is-positive ">
+				<div class="to-be-budgeted-heading-wrapper">
+					<h1 id="ember17-heading">
+						<div class="to-be-budgeted-amount">
+							<span class="user-data currency positive"><bdi>$</bdi>3,820,000.00</span>
+							<svg class="ynab-new-icon " width="16" height="16" aria-hidden="true">
+								<!---->
+								<use href="#icon_sprite_info_circle_fill">
+									<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_info_circle_fill" fill="none" viewBox="0 0 24 24">
+										<path fill="currentColor" fill-rule="evenodd"
+													d="M12 24a12 12 0 1 1 0-24 12 12 0 0 1 0 24m.8-16A1.6 1.6 0 0 1 11 6.5 1.6 1.6 0 0 1 12.8 5a1.6 1.6 0 0 1 1.7 1.5A1.6 1.6 0 0 1 12.8 8m.7 3.4L12 16.6c-.2.5.1 1 .6 1.3l.3.4v.2l-.5.5H11a1.5 1.5 0 0 1-1.5-1.9L11 12a1 1 0 0 0-.6-1.3l-.3-.4V10l.5-.5H12a1.5 1.5 0 0 1 1.5 1.9"
+													clip-rule="evenodd"></path>
+									</symbol>
+								</use>
+							</svg>
+						</div>
+						<div class="to-be-budgeted-label">
+							Ready to Assign
+						</div>
+					</h1>
+					<button class="to-be-budgeted-view-breakdown" aria-label="View Ready to Assign Breakdown" type="button"></button>
+				</div>
+				<button class="to-be-budgeted-auto-assign to-be-budgeted-button" aria-label="Assign" aria-describedby="ember17-heading" type="button">
+					<span class="label">Assign</span>
+					<svg class="ynab-new-icon " width="16" height="16" aria-hidden="true">
+						<!---->
+						<use href="#icon_sprite_caret_down">
+							<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_caret_down" fill="none" viewBox="0 0 24 24">
+								<path fill="currentColor" d="M11 19.5.2 6.1C-.4 5.2.3 4 1.3 4h21.4c1 0 1.7 1.2 1 2L13.1 19.6a1.4 1.4 0 0 1-2.2 0"></path>
+							</symbol>
+						</use>
+					</svg>
+				</button>
+			</div>
+		</div>
+		<div class="budget-header-item budget-header-days budget-header-days">
+			<div>
+				<div class="budget-header-days-age">8 days</div>
+				<div class="budget-header-days-label" title="Keep Age of Money above 30 and congrats, you're following Rule Four!">Age of Money</div>
+			</div>
+		</div>
+	</div>
+	
+	{{-- MODAL CALENDAR --}}
+	@if($isOpenCalendarModal)
+		<div id="ember148" class="ynab-u modal-calendar modal-overlay active" wire:click="closeCalendarModal">
+			<div class="modal" role="dialog" aria-modal="true" style="top: 57.4688px; left: 256.922px; " wire:click.stop>
+				<div class="ynab-calendar">
+					<div class="month-picker">
+						<div class="month-picker-years">
+							<div class="month-picker-years-item month-picker-prev-year">
+								<button class="ghost-button primary is-icon-only type-body month-picker-nav-button" title="Previous Year" type="button" wire:click="previousYear">
+									<svg class="ynab-new-icon " width="24" height="24">
+										<!---->
+										<use href="#icon_sprite_chevron_left_circle">
+											<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_left_circle" fill="none" viewBox="0 0 24 24">
+												<path fill="currentColor"
+															d="M12 24a12 12 0 0 0 12-12c0-6.6-5.5-12-12-12A12 12 0 0 0 0 12a12 12 0 0 0 12 12m0-2A10 10 0 0 1 2 12a10 10 0 1 1 10 10m2.3-4.2a1 1 0 0 0 0-1.2L9.5 12l4.8-4.5a1 1 0 0 0 0-1.3 1 1 0 0 0-1.2 0L8 11c-.6.6-.6 1.7 0 2.3l5 4.6c.3.3 1 .3 1.2 0"></path>
+											</symbol>
+										</use>
+									</svg>
+								</button>
+							</div>
+							<div class="month-picker-years-item month-picker-selected-year">
+								{{ $selectedYear }}
+							</div>
+							<div class="month-picker-years-item month-picker-next-year" >
+								<button class="ghost-button primary is-icon-only type-body month-picker-nav-button" title="Next Year" type="button" wire:click="nextYear">
+									<svg class="ynab-new-icon " width="24" height="24">
+										<!---->
+										<use href="#icon_sprite_chevron_right_circle">
+											<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_right_circle" fill="none" viewBox="0 0 24 24">
+												<path fill="currentColor"
+															d="M12 .4A12 12 0 0 0 0 12.2a12 12 0 0 0 24 0A12 12 0 0 0 12 .4m0 2A9.8 9.8 0 1 1 12 22a10 10 0 0 1-10-9.8c0-5.5 4.5-9.8 10-9.8m-2.3 4a1 1 0 0 0 0 1.3l4.8 4.5-4.8 4.4a1 1 0 0 0 0 1.3c.3.3.9.3 1.2 0l5-4.6c.6-.6.6-1.7 0-2.3l-5-4.5c-.3-.3-1-.3-1.2 0"></path>
+											</symbol>
+										</use>
+									</svg>
+								</button>
+							</div>
+						</div>
+						<div class="month-picker-months">
+							@foreach($months as $month)
+								<button
+									wire:click="selectMonth({{ $month['number'] }})"
+									class="ghost-button secondary type-body month-picker-months-item {{ $month['isSelected'] ? 'is-selected' : '' }} {{ $month['isCurrentMonth'] ? 'is-current-month' : '' }}"
+									aria-label="{{ $month['name'] }} {{ $selectedYear }}"
+									type="button">
+									{{ $month['name'] }}
+								</button>
+							@endforeach
+						</div>
+					</div>
+				</div>
+				<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none" style="left: 97px; bottom: 100%; height: 0.9375rem; width: 1.875rem;">
+					<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform=""></path>
+				</svg>
+			</div>
+		</div>
+	@endif
+</div>
+@push('scripts')
+	<script>
+
+		// Inicializa el calendario con la fecha actual
+		/*	(function () {
+				// Todo tu código aquí
+				const currentDateElement = document.getElementById('current-date');
+				const prevMonthButton = document.getElementById('prev-month');
+				const nextMonthButton = document.getElementById('next-month');
+	
+				let calendarDate = new Date();  // Cambiado el nombre para evitar conflictos
+	
+				function formatDate(date) {
+					const options = {year: 'numeric', month: 'short'};
+					return date.toLocaleDateString('en-US', options);
+				}
+	
+				function updateDateDisplay() {
+					currentDateElement.textContent = formatDate(calendarDate);
+					document.querySelector('.budget-header-go-to-today').style.display =
+						(calendarDate.getMonth() === new Date().getMonth() &&
+							calendarDate.getFullYear() === new Date().getFullYear()) ? 'none' : 'block';
+				}
+	
+				prevMonthButton.addEventListener('click', () => {
+					calendarDate.setMonth(calendarDate.getMonth() - 1);
+					updateDateDisplay();
+				});
+	
+				nextMonthButton.addEventListener('click', () => {
+					calendarDate.setMonth(calendarDate.getMonth() + 1);
+					updateDateDisplay();
+				});
+	
+				document.querySelector('.budget-header-go-to-today').addEventListener('click', () => {
+					calendarDate = new Date();
+					updateDateDisplay();
+				});
+	
+				updateDateDisplay();
+			})();
+			
+			// Escuchar el evento de fecha seleccionada
+			Livewire.on('dateSelected', function (date) {
+				// Aquí puedes actualizar otros elementos de la página si es necesario
+				document.getElementById('current-date').textContent = date;
+			});
+		*/
+	
+	</script>
+@endpush
+
+
+
