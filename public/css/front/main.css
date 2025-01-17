@@ -1810,6 +1810,11 @@ h1 {
 	font-weight: 700;
 	line-height: 1.2;
 }
+.to-be-budgeted h1 .ynab-new-icon:hover {
+	opacity: 1;
+	-ms-filter: none;
+	filter: none;
+}
 
 .to-be-budgeted h1 .ynab-new-icon {
 	fill: currentColor;
@@ -2252,7 +2257,7 @@ button[disabled] {
 }
 */
 
- .modal-overlay {
+.modal-overlay {
 	background-color: var(--scrimDefault);
 	height: 100%;
 	left: 0;

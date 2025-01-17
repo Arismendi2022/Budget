@@ -1022,7 +1022,7 @@
 				$('#new_budget_modal').hide();
 			})
 		});
-		
+	
 	
 	</script>
 @endpush

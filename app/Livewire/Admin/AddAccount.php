@@ -175,6 +175,8 @@
 					BudgetAccount::create($data);
 					$this->currentSection = 5;
 				});
+				//Actualiza el balance en el header
+				$this->dispatch('budgetTotalUpdated');
 				
 				// Código que puede lanzar una excepción
 			} catch(\Exception $e){

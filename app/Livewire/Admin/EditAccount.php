@@ -72,7 +72,10 @@
 					}
 				);
 				
+				//Actualñiza las cuentas
 				$this->dispatch('account-refresh');
+				//Actualiza el balance en el header
+				$this->dispatch('budgetTotalUpdated');
 				
 			} catch(\Exception $e){
 				$this->dispatch('console-error',['error' => $e->getMessage()]);
@@ -113,6 +116,8 @@
 				);
 				
 				$this->dispatch('account-refresh');
+				//Actualiza el balance en el header
+				$this->dispatch('budgetTotalUpdated');
 				
 			} catch(\Exception $e){
 				$this->dispatch('console-error',['error' => $e->getMessage()]);

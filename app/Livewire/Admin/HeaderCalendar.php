@@ -2,6 +2,7 @@
 	
 	namespace App\Livewire\Admin;
 	
+	use App\Models\BudgetAccount;
 	use Carbon\Carbon;
 	use Livewire\Component;
 	
@@ -10,6 +11,8 @@
 		public $currentDate;
 		public $selectedYear,$months;
 		public $isOpenCalendarModal = false;
+		
+		protected $listeners = ['budgetTotalUpdated' => '$refresh'];
 		
 		public function mount(){
 			$this->currentDate  = now();
@@ -68,6 +71,12 @@
 			$this->isOpenCalendarModal = false;
 		}
 		
+		public function getPositiveBudgetTotal(){
+			return BudgetAccount::where('account_group','Budget')
+				->where('balance','>',0)
+				->sum('balance');
+		}
+		
 		public function render(){
 			$this->months = collect(range(1,12))->map(function($month){
 				$date = Carbon::createFromDate($this->selectedYear,$month,1);
@@ -84,6 +93,7 @@
 				'formattedDate'   => Carbon::parse($this->currentDate)->format('M Y'),
 				'showTodayButton' => !$this->isCurrentMonth(),
 				'months'          => $this->months,
+				'budgetTotal'     => $this->getPositiveBudgetTotal(),
 			]);
 		}
 		

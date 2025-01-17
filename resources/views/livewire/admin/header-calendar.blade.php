@@ -52,7 +52,7 @@
 				<div class="to-be-budgeted-heading-wrapper">
 					<h1 id="ember17-heading">
 						<div class="to-be-budgeted-amount">
-							<span class="user-data currency positive"><bdi>$</bdi>3,820,000.00</span>
+							<span class="user-data currency positive"><bdi>$</bdi>{{ number_format($budgetTotal, 2) }}</span>
 							<svg class="ynab-new-icon " width="16" height="16" aria-hidden="true">
 								<!---->
 								<use href="#icon_sprite_info_circle_fill">
@@ -114,7 +114,7 @@
 							<div class="month-picker-years-item month-picker-selected-year">
 								{{ $selectedYear }}
 							</div>
-							<div class="month-picker-years-item month-picker-next-year" >
+							<div class="month-picker-years-item month-picker-next-year">
 								<button class="ghost-button primary is-icon-only type-body month-picker-nav-button" title="Next Year" type="button" wire:click="nextYear">
 									<svg class="ynab-new-icon " width="24" height="24">
 										<!---->
@@ -150,52 +150,6 @@
 </div>
 @push('scripts')
 	<script>
-
-		// Inicializa el calendario con la fecha actual
-		/*	(function () {
-				// Todo tu código aquí
-				const currentDateElement = document.getElementById('current-date');
-				const prevMonthButton = document.getElementById('prev-month');
-				const nextMonthButton = document.getElementById('next-month');
-	
-				let calendarDate = new Date();  // Cambiado el nombre para evitar conflictos
-	
-				function formatDate(date) {
-					const options = {year: 'numeric', month: 'short'};
-					return date.toLocaleDateString('en-US', options);
-				}
-	
-				function updateDateDisplay() {
-					currentDateElement.textContent = formatDate(calendarDate);
-					document.querySelector('.budget-header-go-to-today').style.display =
-						(calendarDate.getMonth() === new Date().getMonth() &&
-							calendarDate.getFullYear() === new Date().getFullYear()) ? 'none' : 'block';
-				}
-	
-				prevMonthButton.addEventListener('click', () => {
-					calendarDate.setMonth(calendarDate.getMonth() - 1);
-					updateDateDisplay();
-				});
-	
-				nextMonthButton.addEventListener('click', () => {
-					calendarDate.setMonth(calendarDate.getMonth() + 1);
-					updateDateDisplay();
-				});
-	
-				document.querySelector('.budget-header-go-to-today').addEventListener('click', () => {
-					calendarDate = new Date();
-					updateDateDisplay();
-				});
-	
-				updateDateDisplay();
-			})();
-			
-			// Escuchar el evento de fecha seleccionada
-			Livewire.on('dateSelected', function (date) {
-				// Aquí puedes actualizar otros elementos de la página si es necesario
-				document.getElementById('current-date').textContent = date;
-			});
-		*/
 	
 	</script>
 @endpush
