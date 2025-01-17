@@ -174,9 +174,8 @@
 					
 					BudgetAccount::create($data);
 					$this->currentSection = 5;
+					
 				});
-				//Actualiza el balance en el header
-				$this->dispatch('budgetTotalUpdated');
 				
 				// Código que puede lanzar una excepción
 			} catch(\Exception $e){
@@ -244,11 +243,15 @@
 		public function closeBudgetAccount(){
 			$this->hideAccountModalForm();
 			$this->updateAccountLists();
+			//Actualiza el balance en el header
+			$this->dispatch('budgetTotalUpdated');
 		}
 		
 		public function addAnotherAccount(){
 			$this->currentSection = 1;
 			$this->updateAccountLists();
+			//Actualiza el balance en el header
+			$this->dispatch('budgetTotalUpdated');
 		}
 		
 		public function pairCategory(){
