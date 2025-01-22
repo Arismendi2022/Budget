@@ -1,8 +1,10 @@
 <?php
 	
+	use App\Http\Controllers\AccountController;
 	use App\Http\Controllers\AdminController;
 	use App\Http\Controllers\AuthController;
 	use App\Http\Controllers\BudgetController;
+	use App\Http\Controllers\TooltipController;
 	use App\Livewire\Admin\FormWizard;
 	use Illuminate\Support\Facades\Route;
 	
@@ -51,14 +53,20 @@
 			Route::get('/edit-login','editLogin')->name('edit-login');
 			Route::post('/change-password','changePassword')->name('change-password');
 		});
+		
+		// Ruta para los tooltips
+		Route::get('/tooltips',[TooltipController::class,'showTooltips'])->name('tooltips');
+		
 	});
+	
 	
 	// Rutas protegidas para accounts (accesibles solo para usuarios autenticados)
 	// Rutas para cuentas
 	Route::middleware(['auth','preventBackHistory'])->prefix('accounts')->name('accounts.')->group(function(){
-		Route::controller(AdminController::class)->group(function(){
+		Route::controller(AccountController::class)->group(function(){
 			Route::get('/assign/{id}','accountAssign')->name('assign');
 		});
+		
 	});
 	
 	//Grupo Add Account

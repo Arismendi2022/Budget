@@ -1,5 +1,4 @@
-@extends('front.layouts.pages-layout')
-@section('pageTitle', $pageTitle ?? 'Page Title Here')
+@extends('front.layouts.pages-layout')@section('pageTitle', $pageTitle ?? 'Page Title Here')
 @section('content')
 	{{-- Main content --}}
 	<div class="content-min-break has-budget-views">
@@ -39,7 +38,7 @@
 						Snoozed
 					</button>
 				</li>
-				<li aria-describedby="ember18" class="view-button views-menu-button">
+				<li aria-describedby="viewsMenu" class="view-button views-menu-button">
 					<button id="miBoton" aria-haspopup="true" aria-label="Views Menu" type="button">
 						<svg class="ynab-new-icon views-menu-icon" width="16" height="16">
 							<!---->
@@ -47,8 +46,7 @@
 								<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_filter_circle" fill="none" viewBox="0 0 24 24">
 									<path fill="currentColor"
 												d="M6 8a1 1 0 1 0 0 2h12a1 1 0 1 0 0-2zm1 5c0-.6.5-1 1-1h8c.5 0 1 .4 1 1s-.5 1-1 1H8a1 1 0 0 1-1-1m3 3a1 1 0 0 0-1 .9v.1c0 .5.5 1 1 1h4c.6 0 1-.5 1-1a1 1 0 0 0-1-1z"></path>
-									<path fill="currentColor" fill-rule="evenodd" d="M24 12a12 12 0 1 1-24 0 12 12 0 0 1 24 0m-2 0a10 10 0 1 1-20 0 10 10 0 0 1 20 0"
-												clip-rule="evenodd"></path>
+									<path fill="currentColor" fill-rule="evenodd" d="M24 12a12 12 0 1 1-24 0 12 12 0 0 1 24 0m-2 0a10 10 0 1 1-20 0 10 10 0 0 1 20 0" clip-rule="evenodd"></path>
 								</symbol>
 							</use>
 						</svg>
@@ -63,7 +61,7 @@
 					<div class="budget-table-header" role="rowgroup">
 						<div class="budget-toolbar" role="row">
 							<div role="cell">
-								<button class="ghost-button primary type-body budget-toolbar-add-category" aria-describedby="ember20" type="button">
+								<button class="ghost-button primary type-body budget-toolbar-add-category" aria-describedby="addCategoryGroup" type="button">
 									<svg class="ynab-new-icon " width="16" height="16">
 										<!---->
 										<use href="#icon_sprite_plus_circle_fill">
@@ -106,7 +104,7 @@
 							</div>
 							<div role="cell">
 								<span class="recent-moves-open-modal-container">
-									<button class="ghost-button primary type-body budget-toolbar-open-recent-moves" aria-describedby="ember23" type="button">
+									<button class="ghost-button primary type-body budget-toolbar-open-recent-moves" aria-describedby="recentMoves" type="button">
 										<svg class="ynab-new-icon " width="16" height="16">
 											<!---->
 											<use href="#icon_sprite_clock_arrow_back">
@@ -125,7 +123,7 @@
 							<div role="cell">
 								<div class="segmented-control iconOnlyOption progress-bars-toggle" role="tablist" tabindex="0">
 									<button class="segmented-control-button selected" aria-selected="true" role="tab" tabindex="-1" title="Progress Bars On" aria-label="Progress Bars On"
-													aria-describedby="ember24" type="button">
+													aria-describedby="progressBarOn" type="button">
 										<svg class="ynab-new-icon " width="12" height="12">
 											<!---->
 											<use href="#icon_sprite_progress_bars_on">
@@ -137,7 +135,7 @@
 										</svg>
 									</button>
 									<button class="segmented-control-button " aria-selected="false" role="tab" tabindex="-1" title="Progress Bars Off" aria-label="Progress Bars Off"
-													aria-describedby="ember25" type="button">
+													aria-describedby="progressBarOff" type="button">
 										<svg class="ynab-new-icon " width="12" height="12">
 											<!---->
 											<use href="#icon_sprite_progress_bars_off">
@@ -293,8 +291,7 @@
 											<path fill="currentColor" d="M22.8 9.9h.8l.3-.1.1-.3V5.8l-.2-.6-.6-.2H.8l-.6.2-.2.6v3.7l.1.3h1.4l.1-.3V6.6h20.8v2.9l.1.3z"></path>
 										</symbol>
 										<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check" fill="none" viewBox="0 0 24 24">
-											<path fill="currentColor"
-														d="m7.4 17.6-5-5a1.4 1.4 0 0 0-2 0 1.4 1.4 0 0 0 0 2l6 6a1.4 1.4 0 0 0 2 0L23.6 5.4a1.4 1.4 0 0 0 0-2 1.4 1.4 0 0 0-2 0z"></path>
+											<path fill="currentColor" d="m7.4 17.6-5-5a1.4 1.4 0 0 0-2 0 1.4 1.4 0 0 0 0 2l6 6a1.4 1.4 0 0 0 2 0L23.6 5.4a1.4 1.4 0 0 0 0-2 1.4 1.4 0 0 0-2 0z"></path>
 										</symbol>
 										<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check_circle" fill="none" viewBox="0 0 24 24">
 											<path fill="currentColor" fill-rule="evenodd" d="M24 12a12 12 0 1 1-24 0 12 12 0 0 1 24 0m-1.8 0a10.2 10.2 0 1 1-20.4 0 10.2 10.2 0 0 1 20.4 0"
@@ -329,8 +326,7 @@
 										</symbol>
 										<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_left" fill="none" viewBox="0 0 24 24">
 											<path fill="currentColor" fill-rule="evenodd"
-														d="M18.7 23.6a2 2 0 0 1-2.1 0L5.3 13a1.4 1.4 0 0 1 0-2L16.6.4a2 2 0 0 1 2 0c.7.6.7 1.5 0 2L8.6 12l10.2 9.6c.6.5.6 1.4 0 2"
-														clip-rule="evenodd"></path>
+														d="M18.7 23.6a2 2 0 0 1-2.1 0L5.3 13a1.4 1.4 0 0 1 0-2L16.6.4a2 2 0 0 1 2 0c.7.6.7 1.5 0 2L8.6 12l10.2 9.6c.6.5.6 1.4 0 2" clip-rule="evenodd"></path>
 										</symbol>
 										<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_left_circle" fill="none" viewBox="0 0 24 24">
 											<path fill="currentColor"
@@ -343,8 +339,7 @@
 										</symbol>
 										<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_right" fill="none" viewBox="0 0 24 24">
 											<path fill="currentColor" fill-rule="evenodd"
-														d="M7.4 23.6a1.5 1.5 0 0 1-2 0 1.4 1.4 0 0 1 0-2l10-9.6-10-9.6a1.4 1.4 0 0 1 0-2 1.5 1.5 0 0 1 2 0L18.6 11c.5.6.5 1.4 0 2z"
-														clip-rule="evenodd"></path>
+														d="M7.4 23.6a1.5 1.5 0 0 1-2 0 1.4 1.4 0 0 1 0-2l10-9.6-10-9.6a1.4 1.4 0 0 1 0-2 1.5 1.5 0 0 1 2 0L18.6 11c.5.6.5 1.4 0 2z" clip-rule="evenodd"></path>
 										</symbol>
 										<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_right_circle" fill="none" viewBox="0 0 24 24">
 											<path fill="currentColor"
@@ -366,8 +361,7 @@
 														clip-rule="evenodd"></path>
 										</symbol>
 										<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_circle" fill="none" viewBox="0 0 24 24">
-											<path fill="currentColor"
-														d="M12 24a12 12 0 0 0 12-12c0-6.6-5.5-12-12-12A12 12 0 0 0 0 12a12 12 0 0 0 12 12m0-2A10 10 0 0 1 2 12a10 10 0 1 1 10 10"></path>
+											<path fill="currentColor" d="M12 24a12 12 0 0 0 12-12c0-6.6-5.5-12-12-12A12 12 0 0 0 0 12a12 12 0 0 0 12 12m0-2A10 10 0 0 1 2 12a10 10 0 1 1 10 10"></path>
 										</symbol>
 										<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_circle_fill" fill="none" viewBox="0 0 24 24">
 											<circle cx="12" cy="12" r="12" fill="currentColor"></circle>
@@ -488,8 +482,7 @@
 										<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_filter_circle" fill="none" viewBox="0 0 24 24">
 											<path fill="currentColor"
 														d="M6 8a1 1 0 1 0 0 2h12a1 1 0 1 0 0-2zm1 5c0-.6.5-1 1-1h8c.5 0 1 .4 1 1s-.5 1-1 1H8a1 1 0 0 1-1-1m3 3a1 1 0 0 0-1 .9v.1c0 .5.5 1 1 1h4c.6 0 1-.5 1-1a1 1 0 0 0-1-1z"></path>
-											<path fill="currentColor" fill-rule="evenodd" d="M24 12a12 12 0 1 1-24 0 12 12 0 0 1 24 0m-2 0a10 10 0 1 1-20 0 10 10 0 0 1 20 0"
-														clip-rule="evenodd"></path>
+											<path fill="currentColor" fill-rule="evenodd" d="M24 12a12 12 0 1 1-24 0 12 12 0 0 1 24 0m-2 0a10 10 0 1 1-20 0 10 10 0 0 1 20 0" clip-rule="evenodd"></path>
 										</symbol>
 										<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_filter_circle_fill" fill="none" viewBox="0 0 24 24">
 											<path fill="currentColor" fill-rule="evenodd"
@@ -770,8 +763,8 @@
 										<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_snooze_slash" fill="none" viewBox="0 0 24 24">
 											<path fill="currentColor" fill-rule="evenodd" d="m2.7 1.3 20 20a1 1 0 1 1-1.4 1.4l-20-20a1 1 0 1 1 1.4-1.4" clip-rule="evenodd"></path>
 											<path fill="currentColor" d="m16 13-2-2 6.1-8.7h-5.4c-1.3 0-1.3-2.2 0-2.2h7.9c.4 0 .7.2.7.7v.7c0 .4-.3.6-.5 1L17 10.7h6c1.4 0 1.4 2.2 0 2.2h-7"></path>
-											<path fill="currentColor" fill-rule="evenodd"
-														d="M0 23c0 .7.3 1 1 1h11.2c1.7 0 1.7-2.9 0-2.9H4.3l5.7-8v-.2l-2-2c-.2-.1-.2 0-.2 0l-7.2 10c-.3.4-.6.8-.6 1.3z" clip-rule="evenodd"></path>
+											<path fill="currentColor" fill-rule="evenodd" d="M0 23c0 .7.3 1 1 1h11.2c1.7 0 1.7-2.9 0-2.9H4.3l5.7-8v-.2l-2-2c-.2-.1-.2 0-.2 0l-7.2 10c-.3.4-.6.8-.6 1.3z"
+														clip-rule="evenodd"></path>
 											<path fill="currentColor" d="M12.8 8c0-.7-.4-1-1-1h-1.7l2.3 2.5h.1c.2-.2.2-.4.2-.7zM1.4 9.7C-.3 9.9-.3 7 1.4 7H4l2.8 2.8z"></path>
 										</symbol>
 										<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_speech_bubble" fill="none" viewBox="0 0 24 24">
@@ -896,9 +889,214 @@
 								</div>
 							</div>
 						</div>
+						<!---->
+						<div class="budget-table-header-labels budget-table-row-ul" role="row">
+							<div class="budget-table-cell-margin-left budget-table-row-li" aria-hidden="true">&nbsp;</div>
+							<div class="budget-table-cell-collapse budget-table-row-li" role="columnheader" aria-colindex="2">
+								<button class="js-budget-table-cell-collapse" aria-label="Collapse all" title="Collapse all" type="button">
+									<svg class="ynab-new-icon" width="10" height="10">
+										<!---->
+										<use href="#icon_sprite_chevron_down">
+											<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_down" fill="none" viewBox="0 0 24 24">
+												<path fill="currentColor" fill-rule="evenodd"
+															d="M13 18.7a1.4 1.4 0 0 1-2 0L.4 7.4a2 2 0 0 1 0-2 1.4 1.4 0 0 1 2 0l9.6 10 9.6-10.2a1.4 1.4 0 0 1 2 0 2 2 0 0 1 0 2.1z" clip-rule="evenodd"></path>
+											</svg>
+										</use>
+									</svg>
+								</button>
+							</div>
+							<div class="budget-table-cell-checkbox budget-table-row-li" role="columnheader" aria-colindex="1">
+								<button class="ynab-checkbox ynab-checkbox-button " role="checkbox" aria-checked="false" aria-label="Check all" type="button">
+									<svg class="ynab-new-icon ynab-checkbox-button-square " width="13" height="13">
+										<!---->
+										<use href="#icon_sprite_check">
+											<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check" fill="none" viewBox="0 0 24 24">
+												<path fill="currentColor" d="m7.4 17.6-5-5a1.4 1.4 0 0 0-2 0 1.4 1.4 0 0 0 0 2l6 6a1.4 1.4 0 0 0 2 0L23.6 5.4a1.4 1.4 0 0 0 0-2 1.4 1.4 0 0 0-2 0z"></path>
+											</svg>
+										</use>
+									</svg>
+									<!---->
+								</button>
+							</div>
+							<div class="budget-table-cell-name budget-table-row-li" role="columnheader" aria-colindex="3">CATEGORY</div>
+							<div class="budget-table-cell-budgeted budget-table-row-li" title="Add money to each category in this column. This is the fun part. Until the money runs out."
+									 role="columnheader" aria-colindex="4">
+								ASSIGNED
+							</div>
+							<div class="budget-table-cell-activity budget-table-row-li" title="It's the &quot;We spent how much on WHAT?!&quot; column." role="columnheader" aria-colindex="5">
+								ACTIVITY
+							</div>
+							<div class="budget-table-cell-available budget-table-row-li" title="Do I have enough to buy that handmade didgeridoo? With this column, now you know."
+									 role="columnheader" aria-colindex="6">
+								<strong>AVAILABLE</strong>
+							</div>
+							<div class="budget-table-cell-margin-right budget-table-row-li" aria-hidden="true">&nbsp;</div>
+						</div>
+						<!---->
 					</div>
 					<div class="budget-table-draggable">
-					
+						<!-- GRUPO -->
+						<div id="ember156" draggable="true" class="budget-table-row js-budget-table-row budget-table-row-ul is-master-category" role="row" aria-level="1" aria-expanded="true">
+							<div class="budget-table-cell-margin-left js-budget-table-cell-margin-left budget-table-row-li" aria-hidden="true">&nbsp;</div>
+							<div class="budget-table-cell-collapse budget-table-row-li" role="cell" aria-colindex="2">
+								<button class="js-budget-table-cell-collapse" aria-label="Collapse Bills categories" type="button">
+									<svg class="ynab-new-icon" width="10" height="10">
+										<!---->
+										<use href="#icon_sprite_chevron_down">
+											<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_down" fill="none" viewBox="0 0 24 24">
+												<path fill="currentColor" fill-rule="evenodd"
+															d="M13 18.7a1.4 1.4 0 0 1-2 0L.4 7.4a2 2 0 0 1 0-2 1.4 1.4 0 0 1 2 0l9.6 10 9.6-10.2a1.4 1.4 0 0 1 2 0 2 2 0 0 1 0 2.1z" clip-rule="evenodd"></path>
+											</svg>
+										</use>
+									</svg>
+								</button>
+							</div>
+							<div class="budget-table-cell-checkbox budget-table-row-li" role="cell" aria-colindex="1">
+								<button class="ynab-checkbox ynab-checkbox-button  " role="checkbox" aria-checked="false" aria-label="Bills" type="button">
+									<svg class="ynab-new-icon ynab-checkbox-button-square" width="13" height="13">
+										<!---->
+										<use href="#icon_sprite_check">
+											<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check" fill="none" viewBox="0 0 24 24">
+												<path fill="currentColor" d="m7.4 17.6-5-5a1.4 1.4 0 0 0-2 0 1.4 1.4 0 0 0 0 2l6 6a1.4 1.4 0 0 0 2 0L23.6 5.4a1.4 1.4 0 0 0 0-2 1.4 1.4 0 0 0-2 0z"></path>
+											</svg>
+										</use>
+									</svg>
+									<!---->
+								</button>
+							</div>
+							<div class="budget-table-cell-name budget-table-row-li" role="rowheader" aria-colindex="3">
+								<button class="button budget-table-cell-button budget-table-cell-edit-category user-data " title="Bills">Bills</button>
+								<button class="button budget-table-cell-add-category budget-table-cell-button " aria-label="Add Category" aria-describedby="addCategory">
+									<svg class="ynab-new-icon" width="14" height="14">
+										<!---->
+										<use href="#icon_sprite_plus_circle_fill">
+											<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_plus_circle_fill" fill="none" viewBox="0 0 24 24">
+												<path fill="currentColor"
+															d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24m4.8 13.2h-3.6v3.6c0 .7-.5 1.2-1.2 1.2s-1.2-.5-1.2-1.2v-3.6H7.2c-.7 0-1.2-.5-1.2-1.2s.5-1.2 1.2-1.2h3.6V7.2c0-.7.5-1.2 1.2-1.2s1.2.5 1.2 1.2v3.6h3.6c.7 0 1.2.5 1.2 1.2s-.5 1.2-1.2 1.2"></path>
+											</svg>
+										</use>
+									</svg>
+								</button>
+							</div>
+							<div class="budget-table-cell-budgeted budget-table-row-li" role="cell" aria-colindex="4">
+								<button aria-disabled="true" class="user-data currency tabular-nums zero">
+									<span><bdi>$</bdi>0.00</span>
+								</button>
+							</div>
+							<div class="budget-table-cell-activity budget-table-cell-flexed budget-table-row-li" role="cell" aria-colindex="5">
+								<button id="ember442" class="budget-table-cell-category-moves js-budget-toolbar-open-category-moves" aria-hidden="true" tabindex="-1" type="button">
+									<div class="category-moves-moves-icon-wrapper">
+										<svg class="ynab-new-icon" width="14" height="14">
+											<!---->
+											<use href="#icon_sprite_clock_arrow_back">
+												<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_clock_arrow_back" fill="none" viewBox="0 0 24 24">
+													<path fill="currentColor" fill-rule="evenodd"
+																d="m17.2 15.3-4.5-2.1A1 1 0 0 1 12 12l.7-7a1 1 0 0 1 .8-.6 1 1 0 0 1 .7.6l.6 6.3L18 14a1 1 0 0 1 0 1l-.8.2M.5 12h2.4A10.5 10.5 0 0 1 24 12c0 5.8-4.7 10.5-10.6 10.5a11 11 0 0 1-6.7-2.4 1 1 0 0 1 0-1.3 1 1 0 0 1 1.3-.1c3.7 3 9.1 2.4 12.1-1.3a8.6 8.6 0 0 0-1.2-12 8.6 8.6 0 0 0-14 6.7h2.3a.5.5 0 0 1 .4.7l-3.4 4.7a.5.5 0 0 1-.8 0L.1 12.8a.5.5 0 0 1 .4-.8"
+																clip-rule="evenodd"></path>
+												</svg>
+											</use>
+										</svg>
+									</div>
+								</button>
+								<button id="ember443" class="budget-number user-data" title="($0.00) View this category's monthly activity. Splendid." tabindex="0" aria-disabled="true"
+												type="button">
+									<span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span>
+								</button>
+							</div>
+							<div class="budget-table-cell-available budget-table-row-li" role="cell" aria-colindex="6">
+								<!---->
+								<button class="ynab-new-budget-available-number js-budget-available-number user-data" title="" aria-disabled="true" disabled="" type="button">
+									<!---->
+									<span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span>
+								</button>
+							</div>
+							<div class="budget-table-cell-margin-right budget-table-row-li" aria-hidden="true">&nbsp;</div>
+						</div>
+						<!-- CATEGORIAS -->
+						<div id="ember160" draggable="true" class="budget-table-row js-budget-table-row budget-table-row-ul is-sub-category" role="row"
+								 data-entity-id="4ab7a77e-90ed-4851-b569-c349fc9b29bb" aria-level="2" aria-expanded="true">
+							<div class="budget-table-cell-margin-left js-budget-table-cell-margin-left budget-table-row-li" aria-hidden="true">&nbsp;</div>
+							<div class="budget-table-cell-collapse budget-table-row-li" role="cell" aria-colindex="2">
+								&nbsp;
+							</div>
+							<div class="budget-table-cell-checkbox budget-table-row-li" role="cell" aria-colindex="1">
+								<button class="ynab-checkbox ynab-checkbox-button  " role="checkbox" aria-checked="false" aria-label="🏠 Rent/Mortgage" type="button">
+									<svg class="ynab-new-icon ynab-checkbox-button-square" width="13" height="13">
+										<!---->
+										<use href="#icon_sprite_check">
+											<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check" fill="none" viewBox="0 0 24 24">
+												<path fill="currentColor" d="m7.4 17.6-5-5a1.4 1.4 0 0 0-2 0 1.4 1.4 0 0 0 0 2l6 6a1.4 1.4 0 0 0 2 0L23.6 5.4a1.4 1.4 0 0 0 0-2 1.4 1.4 0 0 0-2 0z"></path>
+											</svg>
+										</use>
+									</svg>
+									<!---->
+								</button>
+							</div>
+							<div class="budget-table-cell-name budget-table-row-li" role="rowheader" aria-colindex="3">
+								<div class="budget-table-cell-button budget-table-cell-edit-category user-data">
+									<div class="budget-table-cell-edit-category-label js-budget-table-cell-edit-category-label">
+										<div class="budget-table-cell-goal-nowrap">
+											<button title="🏠 Rent/Mortgage">🏠 Rent/Mortgage</button>
+											<div class="budget-table-cell-goal-gap"></div>
+											<div class="budget-table-cell-goal-status"></div>
+										</div>
+										<div class="budget-table-cell-goal-status-details"></div>
+									</div>
+									<figure class="ynab-new-budget-bar-v2" role="group">
+										<div class="ynab-new-budget-bar-v2-section ynab-new-budget-bar-v2-section-funded" style="flex-basis: 100%;">
+											<!---->
+										</div>
+									</figure>
+								</div>
+							</div>
+							<div class="budget-table-cell-budgeted budget-table-row-li" role="cell" aria-colindex="4">
+								<div id="ember161" class="ynab-new-currency-input ">
+									<button tabindex="-1" class="button-calculator" aria-hidden="true" type="button">
+										<svg class="icon-calculator" viewBox="0 0 16 16">
+											<desc>Clicking this button will open the calculator</desc>
+											<path
+												d="m3.8 0 .5.5v2.3h2.2l.5.5v.5l-.5.5H4.3v2.2l-.5.5h-.5l-.5-.5V4.3H.5L0 3.8v-.5l.5-.5h2.3V.5l.5-.5zM9 3.3l.5-.5h6l.5.5v.5l-.5.5h-6L9 3.8zm3.5 7.7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 5a1 1 0 1 0 0-2 1 1 0 0 0 0 2M9 12.3a.5.5 0 0 1 .5-.6h6a.5.5 0 0 1 .5.6v.4a.5.5 0 0 1-.5.6h-6a.5.5 0 0 1-.5-.6zm-2.8-2.1v.7l-1.6 1.6 1.6 1.6v.7l-.4.4h-.7l-1.6-1.6-1.6 1.6h-.7l-.4-.4v-.7l1.6-1.6L1 10.9v-.7l.3-.4H2l1.6 1.6 1.6-1.6h.7z"></path>
+										</svg>
+									</button>
+									<div class="input-wrapper">
+										<input id="ember162" class="ember-text-field ember-view" type="text">
+										<button class="user-data currency tabular-nums zero">
+											<span><bdi>$</bdi>0.00 </span>
+										</button>
+									</div>
+									<!---->
+								</div>
+							</div>
+							<div class="budget-table-cell-activity budget-table-cell-flexed budget-table-row-li" role="cell" aria-colindex="5">
+								<button id="ember163" class="budget-table-cell-category-moves js-budget-toolbar-open-category-moves" aria-hidden="true" tabindex="-1" type="button">
+									<div class="category-moves-moves-icon-wrapper">
+										<svg class="ynab-new-icon" width="14" height="14">
+											<!---->
+											<use href="#icon_sprite_clock_arrow_back">
+												<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_clock_arrow_back" fill="none" viewBox="0 0 24 24">
+													<path fill="currentColor" fill-rule="evenodd"
+																d="m17.2 15.3-4.5-2.1A1 1 0 0 1 12 12l.7-7a1 1 0 0 1 .8-.6 1 1 0 0 1 .7.6l.6 6.3L18 14a1 1 0 0 1 0 1l-.8.2M.5 12h2.4A10.5 10.5 0 0 1 24 12c0 5.8-4.7 10.5-10.6 10.5a11 11 0 0 1-6.7-2.4 1 1 0 0 1 0-1.3 1 1 0 0 1 1.3-.1c3.7 3 9.1 2.4 12.1-1.3a8.6 8.6 0 0 0-1.2-12 8.6 8.6 0 0 0-14 6.7h2.3a.5.5 0 0 1 .4.7l-3.4 4.7a.5.5 0 0 1-.8 0L.1 12.8a.5.5 0 0 1 .4-.8"
+																clip-rule="evenodd"></path>
+												</svg>
+											</use>
+										</svg>
+									</div>
+								</button>
+								<button id="ember164" class="budget-number user-data" title="($0.00) View this category's monthly activity. Splendid." tabindex="0" aria-disabled="true"
+												type="button">
+									<span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span>
+								</button>
+							</div>
+							<div class="budget-table-cell-available budget-table-row-li" role="cell" aria-colindex="6">
+								<!---->
+								<button class="ynab-new-budget-available-number js-budget-available-number user-data zero" title="" aria-disabled="true" disabled="" type="button">
+									<!---->
+									<span class="user-data currency tabular-nums zero "><bdi>$</bdi>0.00</span>
+								</button>
+							</div>
+							<div class="budget-table-cell-margin-right budget-table-row-li" aria-hidden="true">&nbsp;</div>
+						</div>
+						<!---->
 					</div>
 				</div>
 				<!---->
@@ -916,90 +1114,48 @@
 	
 	<!-- Tooltip Global -->
 	<div class="tooltip-global">
-    <span role="tooltip" id="ember18" class="tooltip-content" style="top: calc(108px + 0.5rem); left: 687.817px; opacity: 0; transition: opacity 0.2s;">
+    <span role="tooltip" id="viewsMenu" class="tooltip-content " style="top: calc(108px + 0.5rem); left: 687.817px;">
       Views Menu
     </span>
-		<span role="tooltip" id="ember20" class="tooltip-content" style="top: calc(94.5px - 0.5rem); left: 269.458px; opacity: 0; transition: opacity 0.2s;">
+		<span role="tooltip" id="addCategoryGroup" class="tooltip-content" style="top: calc(94.5px - 0.5rem); left: 269.458px;">
       Add Category Group
     </span>
-		<span role="tooltip" id="ember23" class="tooltip-content" style="top: calc(80.5px - 0.5rem); left: 430.833px; opacity: 0; transition: opacity 0.2s;">
+		<span role="tooltip" id="recentMoves" class="tooltip-content" style="top: calc(80.5px - 0.5rem); left: 430.833px;">
       Previous 34 days of assigning and moving money (Rule Three is a thing!)
     </span>
-		<span role="tooltip" id="ember24" class="tooltip-content" style="top: calc(96.5px - 0.5rem); left: 1253.1px; opacity: 0; transition: opacity 0.2s;">
+		<span role="tooltip" id="progressBarOn" class="tooltip-content" style="top: calc(96.5px - 0.5rem); left: 1253.1px;">
       Progress Bars On
     </span>
-		<span role="tooltip" id="ember25" class="tooltip-content" style="top: calc(96.5px - 0.5rem); left: 1280.82px; opacity: 0; transition: opacity 0.2s;">
+		<span role="tooltip" id="progressBarOff" class="tooltip-content" style="top: calc(96.5px - 0.5rem); left: 1280.82px;">
       Progress Bars Off
     </span>
-		<span role="tooltip" id="ember142" class="tooltip-content" style="top: calc(57.6px + 0.5rem); left: 1698.93px;">
-      Edit Account
-    </span>
+		<span role="tooltip" id="addCategory" class="tooltip-content" style="top: calc(249px - 0.2rem); left: 319.175px;">
+			Add Category
+		</span>
+	
 	</div>
-
 @endsection
 
 @push('scripts')
 	<script>
-		// ember18
-		$(document).ready(function () {
-			$('.views-menu-button').on('mouseenter', function () {
-				// Cambiar el estilo de transición con retraso
-				$('#ember18').css('transition', 'opacity 0.2s 0.6s');
-				$('#ember18').css('opacity', '1');
-			}).on('mouseleave', function () {
-				$('#ember18').css('opacity', '0');
-				// Restaurar el estilo de transición original
-				$('#ember18').css('transition', 'opacity 0.2s');
-			});
-		});
 
-		// ember20
-		$(document).ready(function () {
-			$('.budget-toolbar-add-category').on('mouseenter', function () {
-				// Cambiar el estilo de transición con retraso
-				$('#ember20').css('transition', 'opacity 0.2s 0.6s');
-				$('#ember20').css('opacity', '1');
-			}).on('mouseleave', function () {
-				$('#ember20').css('opacity', '0');
-				// Restaurar el estilo de transición original
-				$('#ember20').css('transition', 'opacity 0.2s');
+		document.querySelectorAll('[aria-describedby]').forEach(element => {
+			element.addEventListener('mouseenter', function () {
+				const tooltipId = this.getAttribute('aria-describedby');
+				const tooltip = document.getElementById(tooltipId);
+				if (tooltip) {
+					tooltip.classList.add('tooltip-visible');
+					//tooltip.style.opacity = '1';
+				}
 			});
-		});
 
-		// ember23
-		$(document).ready(function () {
-			$('.budget-toolbar-open-recent-moves').on('mouseenter', function () {
-				// Cambiar el estilo de transición con retraso
-				$('#ember23').css('transition', 'opacity 0.2s 0.6s');
-				$('#ember23').css('opacity', '1');
-			}).on('mouseleave', function () {
-				$('#ember23').css('opacity', '0');
-				// Restaurar el estilo de transición original
-				$('#ember23').css('transition', 'opacity 0.2s');
-			});
-		});
-		// ember24
-		$(document).ready(function () {
-			$('.segmented-control-button[title="Progress Bars On"]').on('mouseenter', function () {
-				// Cambiar el estilo de transición con retraso
-				$('#ember24').css('transition', 'opacity 0.2s 0.6s');
-				$('#ember24').css('opacity', '1');
-			}).on('mouseleave', function () {
-				$('#ember24').css('opacity', '0');
-				// Restaurar el estilo de transición original
-				$('#ember24').css('transition', 'opacity 0.2s');
-			});
-		});
-		// ember25
-		$(document).ready(function () {
-			$('.segmented-control-button[title="Progress Bars Off"]').on('mouseenter', function () {
-				// Cambiar el estilo de transición con retraso
-				$('#ember25').css('transition', 'opacity 0.2s 0.6s');
-				$('#ember25').css('opacity', '1');
-			}).on('mouseleave', function () {
-				$('#ember25').css('opacity', '0');
-				// Restaurar el estilo de transición original
-				$('#ember25').css('transition', 'opacity 0.2s');
+			element.addEventListener('mouseleave', function () {
+				const tooltipId = this.getAttribute('aria-describedby');
+				const tooltip = document.getElementById(tooltipId);
+				if (tooltip) {
+					tooltip.classList.remove('tooltip-visible');
+					//tooltip.style.opacity = '0';
+				}
 			});
 		});
 

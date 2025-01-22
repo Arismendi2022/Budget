@@ -117,8 +117,8 @@
 							 class="accounts-header-balances-amount accounts-header-balances-cleared tooltip-relative-container">
         <span class="user-data">
           <span class="user-data currency {{ $account->balance > 0 ? 'positive' : 'negative' }}">{{
-            (in_array($account->data_type, ['CreditCard', 'LineOfCredit']) || $account->balance < 0) ? '−' : '' }} <bdi>
-              $</bdi>{{ number_format(abs($account->balance), 2, ',', '.') }}</span>
+            (in_array($account->data_type, ['CreditCard', 'LineOfCredit']) || $account->balance < 0) ? '−' : '' }}<bdi>$</bdi>
+						{{ number_format(abs($account->balance), 2, ',', '.') }}</span>
         </span>
 						<div class="accounts-header-label">
 							<svg class="ynab-new-icon" width="12" height="12">
@@ -132,9 +132,10 @@
 									</symbol>
 								</use>
 							</svg>
-							Cleared Balance <span role="tooltip" id="add-transaction" class="tooltip-content tooltip-below ">
-            Link your account to your financial institution and import transactions without ever leaving YNAB.
-          </span>
+							Cleared Balance
+							<span role="tooltip" id="add-transaction" class="tooltip-content tooltip-below ">
+								Link your account to your financial institution and import transactions without ever leaving YNAB.
+							</span>
 						</div>
 					</div>
 					<i> + </i>
@@ -189,11 +190,22 @@
 								<!---->
 								<div class="accounts-header-payment">
             <span class="user-data header-currency-label " title="$0,00">
-              <div class="payment-currency-label">
-                <div id="ember340" class="animate-number  ">
-                  <span class="user-data currency zero"><bdi>$</bdi>{{ $account->payment }}</span>
-                </div>
-              </div>
+							<button class="payment-currency-label" type="button">
+   						 <div id="ember48" class="animate-number">
+    						<span class="user-data currency cautious">
+									<svg class="ynab-new-icon" width="12" height="12">
+										<use href="#icon_sprite_exclamation_mark_circle_fill">
+											<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_exclamation_mark_circle_fill" fill="none" viewBox="0 0 24 24">
+												<path fill="currentColor"
+															fill-rule="evenodd"
+															d="M12 24a12 12 0 1 0 0-24 12 12 0 0 0 0 24m.8-5.3a2 2 0 0 1-1.9-.1 1.5 1.5 0 0 1 .5-2.5 1.5 1.5 0 0 1 2 1.1 2 2 0 0 1-.6 1.5M11 5h2l.5.5L13 14l-.5.5h-1L11 14l-.5-8.5z"
+															clip-rule="evenodd"></path></symbol>
+										</use>
+									</svg>
+									<bdi>$</bdi>0.00
+								</span>
+								</div>
+							</button>
             </span>
 									<button class="accounts-header-label" type="button">
 										<svg class="ynab-new-icon" width="12" height="12">
@@ -217,7 +229,8 @@
 				<!---->
 				<div id="ember233" class="accounts-toolbar">
 					<div class="accounts-toolbar-left">
-						<button class="ghost-button primary type-body add-transaction tooltip-relative-container" onclick="Livewire.dispatch('addAccountEvent')"
+						<button class="ghost-button primary type-body add-transaction tooltip-relative-container"
+										onclick="Livewire.dispatch('addAccountEvent')"
 										aria-describedby="add-transaction"
 										type="button">
 							<svg class="ynab-new-icon" width="16" height="16">
@@ -230,20 +243,20 @@
 									</symbol>
 								</use>
 							</svg>
-							Add Transaction <span role="tooltip" id="add-transaction"
-																		class="tooltip-content tooltip-above tooltip-left ">
-            <div class="shortcut-tooltip">
-              <div class="shortcut-description">Add new transaction</div>
-              <div class="shortcut-keys">
-                <div class="shortcut-key ">
-                  shift
-                </div>
-                <div class="shortcut-key ">
-                  N
-                </div>
-              </div>
-            </div>
-          </span>
+							Add Transaction
+							<span role="tooltip" id="add-transaction" class="tooltip-content tooltip-above tooltip-left ">
+								<div class="shortcut-tooltip">
+									<div class="shortcut-description">Add new transaction</div>
+									<div class="shortcut-keys">
+										<div class="shortcut-key ">
+											shift
+										</div>
+										<div class="shortcut-key ">
+											N
+										</div>
+									</div>
+								</div>
+          		</span>
 						</button>
 						@if($account->data_type !== 'Cash')
 							<button
@@ -260,10 +273,10 @@
 										</symbol>
 									</use>
 								</svg>
-								Link Account <span role="tooltip" id="add-transaction"
-																	 class="tooltip-content tooltip-above tooltip-left ">
-            Link your account to your financial institution and import transactions without ever leaving YNAB.
-          </span>
+								Link Account
+								<span role="tooltip" id="add-transaction" class="tooltip-content tooltip-above tooltip-left ">
+									Link your account to your financial institution and import transactions without ever leaving YNAB.
+								</span>
 							</button>
 						@endif
 						<button
@@ -280,9 +293,10 @@
 									</symbol>
 								</use>
 							</svg>
-							File Import <span role="tooltip" id="add-transaction" class="tooltip-content tooltip-above tooltip-left ">
-            Import transactions from a bank file.
-          </span>
+							File Import
+							<span role="tooltip" id="add-transaction" class="tooltip-content tooltip-above tooltip-left ">
+								Import transactions from a bank file.
+							</span>
 						</button>
 						<!---->
 						@if(in_array($account->data_type, ['CreditCard', 'LineOfCredit']))
@@ -624,7 +638,8 @@
 						<!---->
 						<div class="ynab-grid-body-row ynab-grid-body-parent  " data-row-id="{{ $account->id }}">
 							<div class="ynab-grid-cell ynab-grid-cell-checkbox">
-								<button class="ynab-checkbox ynab-checkbox-button " role="checkbox" aria-checked="true" aria-label="This transaction" type="button">
+								<button class="ynab-checkbox ynab-checkbox-button " role="checkbox" aria-checked="true"
+												aria-label="This transaction" type="button">
 									<svg class="ynab-new-icon ynab-checkbox-button-square " width="13" height="13">
 										<!---->
 										<use href="#icon_sprite_check">
@@ -749,7 +764,8 @@
 				</div>
 				<div class="register-action-bar-container " id="ember264">
 					<div class="register-action-bar-inner ">
-						<button class="ghost-button contrast type-body action-bar-button action-bar-uncheck-button" aria-label="Close" title="Close" type="button">
+						<button class="ghost-button contrast type-body action-bar-button action-bar-uncheck-button"
+										aria-label="Close" title="Close" type="button">
 							<svg class="ynab-new-icon" width="8" height="8">
 								<!---->
 								<use href="#icon_sprite_close">
@@ -766,13 +782,16 @@
 						<!---->
 						<!---->
 						<!---->
-						<button class="ghost-button contrast type-body action-bar-button js-action-bar-categories-menu-button tooltip-relative-container"
-										aria-describedby="action-bar-categorize-button-tooltip" type="button">
+						<button
+							class="ghost-button contrast type-body action-bar-button js-action-bar-categories-menu-button tooltip-relative-container"
+							aria-describedby="action-bar-categorize-button-tooltip" type="button">
 							<svg class="ynab-new-icon" width="12" height="12">
 								<!---->
 								<use href="#icon_sprite_checkmark_inbox">
-									<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_checkmark_inbox" fill="none" viewBox="0 0 24 24">
-										<path fill="currentColor" d="m7.2 11 3.3 3.3q.4.4.8 0l5.5-5.5q.4-.4 0-.9l-.7-.7q-.4-.4-.8 0l-4.4 4.4-2.2-2.2q-.4-.4-.8 0l-.7.8q-.4.4 0 .8"></path>
+									<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_checkmark_inbox" fill="none"
+													viewBox="0 0 24 24">
+										<path fill="currentColor"
+													d="m7.2 11 3.3 3.3q.4.4.8 0l5.5-5.5q.4-.4 0-.9l-.7-.7q-.4-.4-.8 0l-4.4 4.4-2.2-2.2q-.4-.4-.8 0l-.7.8q-.4.4 0 .8"></path>
 										<path fill="currentColor" fill-rule="evenodd"
 													d="M4.3 22h15.4a2.3 2.3 0 0 0 2.3-2.3V15L20.3 4a2.3 2.3 0 0 0-2.2-2H5.8c-1.1 0-2 .8-2.2 2L2 15v4.7A2.3 2.3 0 0 0 4.3 22M18.6 4.2l1.5 11-.5.4h-3.2l-.4.3-.7 2.2-.4.3H9l-.4-.3-.7-2.2-.4-.3H4.4l-.5-.5L5.4 4.2l.4-.4h12.4c.2 0 .4.2.4.4"
 													clip-rule="evenodd"></path>
@@ -780,7 +799,8 @@
 								</use>
 							</svg>
 							Categorize
-							<span role="tooltip" id="action-bar-categorize-button-tooltip" class="tooltip-content tooltip-above tooltip-center " style="bottom: calc(100% + 0.75rem);">
+							<span role="tooltip" id="action-bar-categorize-button-tooltip"
+										class="tooltip-content tooltip-above tooltip-center " style="bottom: calc(100% + 0.75rem);">
 									<div class="shortcut-tooltip">
 										<div class="shortcut-description">Categorize</div>
 											<div class="shortcut-keys">
@@ -791,19 +811,22 @@
 									</div>
 							</span>
 						</button>
-						<button class="ghost-button contrast type-body action-bar-button js-action-bar-flags-menu-button tooltip-relative-container"
-										aria-describedby="action-bar-flag-button-tooltip" type="button">
+						<button
+							class="ghost-button contrast type-body action-bar-button js-action-bar-flags-menu-button tooltip-relative-container"
+							aria-describedby="action-bar-flag-button-tooltip" type="button">
 							<svg class="ynab-new-icon" width="12" height="12">
 								<!---->
 								<use href="#icon_sprite_flag_fill">
 									<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_flag_fill" fill="none" viewBox="0 0 24 24">
 										<path fill="currentColor" fill-rule="evenodd"
-													d="M23 19.5H1.5A1.5 1.5 0 0 1 0 18V6a1.5 1.5 0 0 1 1.5-1.5H23a1 1 0 0 1 .9 1.5l-3.3 5.8v.4l3.3 5.8a1 1 0 0 1-.9 1.5" clip-rule="evenodd"></path>
+													d="M23 19.5H1.5A1.5 1.5 0 0 1 0 18V6a1.5 1.5 0 0 1 1.5-1.5H23a1 1 0 0 1 .9 1.5l-3.3 5.8v.4l3.3 5.8a1 1 0 0 1-.9 1.5"
+													clip-rule="evenodd"></path>
 									</symbol>
 								</use>
 							</svg>
 							Flag
-							<span role="tooltip" id="action-bar-flag-button-tooltip" class="tooltip-content tooltip-above tooltip-center " style="bottom: calc(100% + 0.75rem);">
+							<span role="tooltip" id="action-bar-flag-button-tooltip"
+										class="tooltip-content tooltip-above tooltip-center " style="bottom: calc(100% + 0.75rem);">
 								<div class="shortcut-tooltip">
 									<div class="shortcut-description">Flag</div>
 										<div class="shortcut-keys">
@@ -826,11 +849,13 @@
 						<!---->
 						<!---->
 						<hr>
-						<button class="ghost-button contrast type-body action-bar-button js-action-bar-more-menu-button" type="button">
+						<button class="ghost-button contrast type-body action-bar-button js-action-bar-more-menu-button"
+										type="button">
 							<svg class="ynab-new-icon" width="12" height="12">
 								<!---->
 								<use href="#icon_sprite_more_horizontal">
-									<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_more_horizontal" fill="none" viewBox="0 0 24 24">
+									<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_more_horizontal" fill="none"
+													viewBox="0 0 24 24">
 										<path fill="currentColor" fill-rule="evenodd"
 													d="M23.3 12c0 1.5-1.3 2.6-2.7 2.6s-2.7-1.2-2.7-2.6a2.7 2.7 0 0 1 5.4 0m-8.6 0c0 1.5-1.2 2.6-2.7 2.6S9.3 13.5 9.3 12s1.2-2.6 2.7-2.6 2.7 1.1 2.7 2.6M3.4 9.4c1.5 0 2.7 1.1 2.7 2.6S5 14.6 3.4 14.6.8 13.4.8 12 2 9.4 3.4 9.4"
 													clip-rule="evenodd"></path>

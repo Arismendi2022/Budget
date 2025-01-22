@@ -1164,7 +1164,11 @@ ul.nav-main .sidebar-nav-menu-collapsed {
 	width: 100%;
 }
 
-.account-widget .account-type-select .account-type-select-group button, .account-widget .account-widget-account-list-item .account-widget-account-list-item-name-and-amount, .account-widget .account-widget-account-list-item .account-widget-list-select-all, .account-widget .account-widget-apple-handoff .account-widget-body p, .account-widget .account-widget-error-screen .account-widget-body p, .account-widget .account-widget-error-screen-retry .account-widget-body p, .account-widget .account-widget-item-list button.account-widget-institution-button, .account-widget .account-widget-success-screen .account-widget-body p, .account-widget .separator-text, .accounts-header .accounts-header-actions .button, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category button, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category.button, .button, .button-cancel, .button-disabled, .button-primary, .button-red, .button-secondary, .category-set-wizard-flow, .category-set-wizard-text-form .text-input, .clear-budget-filter, .field-with-error.has-errors.base-error ul.errors li, .ftue-add-accounts .navlink, .insight-item, .join-container, .join-container .highlighted-error, .link-copier-input, .loan-account .loan-account-container .loan-account-details h3, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-update-balance-button, .loan-account-account-header .loan-account-header-actions .loan-account-header-button, .loan-account-activity-entry .modal input[type="text"], .loan-account-lpv2 .loan-account-account-header .add-activity-dropdown, .modal-account-payees .modal-account-payees-expand .modal-account-payees-expand-inner .modal-account-payees-expand-inner-body .modal-account-payees-expand-inner-body-section a, .modal-payee-list-item .ynab-new-icon.gear, .modal-payees .modal-payees-toolbar button, .modal-reports-dropdown .modal-header-actions, .nav-accounts-empty-state h5, .nav-main .navlink, .petition-container, .reports-net-worth .reports-net-worth-tooltip strong, .reports-net-worth .tick, .reports-spending .bb-chart-arcs-title, .reports-spending-tooltip strong, .reports-spending-trends .tick, .rollout-header__subtitle, .subscription-header__subtitle {
+.account-widget .account-type-select .account-type-select-group button, .account-widget .account-widget-account-list-item .account-widget-account-list-item-name-and-amount,
+.account-widget .account-widget-account-list-item .account-widget-list-select-all, .account-widget .account-widget-apple-handoff .account-widget-body p,
+.account-widget .account-widget-error-screen .account-widget-body p, .account-widget .account-widget-error-screen-retry .account-widget-body p, .account-widget
+.account-widget-item-list button.account-widget-institution-button, .account-widget .account-widget-success-screen .account-widget-body p, .account-widget .separator-text,
+.accounts-header .accounts-header-actions .button, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category button, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category.button, .button, .button-cancel, .button-disabled, .button-primary, .button-red, .button-secondary, .category-set-wizard-flow, .category-set-wizard-text-form .text-input, .clear-budget-filter, .field-with-error.has-errors.base-error ul.errors li, .ftue-add-accounts .navlink, .insight-item, .join-container, .join-container .highlighted-error, .link-copier-input, .loan-account .loan-account-container .loan-account-details h3, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-update-balance-button, .loan-account-account-header .loan-account-header-actions .loan-account-header-button, .loan-account-activity-entry .modal input[type="text"], .loan-account-lpv2 .loan-account-account-header .add-activity-dropdown, .modal-account-payees .modal-account-payees-expand .modal-account-payees-expand-inner .modal-account-payees-expand-inner-body .modal-account-payees-expand-inner-body-section a, .modal-payee-list-item .ynab-new-icon.gear, .modal-payees .modal-payees-toolbar button, .modal-reports-dropdown .modal-header-actions, .nav-accounts-empty-state h5, .nav-main .navlink, .petition-container, .reports-net-worth .reports-net-worth-tooltip strong, .reports-net-worth .tick, .reports-spending .bb-chart-arcs-title, .reports-spending-tooltip strong, .reports-spending-trends .tick, .rollout-header__subtitle, .subscription-header__subtitle {
 	font-size: 1rem;
 	font-weight: 500;
 	line-height: 1.2;
@@ -1551,7 +1555,6 @@ button.contrast:not([disabled]):active, .ynab-button.contrast:not([disabled]):ho
 	left: unset;
 	right: 0;
 }
-
 .tooltip-content {
 	background-color: var(--backgroundDarkPrimary);
 	color: var(--labelDarkBackgroundSecondary);
@@ -1566,9 +1569,7 @@ button.contrast:not([disabled]):active, .ynab-button.contrast:not([disabled]):ho
 	transition: opacity .2s;
 	width: max-content;
 	z-index: 1000;
-	white-space: normal;
 }
-
 .shortcut-tooltip {
 	align-items: center;
 	display: flex;
@@ -1843,6 +1844,14 @@ h1 {
 .to-be-budgeted > button:last-child {
 	margin-left: 2.5rem;
 }
+.to-be-budgeted-icon svg {
+	color: var(--categoryBalanceZeroLabel);
+	height: 1.875rem;
+	opacity: .8;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+	filter: alpha(opacity=80);
+	width: 1.875rem;
+}
 
 .is-positive .to-be-budgeted-button {
 	background-color: var(--calloutPositiveButtonBackground);
@@ -2020,13 +2029,15 @@ ul.budget-view-buttons li:not(.views-menu-button) button:hover {
 	top: 0;
 	z-index: 10080;
 }
-
 .tooltip-global [role="tooltip"] {
 	opacity: 0;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-	filter: alpha(opacity=0);
 	position: absolute;
 	transition: opacity .2s;
+}
+.tooltip-global [role="tooltip"].tooltip-visible {
+	opacity: 1;
+	filter: none;
+	transition: opacity .2s .5s;
 }
 
 /* || TABLE */
@@ -2089,11 +2100,9 @@ ul.budget-view-buttons li:not(.views-menu-button) button:hover {
 .budget-toolbar [role="cell"] {
 	z-index: 1;
 }
-
 .ghost-button.primary {
 	color: var(--labelAction);
 }
-
 .ghost-button {
 	border-radius: .5rem;
 	cursor: pointer;
@@ -2171,22 +2180,410 @@ button[disabled] {
 	min-height: 1.75rem;
 	padding: .25rem .5rem;
 }
-
 .segmented-control .segmented-control-button.selected > svg {
 	color: var(--iconFillPrimary);
 }
-
 .segmented-control .segmented-control-button:not(.selected) {
 	color: var(--labelSecondary);
 }
-
 .segmented-control .segmented-control-button:not(.selected) > svg {
 	color: var(--iconFillSecondary);
 }
-
 .ghost-button.primary:not([disabled]):hover {
 	background-color: var(--buttonSecondaryBackground);
 }
+
+/*BUDGET TABLE HEADER*/
+.budget-table-container .budget-table-header .budget-table-header-labels {
+	cursor: default;
+	height: 2.5rem;
+}
+.budget-table-container .budget-table-header-labels, .budget-table-container .budget-table-header-labels .budget-table-row-li,
+.budget-table-container .is-master-category, .budget-table-container .is-master-category .budget-table-row-li {
+	height: 2.5rem !important;
+}
+.budget-table-container .budget-table-row-ul, .budget-table-row.is-dragging {
+	box-sizing: border-box;
+	color: var(--labelPrimary);
+	align-items: center;
+	display: flex;
+	height: 2.25rem;
+	justify-content: stretch;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	width: 100%;
+}
+.budget-table-container .budget-table-header .budget-table-row-li:not(.budget-table-cell-collapse) {
+	color: var(--labelSecondary);
+}
+.budget-table-container .budget-table-header .budget-table-row-li {
+	border-top: none;
+	border-bottom: 1px solid var(--separatorStandard);
+}
+.budget-table-container .budget-table-cell-margin-left {
+	width: .875rem;
+}
+.budget-table-container .budget-table-row-li, .budget-table-row.is-dragging .budget-table-row-li {
+	box-sizing: border-box;
+	align-items: center;
+	display: flex;
+	height: 2.25rem;
+	justify-content: center;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	border-top: 1px solid var(--separatorStandard);
+}
+.budget-table-container .budget-table-cell-collapse {
+	font-size: 1rem;
+	width: 1rem;
+}
+.budget-table-container .budget-table-cell-collapse button {
+	align-items: center;
+	display: flex;
+	color: var(--labelSecondary);
+}
+.budget-table-container .budget-table-cell-checkbox {
+	justify-content: start;
+	overflow: visible;
+	transition-property: none;
+}
+.budget-table-container .budget-table-cell-checkbox {
+	align-items: center;
+	display: flex;
+	padding: 0 .125rem 0 .5rem;
+}
+.budget-table-container .budget-table-cell-name[role=columnheader] {
+	padding-left: .375rem;
+}
+.budget-table-container .budget-table-cell-name {
+	align-items: center;
+	display: flex;
+	justify-content: flex-start;
+	overflow: hidden;
+}
+.budget-table-container .budget-table-cell-name {
+	flex: 1;
+	justify-self: flex-start;
+	padding-left: .125rem;
+	width: auto;
+}
+.budget-table-container.is-expanded .budget-table-cell-activity, .budget-table-container.is-expanded .budget-table-cell-available, .budget-table-container.is-expanded .budget-table-cell-budgeted {
+	width: 15%;
+}
+.budget-table-container .budget-table-header-labels .budget-table-cell-budgeted, .budget-table-container .is-master-category .budget-table-cell-budgeted {
+	padding-right: .25rem;
+}
+.budget-table-container .budget-table-cell-activity, .budget-table-container .budget-table-cell-budgeted {
+	overflow: hidden;
+}
+.budget-table-container .budget-table-cell-activity, .budget-table-container .budget-table-cell-available, .budget-table-container .budget-table-cell-budgeted {
+	justify-content: flex-end;
+	text-align: right !important;
+	width: 18%;
+}
+.budget-table-container .budget-table-cell-budgeted {
+	padding: 0 0 0 1rem;
+}
+.budget-table-container .budget-table-cell-activity {
+	padding: 0 0 0 .375rem;
+}
+.budget-table-container .budget-table-header .budget-table-cell-available {
+	font-weight: 700;
+	padding-right: .375rem;
+}
+.budget-table-container .budget-table-header-labels .budget-table-cell-available, .budget-table-container .is-master-category .budget-table-cell-available {
+	align-items: flex-end;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-right: .375rem;
+}
+budget-table-header-labels .budget-table-cell-activity, .budget-table-header-labels .budget-table-cell-available, .budget-table-header-labels .budget-table-cell-budgeted, .budget-table-row .budget-table-cell-activity, .budget-table-row .budget-table-cell-available, .budget-table-row .budget-table-cell-budgeted {
+	text-align: right;
+}
+.budget-table-container .budget-table-cell-available {
+	padding: 0 0 0 1rem;
+}
+.budget-table-container .budget-table-cell-margin-right {
+	width: 1rem;
+}
+
+/* BUDGET TABLE DRAGABBLE */
+div {
+	display: block;
+	unicode-bidi: isolate;
+}
+.budget-table-row.is-master-category {
+	background-color: var(--backgroundTableHeader);
+}
+.budget-table-container .budget-table-row-ul.budget-table-row:first-child .budget-table-row-li, .budget-table-container.is-expanded .budget-table-row-ul.budget-table-row:first-child .budget-table-row-li.budget-table-cell-margin {
+	border: 0;
+}
+.budget-table-row.is-master-category .budget-table-row-li:first-child {
+	background-color: transparent;
+}
+.budget-table-row.is-master-category .budget-table-cell-checkbox {
+	transition-property: all;
+}
+.budget-table-container .budget-table-row.is-master-category .budget-table-row-li, .budget-table-container .is-master-category + .is-sub-category .budget-table-row-li {
+	border-top: 1px solid var(--separatorStandard);
+}
+
+.budget-table-row.is-master-category .budget-table-cell-name {
+	line-height: 2.2rem;
+}
+.budget-table-row.is-master-category .budget-table-cell-name {
+	color: var(--labelHeading);
+	font-weight: 700;
+}
+.budget-table-row.is-master-category .budget-table-cell-name .budget-table-cell-edit-category {
+	max-width: calc(100% - 1.8375rem);
+	background-color: transparent;
+	border: 0;
+	color: var(--labelHeading);
+	box-shadow: none;
+}
+budget-table-container .budget-table-cell-name .budget-table-cell-edit-category {
+	overflow: hidden;
+	padding: 0 .25rem;
+	text-overflow: ellipsis;
+	white-space: pre;
+}
+.budget-table-row.is-master-category .budget-table-cell-add-category {
+	color: var(--backgroundTableHeader);
+	align-items: center;
+	display: flex;
+	opacity: 0;
+}
+.budget-table-row.is-master-category:hover .budget-table-cell-add-category,
+.budget-table-row.is-sub-category > .budget-table-cell-budgeted:hover .ynab-new-currency-input .button-calculator {
+	opacity: 1;
+	filter: none;
+}
+.budget-table-container .budget-table-cell-name .budget-table-cell-add-category {
+	margin-left: .125rem;
+}
+.budget-table-header-labels .budget-table-cell-button, .budget-table-row .budget-table-cell-button {
+	background-color: transparent;
+	border: 0;
+	border-radius: 0;
+	color: var(--labelPrimary);
+	cursor: pointer;
+	box-shadow: none;
+	line-height: 1.2rem;
+	padding: 0;
+}
+.budget-table-row.is-master-category .budget-table-cell-add-category .ynab-new-icon {
+	color: var(--actionPrimary);
+}
+.budget-table-container .budget-table-cell-name .budget-table-cell-add-category .ynab-new-icon {
+	margin: 0 .25rem;
+}
+.budget-table-row.is-master-category .budget-table-cell-add-category .ynab-new-icon {
+	color: var(--actionPrimary);
+}
+.budget-table-row.is-master-category .budget-table-cell-name .budget-table-cell-edit-category {
+	font-size: 1rem;
+	font-weight: 600;
+	line-height: 1.2;
+}
+.budget-table-container .budget-table-cell-name .budget-table-cell-edit-category {
+	overflow: hidden;
+	padding: 0 .25rem;
+	text-overflow: ellipsis;
+	white-space: pre;
+}
+.budget-table-row .budget-table-cell-available .currency.zero, .budget-table-row.is-master-category .budget-table-cell-available .currency.negative,
+.budget-table-row.is-master-category .budget-table-cell-available .currency.positive, .budget-table-row.is-master-category .budget-table-cell-available-div,
+.budget-table-uncategorized-transactions .budget-table-cell-available .budget-table-cell-available-div, .budget-table-uncategorized-transactions
+.budget-table-cell-button, .is-master-category .budget-table-cell-budgeted .currency {
+	cursor: default;
+}
+.budget-table-cell-category-moves[aria-hidden="true"] {
+	cursor: auto;
+	opacity: 0;
+}
+.js-budget-toolbar-open-category-moves {
+	align-items: center;
+	cursor: pointer;
+	display: flex;
+	height: 100%;
+}
+.budget-table-row.is-master-category .budget-number[aria-disabled="true"] {
+	color: var(--labelHeading);
+}
+number[aria-disabled="true"], .budget-table-header-labels .budget-table-cell-available .budget-number[aria-disabled="true"], .budget-table-header-labels .budget-table-cell-budgeted .budget-number[aria-disabled="true"], .budget-table-row .budget-table-cell-activity .budget-number[aria-disabled="true"], .budget-table-row .budget-table-cell-available .budget-number[aria-disabled="true"], .budget-table-row .budget-table-cell-budgeted .budget-number[aria-disabled="true"] {
+	cursor: default;
+}
+.budget-table-header-labels .budget-table-cell-activity .budget-number, .budget-table-header-labels .budget-table-cell-available .budget-number, .budget-table-header-labels .budget-table-cell-budgeted .budget-number, .budget-table-row .budget-table-cell-activity .budget-number, .budget-table-row .budget-table-cell-available .budget-number, .budget-table-row .budget-table-cell-budgeted .budget-number {
+	cursor: pointer;
+	max-width: 100%;
+}
+.budget-table-row.is-master-category .budget-table-cell-activity, .budget-table-row.is-master-category .budget-table-cell-available, .budget-table-row.is-master-category .budget-table-cell-budgeted {
+	color: var(--labelHeading);
+	line-height: inherit;
+	line-height: .815rem;
+}
+.budget-table-container .budget-table-cell-flexed {
+	display: flex;
+	justify-content: space-between;
+}
+.budget-number[aria-disabled="true"] {
+	cursor: default;
+	text-decoration: none;
+}
+.budget-number {
+	padding-right: .125rem;
+}
+.budget-table-header-labels .budget-table-cell-activity span.currency, .budget-table-header-labels .budget-table-cell-available span.currency, .budget-table-header-labels .budget-table-cell-budgeted span.currency, .budget-table-row .budget-table-cell-activity span.currency, .budget-table-row .budget-table-cell-available span.currency, .budget-table-row .budget-table-cell-budgeted span.currency {
+	display: block;
+	line-height: 1rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.budget-table-row.is-master-category .budget-table-cell-activity .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-available .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-budgeted .ynab-new-budget-available-number {
+	background-color: transparent;
+	color: var(--labelHeading);
+	padding: 0;
+	right: auto;
+}
+.ynab-new-budget-available-number {
+	display: flex;
+	border-radius: 1000px;
+	color: var(--labelDarkBackgroundPrimary);
+	padding: .125rem .4375rem;
+	position: relative;
+	transition-property: none;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+@media only screen and (max-resolution: 1dppx) {
+	.ynab-new-budget-available-number span {
+		margin-top: 2px;
+	}
+}
+
+/* TABLE CELL CATEGORY */
+.budget-table-container.is-expanded .budget-table-row-ul.is-sub-category, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-row-li {
+	height: 2.75rem;
+}
+.budget-table-row.is-sub-category {
+	background-color: var(--backgroundTableRow);
+	transition: height .15s ease-out;
+}
+.budget-table-cell-add-category.active .ynab-new-icon, .budget-table-row.is-sub-category {
+	opacity: 1;
+	-ms-filter: none;
+	filter: none;
+}
+.budget-table-row.is-sub-category .budget-table-row-li {
+	padding-top: 0;
+}
+.budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 0;
+	width: 100%;
+}
+.budget-table-container.is-expanded .budget-table-cell-edit-category-label {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: row;
+	flex-wrap: wrap;
+	max-height: 1.25rem;
+	overflow: hidden;
+	width: 100%;
+}
+.budget-table-container.is-expanded .budget-table-cell-goal-nowrap {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: row;
+	overflow: hidden;
+}
+.budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category-label .budget-table-cell-goal-status, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category-label button {
+	line-height: 1.2rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category-label button {
+	padding: .125rem .25rem;
+}
+.budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-button, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-button button {
+	cursor: default;
+}
+.budget-table-container.is-expanded .budget-table-cell-goal-gap {
+	flex-grow: 1;
+	width: .5rem;
+}
+.budget-table-container.is-expanded .budget-table-cell-goal-status, .budget-table-container.is-expanded .budget-table-cell-goal-status-details {
+	cursor: default;
+	color: var(--labelSecondary);
+	line-height: 1.2rem;
+	white-space: nowrap;
+	width: max-content;
+}
+.budget-table-container.is-expanded .budget-table-cell-goal-status-details {
+	white-space: pre;
+}
+.budget-table-container.is-expanded .ynab-new-budget-bar-v2 {
+	margin: .25rem;
+	width: auto;
+}
+.ynab-new-budget-bar-v2 {
+	display: flex;
+	flex: 1 1 auto;
+	justify-content: space-between;
+	width: 100%;
+}
+.ynab-new-budget-bar-v2-section-funded:only-child {
+	border-radius: 1rem;
+}
+.ynab-new-budget-bar-v2-section:last-child {
+	margin-right: 0;
+}
+.ynab-new-budget-bar-v2-section {
+	background-color: var(--budgetBarBackground);
+	box-shadow: inset 0 0 0 .0625rem var(--budgetBarBorder);
+	display: flex;
+	flex: 1 1 auto;
+	flex-basis: auto;
+	height: .25rem;
+	justify-content: flex-start;
+	margin: 0 .25rem 0 0;
+	margin-right: 0.25rem;
+	overflow: hidden;
+}
+.budget-table-row.is-sub-category > .budget-table-cell-budgeted:hover .ynab-new-currency-input {
+	border: .0625rem solid var(--actionPrimary);
+	background-color: var(--backgroundPrimary);
+}
+.ynab-new-currency-input.is-editing .input-wrapper input {
+	display: block;
+}
+.ynab-new-currency-input.is-editing .input-wrapper .currency {
+	display: none;
+}
+.x-select-container select:focus, input:focus {
+	border: .0625rem solid var(--inputBorderActive);
+	outline: 0;
+}
+.budget-table-row.is-checked:not(.is-master-category) {
+	background-color: var(--backgroundTableRowSelected);
+	color: var(--labelPrimary);
+}
+
+
+
+
+
+
+
 
 /* || BUDGET INSPECTOR */
 .budget-inspector,
@@ -4154,9 +4551,20 @@ div.accounts-toolbar .file-picker, div.accounts-toolbar .transaction-search, div
 	margin-right: 1rem;
 }
 
-.accounts-header .header-currency-label .currency.zero {
-	background-color: var(--categoryBalanceZeroBackground);
-	color: var(--categoryBalanceZeroLabel);
+.accounts-header .accounts-header-overspending .header-currency-label span.currency,
+.accounts-header .header-currency-label .currency.cautious {
+	background-color: var(--categoryBalanceWarningBackground);
+	color: var(--categoryBalanceWarningLabel);
+}
+.accounts-header .accounts-header-payment .header-currency-label span.currency.cautious .ynab-new-icon {
+	color: var(--categoryBalanceWarningLabel);
+}
+.accounts-header .accounts-header-balances-cleared span.currency .ynab-new-icon, .accounts-header .accounts-header-balances-uncleared span.currency .ynab-new-icon, .accounts-header .accounts-header-balances-working span.currency .ynab-new-icon, .accounts-header .accounts-header-overspending span.currency .ynab-new-icon, .accounts-header .accounts-header-payment span.currency .ynab-new-icon, .accounts-header .accounts-header-selected-total span.currency .ynab-new-icon {
+	color: var(--categoryBalanceNegativeLabel);
+	display: inline-block;
+	margin-bottom: -.08rem;
+	margin-left: -.2rem;
+	padding: 0;
 }
 
 .accounts-header .header-currency-label span.currency {

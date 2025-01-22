@@ -48,13 +48,14 @@
 			@endif
 		</div>
 		<div class="budget-header-item budget-header-totals ">
-			<div class="to-be-budgeted is-positive ">
+			<div class="to-be-budgeted {{ $budgetTotal === 0 ? '' : 'is-positive' }}">
 				<div class="to-be-budgeted-heading-wrapper">
-					<h1 id="ember17-heading">
+					<h1 id="ember-heading">
 						<div class="to-be-budgeted-amount">
-							<span class="user-data currency positive"><bdi>$</bdi>{{ number_format($budgetTotal, 2) }}</span>
-							<svg class="ynab-new-icon " width="16" height="16" aria-hidden="true">
-								<!---->
+                <span class="user-data currency {{ $budgetTotal === 0 ? 'zero' : 'positive' }}">
+                    <bdi>$</bdi>{{ number_format($budgetTotal, 2) }}
+                </span>
+							<svg class="ynab-new-icon" width="16" height="16" aria-hidden="true">
 								<use href="#icon_sprite_info_circle_fill">
 									<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_info_circle_fill" fill="none" viewBox="0 0 24 24">
 										<path fill="currentColor" fill-rule="evenodd"
@@ -65,27 +66,40 @@
 							</svg>
 						</div>
 						<div class="to-be-budgeted-label">
-							Ready to Assign
+							{{ $budgetTotal === 0 ? 'All Money Assigned' : 'Ready to Assign' }}
 						</div>
 					</h1>
 					<button class="to-be-budgeted-view-breakdown" aria-label="View Ready to Assign Breakdown" type="button"></button>
 				</div>
-				<button class="to-be-budgeted-auto-assign to-be-budgeted-button" aria-label="Assign" aria-describedby="ember17-heading" type="button">
-					<span class="label">Assign</span>
-					<svg class="ynab-new-icon " width="16" height="16" aria-hidden="true">
-						<!---->
-						<use href="#icon_sprite_caret_down">
-							<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_caret_down" fill="none" viewBox="0 0 24 24">
-								<path fill="currentColor" d="M11 19.5.2 6.1C-.4 5.2.3 4 1.3 4h21.4c1 0 1.7 1.2 1 2L13.1 19.6a1.4 1.4 0 0 1-2.2 0"></path>
-							</symbol>
-						</use>
-					</svg>
-				</button>
+				@if($budgetTotal === 0)
+					<button class="to-be-budgeted-auto-assign to-be-budgeted-icon" disabled aria-label="All Money Assigned" type="button">
+						<span class="label"></span>
+						<svg class="ynab-new-icon" width="16" height="16" aria-hidden="true">
+							<use href="#icon_sprite_check_circle_fill">
+								<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check_circle_fill" fill="none" viewBox="0 0 24 24">
+									<path fill="currentColor"
+												d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24M8.7 17.1l-4.3-4.3a1.2 1.2 0 0 1 0-1.7 1.2 1.2 0 0 1 1.7 0l3.5 3.5 8.3-8.3a1 1 0 0 1 1.6 0 1.2 1.2 0 0 1 0 1.7l-9 9.1a1.2 1.2 0 0 1-1.8 0"></path>
+								</symbol>
+							</use>
+						</svg>
+					</button>
+				@else
+					<button class="to-be-budgeted-auto-assign to-be-budgeted-button" aria-label="Assign" type="button">
+						<span class="label">Assign</span>
+						<svg class="ynab-new-icon" width="16" height="16" aria-hidden="true">
+							<use href="#icon_sprite_caret_down">
+								<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_caret_down" fill="none" viewBox="0 0 24 24">
+									<path fill="currentColor" d="M11 19.5.2 6.1C-.4 5.2.3 4 1.3 4h21.4c1 0 1.7 1.2 1 2L13.1 19.6a1.4 1.4 0 0 1-2.2 0"></path>
+								</symbol>
+							</use>
+						</svg>
+					</button>
+				@endif
 			</div>
 		</div>
 		<div class="budget-header-item budget-header-days budget-header-days">
 			<div>
-				<div class="budget-header-days-age">8 days</div>
+				<div class="budget-header-days-age">12 days</div>
 				<div class="budget-header-days-label" title="Keep Age of Money above 30 and congrats, you're following Rule Four!">Age of Money</div>
 			</div>
 		</div>
