@@ -2363,6 +2363,7 @@ budget-table-container .budget-table-cell-name .budget-table-cell-edit-category 
 	opacity: 1;
 	filter: none;
 }
+
 .budget-table-container .budget-table-cell-name .budget-table-cell-add-category {
 	margin-left: .125rem;
 }
@@ -2563,9 +2564,7 @@ number[aria-disabled="true"], .budget-table-header-labels .budget-table-cell-ava
 	border: .0625rem solid var(--actionPrimary);
 	background-color: var(--backgroundPrimary);
 }
-.ynab-new-currency-input.is-editing .input-wrapper input {
-	display: block;
-}
+
 .ynab-new-currency-input.is-editing .input-wrapper .currency {
 	display: none;
 }
@@ -2577,17 +2576,29 @@ number[aria-disabled="true"], .budget-table-header-labels .budget-table-cell-ava
 	background-color: var(--backgroundTableRowSelected);
 	color: var(--labelPrimary);
 }
+.ynab-new-currency-input.is-focused .button-calculator {
+	opacity: 1;
+	filter: none;
+}
 
+/* ACTIVITY */
+.budget-table-cell-category-moves svg {
+	color: var(--actionPrimary);
+}
+.budget-table-row.is-sub-category .budget-number[aria-disabled="true"], .budget-table-row.is-sub-category.is-checked .budget-table-cell-activity
+.currency.zero, .budget-table-row.is-sub-category.is-checked .budget-table-cell-budgeted .currency.zero, .budget-table-row.is-sub-category.is-checked
+.budget-table-cell-budgeted:hover .currency.zero, .budget-table-row.is-sub-category > .budget-table-cell-budgeted .currency.zero {
+	color: var(--labelSecondary);
+}
 
-
-
-
-
-
+/* AVAILABLE*/
+.ynab-new-budget-available-number.zero {
+	background-color: var(--categoryBalanceZeroBackground);
+	color: var(--categoryBalanceZeroLabel);
+}
 
 /* || BUDGET INSPECTOR */
-.budget-inspector,
-.reports-inspector {
+.budget-inspector, .reports-inspector {
 	background-color: var(--backgroundGroupedPrimary);
 	border-left: 1px solid var(--separatorStandard);
 	display: flex;
@@ -3625,7 +3636,6 @@ ul.warnings {
 	font-weight: 500;
 	line-height: 1.2;
 }
-
 .account-widget a, .modal-account-reconcile .modal a {
 	color: var(--actionPrimary);
 	text-decoration: none;
@@ -3824,16 +3834,13 @@ textarea {
 .field-with-error .ynab-new-currency-input.legacy-currency-input .ember-text-field {
 	border-width: .0625rem !important;
 }
-
 .ynab-new-currency-input.is-editing .input-wrapper input {
 	display: block;
 }
-
 .ynab-new-currency-input.legacy-currency-input input {
 	border-width: .0625rem !important;
 	padding: 0 .5rem !important;
 }
-
 .ynab-new-currency-input .input-wrapper input {
 	background: 0 0;
 	background-color: rgba(0, 0, 0, 0);
@@ -3848,36 +3855,26 @@ textarea {
 	text-align: right;
 	width: 100%;
 }
-
-.ynab-new-currency-input.is-editing .input-wrapper .currency {
-	display: none;
-}
-
 .modal-popup.account-modal .modal-content button {
 	vertical-align: inherit;
 }
-
 .ynab-new-currency-input .input-wrapper .currency {
 	display: block;
 	padding: .1875rem;
 }
-
 .category-input-export-copy input[type="text"], .category-input-export-export-as-template, .ftue-onboarding-message, .ftue-onboarding-needs, .modal-account-calendar .modal, .modal-fresh .modal-fresh-body .type-body, .ynab-new-currency-input .input-wrapper .currency, .ynab-new-dropdown-container span, .ynab-new-inspector-goals, .ynab-new-inspector-goals .actions .actions-left .button-link, .ynab-new-inspector-goals .actions .actions-right .button-link, .ynab-new-inspector-goals .actions .goal-actions-delete-cancel .button-link, .ynab-new-inspector-goals .goal-message, .ynab-new-inspector-goals .target-behavior-dropdown, .ynab-new-inspector-goals .target-behavior-dropdown .type-dropdown-label, .ynab-new-inspector-goals .ynab-new-inspector-goals-calendar-select {
 	font-size: .875rem;
 	font-weight: 500;
 	line-height: 1.2;
 }
-
 .ynab-new-currency-input .input-wrapper button {
 	padding: .1875rem;
 	text-align: right;
 	width: 100%;
 }
-
 .modal-popup.account-modal .modal-content .fieldset .space-top {
 	margin-top: .5rem;
 }
-
 .modal-popup.account-modal .modal-content .info {
 	color: var(--labelSecondary);
 	font-size: .75rem;
@@ -5284,7 +5281,6 @@ b, strong {
 	color: var(--labelDarkBackgroundPrimary);
 	text-align: center;
 }
-
 .ynab-grid-actions .button:last-child {
 	margin-right: 0;
 }
@@ -5293,13 +5289,11 @@ b, strong {
 .register-action-bar-container .register-action-bar-inner.show {
 	visibility: visible;
 }
-
 .register-action-bar-container.show {
 	bottom: 0;
 	margin-bottom: 3rem;
 	transition: margin-bottom .2s;
 }
-
 .register-action-bar-container {
 	bottom: -3rem;
 	display: flex;
@@ -5309,11 +5303,9 @@ b, strong {
 	width: 100%;
 	z-index: 10000;
 }
-
 .register-action-bar-container .register-action-bar-inner.show {
 	visibility: visible;
 }
-
 .register-action-bar-container .register-action-bar-inner {
 	align-items: center;
 	display: flex;
