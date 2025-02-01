@@ -36,7 +36,7 @@
 				'budgetName'   => $budgetName, // Agrega el nombre del presupuesto
 			];
 			
-			return view('front.pages.home',$data);
+			return view('front.pages.budget',$data);
 			
 		} //End Method
 		

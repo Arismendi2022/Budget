@@ -9,7 +9,7 @@
   {
     use HasFactory;
 
-    protected $fillable = ['name','ordering'];
+    protected $fillable = ['name'];
 
     public function categories(){
       return $this->hasMany(BudgetCategory::class,'group_id');

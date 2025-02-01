@@ -224,9 +224,10 @@ p {
 /* || AUTHENTICATIONS-PANEL  */
 @media only screen and (min-width: 992px) {
 	.authentications-panel {
-		max-width: 28.75rem !important;
+		max-width: 28.75rem;
 	}
 }
+
 .authentications-panel {
 	--accentMessageStandard: #3B5EDA;
 	--accentMessageNegative: #FC6350;

@@ -9,7 +9,7 @@
   {
     use HasFactory;
 
-    protected $fillable = ['group_id','name','ordering'];
+    protected $fillable = ['group_id','name'];
 
     public function group(){
       return $this->belongsTo(BudgetGroup::class);

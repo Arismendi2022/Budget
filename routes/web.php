@@ -53,10 +53,6 @@
 			Route::get('/edit-login','editLogin')->name('edit-login');
 			Route::post('/change-password','changePassword')->name('change-password');
 		});
-		
-		// Ruta para los tooltips
-		Route::get('/tooltips',[TooltipController::class,'showTooltips'])->name('tooltips');
-		
 	});
 	
 	
@@ -66,17 +62,16 @@
 		Route::controller(AccountController::class)->group(function(){
 			Route::get('/assign/{id}','accountAssign')->name('assign');
 		});
-		
 	});
 	
 	//Grupo Add Account
-	/* Route::prefix('account')->name('account.')->group(function(){
-		 Route::controller(AccountController::class)->group(function(){
-			 Route::get('/add',[AccountController::class,'addAccount'])->name('add-account');
-			 Route::post('/create',[AccountController::class,'createAccount'])->name('create-account');
- 
-		 });
-	 });*/
+	Route::prefix('account')->name('account.')->group(function(){
+		Route::controller(AccountController::class)->group(function(){
+			Route::get('/add',[AccountController::class,'addAccount'])->name('add-account');
+			Route::post('/create',[AccountController::class,'createAccount'])->name('create-account');
+			
+		});
+	});
 
 
 

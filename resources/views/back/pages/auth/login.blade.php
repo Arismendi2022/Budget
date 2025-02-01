@@ -6,10 +6,9 @@
 			<aside class="authentications-aside">
 				<div class="authentications-aside__image authentications-aside__image--default"><img
 						src="{{ asset('images/back/brand/doodle-logo.svg') }}"></div>
-				<h2>Transforma el dinero.</h2>
+				<h2>Do money differently.</h2>
 				<p>
-					YNAB ha ayudado a millones de personas a aprender a gastar, ahorrar y vivir con alegría con un conjunto
-					simple de hábitos que cambian la vida.
+					YNAB has helped millions learn to spend, save, and live joyfully with a simple set of life-changing habits.
 				</p>
 			</aside>
 			
