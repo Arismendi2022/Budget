@@ -116,9 +116,8 @@
 				
 				if($this->fromBudget){
 					$this->dispatch('budgetSaved');
-					$this->dispatch('redirect-home');
+					$this->dispatch('redirect-budget');
 				}
-				
 				/** Cierra el modal */
 				$this->hideCreateModalForm();
 				

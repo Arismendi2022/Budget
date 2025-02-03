@@ -175,6 +175,9 @@ body[data-page^="authentications#"] .page-main > section {
 .authentications-aside {
 	margin-bottom: 3rem;
 }
+.authentications-section__inner > * {
+	flex-basis: 50%;
+}
 @media only screen and (min-width: 992px) {
 	.authentications-aside__image--default {
 		max-width: 4rem !important;
@@ -224,7 +227,7 @@ p {
 /* || AUTHENTICATIONS-PANEL  */
 @media only screen and (min-width: 992px) {
 	.authentications-panel {
-		max-width: 28.75rem;
+		max-width: 28.75rem !important;
 	}
 }
 

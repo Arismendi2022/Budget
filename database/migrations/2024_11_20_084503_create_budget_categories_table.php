@@ -12,8 +12,7 @@
       Schema::create('budget_categories',function(Blueprint $table){
         $table->id();
         $table->foreignId('group_id')->references('id')->on('budget_groups')->onDelete('cascade');
-        $table->string('name')->unique();
-        $table->integer('ordering')->default(1000);
+        $table->string('name');
         $table->timestamps();
       });
     }

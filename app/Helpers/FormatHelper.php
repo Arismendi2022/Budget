@@ -181,14 +181,15 @@
 
     //Metodo para  obtener formato de fechas
     public static function getDateFormats(){
+	    $year = date('Y'); // Obtiene el año actual
       return [
-        "YYYY/MM/DD" => "2024/12/30",
-        "YYYY-MM-DD" => "2024-12-30",
-        "DD-MM-YYYY" => "30-12-2024",
-        "DD/MM/YYYY" => "30/12/2024",
-        "DD.MM.YYYY" => "30.12.2024",
-        "MM/DD/YYYY" => "12/30/2024",
-        "YYYY.MM.DD" => "2024.12.30",
+        "YYYY/MM/DD" => "$year/12/30",
+        "YYYY-MM-DD" => "$year-12-30",
+        "DD-MM-YYYY" => "30-12-$year",
+        "DD/MM/YYYY" => "30/12/$year",
+        "DD.MM.YYYY" => "30.12.$year",
+        "MM/DD/YYYY" => "12/30/$year",
+        "YYYY.MM.DD" => "$year.12.30",
       ];
     }
 

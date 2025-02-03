@@ -118,7 +118,7 @@
         <span class="user-data">
           <span class="user-data currency {{ $account->balance > 0 ? 'positive' : 'negative' }}">{{
             (in_array($account->data_type, ['CreditCard', 'LineOfCredit']) || $account->balance < 0) ? '−' : '' }}<bdi>$</bdi>
-						{{ number_format(abs($account->balance), 2, ',', '.') }}</span>
+						{{ format_number(abs($account->balance)) }}</span>
         </span>
 						<div class="accounts-header-label">
 							<svg class="ynab-new-icon" width="12" height="12">
@@ -142,7 +142,7 @@
 					<div tabindex="0" aria-describedby="ember231"
 							 class="accounts-header-balances-amount accounts-header-balances-uncleared tooltip-relative-container">
         <span class="user-data">
-          <span class="user-data currency zero"><bdi>$</bdi>0,00</span>
+          <span class="user-data currency zero"><bdi>$</bdi>0.00</span>
         </span>
 						<div class="accounts-header-label">
 							<svg class="ynab-new-icon" width="12" height="12">
@@ -173,7 +173,7 @@
           <span class="user-data currency {{ $account->balance > 0 ? 'positive' : 'negative' }}">{{
             ($account->account_group !== 'Loans' && (in_array($account->data_type, ['CreditCard', 'LineOfCredit']) ||
             $account->balance < 0)) ? '−' : '' }}<bdi>$</bdi>{{
-              number_format(abs($account->balance), 2, ',', '.') }}</span>
+              format_number(abs($account->balance)) }}</span>
         </span>
 						<div class="accounts-header-label">
 							<!---->              Working Balance <span role="tooltip" id="add-transaction"
@@ -418,22 +418,20 @@
 						<div class="loan-account-header-element">
 							<div class="loan-account-header-element-amount loan-account-header-element-balance">
 								<div id="ember390" class="animate-number  ">
-              <span class="user-data currency positive"><bdi>$</bdi>{{ number_format(abs($account->balance), 2, ',',
-                '.') }}</span>
+              <span class="user-data currency positive"><bdi>$</bdi>{{ format_number(abs($account->balance)) }}</span>
 								</div>
 							</div>
 							<div class="loan-account-header-element-label">Remaining Balance</div>
 						</div>
 						<div class="loan-account-header-element">
 							<div class="loan-account-header-element-amount loan-account-header-element-interest-rate">
-            <span>{{ fmod($account->interest, 1) == 0 ? intval($account->interest) : number_format($account->interest,
-              1, ',', '') }}<bdi>%</bdi></span>
+            <span>{{ fmod($account->interest, 1) == 0 ? intval($account->interest) : format_number($account->interest,1) }}<bdi>%</bdi></span>
 							</div>
 							<div class="loan-account-header-element-label">Interest Rate</div>
 						</div>
 						<div class="loan-account-header-element">
 							<div class="loan-account-header-element-amount loan-account-header-element-min-payment-amount">
-            <span class="user-data currency positive"><bdi>$</bdi>{{ number_format(abs($account->payment), 2, ',', '.')
+            <span class="user-data currency positive"><bdi>$</bdi>{{ format_number(abs($account->payment))
               }}</span>
 							</div>
 							<div class="loan-account-header-element-label">Minimum Payment</div>
@@ -699,18 +697,17 @@
 							<div class="ynab-grid-cell ynab-grid-cell-outflow user-data">
             <span class="user-data currency tabular-nums "> @if ( in_array($account->data_type, ['CreditCard',
               'LineOfCredit']))
-								<bdi>$</bdi>{{ number_format(abs($account->balance), 2, ',', '.') }}
+								<bdi>$</bdi>{{ format_number(abs($account->balance)) }}
 							@endif</span>&nbsp;
 							</div>
 							<div class="ynab-grid-cell ynab-grid-cell-inflow user-data">
             <span class="user-data currency tabular-nums positive"> @if ( !in_array($account->data_type, ['CreditCard',
               'LineOfCredit']))
-								<bdi>$</bdi>{{ number_format(abs($account->balance), 2, ',', '.') }}
+								<bdi>$</bdi>{{ format_number(abs($account->balance)) }}
 							@endif</span>&nbsp;
 							</div>
 							<div class="ynab-grid-cell ynab-grid-cell-balance">
-            <span class="user-data currency tabular-nums positive"><bdi>$</bdi>{{ number_format(abs($account->balance),
-              2, ',', '.') }}</span>&nbsp;
+            <span class="user-data currency tabular-nums positive"><bdi>$</bdi>{{ format_number(abs($account->balance)) }}</span>&nbsp;
 							</div>
 							<div class="ynab-grid-cell ynab-grid-cell-cleared" data-register-area="Cleared">
 								<button class="ynab-cleared is-cleared"

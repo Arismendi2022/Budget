@@ -16,6 +16,7 @@
 		 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 		 */
 		public function group(){
-			return $this->belongsTo(CategoryGroup::class);
+			return $this->belongsTo(CategoryGroup::class,'group_id');
 		}
 	}
+	

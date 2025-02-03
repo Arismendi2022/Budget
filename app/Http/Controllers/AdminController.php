@@ -3,7 +3,6 @@
 	namespace App\Http\Controllers;
 	
 	use App\Helpers\CMail;
-	use App\Models\BudgetAccount;
 	use App\Models\User;
 	use App\Rules\StrongPassword;
 	use Illuminate\Http\Request;
@@ -20,9 +19,9 @@
 			$user         = Auth::user();
 			$activeBudget = $user->budgets()->where('is_active',true)->first();
 			
-			// Si no hay presupuesto activo, redirige a la vista que contiene el componente Livewire
+			// Si no hay presupuesto activo, redirige a budget manager
 			if($activeBudget === null){
-				return redirect()->route('admin.budget');
+				return redirect()->route('admin.budgets');
 			}
 			
 			// Captura el ID y el nombre del presupuesto desde la solicitud

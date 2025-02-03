@@ -24,7 +24,7 @@
 						</button>
 						<div class="nav-account-value nav-account-block-value user-data">
               <span class="user-data currency tabular-nums {{ $group->total_balance >= 0 ? 'positive' : 'negative' }}">
-                {{ $group->total_balance < 0 ? '−' : '' }}<bdi>$</bdi>{{ number_format(abs($group->total_balance), 2, ',', '.') }}
+                {{ $group->total_balance < 0 ? '−' : '' }}<bdi>$</bdi>{{ format_number(abs($group->total_balance)) }}
               </span>
 						</div>
 						<div class="nav-account-icons nav-account-icons-right"></div>
@@ -52,7 +52,7 @@
 									</div>
 									<div class="nav-account-value user-data">
                     <span class="user-data currency tabular-nums {{ $account->balance >= 0 ? 'positive' : 'negative' }}">
-                        {{ $account->balance < 0 ? '−' : '' }}<bdi>$</bdi>{{ number_format(abs($account->balance), 2, ',', '.') }}
+                        {{ $account->balance < 0 ? '−' : '' }}<bdi>$</bdi>{{ format_number(abs($account->balance)) }}
                     </span>
 									</div>
 									<span id="ember{{ $account->id + 1 }}" class="direct-status-import-icon nav-account-icons nav-account-icons-right">

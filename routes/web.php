@@ -65,13 +65,13 @@
 	});
 	
 	//Grupo Add Account
-	Route::prefix('account')->name('account.')->group(function(){
+	/*Route::prefix('account')->name('account.')->group(function(){
 		Route::controller(AccountController::class)->group(function(){
 			Route::get('/add',[AccountController::class,'addAccount'])->name('add-account');
 			Route::post('/create',[AccountController::class,'createAccount'])->name('create-account');
 			
 		});
-	});
+	});*/
 
 
 

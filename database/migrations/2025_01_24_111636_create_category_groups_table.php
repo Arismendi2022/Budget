@@ -11,8 +11,8 @@
 		public function up():void{
 			Schema::create('category_groups',function(Blueprint $table){
 				$table->id();
-				$table->foreignId('budget_id')->constrained('budgets')->cascadeOnDelete();
-				$table->string('name');
+				$table->foreignId('budget_id')->constrained('budgets')->onDelete('cascade');
+				$table->string('name')->unique();
 				$table->integer('ordering')->default(1000);
 				$table->timestamps();
 			});

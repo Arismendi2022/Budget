@@ -53,7 +53,7 @@
 					<h1 id="ember-heading">
 						<div class="to-be-budgeted-amount">
                 <span class="user-data currency {{ $budgetTotal === 0 ? 'zero' : 'positive' }}">
-                    <bdi>$</bdi>{{ number_format($budgetTotal, 2) }}
+                    <bdi>$</bdi>{{ format_number($budgetTotal) }}
                 </span>
 							<svg class="ynab-new-icon" width="16" height="16" aria-hidden="true">
 								<use href="#icon_sprite_info_circle_fill">
