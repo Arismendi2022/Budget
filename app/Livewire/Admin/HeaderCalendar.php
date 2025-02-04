@@ -12,7 +12,8 @@
 		public $selectedYear,$months;
 		public $isOpenCalendarModal = false;
 		
-		protected $listeners = ['budgetTotalUpdated' => '$refresh'];
+		// Escucha el evento 'numberFormatUpdated'
+		protected $listeners = ['numberFormatUpdated' => '$refresh'];
 		
 		public function mount(){
 			$this->currentDate  = now();

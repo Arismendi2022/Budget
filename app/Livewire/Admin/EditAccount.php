@@ -68,10 +68,9 @@
 						}
 						
 						BudgetAccount::where('id',$this->accountId)->update($data);
-						$this->hideEditAccountModalForm();
-					}
+					},
+					$this->hideEditAccountModalForm()
 				);
-				
 				//Actualñiza las cuentas
 				$this->dispatch('account-refresh');
 				//Actualiza el balance en el header
@@ -81,7 +80,7 @@
 				$this->dispatch('console-error',['error' => $e->getMessage()]);
 				return false;
 			}
-		}
+		} //End Methos
 		
 		private function validateNickname(){
 			$this->validate(
@@ -112,6 +111,8 @@
 					function(){
 						BudgetAccount::where('id',$this->accountId)->delete();
 						$this->hideEditAccountModalForm();
+						// Redirigir a la ruta 'all accounts'
+						return redirect()->route('admin.accounts');
 					}
 				);
 				

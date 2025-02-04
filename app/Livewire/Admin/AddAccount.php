@@ -172,17 +172,19 @@
 						$data['payoff_date'] = $payoffDate;
 					}
 					
-					BudgetAccount::create($data);
-					$this->currentSection = 5;
+					//BudgetAccount::create($data);
+					// Crear la cuenta y almacenarla en una variable
+					$account = BudgetAccount::create($data);
 					
+					// Asignar el ID de la cuenta para su uso fuera de la transacción
+					$this->accountId      = $account->id; // Almacenar el ID aquí
+					$this->currentSection = 5;
 				});
-				
 				// Código que puede lanzar una excepción
 			} catch(\Exception $e){
 				$this->dispatch('console-error',['error' => $e->getMessage()]);
 				return false;
 			}
-			
 		} //End Method
 		
 		public function saveBudgetTracking(){
@@ -245,6 +247,8 @@
 			$this->updateAccountLists();
 			//Actualiza el balance en el header
 			$this->dispatch('budgetTotalUpdated');
+			// Redirigir después de la transacción utilizando el ID de la cuenta
+			return redirect()->route('accounts.assign',['id' => $this->accountId]);
 		}
 		
 		public function addAnotherAccount(){

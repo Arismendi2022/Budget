@@ -9,6 +9,9 @@
 	{
 		public $groups;
 		
+		// Escucha el evento 'numberFormatUpdated'
+		protected $listeners = ['numberFormatUpdated' => '$refresh'];
+		
 		public function mount(){
 			// Obtener todos los grupos con sus categorías y calcular los totales
 			$this->groups = CategoryGroup::with('categories')->get()->map(function($group){

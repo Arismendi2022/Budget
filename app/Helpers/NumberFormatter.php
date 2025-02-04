@@ -6,7 +6,8 @@
 	
 	class NumberFormatter
 	{
-		public static function format(float $number):string{
+		public static function format(?float $number):string{
+			$number = $number ?? 0;
 			// Obtener el presupuesto activo
 			$budget = Budget::where('is_active',true)->first();
 			
@@ -32,6 +33,7 @@
 				default => number_format($number,2,',','.'),
 			};
 		}
+		
 	}
 
 	

@@ -4,7 +4,7 @@
 		<div id="editAccount" class="modal-overlay active ynab-u modal-popup account-modal">
 			 <div class="modal" role="dialog" aria-modal="true" style="left: 720px; top: 171.5px;">
 			{{--<div class="modal " role="dialog" aria-modal="true">--}}
-				<div class="modal-header modal-header-with-close">
+				 <div class="modal-header modal-header-with-close">
         <span class="modal-header-with-close-title">
           Edit Account
         </span>
@@ -220,7 +220,7 @@
 						Save
 					</button>
 				</div>
-				<!---->
+				 <!---->
 			</div>
 		</div>
 	@endif
@@ -242,6 +242,7 @@
 		Livewire.on('console-error', data => {
 			console.error('Error:', data.error);
 		});
-	
+		
+		
 	</script>
 @endpush

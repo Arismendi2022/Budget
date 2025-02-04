@@ -155,6 +155,9 @@
 					$this->dispatch('updateBudgetName')->to(LeftBudgetName::class);
 				}
 				
+				// Dispara un evento para notificar a otros componentes
+				$this->dispatch('numberFormatUpdated');
+				
 				/** Cierra el modal */
 				$this->hideCreateModalForm();
 				
