@@ -914,7 +914,9 @@
 					</button>
 				</div>
 				<div class="budget-table-cell-name budget-table-row-li" role="rowheader" aria-colindex="3">
-					<button class="button budget-table-cell-button budget-table-cell-edit-category user-data " title="{{ $group->name }}">{{ $group->name }}</button>
+					<button wire:click="editCategoryGroup({{$group->id}})" class="button budget-table-cell-button budget-table-cell-edit-category user-data " title="{{ $group->name }}">{{
+					$group->name
+					}}</button>
 					<button class="button budget-table-cell-add-category budget-table-cell-button " aria-label="Add Category" aria-describedby="addCategory">
 						<svg class="ynab-new-icon" width="14" height="14">
 							<!---->
@@ -1088,7 +1090,45 @@
 			</div>
 		</div>
 	@endif
-
+	{{--Modal Edit Category group--}}
+	@if($isUpdateCategoryGroupModal)
+		<div id="editCategoryGroup" class="modal-overlay active ynab-u modal-popup modal-budget-edit-category">
+			<div class="modal" role="dialog" aria-modal="true" style="top: 264px; left: 143.458px;">
+				<div class="modal-content">
+					<div class="fieldset">
+						<div class="field-with-error">
+							<div>
+								<input id="nameGroupEdit" placeholder="Enter category name" class="modal-budget-edit-category-name user-data js-focus-on-start" wire:model="name">
+							</div>
+							<!---->
+							<!---->
+						</div>
+					</div>
+				</div>
+				<div class="modal-actions">
+					<div class="modal-actions-left">
+						<button class="ynab-button secondary   button-hide" type="button">
+							Hide
+						</button>
+						<button class="ynab-button destructive   button-delete" type="button">
+							Delete
+						</button>
+					</div>
+					<div class="modal-actions-right">
+						<button class="ynab-button secondary button-cancel" type="button" wire:click="hideEditCategoryGroupModal">
+							Cancel
+						</button>
+						<button class="ynab-button primary  " type="button">
+							OK
+						</button>
+					</div>
+				</div>
+				<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none" style="left: 185px; bottom: 100%; height: 0.9375rem; width: 1.875rem;">
+					<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform=""></path>
+				</svg>
+			</div>
+		</div>
+	@endif
 </div>
 
 @push('scripts')
@@ -1097,6 +1137,13 @@
 			window.addEventListener('focusInput', function () {
 				setTimeout(function () {
 					$('#nameGroup').focus();
+				}, 10); // Retraso de 10 ms
+			});
+			
+			//Modal Edit
+			window.addEventListener('focusInputEdit', function () {
+				setTimeout(function () {
+					$('#nameGroupEdit').focus();
 				}, 10); // Retraso de 10 ms
 			});
 		});

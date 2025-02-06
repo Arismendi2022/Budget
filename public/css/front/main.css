@@ -2700,7 +2700,7 @@ number[aria-disabled="true"], .budget-table-header-labels .budget-table-cell-ava
 	border-radius: .4rem;
 	height: auto;
 	position: relative;
-	z-index: 10001;
+	z-index: 1;
 	box-shadow: 0 16px 64px rgba(0, 0, 0, .2);
 	transition: transform 150ms ease, opacity 100ms ease;
 	animation-fill-mode: forwards;
@@ -5351,6 +5351,33 @@ b, strong {
 .modal-popup .modal-content {
 	padding: .765em .765em 0;
 }
+
+/* EDIT CATEGORY GROUP */
+.modal-balance-learn-more, .modal-budget-activity, .modal-budget-edit-category, .modal-filter-warning {
+	background-color: var(--scrimInvisible);
+}
+.modal-budget-edit-category .modal {
+	height: auto;
+	width: 25em;
+}
+.modal-budget-edit-category .modal-actions {
+	display: flex;
+}
+.modal-budget-edit-category .modal-actions .modal-actions-left, .modal-budget-edit-category .modal-actions .modal-actions-right {
+	display: flex;
+	gap: .5rem;
+}
+.modal .button-hide {
+	border-radius: .5rem;
+	background-color: var(--buttonSecondaryBackground);
+	border: 0;
+}
+.modal-budget-edit-category .modal-actions .modal-actions-right {
+	align-items: flex-end;
+	margin-left: auto;
+}
+
+
 
 
 

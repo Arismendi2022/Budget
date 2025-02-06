@@ -8,7 +8,8 @@
 	
 	class BudgetTable extends Component
 	{
-		public $isOpenCategoryGroupModal = false;
+		public $isOpenCategoryGroupModal   = false;
+		public $isUpdateCategoryGroupModal = false;
 		public $groups,$name;
 		
 		// Escucha el evento 'numberFormatUpdated'
@@ -31,6 +32,15 @@
 			});
 		}
 		
+		public function editCategoryGroup($id){
+			$groupCategory = CategoryGroup::findOrFail($id);
+			$this->groudId = $groupCategory->id;
+			$this->name    = $groupCategory->name;
+			
+			$this->isUpdateCategoryGroupModal = true;
+			$this->dispatch('focusInputEdit');
+		}
+		
 		public function showCategoryGroupModal(){
 			$this->isOpenCategoryGroupModal = true;
 			$this->dispatch('focusInput');
@@ -38,6 +48,12 @@
 		
 		public function hidenCategoryGroupModal(){
 			$this->isOpenCategoryGroupModal = false;
+			$this->reset('name');
+			$this->resetValidation();
+		}
+		
+		public function hideEditCategoryGroupModal(){
+			$this->isUpdateCategoryGroupModal = false;
 			$this->reset('name');
 			$this->resetValidation();
 		}
