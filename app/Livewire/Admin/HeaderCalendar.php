@@ -73,7 +73,7 @@
 		}
 		
 		public function getPositiveBudgetTotal(){
-			return BudgetAccount::where('account_group','Budget')
+			return BudgetAccount::where('account_group','Cash')
 				->where('balance','>',0)
 				->sum('balance');
 		}

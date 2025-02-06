@@ -5,7 +5,7 @@
 	use App\Helpers\AccountHelper;
 	use App\Models\Budget;
 	use App\Models\BudgetAccount;
-	use App\Models\BudgetGroup;
+	use App\Models\CategoryGroup;
 	use Illuminate\Support\Facades\DB;
 	use Livewire\Attributes\On;
 	use Livewire\Component;
@@ -32,7 +32,7 @@
 		// Constantes para los tipos de categoría
 		const ACCOUNT_TYPES        = ['CreditCard','LineOfCredit'];
 		const LOAN_CATEGORY_GROUPS = ['Mortgages','Loans'];
-		const CATEGORY_MAP         = ['Budget Accounts' => 'Budget','Tracking Accounts' => 'Tracking','Mortgages and Loans' => 'Loans',];
+		const CATEGORY_MAP         = ['Cash Accounts' => 'Cash','Credit Accounts' => 'Credit','Tracking Accounts' => 'Tracking','Mortgages and Loans' => 'Loans',];
 		
 		/** Limpia todos los campos */
 		public function resetFields(){
@@ -60,7 +60,7 @@
 			
 			$this->updateAccountLists();
 			$this->accountTypes      = AccountHelper::getAccountTypes();
-			$this->categoriesByGroup = BudgetGroup::with('categories')->get();
+			$this->categoriesByGroup = CategoryGroup::with('categories')->get();
 			
 			// Recuperar el estado de los grupos desde la sesión o inicializarlo como vacío
 			$this->showGroups = session()->get('showGroups',[]);
@@ -122,7 +122,7 @@
 		public function nextButtonState(){
 			$isCommonFieldsEmpty = empty($this->nickname) || empty($this->selectedAccountType) || ($this->balance === '' || $this->balance === null);
 			
-			if($this->selectedCategoryGroup === 'Budget' || $this->selectedCategoryGroup === 'Tracking'){
+			if($this->selectedCategoryGroup === 'Cash' || $this->selectedCategoryGroup === 'Credit' || $this->selectedCategoryGroup === 'Tracking'){
 				$this->isButtonDisabled = $isCommonFieldsEmpty;
 			}else if($this->selectedCategoryGroup === 'Loans'){
 				$this->isButtonDisabled = $isCommonFieldsEmpty || ($this->interest === '' || $this->interest === null) || ($this->payment === '' || $this->payment === null);
@@ -172,7 +172,6 @@
 						$data['payoff_date'] = $payoffDate;
 					}
 					
-					//BudgetAccount::create($data);
 					// Crear la cuenta y almacenarla en una variable
 					$account = BudgetAccount::create($data);
 					

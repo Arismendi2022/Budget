@@ -2,7 +2,8 @@
 	<div class="nav-accounts">
 		@if(!$budgetAccounts->isEmpty())
 			@foreach($accountGroups as $group)
-				<div class="nav-account {{ $group->type === 'Budget' ? 'onBudget' : ($group->type === 'Loans' ? 'loan' : 'offBudget') }}">
+				{{--<div class="nav-account {{ $group->type === 'Budget' ? 'onBudget' : ($group->type === 'Loans' ? 'loan' : 'offBudget') }}">--}}
+					<div class="nav-account {{ $group->type === 'Cash' ? 'cash' : ($group->type === 'Credit' ? 'credit' : ($group->type === 'Loans' ? 'loan' : 'offBudget')) }}">
 					<div class="nav-account-block" wire:click="toggleGroup('{{ $group->type }}')">
 						<button class="nav-account-name nav-account-name-button user-data" aria-label="collapse {{ strtoupper($group->type) }}" type="button">
 							<svg class="ynab-new-icon" width="8" height="8">
@@ -442,7 +443,7 @@
 														<optgroup label="{{ $group->name }}">
 															@foreach($group->categories as $category)
 																<option value="{{ $category->id }}">
-																	{{ $category->name }}
+																	{{ $category->category }}
 																</option>
 															@endforeach
 														</optgroup>

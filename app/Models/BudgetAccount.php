@@ -5,6 +5,7 @@
 	use Illuminate\Database\Eloquent\Factories\HasFactory;
 	use Illuminate\Database\Eloquent\Model;
 	use Illuminate\Database\Eloquent\Relations\BelongsTo;
+	use Illuminate\Support\Str;
 	use Ramsey\Uuid\Uuid;
 	
 	class BudgetAccount extends Model
@@ -49,8 +50,8 @@
 			});
 		}
 		
-		public function setNameAttribute($value){
-			$this->attributes['nickname'] = Str::ucfirst($value);
+		public function setNickNameAttribute($value){
+			$this->attributes['nickname'] = Str::ucfirst(strtolower($value));
 		}
 		
 		

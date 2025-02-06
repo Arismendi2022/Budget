@@ -1465,11 +1465,9 @@ button:focus {
 	outline-color: var(--actionPrimary);
 	outline: 0;
 }
-
 :active, :focus {
 	box-shadow: none;
 }
-
 .ynab-button {
 	background-color: var(--buttonPrimaryBackground);
 	color: var(--labelDarkBackgroundPrimary);
@@ -1481,34 +1479,35 @@ button:focus {
 	padding: .375rem 1rem;
 	transition: background-color .15s ease;
 }
-
 .budget-view-row ul.budget-view-buttons li .view-button-overspent, .ynab-button, .ynab-new-settings-menu ul.modal-list a span, .ynab-new-settings-menu ul.modal-list button span {
 	align-items: center;
 	display: flex;
 }
-
 .ynab-button > .ynab-new-icon {
 	margin-right: .5rem;
 }
-
 button.contrast:not([disabled]):active, .ynab-button.contrast:not([disabled]):hover {
 	background-color: var(--backgroundDarkTertiary);
 	color: var(--labelDarkBackgroundPrimary);
 }
 
 /* || BOTTON COLLAPSE */
+.sidebar-resized-collapsed .sidebar-bottom {
+	justify-content: center;
+}
 .sidebar .sidebar-bottom {
 	border-bottom: 1px solid var(--separatorSubdued);
-	flex: 1 0 auto;
-	height: 2.5rem;
+	box-sizing: content-box;
+	flex: 0 0 1.75rem;
+	height: 1.75rem;
 	padding-bottom: .75rem;
+	padding-top: .75rem;
 	width: 100%;
 }
-
 .sidebar-expand {
 	align-self: center;
 	justify-content: center;
-	margin-left: .2rem;
+	margin-left: .2rem !important;
 }
 
 .sidebar-collapse, .sidebar-expand {
@@ -5340,6 +5339,19 @@ b, strong {
 	border: 0;
 	height: 35px;
 }
+
+/* MODAL CATEGORY GROUP */
+.modal-add-master-category, .modal-add-sub-category, .modal-budget-move-money, .modal-budget-note, .modal-budget-overspending {
+	background-color: var(--scrimInvisible);
+}
+.modal-add-master-category .modal, .modal-add-sub-category .modal, .modal-budget-note .modal {
+	height: auto;
+	width: 14em;
+}
+.modal-popup .modal-content {
+	padding: .765em .765em 0;
+}
+
 
 
 
