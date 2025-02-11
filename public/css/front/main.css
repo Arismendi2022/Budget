@@ -2362,18 +2362,16 @@ budget-table-container .budget-table-cell-name .budget-table-cell-edit-category 
 	opacity: 1;
 	filter: none;
 }
-
 .budget-table-container .budget-table-cell-name .budget-table-cell-add-category {
 	margin-left: .125rem;
 }
 .budget-table-header-labels .budget-table-cell-button, .budget-table-row .budget-table-cell-button {
-	background-color: transparent;
 	border: 0;
 	border-radius: 0;
 	color: var(--labelPrimary);
 	cursor: pointer;
 	box-shadow: none;
-	line-height: 1.2rem;
+	line-height: 1rem;
 	padding: 0;
 }
 .budget-table-row.is-master-category .budget-table-cell-add-category .ynab-new-icon {
@@ -5376,6 +5374,11 @@ b, strong {
 	align-items: flex-end;
 	margin-left: auto;
 }
+.x-select-container select:focus, input:focus {
+	border: .0625rem solid var(--inputBorderActive);
+	outline: 0;
+}
+
 
 
 

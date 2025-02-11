@@ -914,9 +914,9 @@
 					</button>
 				</div>
 				<div class="budget-table-cell-name budget-table-row-li" role="rowheader" aria-colindex="3">
-					<button wire:click="editCategoryGroup({{$group->id}})" class="button budget-table-cell-button budget-table-cell-edit-category user-data " title="{{ $group->name }}">{{
-					$group->name
-					}}</button>
+					<button wire:click="editCategoryGroup({{ $group->id }})" onclick="setModalPosition(event, '{{ $group->id }}')"
+									class="button budget-table-cell-button budget-table-cell-edit-category user-data "
+									title="{{ $group->name }}">{{ $group->name }}</button>
 					<button class="button budget-table-cell-add-category budget-table-cell-button " aria-label="Add Category" aria-describedby="addCategory">
 						<svg class="ynab-new-icon" width="14" height="14">
 							<!---->
@@ -966,7 +966,7 @@
 				</div>
 				<div class="budget-table-cell-margin-right budget-table-row-li" aria-hidden="true">&nbsp;</div>
 			</div>
-			<!-- CATEGORIAS -->
+		<!-- CATEGORIAS -->
 			@foreach($group->categories as $category)
 				<div id="category-{{ $category->id }}" draggable="true" class="budget-table-row js-budget-table-row budget-table-row-ul is-sub-category " role="row"
 						 data-entity-id="4ab7a77e-90ed-4851-b569-c349fc9b29bb" aria-level="2" aria-expanded="true">
@@ -1092,8 +1092,8 @@
 	@endif
 	{{--Modal Edit Category group--}}
 	@if($isUpdateCategoryGroupModal)
-		<div id="editCategoryGroup" class="modal-overlay active ynab-u modal-popup modal-budget-edit-category">
-			<div class="modal" role="dialog" aria-modal="true" style="top: 264px; left: 143.458px;">
+		<div id="editCategoryGroup" class="modal-overlay active ynab-u modal-popup modal-budget-edit-category" wire:click="hideEditCategoryGroupModal">
+			<div class="modal" role="dialog" aria-modal="true" style="top: {{ $modalTop }}px; left: {{ $modalLeft }}px;" wire:click.stop>
 				<div class="modal-content">
 					<div class="fieldset">
 						<div class="field-with-error">
@@ -1123,7 +1123,7 @@
 						</button>
 					</div>
 				</div>
-				<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none" style="left: 185px; bottom: 100%; height: 0.9375rem; width: 1.875rem;">
+				<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none" style="left: {{$modalArrowLeft}}px; bottom: 100%; height: 0.9375rem; width: 1.875rem;">
 					<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform=""></path>
 				</svg>
 			</div>
@@ -1133,20 +1133,35 @@
 
 @push('scripts')
 	<script>
-		$(function () {
-			window.addEventListener('focusInput', function () {
-				setTimeout(function () {
-					$('#nameGroup').focus();
-				}, 10); // Retraso de 10 ms
-			});
-			
-			//Modal Edit
-			window.addEventListener('focusInputEdit', function () {
-				setTimeout(function () {
-					$('#nameGroupEdit').focus();
-				}, 10); // Retraso de 10 ms
+		//Da el foco a los inputs
+		document.addEventListener('DOMContentLoaded', () => {
+			window.addEventListener('focusInput', (event) => {
+				setTimeout(() => {
+					document.getElementById(event.detail.inputId)?.focus();
+				}, 10);
 			});
 		});
+
+		//Posicion del modal segun boton grupo
+		function setModalPosition(event, groupId) {
+			const button = event.target.getBoundingClientRect();
+			const modalWidth = 400; // Ancho real del modal
+
+			// Verificar si el sidebar está colapsado
+			if (sidebar.classList.contains("sidebar-resized-collapsed")) {
+				left = 10; // Fijar el modal a 10px del borde izquierdo
+
+			} else {
+				left = button.left + window.scrollX + (button.width / 2) - (modalWidth / 2);
+				arrowLeft = 185; // Posición fija cuando el sidebar está expandido
+			}
+
+			const top = button.bottom + window.scrollY + 15; // Espacio debajo del botón
+
+			// Envía la posición corregida al componente Livewire
+			Livewire.dispatch('updateModalPosition', {top: top, left: left, arrowLeft: arrowLeft});
+		}
+	
 	
 	</script>
 @endpush

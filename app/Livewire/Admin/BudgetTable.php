@@ -12,10 +12,16 @@
 		public $isUpdateCategoryGroupModal = false;
 		public $groups,$name;
 		
+		// Variables para la posición del modal
+		public $modalTop       = 0;
+		public $modalLeft      = 0;
+		public $modalArrowLeft;
+		
 		// Escucha el evento 'numberFormatUpdated'
 		protected $listeners = [
 			'numberFormatUpdated'  => '$refresh',
-			'categoryGroupCreated' => 'loadCategoryGroups'
+			'categoryGroupCreated' => 'loadCategoryGroups',
+			'updateModalPosition'  => 'updateModalPosition'
 		];
 		
 		public function mount(){
@@ -34,16 +40,23 @@
 		
 		public function editCategoryGroup($id){
 			$groupCategory = CategoryGroup::findOrFail($id);
-			$this->groudId = $groupCategory->id;
+			$this->groupId = $groupCategory->id;
 			$this->name    = $groupCategory->name;
 			
 			$this->isUpdateCategoryGroupModal = true;
-			$this->dispatch('focusInputEdit');
+			$this->dispatch('focusInput',inputId:'nameGroupEdit');
 		}
+		
+		public function updateModalPosition($top,$left,$arrowLeft){
+			$this->modalTop       = $top;
+			$this->modalLeft      = $left;
+			$this->modalArrowLeft = $arrowLeft;
+		}
+		
 		
 		public function showCategoryGroupModal(){
 			$this->isOpenCategoryGroupModal = true;
-			$this->dispatch('focusInput');
+			$this->dispatch('focusInput',inputId:'nameGroup');
 		}
 		
 		public function hidenCategoryGroupModal(){
