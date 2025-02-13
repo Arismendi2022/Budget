@@ -4,24 +4,31 @@
 	
 	use App\Models\Budget;
 	use App\Models\CategoryGroup;
+	use Illuminate\Support\Facades\Log;
+	use Illuminate\Validation\Rule;
 	use Livewire\Component;
 	
 	class BudgetTable extends Component
 	{
 		public $isOpenCategoryGroupModal   = false;
 		public $isUpdateCategoryGroupModal = false;
-		public $groups,$name;
+		public $groups,$name,$groupId;
 		
 		// Variables para la posición del modal
-		public $modalTop       = 0;
-		public $modalLeft      = 0;
+		public $modalGroupLeft;
+		public $modalTop  = 0;
+		public $modalLeft = 0;
 		public $modalArrowLeft;
+		public $modalArrowStyle;
+		public $modalArrowTransform;
+		public $leftAddGroup;
 		
 		// Escucha el evento 'numberFormatUpdated'
 		protected $listeners = [
 			'numberFormatUpdated'  => '$refresh',
 			'categoryGroupCreated' => 'loadCategoryGroups',
-			'updateModalPosition'  => 'updateModalPosition'
+			'updateModalPosition'  => 'updateModalPosition',
+			'updateAddGroupModal'  => 'updateAddGroupModal'
 		];
 		
 		public function mount(){
@@ -47,16 +54,23 @@
 			$this->dispatch('focusInput',inputId:'nameGroupEdit');
 		}
 		
-		public function updateModalPosition($top,$left,$arrowLeft){
-			$this->modalTop       = $top;
-			$this->modalLeft      = $left;
-			$this->modalArrowLeft = $arrowLeft;
+		public function updateModalPosition($top,$left,$arrowLeft,$arrowStyle,$arrowTransform){
+			$this->modalTop            = $top;
+			$this->modalLeft           = $left;
+			$this->modalArrowLeft      = $arrowLeft;
+			$this->modalArrowStyle     = $arrowStyle;
+			$this->modalArrowTransform = $arrowTransform;
 		}
 		
-		
 		public function showCategoryGroupModal(){
+			$this->dispatch('modalPositionUpdated',$this->modalGroupLeft); // Enviar a JavaScript
+			
 			$this->isOpenCategoryGroupModal = true;
 			$this->dispatch('focusInput',inputId:'nameGroup');
+		}
+		
+		public function updateAddGroupModal($left){
+			$this->modalGroupLeft = $left;
 		}
 		
 		public function hidenCategoryGroupModal(){
@@ -73,10 +87,13 @@
 		
 		public function createCategoryGroup(){
 			$this->validate([
-				'name' => 'required|unique:category_groups,name',
+				'name' => [
+					'required',
+					Rule::unique('category_groups','name'),
+				],
 			],[
 				'name.required' => 'The group name is required.',
-				'name.unique'   => 'This group name already exists',
+				'name.unique'   => 'This group name already exists.',
 			]);
 			
 			try{
@@ -90,7 +107,7 @@
 				]);
 				
 				// Emitir evento para actualizar la lista
-				$this->dispatch('categoryGroupCreated');
+				$this->loadCategoryGroups();
 				
 				// Limpiar el campo y cerrar el modal
 				$this->reset('name');
@@ -102,10 +119,59 @@
 				\Log::error('Error al crear un grupo de categorías: '.$e->getMessage());
 				
 				// Mostrar un mensaje de error en Livewire
-				$this->addError('name','Something went wrong. Please try again.');
+				$this->addError('name','Algo salió mal. Inténtalo de nuevo.');
 			}
 			
 		} //End Method
+		
+		public function updateCategoryGroup(){
+			$groupCategory = CategoryGroup::findOrFail($this->groupId);
+			
+			$this->validate([
+				'name' => [
+					'required',
+					Rule::unique('category_groups','name')->ignore($groupCategory->id),
+				],
+			],[
+				'name.required' => 'The group name is required.',
+				'name.unique'   => 'This group name already exists',
+			]);
+			
+			/** Update Category Group */
+			try{
+				
+				$groupCategory->update([
+					'name' => $this->name,
+				]);
+				
+				// Emitir evento para actualizar la lista
+				$this->loadCategoryGroups();
+				// Limpiar el campo y cerrar el modal
+				$this->hideEditCategoryGroupModal();
+				
+			} catch(\Throwable $e){
+				Log::error('Error al actualizar un grupo de categorías: '.$e->getMessage());
+				$this->addError('name','Algo salió mal. Inténtalo de nuevo.');
+			}
+			
+		} //End Method
+		
+		public function deleteCategoryGroup(){
+			try{
+				$groupCategory = CategoryGroup::findOrFail($this->groupId);
+				$groupCategory->delete();
+				
+				// Emitir evento para actualizar la lista
+				$this->loadCategoryGroups();
+				// Limpiar el campo y cerrar el modal
+				$this->hideEditCategoryGroupModal();
+				
+			} catch(\Throwable $e){
+				Log::error('Error al eliminar el grupo de categorías: '.$e->getMessage());
+				$this->addError('deleteError','No se pudo eliminar el grupo. Intenta de nuevo.');
+			}
+		} //End Method
+		
 		
 		public function render(){
 			return view('livewire.admin.budget-table');

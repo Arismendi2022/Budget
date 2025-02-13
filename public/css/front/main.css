@@ -2036,7 +2036,7 @@ ul.budget-view-buttons li:not(.views-menu-button) button:hover {
 .tooltip-global [role="tooltip"].tooltip-visible {
 	opacity: 1;
 	filter: none;
-	transition: opacity .2s .5s;
+	transition: opacity .2s .8s;
 }
 
 /* || TABLE */

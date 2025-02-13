@@ -3,7 +3,8 @@
 	<div class="budget-table-header" role="rowgroup">
 		<div class="budget-toolbar" role="row">
 			<div role="cell">
-				<button wire:click="showCategoryGroupModal" class="ghost-button primary type-body budget-toolbar-add-category" aria-describedby="addCategoryGroup" type="button">
+				<button wire:click="showCategoryGroupModal" class="ghost-button primary type-body budget-toolbar-add-category" aria-describedby="addCategoryGroup"
+								onclick="setAddGroupModalPosition(event)" type="button">
 					<svg class="ynab-new-icon " width="16" height="16">
 						<!---->
 						<use href="#icon_sprite_plus_circle_fill">
@@ -1058,8 +1059,8 @@
 	</div>
 	{{--Modal Category Group--}}
 	@if($isOpenCategoryGroupModal)
-		<div id="categoryGroup" class="modal-overlay active ynab-u modal-popup modal-add-master-category">
-			<div class="modal" role="dialog" aria-modal="true" style="top: 179.5px; left: 225.55px;">
+		<div id="categoryGroup" class="modal-overlay active ynab-u modal-popup modal-add-master-category" wire:click="hidenCategoryGroupModal">
+			<div class="modal" role="dialog" aria-modal="true" style="top: 179.5px; left: {{ $modalGroupLeft }};" wire:click.stop>
 				<div class="modal-content">
 					<div class="fieldset">
 						<div class="field-with-error {{ $errors->has('name') ? 'has-errors' : '' }}">
@@ -1096,11 +1097,16 @@
 			<div class="modal" role="dialog" aria-modal="true" style="top: {{ $modalTop }}px; left: {{ $modalLeft }}px;" wire:click.stop>
 				<div class="modal-content">
 					<div class="fieldset">
-						<div class="field-with-error">
+						<div class="field-with-error {{ $errors->has('name') ? 'has-errors' : '' }}">
 							<div>
-								<input id="nameGroupEdit" placeholder="Enter category name" class="modal-budget-edit-category-name user-data js-focus-on-start" wire:model="name">
+								<input id="nameGroupEdit" placeholder="Enter category name" class="modal-budget-edit-category-name user-data js-focus-on-start" wire:model="name"
+											 wire:keydown.enter="updateCategoryGroup">
 							</div>
-							<!---->
+							@if ($errors->has('name'))
+								<ul class="errors">
+									<li>{{ $errors->first('name') }}</li>
+								</ul>
+							@endif
 							<!---->
 						</div>
 					</div>
@@ -1110,7 +1116,7 @@
 						<button class="ynab-button secondary   button-hide" type="button">
 							Hide
 						</button>
-						<button class="ynab-button destructive   button-delete" type="button">
+						<button class="ynab-button destructive   button-delete" type="button" wire:click="deleteCategoryGroup">
 							Delete
 						</button>
 					</div>
@@ -1118,13 +1124,14 @@
 						<button class="ynab-button secondary button-cancel" type="button" wire:click="hideEditCategoryGroupModal">
 							Cancel
 						</button>
-						<button class="ynab-button primary  " type="button">
+						<button class="ynab-button primary  " type="button" wire:click="updateCategoryGroup">
 							OK
 						</button>
 					</div>
 				</div>
-				<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none" style="left: {{$modalArrowLeft}}px; bottom: 100%; height: 0.9375rem; width: 1.875rem;">
-					<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform=""></path>
+				<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none"
+						 style="left: {{$modalArrowLeft}}px; {{$modalArrowStyle}}; height: 0.9375rem; width: 1.875rem;">
+					<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform="{{$modalArrowTransform}}"></path>
 				</svg>
 			</div>
 		</div>
@@ -1142,24 +1149,49 @@
 			});
 		});
 
-		//Posicion del modal segun boton grupo
+		// Posicion del modal según botón grupo
 		function setModalPosition(event, groupId) {
 			const button = event.target.getBoundingClientRect();
-			const modalWidth = 400; // Ancho real del modal
+			const sidebar = document.querySelector(".sidebar");
 
-			// Verificar si el sidebar está colapsado
-			if (sidebar.classList.contains("sidebar-resized-collapsed")) {
-				left = 10; // Fijar el modal a 10px del borde izquierdo
+			const modalWidth = 400, modalHeight = 108.7, margin = 14;
+			const isCollapsed = sidebar.classList.contains("sidebar-resized-collapsed");
 
-			} else {
-				left = button.left + window.scrollX + (button.width / 2) - (modalWidth / 2);
-				arrowLeft = 185; // Posición fija cuando el sidebar está expandido
-			}
+			// Determinar la posición horizontal
+			const left = isCollapsed
+				? 10
+				: button.left + window.scrollX + (button.width / 2) - (modalWidth / 2);
 
-			const top = button.bottom + window.scrollY + 15; // Espacio debajo del botón
+			const arrowLeft = isCollapsed
+				? Math.min(button.left - left + (button.width / 2) - 15, modalWidth - 30)
+				: Math.max((modalWidth / 2) - 15, 20);
 
-			// Envía la posición corregida al componente Livewire
-			Livewire.dispatch('updateModalPosition', {top: top, left: left, arrowLeft: arrowLeft});
+			// Determinar la posición vertical
+			const spaceBelow = window.innerHeight - button.bottom - margin;
+			const isSpaceBelow = spaceBelow >= modalHeight;
+
+			const top = isSpaceBelow
+				? button.bottom + window.scrollY + margin
+				: button.top + window.scrollY - modalHeight - margin;
+
+			const arrowStyle = isSpaceBelow ? "bottom: 100%" : "top: 100%";
+			const arrowTransform = isSpaceBelow ? "" : "rotate(180 50 50)";
+
+			// Enviar la posición corregida al componente Livewire
+			Livewire.dispatch("updateModalPosition", {top, left, arrowLeft, arrowStyle, arrowTransform});
+		}
+
+		// mover modal Add Group al colapsar sidebar
+		function setAddGroupModalPosition(event) {
+			//	const button = event.target.getBoundingClientRect();
+			const sidebar = document.querySelector(".sidebar");
+			const isCollapsed = sidebar.classList.contains("sidebar-resized-collapsed");
+
+			// Definir el `left` según el estado del sidebar
+			const left = isCollapsed ? "21.55px" : "225.55px";
+
+			// Enviar el valor al componente Livewire
+			Livewire.dispatch("updateAddGroupModal", {left});
 		}
 	
 	
