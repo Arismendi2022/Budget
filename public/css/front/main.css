@@ -1567,8 +1567,9 @@ button.contrast:not([disabled]):active, .ynab-button.contrast:not([disabled]):ho
 	text-align: left;
 	transition: opacity .2s;
 	width: max-content;
-	z-index: 1000;
+	z-index: 1001;
 }
+
 .shortcut-tooltip {
 	align-items: center;
 	display: flex;
@@ -1621,7 +1622,7 @@ button.contrast:not([disabled]):active, .ynab-button.contrast:not([disabled]):ho
 
 .tooltip-relative-container:hover .tooltip-content {
 	opacity: 1;
-	filter: none;
+	/*filter: none;*/
 	transition: opacity .2s .5s;
 }
 
@@ -5379,24 +5380,19 @@ b, strong {
 	outline: 0;
 }
 
+/* Tooltip abajo centrado */
+.tooltip-belowx.tooltip-centerx {
+	top: 100%; /* Ubica el tooltip debajo del botón */
+	left: 50%; /* Lo centra horizontalmente */
+	transform: translateX(-50%); /* Ajusta su posición exacta */
+	margin-top: 6px; /* Espacio entre el tooltip y el botón */
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* Mostrar tooltip al hacer hover */
+.tooltip-container:hover .tooltip-content {
+	visibility: visible;
+	opacity: 1;
+}
 
 
 

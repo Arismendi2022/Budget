@@ -141,7 +141,61 @@
 				$('#new_budget_modal').hide();
 			})
 		});
-		
+
+		/** TOOLTIP GLOBAL POCISION  */
+		document.addEventListener('DOMContentLoaded', function () {
+			const sidebar = document.getElementById('sidebar');
+			const tooltips = document.querySelectorAll('.tooltip-content');
+
+			// Guardar la posición original de cada tooltip
+			tooltips.forEach(tooltip => {
+				const originalLeft = parseFloat(tooltip.style.left);
+				tooltip.setAttribute('data-original-left', originalLeft);
+			});
+
+			function adjustTooltips() {
+				const isCollapsed = sidebar.classList.contains('sidebar-resized-collapsed');
+				const offset = isCollapsed ? -204 : 0; // Ajuste necesario cuando el sidebar está colapsado
+
+				tooltips.forEach(tooltip => {
+					const originalLeft = parseFloat(tooltip.getAttribute('data-original-left'));
+					tooltip.style.left = `${originalLeft + offset}px`;
+				});
+			}
+
+			// Ajustar tooltips al cargar la página
+			adjustTooltips();
+
+			// Escuchar cambios en el sidebar (si es dinámico)
+			const observer = new MutationObserver(function (mutations) {
+				mutations.forEach(function (mutation) {
+					if (mutation.attributeName === 'class') {
+						adjustTooltips();
+					}
+				});
+			});
+
+			observer.observe(sidebar, {
+				attributes: true // Configura el observer para escuchar cambios en los atributos
+			});
+		});
+
+
+		/** Ajustar el Top y left del Tooltip Add Category */
+		function showTooltip(event) {
+			const tooltip = document.getElementById('addCategory');
+			const button = event.target;
+
+			// Obtener la posición del botón
+			const rect = button.getBoundingClientRect();
+
+			// Ajustar la posición del tooltip con un margen adicional
+			const margin = 6; // Margen en píxeles
+			tooltip.style.top = `${rect.bottom + window.scrollY + margin}px`; // Debajo del botón con margen
+			tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2) + window.scrollX}px`; // Centrado horizontalmente
+			tooltip.style.visibility = 'visible';
+		}
+	
 	
 	</script>
 @endpush
