@@ -195,6 +195,13 @@
 			tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2) + window.scrollX}px`; // Centrado horizontalmente
 			tooltip.style.visibility = 'visible';
 		}
+
+		function hideTooltip() {
+			const tooltip = document.getElementById('addCategory');
+			if (tooltip) {
+				tooltip.style.visibility = 'hidden';
+			}
+		}
 	
 	
 	</script>

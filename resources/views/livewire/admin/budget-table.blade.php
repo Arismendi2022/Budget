@@ -5,7 +5,7 @@
 			<div role="cell">
 				<button wire:click="showCategoryGroupModal"
 								class="ghost-button primary type-body budget-toolbar-add-category "
-								onclick="setAddGroupModalPosition(event)" aria-describedby="addCategoryGroup" type="button">
+								onclick="setAddGroupModalPosition(event)" aria-describedby="addCategoryGroups" type="button">
 					<svg class="ynab-new-icon " width="16" height="16">
 						<!---->
 						<use href="#icon_sprite_plus_circle_fill">
@@ -998,11 +998,12 @@
 					</button>
 				</div>
 				<div class="budget-table-cell-name budget-table-row-li" role="rowheader" aria-colindex="3">
-					<button wire:click="editCategoryGroup({{ $group->id }})" onclick="setModalPosition(event, '{{ $group->id }}')"
+					<button wire:click="editCategoryGroup({{ $group->id }})" onclick="setModalPosition(event)"
 									class="button budget-table-cell-button budget-table-cell-edit-category user-data "
 									title="{{ $group->name }}">{{ $group->name }}</button>
 					<button class="button budget-table-cell-add-category budget-table-cell-button " aria-label="Add Category" aria-describedby="addCategory"
-									wire:click="addCategoryModal" onmouseover="showTooltip(event)"
+									wire:click="addCategoryModal" onclick="setModalPositionCategory(event)"
+									onmouseover="showTooltip(event)"
 									onmouseout="hideTooltip()">
 						<svg class="ynab-new-icon " width="14" height="14">
 							<!---->
@@ -1018,7 +1019,7 @@
 				</div>
 				<div class="budget-table-cell-budgeted budget-table-row-li" role="cell" aria-colindex="4">
 					<button aria-disabled="true" class="user-data currency tabular-nums zero">
-						<span><bdi>$</bdi>{{ format_number($group->total_assigned) }}</span>
+						<span><bdi>{{ currency() }}</bdi>{{ format_number($group->total_assigned) }}</span>
 					</button>
 				</div>
 				<div class="budget-table-cell-activity budget-table-cell-flexed budget-table-row-li" role="cell"
@@ -1044,7 +1045,7 @@
 									tabindex="0"
 									aria-disabled="true"
 									type="button">
-						<span class="user-data currency tabular-nums zero"><bdi>$</bdi>{{ format_number($group->total_activity) }}</span>
+						<span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>{{ format_number($group->total_activity) }}</span>
 					</button>
 				</div>
 				<div class="budget-table-cell-available budget-table-row-li" role="cell" aria-colindex="6">
@@ -1054,7 +1055,7 @@
 									aria-disabled="true" disabled=""
 									type="button">
 						<!---->
-						<span class="user-data currency tabular-nums zero"><bdi>$</bdi>{{ format_number($group->total_available) }}</span>
+						<span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>{{ format_number($group->total_available) }}</span>
 					</button>
 				</div>
 				<div class="budget-table-cell-margin-right budget-table-row-li" aria-hidden="true">&nbsp;</div>
@@ -1116,7 +1117,7 @@
 								<input id="dataCurrency" class="ember-text-field ember-view" type="text" value="0.00"
 											 onfocus="this.select()">
 								<button class="user-data currency tabular-nums zero">
-									<span><bdi>$</bdi>{{ format_number($category->assigned) }}</span>
+									<span><bdi>{{ currency() }}</bdi>{{ format_number($category->assigned) }}</span>
 								</button>
 							</div>
 							<!---->
@@ -1145,7 +1146,7 @@
 										tabindex="0"
 										aria-disabled="true"
 										type="button">
-							<span class="user-data currency tabular-nums zero"><bdi>$</bdi>{{ format_number($category->activity) }}</span>
+							<span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>{{ format_number($category->activity) }}</span>
 						</button>
 					</div>
 					<div class="budget-table-cell-available budget-table-row-li" role="cell" aria-colindex="6">
@@ -1153,7 +1154,7 @@
 						<button class="ynab-new-budget-available-number js-budget-available-number user-data zero" title=""
 										aria-disabled="true" disabled="" type="button">
 							<!---->
-							<span class="user-data currency tabular-nums zero "><bdi>$</bdi>{{ format_number($category->available) }}</span>
+							<span class="user-data currency tabular-nums zero "><bdi>{{ currency() }}</bdi>{{ format_number($category->available) }}</span>
 						</button>
 					</div>
 					<div class="budget-table-cell-margin-right budget-table-row-li" aria-hidden="true">&nbsp;</div>
@@ -1164,9 +1165,8 @@
 	{{--Modal Category Group--}}
 	@if($isOpenCategoryGroupModal)
 		<div id="categoryGroup" class="modal-overlay active ynab-u modal-popup modal-add-master-category"
-				 wire:click="hidenCategoryGroupModal">
-			<div class="modal" role="dialog" aria-modal="true" style="top: 179.5px; left: {{ $modalGroupLeft }};"
-					 wire:click.stop>
+			{{-- wire:click="hidenCategoryGroupModal"--}}>
+			<div class="modal" role="dialog" aria-modal="true" style="top: 179.5px; left: {{ $modalGroupLeft }};">
 				<div class="modal-content">
 					<div class="fieldset">
 						<div class="field-with-error {{ $errors->has('name') ? 'has-errors' : '' }}">
@@ -1201,9 +1201,8 @@
 	{{--Modal Edit Category group--}}
 	@if($isUpdateCategoryGroupModal)
 		<div id="editCategoryGroup" class="modal-overlay active ynab-u modal-popup modal-budget-edit-category"
-				 wire:click="hideEditCategoryGroupModal">
-			<div class="modal" role="dialog" aria-modal="true" style="top: {{ $modalTop }}px; left: {{ $modalLeft }}px;"
-					 wire:click.stop>
+			{{-- wire:click="hideEditCategoryGroupModal"--}}>
+			<div class="modal" role="dialog" aria-modal="true" style="top: {{ $modalTop }}px; left: {{ $modalLeft }}px;">
 				<div class="modal-content">
 					<div class="fieldset">
 						<div class="field-with-error {{ $errors->has('name') ? 'has-errors' : '' }}">
@@ -1246,6 +1245,40 @@
 			</div>
 		</div>
 	@endif
+	{{--Modal New Category--}}
+	@if($isOpenNewCategoryModal)
+		<div id="newCategory" class="modal-overlay active ynab-u modal-popup modal-add-sub-category" {{--wire:click="hideNewCategoryModal"--}}>
+			<div class="modal" role="dialog" aria-modal="true" style="top: 255px; left: 256.817px;">
+				<div class="modal-content">
+					<div class="fieldset">
+						<div class="field-with-error {{ $errors->has('name') ? 'has-errors' : '' }}">
+							<div>
+								<input id="category" placeholder="New Category" autofocus="" class="user-data js-focus-on-start" wire:model="category" wire:keydown.enter="createCategoryGroup">
+							</div>
+							@if ($errors->has('category'))
+								<ul class="errors">
+									<li>{{ $errors->first('category') }}</li>
+								</ul>
+							@endif
+							<!---->
+						</div>
+					</div>
+				</div>
+				<div class="modal-actions">
+					<button class="ynab-button secondary  " type="button" wire:click="hideNewCategoryModal">
+						Cancel
+					</button>
+					<button class="ynab-button primary  " type="button" wire:click="createNewCategory">
+						OK
+					</button>
+				</div>
+				<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none" style="left: 100px; bottom: 100%; height: 0.9375rem; width: 1.875rem;">
+					<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform=""></path>
+				</svg>
+			</div>
+		</div>
+	@endif
+	<!---->
 </div>
 
 @push('scripts')
@@ -1258,6 +1291,19 @@
 				}, 10);
 			});
 		});
+
+		// mover modal Add Group al colapsar sidebar
+		function setAddGroupModalPosition(event) {
+			//	const button = event.target.getBoundingClientRect();
+			const sidebar = document.querySelector(".sidebar");
+			const isCollapsed = sidebar.classList.contains("sidebar-resized-collapsed");
+
+			// Definir el `left` según el estado del sidebar
+			const left = isCollapsed ? "21.55px" : "225.55px";
+
+			// Enviar el valor al componente Livewire
+			Livewire.dispatch("updateAddGroupModal", {left});
+		}
 
 		// Posicion del modal según botón grupo
 		function setModalPosition(event, groupId) {
@@ -1291,19 +1337,38 @@
 			Livewire.dispatch("updateModalPosition", {top, left, arrowLeft, arrowStyle, arrowTransform});
 		}
 
-		// mover modal Add Group al colapsar sidebar
-		function setAddGroupModalPosition(event) {
-			//	const button = event.target.getBoundingClientRect();
+
+		/** CATEGORIAS */
+		//Posicion del Modal New Category segun el boton
+		function setModalPositionCategory(event) {
+			const button = event.target.getBoundingClientRect();
 			const sidebar = document.querySelector(".sidebar");
+
+			const modalWidth = 224, modalHeight = 108.7, margin = 14;
 			const isCollapsed = sidebar.classList.contains("sidebar-resized-collapsed");
 
-			// Definir el `left` según el estado del sidebar
-			const left = isCollapsed ? "21.55px" : "225.55px";
+			// Determinar la posición horizontal
+			const left = button.left + window.scrollX + (button.width / 2) - (modalWidth / 2);
 
-			// Enviar el valor al componente Livewire
-			Livewire.dispatch("updateAddGroupModal", {left});
+			const arrowLeft = isCollapsed
+				? Math.min(button.left - left + (button.width / 2) - 15, modalWidth - 30)
+				: Math.max((modalWidth / 2) - 15, 20);
+
+			// Determinar la posición vertical
+			const spaceBelow = window.innerHeight - button.bottom - margin;
+			const isSpaceBelow = spaceBelow >= modalHeight;
+
+			const top = isSpaceBelow
+				? button.bottom + window.scrollY + margin
+				: button.top + window.scrollY - modalHeight - margin;
+
+			const arrowStyle = isSpaceBelow ? "bottom: 100%" : "top: 100%";
+			const arrowTransform = isSpaceBelow ? "" : "rotate(180 50 50)";
+
+			// Enviar la posición corregida al componente Livewire
+			Livewire.dispatch("categoryModalPosition", {top, left, arrowLeft, arrowStyle, arrowTransform});
+			
 		}
-	
 	
 	</script>
 @endpush

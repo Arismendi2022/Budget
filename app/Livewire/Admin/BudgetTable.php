@@ -12,7 +12,8 @@
 	{
 		public $isOpenCategoryGroupModal   = false;
 		public $isUpdateCategoryGroupModal = false;
-		public $groups,$name,$groupId;
+		public $isOpenNewCategoryModal     = false;
+		public $groups,$name,$category,$groupId;
 		
 		// Variables para la posición del modal
 		public $modalGroupLeft;
@@ -25,10 +26,11 @@
 		
 		// Escucha el evento 'numberFormatUpdated'
 		protected $listeners = [
-			'numberFormatUpdated'  => '$refresh',
-			'categoryGroupCreated' => 'loadCategoryGroups',
-			'updateModalPosition'  => 'updateModalPosition',
-			'updateAddGroupModal'  => 'updateAddGroupModal'
+			'numberFormatUpdated'   => '$refresh',
+			'categoryGroupCreated'  => 'loadCategoryGroups',
+			'updateModalPosition'   => 'updateModalPosition',
+			'updateAddGroupModal'   => 'updateAddGroupModal',
+			'categoryModalPosition' => 'categoryModalPosition',
 		];
 		
 		public function mount(){
@@ -74,6 +76,7 @@
 		}
 		
 		public function hidenCategoryGroupModal(){
+			
 			$this->isOpenCategoryGroupModal = false;
 			$this->reset('name');
 			$this->resetValidation();
@@ -171,6 +174,31 @@
 				$this->addError('deleteError','No se pudo eliminar el grupo. Intenta de nuevo.');
 			}
 		} //End Method
+		
+		public function addCategoryModal(){
+			$this->isOpenNewCategoryModal = true;
+			
+			$this->dispatch('focusInput',inputId:'category');
+		}
+		
+		public function updateModalCategory(){
+			dd('Mensaje....');
+		}
+		
+		public function hideNewCategoryModal(){
+			$this->isOpenNewCategoryModal = false;
+			$this->reset('category');
+			$this->resetValidation();
+		}
+		
+		public function categoryModalPosition(){
+			dd('Mensaje desde categoryMopdalPosition....');
+			
+		}
+		
+		public function createNewCategory(){
+		
+		}
 		
 		
 		public function render(){

@@ -49,7 +49,11 @@
 		}
 		
 		// Registrar el listener para el evento `reorderAccounts`
-		protected $listeners = ['updateOrder','handleDragEnd'];
+		protected $listeners = [
+			'updateOrder','handleDragEnd',
+			'numberFormatUpdated' => 'accountRefresh'  //Escucha el evento 'numberFormatUpdated'
+		
+		];
 		
 		public function mount(){
 			$activeBudget         = Budget::where('user_id',auth()->id())->where('is_active',true)->first();
