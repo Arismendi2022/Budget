@@ -3,6 +3,7 @@
 	namespace App\Livewire\Admin;
 	
 	use App\Models\Budget;
+	use App\Models\Category;
 	use App\Models\CategoryGroup;
 	use Illuminate\Support\Facades\Log;
 	use Illuminate\Validation\Rule;
@@ -13,7 +14,7 @@
 		public $isOpenCategoryGroupModal   = false;
 		public $isUpdateCategoryGroupModal = false;
 		public $isOpenNewCategoryModal     = false;
-		public $groups,$name,$category,$groupId;
+		public $groups,$name,$category,$groupId,$selectedGroupId;
 		
 		// Variables para la posición del modal
 		public $modalGroupLeft;
@@ -26,11 +27,10 @@
 		
 		// Escucha el evento 'numberFormatUpdated'
 		protected $listeners = [
-			'numberFormatUpdated'   => '$refresh',
-			'categoryGroupCreated'  => 'loadCategoryGroups',
-			'updateModalPosition'   => 'updateModalPosition',
-			'updateAddGroupModal'   => 'updateAddGroupModal',
-			'categoryModalPosition' => 'categoryModalPosition',
+			'numberFormatUpdated'  => '$refresh',
+			'categoryGroupCreated' => 'loadCategoryGroups',
+			'updateModalPosition'  => 'updateModalPosition',
+			'updateAddGroupModal'  => 'updateAddGroupModal',
 		];
 		
 		public function mount(){
@@ -175,11 +175,50 @@
 			}
 		} //End Method
 		
-		public function addCategoryModal(){
+		/** CATEGORY */
+		public function addCategoryModal($groupId){
+			$this->groupId                = $groupId; // Guardamos el ID del grupo seleccionado
 			$this->isOpenNewCategoryModal = true;
 			
 			$this->dispatch('focusInput',inputId:'category');
 		}
+		
+		public function createNewCategory(){
+			$this->validate([
+				'category' => [
+					'required',
+					Rule::unique('categories','category'),
+				],
+			],[
+				'category.required' => 'The category name is required.',
+				'category.unique'   => 'A category with this name already exists in this group',
+			]);
+			
+			try{
+				
+				Category::create([
+					'group_id' => $this->groupId,
+					'category' => $this->category,
+				]);
+				
+				// Emitir evento para actualizar la lista
+				$this->loadCategoryGroups();
+				
+				// Limpiar el campo y cerrar el modal
+				$this->reset('category');
+				$this->resetValidation();
+				$this->isOpenNewCategoryModal = false;
+				
+			} catch(\Throwable $e){
+				// Registrar el error en los logs de Laravel (opcional)
+				\Log::error('Error al crear un grupo de categorías: '.$e->getMessage());
+				
+				// Mostrar un mensaje de error en Livewire
+				$this->addError('name','Algo salió mal. Inténtalo de nuevo.');
+			}
+			
+		} //End Method
+		
 		
 		public function updateModalCategory(){
 			dd('Mensaje....');
@@ -190,16 +229,6 @@
 			$this->reset('category');
 			$this->resetValidation();
 		}
-		
-		public function categoryModalPosition(){
-			dd('Mensaje desde categoryMopdalPosition....');
-			
-		}
-		
-		public function createNewCategory(){
-		
-		}
-		
 		
 		public function render(){
 			return view('livewire.admin.budget-table');

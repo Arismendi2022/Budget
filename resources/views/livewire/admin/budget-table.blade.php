@@ -1002,7 +1002,7 @@
 									class="button budget-table-cell-button budget-table-cell-edit-category user-data "
 									title="{{ $group->name }}">{{ $group->name }}</button>
 					<button class="button budget-table-cell-add-category budget-table-cell-button " aria-label="Add Category" aria-describedby="addCategory"
-									wire:click="addCategoryModal" onclick="setModalPositionCategory(event)"
+									wire:click="addCategoryModal({{ $group->id }})" onclick="setModalPositionCategory(event)"
 									onmouseover="showTooltip(event)"
 									onmouseout="hideTooltip()">
 						<svg class="ynab-new-icon " width="14" height="14">
@@ -1164,8 +1164,7 @@
 	</div>
 	{{--Modal Category Group--}}
 	@if($isOpenCategoryGroupModal)
-		<div id="categoryGroup" class="modal-overlay active ynab-u modal-popup modal-add-master-category"
-			{{-- wire:click="hidenCategoryGroupModal"--}}>
+		<div id="categoryGroup" class="modal-overlay active ynab-u modal-popup modal-add-master-category" wire:click.self="$set('isOpenCategoryGroupModal', false)">
 			<div class="modal" role="dialog" aria-modal="true" style="top: 179.5px; left: {{ $modalGroupLeft }};">
 				<div class="modal-content">
 					<div class="fieldset">
@@ -1200,8 +1199,7 @@
 	@endif
 	{{--Modal Edit Category group--}}
 	@if($isUpdateCategoryGroupModal)
-		<div id="editCategoryGroup" class="modal-overlay active ynab-u modal-popup modal-budget-edit-category"
-			{{-- wire:click="hideEditCategoryGroupModal"--}}>
+		<div id="editCategoryGroup" class="modal-overlay active ynab-u modal-popup modal-budget-edit-category" wire:click.self="$set('isUpdateCategoryGroupModal', false)">
 			<div class="modal" role="dialog" aria-modal="true" style="top: {{ $modalTop }}px; left: {{ $modalLeft }}px;">
 				<div class="modal-content">
 					<div class="fieldset">
@@ -1247,11 +1245,11 @@
 	@endif
 	{{--Modal New Category--}}
 	@if($isOpenNewCategoryModal)
-		<div id="newCategory" class="modal-overlay active ynab-u modal-popup modal-add-sub-category" {{--wire:click="hideNewCategoryModal"--}}>
-			<div class="modal" role="dialog" aria-modal="true" style="top: 255px; left: 256.817px;">
+		<div id="newCategory" class="modal-overlay active ynab-u modal-popup modal-add-sub-category" wire:click.self="$set('isOpenNewCategoryModal', false)">
+			<div class="modal" role="dialog" aria-modal="true" style="top: {{ $modalTop }}px; left: {{ $modalLeft }}px;">
 				<div class="modal-content">
 					<div class="fieldset">
-						<div class="field-with-error {{ $errors->has('name') ? 'has-errors' : '' }}">
+						<div class="field-with-error {{ $errors->has('category') ? 'has-errors' : '' }}">
 							<div>
 								<input id="category" placeholder="New Category" autofocus="" class="user-data js-focus-on-start" wire:model="category" wire:keydown.enter="createCategoryGroup">
 							</div>
@@ -1272,8 +1270,8 @@
 						OK
 					</button>
 				</div>
-				<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none" style="left: 100px; bottom: 100%; height: 0.9375rem; width: 1.875rem;">
-					<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform=""></path>
+				<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none" style="left: {{$modalArrowLeft}}px; {{$modalArrowStyle}}; height: 0.9375rem; width: 1.875rem;">
+					<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform="{{$modalArrowTransform}}"></path>
 				</svg>
 			</div>
 		</div>
@@ -1285,90 +1283,42 @@
 	<script>
 		//Da el foco a los inputs
 		document.addEventListener('DOMContentLoaded', () => {
-			window.addEventListener('focusInput', (event) => {
-				setTimeout(() => {
-					document.getElementById(event.detail.inputId)?.focus();
-				}, 10);
-			});
+			window.addEventListener('focusInput', e =>
+				setTimeout(() => document.getElementById(e.detail.inputId)?.focus(), 10)
+			);
+
+			const isCollapsed = () =>
+				document.querySelector(".sidebar").classList.contains("sidebar-resized-collapsed");
+
+			const calculatePosition = (rect, {modalWidth = 400, modalHeight = 108.7, useCenter = false} = {}) => {
+				const margin = 14;
+				const left = useCenter ? rect.left + window.scrollX + (rect.width / 2) - (modalWidth / 2)
+					: isCollapsed() ? 10 : rect.left + window.scrollX + (rect.width / 2) - (modalWidth / 2);
+
+				const spaceBelow = window.innerHeight - rect.bottom - margin;
+				const isBelow = spaceBelow >= modalHeight;
+
+				return {
+					left,
+					top: isBelow ? rect.bottom + window.scrollY + margin : rect.top + window.scrollY - modalHeight - margin,
+					arrowLeft: isCollapsed() && !useCenter ? Math.min(rect.left - left + (rect.width / 2) - 15, modalWidth - 30)
+						: Math.max((modalWidth / 2) - 15, 20),
+					arrowStyle: isBelow ? "bottom: 100%" : "top: 100%",
+					arrowTransform: isBelow ? "" : "rotate(180 50 50)"
+				};
+			};
+
+			window.setAddGroupModalPosition = () =>
+				Livewire.dispatch("updateAddGroupModal", {left: isCollapsed() ? "21.55px" : "225.55px"});
+
+			window.setModalPosition = (event) =>
+				Livewire.dispatch("updateModalPosition", calculatePosition(event.target.getBoundingClientRect()));
+
+			window.setModalPositionCategory = (event) =>
+				Livewire.dispatch("updateModalPosition",
+					calculatePosition(event.target.getBoundingClientRect(), {modalWidth: 224, useCenter: true})
+				);
 		});
-
-		// mover modal Add Group al colapsar sidebar
-		function setAddGroupModalPosition(event) {
-			//	const button = event.target.getBoundingClientRect();
-			const sidebar = document.querySelector(".sidebar");
-			const isCollapsed = sidebar.classList.contains("sidebar-resized-collapsed");
-
-			// Definir el `left` según el estado del sidebar
-			const left = isCollapsed ? "21.55px" : "225.55px";
-
-			// Enviar el valor al componente Livewire
-			Livewire.dispatch("updateAddGroupModal", {left});
-		}
-
-		// Posicion del modal según botón grupo
-		function setModalPosition(event, groupId) {
-			const button = event.target.getBoundingClientRect();
-			const sidebar = document.querySelector(".sidebar");
-
-			const modalWidth = 400, modalHeight = 108.7, margin = 14;
-			const isCollapsed = sidebar.classList.contains("sidebar-resized-collapsed");
-
-			// Determinar la posición horizontal
-			const left = isCollapsed
-				? 10
-				: button.left + window.scrollX + (button.width / 2) - (modalWidth / 2);
-
-			const arrowLeft = isCollapsed
-				? Math.min(button.left - left + (button.width / 2) - 15, modalWidth - 30)
-				: Math.max((modalWidth / 2) - 15, 20);
-
-			// Determinar la posición vertical
-			const spaceBelow = window.innerHeight - button.bottom - margin;
-			const isSpaceBelow = spaceBelow >= modalHeight;
-
-			const top = isSpaceBelow
-				? button.bottom + window.scrollY + margin
-				: button.top + window.scrollY - modalHeight - margin;
-
-			const arrowStyle = isSpaceBelow ? "bottom: 100%" : "top: 100%";
-			const arrowTransform = isSpaceBelow ? "" : "rotate(180 50 50)";
-
-			// Enviar la posición corregida al componente Livewire
-			Livewire.dispatch("updateModalPosition", {top, left, arrowLeft, arrowStyle, arrowTransform});
-		}
-
-
-		/** CATEGORIAS */
-		//Posicion del Modal New Category segun el boton
-		function setModalPositionCategory(event) {
-			const button = event.target.getBoundingClientRect();
-			const sidebar = document.querySelector(".sidebar");
-
-			const modalWidth = 224, modalHeight = 108.7, margin = 14;
-			const isCollapsed = sidebar.classList.contains("sidebar-resized-collapsed");
-
-			// Determinar la posición horizontal
-			const left = button.left + window.scrollX + (button.width / 2) - (modalWidth / 2);
-
-			const arrowLeft = isCollapsed
-				? Math.min(button.left - left + (button.width / 2) - 15, modalWidth - 30)
-				: Math.max((modalWidth / 2) - 15, 20);
-
-			// Determinar la posición vertical
-			const spaceBelow = window.innerHeight - button.bottom - margin;
-			const isSpaceBelow = spaceBelow >= modalHeight;
-
-			const top = isSpaceBelow
-				? button.bottom + window.scrollY + margin
-				: button.top + window.scrollY - modalHeight - margin;
-
-			const arrowStyle = isSpaceBelow ? "bottom: 100%" : "top: 100%";
-			const arrowTransform = isSpaceBelow ? "" : "rotate(180 50 50)";
-
-			// Enviar la posición corregida al componente Livewire
-			Livewire.dispatch("categoryModalPosition", {top, left, arrowLeft, arrowStyle, arrowTransform});
-			
-		}
 	
 	</script>
 @endpush
