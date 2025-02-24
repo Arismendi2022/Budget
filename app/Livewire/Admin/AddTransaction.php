@@ -19,7 +19,7 @@
 			$this->addTransaction = true;
 			
 		}
-	
+		
 		// Metodo para cerrar el elemento transacciones
 		public function closeTransaction(){
 			$this->addTransaction = false;

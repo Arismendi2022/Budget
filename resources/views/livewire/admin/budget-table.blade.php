@@ -924,17 +924,29 @@
 					</svg>
 				</button>
 			</div>
-			<div class="budget-table-cell-checkbox budget-table-row-li" role="columnheader" aria-colindex="1">
+			<div class="budget-table-cell-checkbox budget-table-row-li " role="columnheader" aria-colindex="1">
 				<button class="ynab-checkbox ynab-checkbox-button " role="checkbox" aria-checked="false" aria-label="Check all"
 								type="button">
-					<svg class="ynab-new-icon ynab-checkbox-button-square " width="13" height="13">
+					<svg class="ynab-new-icon ynab-checkbox-button-square {{ $isMasterPartial ? 'is-partial' : '' }} " width="13" height="13">
 						<!---->
-						<use href="#icon_sprite_check">
-							<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check" fill="none" viewBox="0 0 24 24">
-								<path fill="currentColor"
-											d="m7.4 17.6-5-5a1.4 1.4 0 0 0-2 0 1.4 1.4 0 0 0 0 2l6 6a1.4 1.4 0 0 0 2 0L23.6 5.4a1.4 1.4 0 0 0 0-2 1.4 1.4 0 0 0-2 0z"></path>
-							</svg>
-						</use>
+						@if($isMasterPartial)
+							<use href="#icon_sprite_subtract">
+								<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_subtract" fill="none" viewBox="0 0 24 24">
+									<path fill="currentColor"
+												d="m7.4 17.6-5-5a1.4 1.4 0 0 0-2 0 1.4 1.4 0 0 0 0 2l6 6a1.4 1.4 0 0 0 2 0L23.6 5.4a1.4 1.4 0 0 0 0-2 1.4 1.4 0 0 0-2 0z">
+									</path>
+								</svg>
+							</use>
+						<!---->
+						@else
+							<use href="#icon_sprite_check">
+								<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check" fill="none" viewBox="0 0 24 24">
+									<path fill="currentColor"
+												d="m7.4 17.6-5-5a1.4 1.4 0 0 0-2 0 1.4 1.4 0 0 0 0 2l6 6a1.4 1.4 0 0 0 2 0L23.6 5.4a1.4 1.4 0 0 0 0-2 1.4 1.4 0 0 0-2 0z">
+									</path>
+								</svg>
+							</use>
+						@endif
 					</svg>
 					<!---->
 				</button>
@@ -982,19 +994,30 @@
 						</svg>
 					</button>
 				</div>
-				<div class="budget-table-cell-checkbox budget-table-row-li" role="cell" aria-colindex="1">
-					<button class="ynab-checkbox ynab-checkbox-button  " role="checkbox" aria-checked="false" aria-label="Bills"
+				<!-- Checkbox del grupo -->
+				<div class="budget-table-cell-checkbox budget-table-row-li " role="cell" aria-colindex="1">
+					<button wire:click="toggleGroup({{ $group->id }})" class="ynab-checkbox ynab-checkbox-button " role="checkbox" aria-checked="false" aria-label="Bills"
 									type="button">
-						<svg class="ynab-new-icon ynab-checkbox-button-square" width="13" height="13">
+						<!-- Evento para alternar el checkbox -->
+						<svg class="ynab-new-icon ynab-checkbox-button-square {{ $checkedGroupId == $group->id ? ($isPartial ? 'is-partial' : 'is-checked') : '' }}" width="13" height="13">
 							<!---->
-							<use href="#icon_sprite_check">
-								<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check" fill="none" viewBox="0 0 24 24">
-									<path fill="currentColor"
-												d="m7.4 17.6-5-5a1.4 1.4 0 0 0-2 0 1.4 1.4 0 0 0 0 2l6 6a1.4 1.4 0 0 0 2 0L23.6 5.4a1.4 1.4 0 0 0 0-2 1.4 1.4 0 0 0-2 0z"></path>
-								</svg>
-							</use>
+							@if($checkedGroupId == $group->id && $isPartial)
+								<use href="#icon_sprite_subtract">
+									<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_subtract" fill="none" viewBox="0 0 24 24">
+										<path fill="currentColor"
+													d="m7.4 17.6-5-5a1.4 1.4 0 0 0-2 0 1.4 1.4 0 0 0 0 2l6 6a1.4 1.4 0 0 0 2 0L23.6 5.4a1.4 1.4 0 0 0 0-2 1.4 1.4 0 0 0-2 0z">
+										</path>
+									</svg>
+								</use> <!-- Ícono "subtract" -->
+							@else
+								<use href="#icon_sprite_check">
+									<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check" fill="none" viewBox="0 0 24 24">
+										<rect width="21.75" height="3" x="1.13" y="10.5" fill="currentColor" rx="1.5"></rect>
+									</svg>
+								</use> <!-- Ícono "check" -->
+							@endif
+							<!---->
 						</svg>
-						<!---->
 					</button>
 				</div>
 				<div class="budget-table-cell-name budget-table-row-li" role="rowheader" aria-colindex="3">
@@ -1063,18 +1086,18 @@
 		<!-- CATEGORIAS -->
 			@foreach($group->categories as $category)
 				<div id="category-{{ $category->id }}" draggable="true"
-						 class="budget-table-row js-budget-table-row budget-table-row-ul is-sub-category " role="row"
-						 data-entity-id="4ab7a77e-90ed-4851-b569-c349fc9b29bb" aria-level="2" aria-expanded="true">
+						 class="budget-table-row js-budget-table-row budget-table-row-ul is-sub-category {{ in_array($category->id, $selectedCategories) ? 'is-checked' : '' }}" role="row"
+						 data-entity-id="{{ $category->id }}" aria-level="2" aria-expanded="true" wire:click="activateCategory({{ $category->id }}, {{ $group->id }})">
 					<div class="budget-table-cell-margin-left js-budget-table-cell-margin-left budget-table-row-li"
-							 aria-hidden="true">&nbsp;
+							 aria-hidden="true" wire:click="activateCategory({{ $category->id }}, {{ $group->id }})">&nbsp;
 					</div>
-					<div class="budget-table-cell-collapse budget-table-row-li" role="cell" aria-colindex="2">
-						&nbsp;
+					<div class="budget-table-cell-collapse budget-table-row-li" role="cell" aria-colindex="2">&nbsp;
 					</div>
-					<div class="budget-table-cell-checkbox budget-table-row-li" role="cell" aria-colindex="1">
-						<button class="ynab-checkbox ynab-checkbox-button " role="checkbox" aria-checked="false"
+					<!-- Checkbox de la categoría -->
+					<div class="budget-table-cell-checkbox budget-table-row-li " role="cell" aria-colindex="1">
+						<button wire:click.stop="toggleCategory({{ $category->id }}, {{ $group->id }})" class="ynab-checkbox ynab-checkbox-button " role="checkbox" aria-checked="false"
 										aria-label="{{ $category->category }}" type="button">
-							<svg class="ynab-new-icon ynab-checkbox-button-square " width="13" height="13">
+							<svg class="ynab-new-icon ynab-checkbox-button-square {{ in_array($category->id, $selectedCategories) ? 'is-checked' : '' }}" width="13" height="13">
 								<!---->
 								<use href="#icon_sprite_check">
 									<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check" fill="none" viewBox="0 0 24 24">
@@ -1105,7 +1128,7 @@
 						</div>
 					</div>
 					<div class="budget-table-cell-budgeted budget-table-row-li" role="cell" aria-colindex="4">
-						<div id="ember161" class="ynab-new-currency-input ">
+						<div id="newCurrency" class="ynab-new-currency-input {{ $editingCategoryId === $category->id ? 'is-focused is-editing' : '' }}">
 							<button tabindex="-1" class="button-calculator " aria-hidden="true" type="button">
 								<svg class="icon-calculator " viewBox="0 0 16 16">
 									<desc>Clicking this button will open the calculator</desc>
@@ -1114,8 +1137,7 @@
 								</svg>
 							</button>
 							<div class="input-wrapper">
-								<input id="dataCurrency" class="ember-text-field ember-view" type="text" value="0.00"
-											 onfocus="this.select()">
+								<input id="dataCurrency" class="ember-text-field ember-view" type="text" value="0.00" onfocus="this.select()">
 								<button class="user-data currency tabular-nums zero">
 									<span><bdi>{{ currency() }}</bdi>{{ format_number($category->assigned) }}</span>
 								</button>

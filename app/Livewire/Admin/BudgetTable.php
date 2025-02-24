@@ -25,6 +25,16 @@
 		public $modalArrowTransform;
 		public $leftAddGroup;
 		
+		// Nueva propiedad para almacenar la categoría seleccionada
+		public $checkedGroupId     = null;
+		public $selectedCategoryId = null;
+		public $isPartial          = false;
+		public $selectedCategories = [];
+		public $editingCategoryId  = null;
+		
+		
+		public $isMasterPartial = true;
+		
 		// Escucha el evento 'numberFormatUpdated'
 		protected $listeners = [
 			'numberFormatUpdated'  => '$refresh',
@@ -36,6 +46,7 @@
 		public function mount(){
 			// Obtener todos los grupos con sus categorías y calcular los totales
 			$this->loadCategoryGroups();
+			
 		}
 		
 		public function loadCategoryGroups(){
@@ -47,6 +58,93 @@
 			});
 		}
 		
+		// Metodo para el checkbox al hacer clcik en el grupo
+		public function toggleGroup($groupId){
+			$group = CategoryGroup::with('categories')->find($groupId);
+			
+			if(!$group) return;
+			
+			// Si el grupo ya está seleccionado, deseleccionamos todo
+			if($this->checkedGroupId === $groupId){
+				$this->checkedGroupId     = null;
+				$this->selectedCategories = [];
+				$this->isPartial          = false;
+				$this->resetEditingState(); // Reseteamos también el estado de edición
+			}else{
+				// Si no está seleccionado, seleccionamos todas sus categorías
+				$this->checkedGroupId     = $groupId;
+				$this->selectedCategories = $group->categories->pluck('id')->toArray();
+				$this->isPartial          = false;
+			}
+			
+		}
+		
+		
+		// Metodo para activar el checkbox al hacer clic en toda la fila
+		public function activateCategory($categoryId,$groupId){
+			// Agregar o quitar categoría de la selección
+			if(!in_array($categoryId,$this->selectedCategories)){
+				$this->selectedCategories[] = $categoryId;
+				$this->checkedGroupId       = $groupId;
+				$this->isPartial            = true;
+				$this->startEditing($categoryId); // Iniciar edición
+			}else{
+				// Si ya estaba seleccionada, alternamos el estado de edición
+				$this->toggleEditingState($categoryId);
+			}
+		}
+		
+		// Metodo para desactivar el checkbox al hacer clic en el botón del checkbox
+		public function toggleCategory($categoryId,$groupId){
+			if(in_array($categoryId,$this->selectedCategories)){
+				// Removemos la categoría del array
+				$this->selectedCategories = array_diff($this->selectedCategories,[$categoryId]);
+				
+				// Si no quedan categorías seleccionadas, limpiamos el grupo
+				if(empty($this->selectedCategories)){
+					$this->checkedGroupId = null;
+					$this->isPartial      = false;
+				}else{
+					$this->checkedGroupId = $groupId;
+					$this->isPartial      = true;
+				}
+				
+				// Si estamos editando esta categoría, también reseteamos
+				if($this->editingCategoryId === $categoryId){
+					$this->resetEditingState();
+				}
+			}else{
+				$this->selectedCategories[] = $categoryId;
+				$this->checkedGroupId       = $groupId;
+				$this->isPartial            = true;
+				
+				// Establecemos esta categoría como la que se está editando
+				$this->startEditing($categoryId);
+			}
+		}
+		
+		// Metodo para iniciar la edición de una categoría
+		public function startEditing($categoryId){
+			$this->editingCategoryId = $categoryId;
+		}
+		
+		// Meodo para alternar el estado de edición
+		public function toggleEditingState($categoryId){
+			if($this->editingCategoryId === $categoryId){
+				$this->editingCategoryId = null; // Si ya estaba editando, lo quitamos
+			}else{
+				$this->editingCategoryId = $categoryId; // Si no estaba editando, lo activamos
+			}
+		}
+		
+		// Metodo para resetear el estado de edición
+		public function resetEditingState(){
+			$this->editingCategoryId = null;
+		}
+		
+		
+		/** GRUPOS Y CATEGORIAS */
+		//Edit Grupo de categorias
 		public function editCategoryGroup($id){
 			$groupCategory = CategoryGroup::findOrFail($id);
 			$this->groupId = $groupCategory->id;
@@ -219,6 +317,10 @@
 			
 		} //End Method
 		
+		
+		public function editCategoryModal(){
+			dd('Edit category modal ....');
+		}
 		
 		public function updateModalCategory(){
 			dd('Mensaje....');

@@ -2504,6 +2504,11 @@ number[aria-disabled="true"], .budget-table-header-labels .budget-table-cell-ava
 	flex-direction: row;
 	overflow: hidden;
 }
+.budget-table-container.is-expanded .budget-table-row-ul.is-sub-category.is-checked .budget-table-cell-edit-category-label button:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
 .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category-label .budget-table-cell-goal-status, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category-label button {
 	line-height: 1.2rem;
 	overflow: hidden;
