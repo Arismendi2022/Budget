@@ -11,31 +11,25 @@
 	
 	class BudgetTable extends Component
 	{
+		// Propiedades para los modales
 		public $isOpenCategoryGroupModal   = false;
 		public $isUpdateCategoryGroupModal = false;
 		public $isOpenNewCategoryModal     = false;
 		public $groups,$name,$category,$groupId,$selectedGroupId;
 		
-		// Variables para la posición del modal
-		public $modalGroupLeft;
-		public $modalTop  = 0;
-		public $modalLeft = 0;
-		public $modalArrowLeft;
-		public $modalArrowStyle;
-		public $modalArrowTransform;
-		public $leftAddGroup;
+		// Propiedades para posicionamiento de modales
+		public $modalGroupLeft,$modalTop = 0,$modalLeft = 0;
+		public                               $modalArrowLeft,$modalArrowStyle,$modalArrowTransform,$leftAddGroup;
 		
-		// Nueva propiedad para almacenar la categoría seleccionada
+		// Propiedades para selección y edición
 		public $checkedGroupId     = null;
 		public $selectedCategoryId = null;
 		public $isPartial          = false;
 		public $selectedCategories = [];
 		public $editingCategoryId  = null;
+		public $isMasterPartial    = false;
 		
-		
-		public $isMasterPartial = true;
-		
-		// Escucha el evento 'numberFormatUpdated'
+		// Listeners
 		protected $listeners = [
 			'numberFormatUpdated'  => '$refresh',
 			'categoryGroupCreated' => 'loadCategoryGroups',
@@ -44,9 +38,7 @@
 		];
 		
 		public function mount(){
-			// Obtener todos los grupos con sus categorías y calcular los totales
 			$this->loadCategoryGroups();
-			
 		}
 		
 		public function loadCategoryGroups(){
@@ -58,88 +50,159 @@
 			});
 		}
 		
-		// Metodo para el checkbox al hacer clcik en el grupo
+		// Método para el checkbox al hacer click en el grupo
 		public function toggleGroup($groupId){
 			$group = CategoryGroup::with('categories')->find($groupId);
-			
 			if(!$group) return;
 			
-			// Si el grupo ya está seleccionado, deseleccionamos todo
+			// Alternar selección del grupo
 			if($this->checkedGroupId === $groupId){
-				$this->checkedGroupId     = null;
-				$this->selectedCategories = [];
-				$this->isPartial          = false;
-				$this->resetEditingState(); // Reseteamos también el estado de edición
+				$this->clearSelections();
 			}else{
-				// Si no está seleccionado, seleccionamos todas sus categorías
 				$this->checkedGroupId     = $groupId;
 				$this->selectedCategories = $group->categories->pluck('id')->toArray();
 				$this->isPartial          = false;
 			}
 			
+			$this->updateMasterPartialState();
 		}
 		
-		
-		// Metodo para activar el checkbox al hacer clic en toda la fila
+		// Método para activar el checkbox al hacer clic en toda la fila
 		public function activateCategory($categoryId,$groupId){
-			// Agregar o quitar categoría de la selección
 			if(!in_array($categoryId,$this->selectedCategories)){
 				$this->selectedCategories[] = $categoryId;
 				$this->checkedGroupId       = $groupId;
 				$this->isPartial            = true;
-				$this->startEditing($categoryId); // Iniciar edición
+				$this->startEditing($categoryId);
 			}else{
-				// Si ya estaba seleccionada, alternamos el estado de edición
 				$this->toggleEditingState($categoryId);
 			}
+			
+			$this->updateMasterPartialState();
 		}
 		
-		// Metodo para desactivar el checkbox al hacer clic en el botón del checkbox
+		// Método para alternar selección de categoría
 		public function toggleCategory($categoryId,$groupId){
 			if(in_array($categoryId,$this->selectedCategories)){
-				// Removemos la categoría del array
+				// Remover categoría
 				$this->selectedCategories = array_diff($this->selectedCategories,[$categoryId]);
 				
-				// Si no quedan categorías seleccionadas, limpiamos el grupo
 				if(empty($this->selectedCategories)){
-					$this->checkedGroupId = null;
-					$this->isPartial      = false;
+					$this->clearSelections();
 				}else{
 					$this->checkedGroupId = $groupId;
 					$this->isPartial      = true;
-				}
-				
-				// Si estamos editando esta categoría, también reseteamos
-				if($this->editingCategoryId === $categoryId){
-					$this->resetEditingState();
+					
+					// Resetear edición si es necesario
+					if($this->editingCategoryId === $categoryId){
+						$this->resetEditingState();
+					}
 				}
 			}else{
+				// Agregar categoría
 				$this->selectedCategories[] = $categoryId;
 				$this->checkedGroupId       = $groupId;
 				$this->isPartial            = true;
-				
-				// Establecemos esta categoría como la que se está editando
 				$this->startEditing($categoryId);
 			}
+			
+			$this->updateMasterPartialState();
 		}
 		
-		// Metodo para iniciar la edición de una categoría
+		// Métodos para manejo de estado de edición
 		public function startEditing($categoryId){
 			$this->editingCategoryId = $categoryId;
 		}
 		
-		// Meodo para alternar el estado de edición
 		public function toggleEditingState($categoryId){
-			if($this->editingCategoryId === $categoryId){
-				$this->editingCategoryId = null; // Si ya estaba editando, lo quitamos
+			$this->editingCategoryId = ($this->editingCategoryId === $categoryId) ? null : $categoryId;
+		}
+		
+		public function resetEditingState(){
+			$this->editingCategoryId = null;
+		}
+		
+		// Método para limpiar todas las selecciones
+		private function clearSelections(){
+			$this->checkedGroupId     = null;
+			$this->selectedCategories = [];
+			$this->isPartial          = false;
+			$this->resetEditingState();
+		}
+		
+		// Método para actualizar estado parcial del maestro
+		protected function updateMasterPartialState(){
+			if(!empty($this->selectedCategories)){
+				$totalCategories       = Category::count();
+				$this->isMasterPartial = count($this->selectedCategories) < $totalCategories && !empty($this->selectedCategories);
+				$this->updateGroupsState();
 			}else{
-				$this->editingCategoryId = $categoryId; // Si no estaba editando, lo activamos
+				$this->isMasterPartial = false;
 			}
 		}
 		
-		// Metodo para resetear el estado de edición
-		public function resetEditingState(){
-			$this->editingCategoryId = null;
+		// Método para manejar el clic en el checkbox maestro CATEGORY
+		public function toggleAllCategories(){
+			if($this->isMasterPartial || !empty($this->selectedCategories)){
+				$this->clearSelections();
+				$this->isMasterPartial = false;
+			}else{
+				$this->selectedCategories = Category::pluck('id')->toArray();
+				$this->checkedGroupId     = null;
+				$this->isPartial          = false;
+				$this->isMasterPartial    = false;
+				$this->updateGroupsState();
+			}
+		}
+		
+		// Método para actualizar estado de grupos
+		protected function updateGroupsState(){
+			if(empty($this->selectedCategories)) return;
+			
+			// Encontrar grupo con más categorías seleccionadas
+			$maxSelectedCount   = 0;
+			$maxSelectedGroupId = null;
+			$isPartial          = false;
+			
+			foreach(CategoryGroup::with('categories')->get() as $group){
+				$groupCategoryIds = $group->categories->pluck('id')->toArray();
+				$selectedInGroup  = array_intersect($groupCategoryIds,$this->selectedCategories);
+				$selectedCount    = count($selectedInGroup);
+				
+				if($selectedCount > 0){
+					$isGroupPartial = $selectedCount < count($groupCategoryIds);
+					
+					if($selectedCount > $maxSelectedCount){
+						$maxSelectedCount   = $selectedCount;
+						$maxSelectedGroupId = $group->id;
+						$isPartial          = $isGroupPartial;
+					}
+				}
+			}
+			
+			if($maxSelectedGroupId){
+				$this->checkedGroupId = $maxSelectedGroupId;
+				$this->isPartial      = $isPartial;
+			}
+		}
+		
+		// Métodos para verificar estados de grupo
+		public function isGroupChecked($groupId){
+			$group = CategoryGroup::with('categories')->find($groupId);
+			if(!$group) return false;
+			
+			$groupCategoryIds = $group->categories->pluck('id')->toArray();
+			return !empty(array_intersect($groupCategoryIds,$this->selectedCategories));
+		}
+		
+		public function isGroupPartial($groupId){
+			$group = CategoryGroup::with('categories')->find($groupId);
+			if(!$group) return false;
+			
+			$groupCategoryIds = $group->categories->pluck('id')->toArray();
+			$selectedInGroup  = array_intersect($groupCategoryIds,$this->selectedCategories);
+			
+			return !empty($selectedInGroup) && count($selectedInGroup) < count($groupCategoryIds);
 		}
 		
 		

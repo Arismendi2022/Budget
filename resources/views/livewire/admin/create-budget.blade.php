@@ -30,7 +30,7 @@
 							<label for="budget-name" class="type-body-bold">Budget Name</label>
 							<div class="field-with-error {{ $errors->has('name') ? 'has-errors' : '' }}">
 								<div>
-									<input id="budget-name" class="ember-text-field ember-view modal-budget-settings-name" autofocus type="text" wire:model="name">
+									<input id="budget-name" class="ember-text-field ember-view modal-budget-settings-name" onfocus="this.select()" autofocus type="text" wire:model="name">
 								</div>
 								<!---->
 								<ul class="errors {{ $errors->has('name') ? '' : 'warnings' }}">

@@ -924,28 +924,33 @@
 					</svg>
 				</button>
 			</div>
+			{{--Checkbox Category Principal--}}
 			<div class="budget-table-cell-checkbox budget-table-row-li " role="columnheader" aria-colindex="1">
-				<button class="ynab-checkbox ynab-checkbox-button " role="checkbox" aria-checked="false" aria-label="Check all"
+				<button wire:click="toggleAllCategories()" class="ynab-checkbox ynab-checkbox-button " role="checkbox"
+								aria-checked="{{ empty($selectedCategories) ? 'false' : ($isMasterPartial ? 'mixed' : 'true') }}"
+								aria-label="Check all"
 								type="button">
-					<svg class="ynab-new-icon ynab-checkbox-button-square {{ $isMasterPartial ? 'is-partial' : '' }} " width="13" height="13">
+					<svg class="ynab-new-icon ynab-checkbox-button-square {{ empty($selectedCategories) ? '' : ($isMasterPartial ? 'is-partial' : 'is-checked') }}" width="13" height="13">
 						<!---->
-						@if($isMasterPartial)
-							<use href="#icon_sprite_subtract">
-								<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_subtract" fill="none" viewBox="0 0 24 24">
-									<path fill="currentColor"
-												d="m7.4 17.6-5-5a1.4 1.4 0 0 0-2 0 1.4 1.4 0 0 0 0 2l6 6a1.4 1.4 0 0 0 2 0L23.6 5.4a1.4 1.4 0 0 0 0-2 1.4 1.4 0 0 0-2 0z">
-									</path>
-								</svg>
-							</use>
+						@if(!empty($selectedCategories))
+							@if($isMasterPartial)
+								<use href="#icon_sprite_subtract">
+									<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_subtract" fill="none" viewBox="0 0 24 24">
+										<path fill="currentColor"
+													d="m7.4 17.6-5-5a1.4 1.4 0 0 0-2 0 1.4 1.4 0 0 0 0 2l6 6a1.4 1.4 0 0 0 2 0L23.6 5.4a1.4 1.4 0 0 0 0-2 1.4 1.4 0 0 0-2 0z">
+										</path>
+									</svg>
+								</use>
 						<!---->
-						@else
-							<use href="#icon_sprite_check">
-								<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check" fill="none" viewBox="0 0 24 24">
-									<path fill="currentColor"
-												d="m7.4 17.6-5-5a1.4 1.4 0 0 0-2 0 1.4 1.4 0 0 0 0 2l6 6a1.4 1.4 0 0 0 2 0L23.6 5.4a1.4 1.4 0 0 0 0-2 1.4 1.4 0 0 0-2 0z">
-									</path>
-								</svg>
-							</use>
+							@else
+								<use href="#icon_sprite_check">
+									<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check" fill="none" viewBox="0 0 24 24">
+										<path fill="currentColor"
+													d="m7.4 17.6-5-5a1.4 1.4 0 0 0-2 0 1.4 1.4 0 0 0 0 2l6 6a1.4 1.4 0 0 0 2 0L23.6 5.4a1.4 1.4 0 0 0 0-2 1.4 1.4 0 0 0-2 0z">
+										</path>
+									</svg>
+								</use>
+							@endif
 						@endif
 					</svg>
 					<!---->
@@ -996,25 +1001,29 @@
 				</div>
 				<!-- Checkbox del grupo -->
 				<div class="budget-table-cell-checkbox budget-table-row-li " role="cell" aria-colindex="1">
-					<button wire:click="toggleGroup({{ $group->id }})" class="ynab-checkbox ynab-checkbox-button " role="checkbox" aria-checked="false" aria-label="Bills"
+					<button wire:click="toggleGroup({{ $group->id }})" class="ynab-checkbox ynab-checkbox-button " role="checkbox"
+									aria-checked="{{ $this->isGroupChecked($group->id) ? ($this->isGroupPartial($group->id) ? 'mixed' : 'true') : 'false' }}" aria-label="Bills"
 									type="button">
 						<!-- Evento para alternar el checkbox -->
-						<svg class="ynab-new-icon ynab-checkbox-button-square {{ $checkedGroupId == $group->id ? ($isPartial ? 'is-partial' : 'is-checked') : '' }}" width="13" height="13">
+						<svg class="ynab-new-icon ynab-checkbox-button-square {{ $this->isGroupChecked($group->id) ? ($this->isGroupPartial($group->id) ? 'is-partial' : 'is-checked') : '' }}"
+								 width="13" height="13">
 							<!---->
-							@if($checkedGroupId == $group->id && $isPartial)
-								<use href="#icon_sprite_subtract">
-									<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_subtract" fill="none" viewBox="0 0 24 24">
-										<path fill="currentColor"
-													d="m7.4 17.6-5-5a1.4 1.4 0 0 0-2 0 1.4 1.4 0 0 0 0 2l6 6a1.4 1.4 0 0 0 2 0L23.6 5.4a1.4 1.4 0 0 0 0-2 1.4 1.4 0 0 0-2 0z">
-										</path>
-									</svg>
-								</use> <!-- Ícono "subtract" -->
-							@else
-								<use href="#icon_sprite_check">
-									<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check" fill="none" viewBox="0 0 24 24">
-										<rect width="21.75" height="3" x="1.13" y="10.5" fill="currentColor" rx="1.5"></rect>
-									</svg>
-								</use> <!-- Ícono "check" -->
+							@if($this->isGroupChecked($group->id))
+								@if($this->isGroupPartial($group->id))
+									<use href="#icon_sprite_subtract">
+										<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_subtract" fill="none" viewBox="0 0 24 24">
+											<path fill="currentColor"
+														d="m7.4 17.6-5-5a1.4 1.4 0 0 0-2 0 1.4 1.4 0 0 0 0 2l6 6a1.4 1.4 0 0 0 2 0L23.6 5.4a1.4 1.4 0 0 0 0-2 1.4 1.4 0 0 0-2 0z">
+											</path>
+										</svg>
+									</use> <!-- Ícono "subtract" -->
+								@else
+									<use href="#icon_sprite_check">
+										<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check" fill="none" viewBox="0 0 24 24">
+											<rect width="21.75" height="3" x="1.13" y="10.5" fill="currentColor" rx="1.5"></rect>
+										</svg>
+									</use> <!-- Ícono "check" -->
+								@endif
 							@endif
 							<!---->
 						</svg>
@@ -1040,7 +1049,7 @@
 						</svg>
 					</button>
 				</div>
-				<div class="budget-table-cell-budgeted budget-table-row-li" role="cell" aria-colindex="4">
+				<div class="budget-table-cell-bud777eted budget-table-row-li" role="cell" aria-colindex="4">
 					<button aria-disabled="true" class="user-data currency tabular-nums zero">
 						<span><bdi>{{ currency() }}</bdi>{{ format_number($group->total_assigned) }}</span>
 					</button>
