@@ -1094,7 +1094,7 @@
 			</div>
 		<!-- CATEGORIAS -->
 			@foreach($group->categories as $category)
-				<div id="category-{{ $category->id }}" draggable="true"
+				<div id="category-{{ $category->id }}" draggable="false"
 						 class="budget-table-row js-budget-table-row budget-table-row-ul is-sub-category {{ in_array($category->id, $selectedCategories) ? 'is-checked' : '' }}" role="row"
 						 data-entity-id="{{ $category->id }}" aria-level="2" aria-expanded="true" wire:click="activateCategory({{ $category->id }}, {{ $group->id }})">
 					<div class="budget-table-cell-margin-left js-budget-table-cell-margin-left budget-table-row-li"
@@ -1104,7 +1104,7 @@
 					</div>
 					<!-- Checkbox de la categoría -->
 					<div class="budget-table-cell-checkbox budget-table-row-li " role="cell" aria-colindex="1">
-						<button wire:click.stop="toggleCategory({{ $category->id }}, {{ $group->id }})" class="ynab-checkbox ynab-checkbox-button " role="checkbox" aria-checked="false"
+						<button wire:click.stop="toggleCategory({{ $category->id }}, {{ $group->id }})" class="ynab-checkbox ynab-checkbox-button " role="checkbox" aria-checked="true"
 										aria-label="{{ $category->category }}" type="button">
 							<svg class="ynab-new-icon ynab-checkbox-button-square {{ in_array($category->id, $selectedCategories) ? 'is-checked' : '' }}" width="13" height="13">
 								<!---->
@@ -1136,7 +1136,7 @@
 							</figure>
 						</div>
 					</div>
-					<div class="budget-table-cell-budgeted budget-table-row-li" role="cell" aria-colindex="4">
+					{{--<div class="budget-table-cell-budgeted budget-table-row-li" role="cell" aria-colindex="4">
 						<div id="newCurrency" class="ynab-new-currency-input {{ $editingCategoryId === $category->id ? 'is-focused is-editing' : '' }}">
 							<button tabindex="-1" class="button-calculator " aria-hidden="true" type="button">
 								<svg class="icon-calculator " viewBox="0 0 16 16">
@@ -1147,6 +1147,24 @@
 							</button>
 							<div class="input-wrapper">
 								<input id="dataCurrency" class="ember-text-field ember-view" type="text" value="0.00" onfocus="this.select()">
+								<button class="user-data currency tabular-nums zero">
+									<span><bdi>{{ currency() }}</bdi>{{ format_number($category->assigned) }}</span>
+								</button>
+							</div>
+							<!---->
+						</div>
+					</div>--}}
+					<div class="budget-table-cell-budgeted budget-table-row-li" role="cell" aria-colindex="4">
+						<div id="ember23" class="ynab-new-currency-input {{ $editingCategoryId === $category->id ? 'is-focused is-editing' : '' }}">
+							<button tabindex="-1" class="button-calculator" aria-hidden="true" type="button">
+								<svg class="icon-calculator" viewBox="0 0 16 16">
+									<desc>Clicking this button will open the calculator</desc>
+									<path
+										d="m3.8 0 .5.5v2.3h2.2l.5.5v.5l-.5.5H4.3v2.2l-.5.5h-.5l-.5-.5V4.3H.5L0 3.8v-.5l.5-.5h2.3V.5l.5-.5zM9 3.3l.5-.5h6l.5.5v.5l-.5.5h-6L9 3.8zm3.5 7.7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 5a1 1 0 1 0 0-2 1 1 0 0 0 0 2M9 12.3a.5.5 0 0 1 .5-.6h6a.5.5 0 0 1 .5.6v.4a.5.5 0 0 1-.5.6h-6a.5.5 0 0 1-.5-.6zm-2.8-2.1v.7l-1.6 1.6 1.6 1.6v.7l-.4.4h-.7l-1.6-1.6-1.6 1.6h-.7l-.4-.4v-.7l1.6-1.6L1 10.9v-.7l.3-.4H2l1.6 1.6 1.6-1.6h.7z"></path>
+								</svg>
+							</button>
+							<div class="input-wrapper">
+								<input id="dataCurrency-{{ $category->id }}" class="ember-text-field ember-view" type="text" value="0.00" onfocus="this.select()">
 								<button class="user-data currency tabular-nums zero">
 									<span><bdi>{{ currency() }}</bdi>{{ format_number($category->assigned) }}</span>
 								</button>
@@ -1350,6 +1368,7 @@
 					calculatePosition(event.target.getBoundingClientRect(), {modalWidth: 224, useCenter: true})
 				);
 		});
+	
 	
 	</script>
 @endpush

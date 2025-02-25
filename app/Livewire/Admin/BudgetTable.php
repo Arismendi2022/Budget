@@ -26,7 +26,7 @@
 		public $selectedCategoryId = null;
 		public $isPartial          = false;
 		public $selectedCategories = [];
-		public $editingCategoryId  = null;
+		public $editingCategoryId;
 		public $isMasterPartial    = false;
 		
 		// Listeners
@@ -50,7 +50,7 @@
 			});
 		}
 		
-		// Método para el checkbox al hacer click en el grupo
+		// Metodo para el checkbox al hacer click en el grupo
 		public function toggleGroup($groupId){
 			$group = CategoryGroup::with('categories')->find($groupId);
 			if(!$group) return;
@@ -63,25 +63,25 @@
 				$this->selectedCategories = $group->categories->pluck('id')->toArray();
 				$this->isPartial          = false;
 			}
-			
 			$this->updateMasterPartialState();
 		}
 		
-		// Método para activar el checkbox al hacer clic en toda la fila
+		// Metodo para activar el checkbox al hacer clic en toda la fila
 		public function activateCategory($categoryId,$groupId){
 			if(!in_array($categoryId,$this->selectedCategories)){
 				$this->selectedCategories[] = $categoryId;
 				$this->checkedGroupId       = $groupId;
 				$this->isPartial            = true;
 				$this->startEditing($categoryId);
+				
 			}else{
 				$this->toggleEditingState($categoryId);
 			}
-			
 			$this->updateMasterPartialState();
+			$this->dispatch('focusInput',inputId:'dataCurrency-'.$categoryId);
 		}
 		
-		// Método para alternar selección de categoría
+		// Metodo para alternar selección de categoría
 		public function toggleCategory($categoryId,$groupId){
 			if(in_array($categoryId,$this->selectedCategories)){
 				// Remover categoría
@@ -104,6 +104,7 @@
 				$this->checkedGroupId       = $groupId;
 				$this->isPartial            = true;
 				$this->startEditing($categoryId);
+				$this->dispatch('focusInput',inputId:'dataCurrency-'.$categoryId);
 			}
 			
 			$this->updateMasterPartialState();
@@ -122,7 +123,7 @@
 			$this->editingCategoryId = null;
 		}
 		
-		// Método para limpiar todas las selecciones
+		// Metodo para limpiar todas las selecciones
 		private function clearSelections(){
 			$this->checkedGroupId     = null;
 			$this->selectedCategories = [];
@@ -130,7 +131,7 @@
 			$this->resetEditingState();
 		}
 		
-		// Método para actualizar estado parcial del maestro
+		// Metodo para actualizar estado parcial del maestro
 		protected function updateMasterPartialState(){
 			if(!empty($this->selectedCategories)){
 				$totalCategories       = Category::count();
@@ -141,7 +142,7 @@
 			}
 		}
 		
-		// Método para manejar el clic en el checkbox maestro CATEGORY
+		// Metodo para manejar el clic en el checkbox maestro CATEGORY
 		public function toggleAllCategories(){
 			if($this->isMasterPartial || !empty($this->selectedCategories)){
 				$this->clearSelections();
@@ -155,7 +156,7 @@
 			}
 		}
 		
-		// Método para actualizar estado de grupos
+		// Metodo para actualizar estado de grupos
 		protected function updateGroupsState(){
 			if(empty($this->selectedCategories)) return;
 			
