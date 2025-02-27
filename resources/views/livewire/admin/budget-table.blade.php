@@ -1096,7 +1096,8 @@
 			@foreach($group->categories as $category)
 				<div id="category-{{ $category->id }}" draggable="false"
 						 class="budget-table-row js-budget-table-row budget-table-row-ul is-sub-category {{ in_array($category->id, $selectedCategories) ? 'is-checked' : '' }}" role="row"
-						 data-entity-id="{{ $category->id }}" aria-level="2" aria-expanded="true" wire:click="activateCategory({{ $category->id }}, {{ $group->id }})">
+						 data-entity-id="{{ $category->id }}" aria-level="2" aria-expanded="true" wire:click="activateCategory({{ $category->id }}, {{ $group->id }})"
+						 onclick="setModalPositionEdit(event)">
 					<div class="budget-table-cell-margin-left js-budget-table-cell-margin-left budget-table-row-li"
 							 aria-hidden="true" wire:click="activateCategory({{ $category->id }}, {{ $group->id }})">&nbsp;
 					</div>
@@ -1104,8 +1105,9 @@
 					</div>
 					<!-- Checkbox de la categoría -->
 					<div class="budget-table-cell-checkbox budget-table-row-li " role="cell" aria-colindex="1">
-						<button wire:click.stop="toggleCategory({{ $category->id }}, {{ $group->id }})" class="ynab-checkbox ynab-checkbox-button " role="checkbox" aria-checked="true"
-										aria-label="{{ $category->category }}" type="button">
+						<button wire:click.stop="toggleCategory({{ $category->id }}, {{ $group->id }})"
+										class="ynab-checkbox ynab-checkbox-button {{ in_array($category->id, $selectedCategories) ? 'is-checked' : '' }}" role="checkbox" aria-checked="true"
+										aria-label="{{ $category->name }}" type="button">
 							<svg class="ynab-new-icon ynab-checkbox-button-square {{ in_array($category->id, $selectedCategories) ? 'is-checked' : '' }}" width="13" height="13">
 								<!---->
 								<use href="#icon_sprite_check">
@@ -1122,7 +1124,8 @@
 						<div class="budget-table-cell-button budget-table-cell-edit-category user-data">
 							<div class="budget-table-cell-edit-category-label js-budget-table-cell-edit-category-label">
 								<div class="budget-table-cell-goal-nowrap">
-									<button title="{{ $category->category }}">{{ $category->category }}</button>
+									<button wire:click="{{ in_array($category->id, $selectedCategories) ? 'editCategoryModal('.$category->id.')' : '' }}"
+													title="{{ $category->name }}">{{ $category->name }}</button>
 									<div class="budget-table-cell-goal-gap"></div>
 									<div class="budget-table-cell-goal-status"></div>
 								</div>
@@ -1298,13 +1301,13 @@
 			<div class="modal" role="dialog" aria-modal="true" style="top: {{ $modalTop }}px; left: {{ $modalLeft }}px;">
 				<div class="modal-content">
 					<div class="fieldset">
-						<div class="field-with-error {{ $errors->has('category') ? 'has-errors' : '' }}">
+						<div class="field-with-error {{ $errors->has('name') ? 'has-errors' : '' }}">
 							<div>
-								<input id="category" placeholder="New Category" autofocus="" class="user-data js-focus-on-start" wire:model="category" wire:keydown.enter="createCategoryGroup">
+								<input id="category" placeholder="New Category" autofocus="" class="user-data js-focus-on-start" wire:model="name" wire:keydown.enter="createCategoryGroup">
 							</div>
-							@if ($errors->has('category'))
+							@if ($errors->has('name'))
 								<ul class="errors">
-									<li>{{ $errors->first('category') }}</li>
+									<li>{{ $errors->first('name') }}</li>
 								</ul>
 							@endif
 							<!---->
@@ -1326,6 +1329,48 @@
 		</div>
 	@endif
 	<!---->
+	@if($isOpenEditCategoryModal)
+		<div id="editCategoryModal" class="modal-overlay active ynab-u modal-popup modal-budget-edit-category" wire:click.self="$set('isOpenEditCategoryModal', false)">
+			<div class="modal" role="dialog" aria-modal="true" style="top: {{ $modalTop }}px; left: {{ $modalLeft }}px;">
+				<div class="modal-content">
+					<div class="fieldset">
+						<div class="field-with-error {{ $errors->has('name') ? 'has-errors' : '' }} ">
+							<div>
+								<input id="editCategory" placeholder="Enter category name" class="modal-budget-edit-category-name user-data js-focus-on-start" wire:model="name">
+							</div>
+							@if ($errors->has('name'))
+								<ul class="errors">
+									<li>{{ $errors->first('name') }}</li>
+								</ul>
+							@endif
+						</div>
+					</div>
+				</div>
+				<div class="modal-actions">
+					<div class="modal-actions-left">
+						<button class="ynab-button secondary   button-hide" type="button">
+							Hide
+						</button>
+						<button class="ynab-button destructive   button-delete" type="button" wire:click="deleteCategory">
+							Delete
+						</button>
+					</div>
+					<div class="modal-actions-right">
+						<button wire:click="hideCategoryModal" class="ynab-button secondary button-cancel" type="button">
+							Cancel
+						</button>
+						<button class="ynab-button primary  " type="button" wire:click="updateModalCategory">
+							OK
+						</button>
+					</div>
+				</div>
+				<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none"
+						 style="left: {{$modalArrowLeft}}px; {{$modalArrowStyle}}; height: 0.9375rem; width: 1.875rem;">
+					<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform="{{$modalArrowTransform}}"></path>
+				</svg>
+			</div>
+		</div>
+	@endif
 </div>
 
 @push('scripts')
@@ -1361,14 +1406,21 @@
 				Livewire.dispatch("updateAddGroupModal", {left: isCollapsed() ? "21.55px" : "225.55px"});
 
 			window.setModalPosition = (event) =>
-				Livewire.dispatch("updateModalPosition", calculatePosition(event.target.getBoundingClientRect()));
+				Livewire.dispatch("updateModalPosition",
+					calculatePosition(event.target.getBoundingClientRect())
+				);
 
 			window.setModalPositionCategory = (event) =>
 				Livewire.dispatch("updateModalPosition",
 					calculatePosition(event.target.getBoundingClientRect(), {modalWidth: 224, useCenter: true})
 				);
+
+			window.setModalPositionEdit = (event) =>
+				Livewire.dispatch("updateModalPosition",
+					calculatePosition(event.target.getBoundingClientRect())
+				);
+
 		});
-	
 	
 	</script>
 @endpush

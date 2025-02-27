@@ -124,7 +124,7 @@
 			Livewire.on('redirect-budget', function () {
 				setTimeout(function () {
 					Livewire.navigate("{{ route('admin.budget') }}");
-				}, 600); // 600 ms = 0.6 segundos
+				}, 500); // 500 ms = 0.6 segundos
 			});
 
 			window.addEventListener('focusInput', function () {

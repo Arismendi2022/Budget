@@ -12,7 +12,7 @@
 			Schema::create('categories',function(Blueprint $table){
 				$table->id();
 				$table->foreignId('group_id')->constrained('category_groups')->onDelete('cascade');
-				$table->string('category')->unique();
+				$table->string('name')->unique();
 				$table->decimal('amount',10,2)->default(0.00);
 				$table->string('message')->nullable();
 				$table->string('day_month')->nullable();

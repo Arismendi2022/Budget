@@ -10,7 +10,7 @@
 	{
 		use HasFactory;
 		
-		protected $fillable = ['group_id','category','amount','message','day_month','target_date','assigned','activity','available','ordering'];
+		protected $fillable = ['group_id','name','amount','message','day_month','target_date','assigned','activity','available','ordering'];
 		
 		
 		/**
@@ -20,8 +20,8 @@
 			return $this->belongsTo(CategoryGroup::class,'group_id');
 		}
 		
-		public function setCategoryAttribute($value){
-			$this->attributes['category'] = Str::ucfirst(strtolower($value));
+		public function setNameAttribute($value){
+			$this->attributes['name'] = Str::title($value);
 		}
 	}
 	

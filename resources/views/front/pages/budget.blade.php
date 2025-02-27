@@ -86,10 +86,10 @@
 		<span role="tooltip" id="recentMoves" class="tooltip-content" style="top: calc(80.5px - 0.5rem); left: 430.833px;">
       Previous 34 days of assigning and moving money (Rule Three is a thing!)
     </span>
-		<span role="tooltip" id="progressBarOn" class="tooltip-content" style="top: calc(96.5px - 0.5rem); left: 1253.1px;">
+		<span role="tooltip" id="progressBarOn" class="tooltip-content" data-position="top" style="top: calc(96.5px - 0.5rem); left: 1253.1px;">
       Progress Bars On
     </span>
-		<span role="tooltip" id="progressBarOff" class="tooltip-content" style="top: calc(96.5px - 0.5rem); left: 1280.82px;">
+		<span role="tooltip" id="progressBarOff" class="tooltip-content" data-position="top" style="top: calc(96.5px - 0.5rem); left: 1280.82px;">
       Progress Bars Off
     </span>
 		<span role="tooltip" id="addCategory" class="tooltip-content" style="top: calc(249px - 0.2rem); left: 319.175px;">
@@ -143,66 +143,97 @@
 		});
 
 		/** TOOLTIP GLOBAL POCISION  */
-		document.addEventListener('DOMContentLoaded', function () {
+		document.addEventListener('DOMContentLoaded', () => {
 			const sidebar = document.getElementById('sidebar');
 			const tooltips = document.querySelectorAll('.tooltip-content');
+			const tooltipData = {};
 
-			// Guardar la posición original de cada tooltip
+			// Inicializar tooltips y asociar eventos
 			tooltips.forEach(tooltip => {
-				const originalLeft = parseFloat(tooltip.style.left);
-				tooltip.setAttribute('data-original-left', originalLeft);
+				const tooltipId = tooltip.id;
+				const button = document.querySelector(`[aria-describedby="${tooltipId}"]`);
+
+				tooltipData[tooltipId] = {
+					button,
+					position: tooltip.dataset.position || 'bottom', // 'top' o 'bottom'
+					expandedPosition: parseFloat(tooltip.style.left)
+				};
+
+				if (button && !button.dataset.tooltipEventsAdded) {
+					button.addEventListener('mouseenter', (e) => showTooltip(e, tooltipId));
+					button.addEventListener('mouseleave', () => hideTooltip(tooltipId));
+					button.dataset.tooltipEventsAdded = true;
+				}
 			});
 
-			function adjustTooltips() {
-				const isCollapsed = sidebar.classList.contains('sidebar-resized-collapsed');
-				const offset = isCollapsed ? -204 : 0; // Ajuste necesario cuando el sidebar está colapsado
+			// Calcular el offset del sidebar
+			const getSidebarOffset = () => {
+				if (sidebar.classList.contains('sidebar-resized-collapsed')) {
+					const expandedWidth = parseInt(sidebar.dataset.expandedWidth || sidebar.offsetWidth);
+					const collapsedWidth = parseInt(sidebar.dataset.collapsedWidth || sidebar.offsetWidth);
+					return collapsedWidth - expandedWidth;
+				}
+				return 0;
+			};
 
+			// Ajustar la posición de todos los tooltips
+			const adjustAllTooltips = () => {
+				const offset = getSidebarOffset();
 				tooltips.forEach(tooltip => {
-					const originalLeft = parseFloat(tooltip.getAttribute('data-original-left'));
-					tooltip.style.left = `${originalLeft + offset}px`;
-				});
-			}
-
-			// Ajustar tooltips al cargar la página
-			adjustTooltips();
-
-			// Escuchar cambios en el sidebar (si es dinámico)
-			const observer = new MutationObserver(function (mutations) {
-				mutations.forEach(function (mutation) {
-					if (mutation.attributeName === 'class') {
-						adjustTooltips();
+					const data = tooltipData[tooltip.id];
+					if (data && data.button) {
+						tooltip.style.left = `${data.expandedPosition + offset}px`;
+						if (tooltip.style.visibility === 'visible') updateTooltipPosition(tooltip, data.button);
 					}
 				});
-			});
+			};
 
-			observer.observe(sidebar, {
-				attributes: true // Configura el observer para escuchar cambios en los atributos
-			});
-		});
+			// Actualizar la posición de un tooltip
+			const updateTooltipPosition = (tooltip, button) => {
+				const rect = button.getBoundingClientRect();
+				const data = tooltipData[tooltip.id];
+				const horizontalCenter = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2) + window.scrollX;
 
+				tooltip.style.left = `${horizontalCenter + getSidebarOffset()}px`;
+				tooltip.style.top = data.position === 'top'
+					? `${rect.top + window.scrollY - tooltip.offsetHeight - 6}px`
+					: `${rect.bottom + window.scrollY + 6}px`;
+			};
 
-		/** Ajustar el Top y left del Tooltip Add Category */
-		function showTooltip(event) {
-			const tooltip = document.getElementById('addCategory');
-			const button = event.target;
-
-			// Obtener la posición del botón
-			const rect = button.getBoundingClientRect();
-
-			// Ajustar la posición del tooltip con un margen adicional
-			const margin = 6; // Margen en píxeles
-			tooltip.style.top = `${rect.bottom + window.scrollY + margin}px`; // Debajo del botón con margen
-			tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2) + window.scrollX}px`; // Centrado horizontalmente
-			tooltip.style.visibility = 'visible';
-		}
-
-		function hideTooltip() {
-			const tooltip = document.getElementById('addCategory');
-			if (tooltip) {
-				tooltip.style.visibility = 'hidden';
+			// Guardar el ancho del sidebar expandido
+			if (!sidebar.dataset.expandedWidth && !sidebar.classList.contains('sidebar-resized-collapsed')) {
+				sidebar.dataset.expandedWidth = sidebar.offsetWidth;
 			}
-		}
-	
+
+			// Funciones globales para mostrar/ocultar tooltips
+			window.showTooltip = (e, tooltipId) => {
+				const tooltip = document.getElementById(tooltipId);
+				if (tooltip) {
+					const button = e.currentTarget;
+					if (!tooltipData[tooltipId].button) tooltipData[tooltipId].button = button;
+					updateTooltipPosition(tooltip, button);
+					tooltip.style.visibility = 'visible';
+				}
+			};
+
+			window.hideTooltip = (tooltipId) => {
+				const tooltip = document.getElementById(tooltipId);
+				if (tooltip) tooltip.style.visibility = 'hidden';
+			};
+
+			// Ajustar tooltips al cargar y observar cambios en el sidebar
+			adjustAllTooltips();
+			new MutationObserver((mutations) => {
+				mutations.forEach(mutation => {
+					if (mutation.attributeName === 'class') {
+						if (sidebar.classList.contains('sidebar-resized-collapsed') && !sidebar.dataset.collapsedWidth) {
+							sidebar.dataset.collapsedWidth = sidebar.offsetWidth;
+						}
+						setTimeout(adjustAllTooltips, 50);
+					}
+				});
+			}).observe(sidebar, {attributes: true});
+		});
 	
 	</script>
 @endpush

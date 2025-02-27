@@ -15,7 +15,8 @@
 		public $isOpenCategoryGroupModal   = false;
 		public $isUpdateCategoryGroupModal = false;
 		public $isOpenNewCategoryModal     = false;
-		public $groups,$name,$category,$groupId,$selectedGroupId;
+		public $isOpenEditCategoryModal    = false;
+		public $groups,$name,$category,$groupId,$selectedGroupId,$categoryId;
 		
 		// Propiedades para posicionamiento de modales
 		public $modalGroupLeft,$modalTop = 0,$modalLeft = 0;
@@ -206,8 +207,6 @@
 			return !empty($selectedInGroup) && count($selectedInGroup) < count($groupCategoryIds);
 		}
 		
-		
-		/** GRUPOS Y CATEGORIAS */
 		//Edit Grupo de categorias
 		public function editCategoryGroup($id){
 			$groupCategory = CategoryGroup::findOrFail($id);
@@ -347,27 +346,27 @@
 		
 		public function createNewCategory(){
 			$this->validate([
-				'category' => [
+				'name' => [
 					'required',
-					Rule::unique('categories','category'),
+					Rule::unique('categories','name'),
 				],
 			],[
-				'category.required' => 'The category name is required.',
-				'category.unique'   => 'A category with this name already exists in this group',
+				'name.required' => 'The category name is required.',
+				'name.unique'   => 'A category with this name already exists in this group',
 			]);
 			
 			try{
 				
 				Category::create([
 					'group_id' => $this->groupId,
-					'category' => $this->category,
+					'name'     => $this->name,
 				]);
 				
 				// Emitir evento para actualizar la lista
 				$this->loadCategoryGroups();
 				
 				// Limpiar el campo y cerrar el modal
-				$this->reset('category');
+				$this->reset('name');
 				$this->resetValidation();
 				$this->isOpenNewCategoryModal = false;
 				
@@ -381,18 +380,72 @@
 			
 		} //End Method
 		
-		
-		public function editCategoryModal(){
-			dd('Edit category modal ....');
+		public function editCategoryModal($id){
+			$category         = Category::findOrFail($id);
+			$this->categoryId = $category->id;
+			$this->name       = $category->name;
+			
+			$this->isOpenEditCategoryModal = true;
+			$this->dispatch('focusInput',inputId:'editCategory');
 		}
 		
 		public function updateModalCategory(){
-			dd('Mensaje....');
-		}
+			$category = Category::findOrFail($this->categoryId);
+			
+			$this->validate([
+				'name' => [
+					'required',
+					Rule::unique('categories','name')->ignore($this->categoryId),
+				],
+			],[
+				'name.required' => 'The category name is required.',
+				'name.unique'   => 'A category with this name already exists in this group',
+			]);
+			
+			/** Update Category Group */
+			try{
+				
+				$category->update([
+					'name' => $this->name,
+				]);
+				
+				// Emitir evento para actualizar la lista
+				$this->loadCategoryGroups();
+				// Limpiar el campo y cerrar el modal
+				$this->hideCategoryModal();
+				
+			} catch(\Throwable $e){
+				Log::error('Error al actualizar un grupo de categorías: '.$e->getMessage());
+				$this->addError('name','Algo salió mal. Inténtalo de nuevo.');
+			}
+			
+		} //End Method
+		
+		public function deleteCategory(){
+			try{
+				$category = Category::findOrFail($this->categoryId);
+				$category->delete();
+				
+				// Emitir evento para actualizar la lista
+				$this->loadCategoryGroups();
+				// Limpiar el campo y cerrar el modal
+				$this->hideCategoryModal();
+				
+			} catch(\Throwable $e){
+				Log::error('Error al eliminar la categoría: '.$e->getMessage());
+				$this->addError('deleteError','No se pudo eliminar la categoria. Intenta de nuevo.');
+			}
+		} //End Method
 		
 		public function hideNewCategoryModal(){
 			$this->isOpenNewCategoryModal = false;
-			$this->reset('category');
+			$this->reset('name');
+			$this->resetValidation();
+		}
+		
+		public function hideCategoryModal(){
+			$this->isOpenEditCategoryModal = false;
+			$this->reset('name');
 			$this->resetValidation();
 		}
 		
