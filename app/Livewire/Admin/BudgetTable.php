@@ -51,12 +51,10 @@
 			});
 		}
 		
-		// Metodo para el checkbox al hacer click en el grupo
 		public function toggleGroup($groupId){
 			$group = CategoryGroup::with('categories')->find($groupId);
 			if(!$group) return;
 			
-			// Alternar selección del grupo
 			if($this->checkedGroupId === $groupId){
 				$this->clearSelections();
 			}else{
@@ -67,14 +65,12 @@
 			$this->updateMasterPartialState();
 		}
 		
-		// Metodo para activar el checkbox al hacer clic en toda la fila
 		public function activateCategory($categoryId,$groupId){
 			if(!in_array($categoryId,$this->selectedCategories)){
 				$this->selectedCategories[] = $categoryId;
 				$this->checkedGroupId       = $groupId;
 				$this->isPartial            = true;
 				$this->startEditing($categoryId);
-				
 			}else{
 				$this->toggleEditingState($categoryId);
 			}
@@ -82,10 +78,8 @@
 			$this->dispatch('focusInput',inputId:'dataCurrency-'.$categoryId);
 		}
 		
-		// Metodo para alternar selección de categoría
 		public function toggleCategory($categoryId,$groupId){
 			if(in_array($categoryId,$this->selectedCategories)){
-				// Remover categoría
 				$this->selectedCategories = array_diff($this->selectedCategories,[$categoryId]);
 				
 				if(empty($this->selectedCategories)){
@@ -94,13 +88,11 @@
 					$this->checkedGroupId = $groupId;
 					$this->isPartial      = true;
 					
-					// Resetear edición si es necesario
 					if($this->editingCategoryId === $categoryId){
 						$this->resetEditingState();
 					}
 				}
 			}else{
-				// Agregar categoría
 				$this->selectedCategories[] = $categoryId;
 				$this->checkedGroupId       = $groupId;
 				$this->isPartial            = true;
@@ -111,7 +103,6 @@
 			$this->updateMasterPartialState();
 		}
 		
-		// Métodos para manejo de estado de edición
 		public function startEditing($categoryId){
 			$this->editingCategoryId = $categoryId;
 		}
@@ -124,7 +115,6 @@
 			$this->editingCategoryId = null;
 		}
 		
-		// Metodo para limpiar todas las selecciones
 		private function clearSelections(){
 			$this->checkedGroupId     = null;
 			$this->selectedCategories = [];
@@ -132,7 +122,6 @@
 			$this->resetEditingState();
 		}
 		
-		// Metodo para actualizar estado parcial del maestro
 		protected function updateMasterPartialState(){
 			if(!empty($this->selectedCategories)){
 				$totalCategories       = Category::count();
@@ -143,7 +132,6 @@
 			}
 		}
 		
-		// Metodo para manejar el clic en el checkbox maestro CATEGORY
 		public function toggleAllCategories(){
 			if($this->isMasterPartial || !empty($this->selectedCategories)){
 				$this->clearSelections();
@@ -157,11 +145,9 @@
 			}
 		}
 		
-		// Metodo para actualizar estado de grupos
 		protected function updateGroupsState(){
 			if(empty($this->selectedCategories)) return;
 			
-			// Encontrar grupo con más categorías seleccionadas
 			$maxSelectedCount   = 0;
 			$maxSelectedGroupId = null;
 			$isPartial          = false;
@@ -188,7 +174,6 @@
 			}
 		}
 		
-		// Métodos para verificar estados de grupo
 		public function isGroupChecked($groupId){
 			$group = CategoryGroup::with('categories')->find($groupId);
 			if(!$group) return false;
@@ -207,7 +192,6 @@
 			return !empty($selectedInGroup) && count($selectedInGroup) < count($groupCategoryIds);
 		}
 		
-		//Edit Grupo de categorias
 		public function editCategoryGroup($id){
 			$groupCategory = CategoryGroup::findOrFail($id);
 			$this->groupId = $groupCategory->id;
@@ -226,8 +210,7 @@
 		}
 		
 		public function showCategoryGroupModal(){
-			$this->dispatch('modalPositionUpdated',$this->modalGroupLeft); // Enviar a JavaScript
-			
+			$this->dispatch('modalPositionUpdated',$this->modalGroupLeft);
 			$this->isOpenCategoryGroupModal = true;
 			$this->dispatch('focusInput',inputId:'nameGroup');
 		}
@@ -237,7 +220,6 @@
 		}
 		
 		public function hidenCategoryGroupModal(){
-			
 			$this->isOpenCategoryGroupModal = false;
 			$this->reset('name');
 			$this->resetValidation();
@@ -250,97 +232,52 @@
 		}
 		
 		public function createCategoryGroup(){
-			$this->validate([
-				'name' => [
-					'required',
-					Rule::unique('category_groups','name'),
-				],
-			],[
-				'name.required' => 'The group name is required.',
-				'name.unique'   => 'This group name already exists.',
-			]);
+			$this->validateCategoryGroupName();
 			
 			try{
-				// Buscar el presupuesto activo
 				$activeBudget = Budget::where('is_active',true)->first();
-				
-				// Intentar guardar el nuevo grupo de categorías
 				CategoryGroup::create([
 					'budget_id' => $activeBudget->id,
 					'name'      => $this->name,
 				]);
 				
-				// Emitir evento para actualizar la lista
-				$this->loadCategoryGroups();
-				
-				// Limpiar el campo y cerrar el modal
 				$this->reset('name');
 				$this->resetValidation();
 				$this->isOpenCategoryGroupModal = false;
 				
+				$this->emit('categoryGroupCreated');
 			} catch(\Throwable $e){
-				// Registrar el error en los logs de Laravel (opcional)
-				\Log::error('Error al crear un grupo de categorías: '.$e->getMessage());
-				
-				// Mostrar un mensaje de error en Livewire
-				$this->addError('name','Algo salió mal. Inténtalo de nuevo.');
+				$this->handleError('Error al crear un grupo de categorías: '.$e->getMessage(),'name');
 			}
-			
-		} //End Method
+		}
 		
 		public function updateCategoryGroup(){
 			$groupCategory = CategoryGroup::findOrFail($this->groupId);
+			$this->validateCategoryGroupName($groupCategory->id);
 			
-			$this->validate([
-				'name' => [
-					'required',
-					Rule::unique('category_groups','name')->ignore($groupCategory->id),
-				],
-			],[
-				'name.required' => 'The group name is required.',
-				'name.unique'   => 'This group name already exists',
-			]);
-			
-			/** Update Category Group */
 			try{
-				
-				$groupCategory->update([
-					'name' => $this->name,
-				]);
-				
-				// Emitir evento para actualizar la lista
+				$groupCategory->update(['name' => $this->name]);
 				$this->loadCategoryGroups();
-				// Limpiar el campo y cerrar el modal
 				$this->hideEditCategoryGroupModal();
-				
 			} catch(\Throwable $e){
-				Log::error('Error al actualizar un grupo de categorías: '.$e->getMessage());
-				$this->addError('name','Algo salió mal. Inténtalo de nuevo.');
+				$this->handleError('Error al actualizar un grupo de categorías: '.$e->getMessage(),'name');
 			}
-			
-		} //End Method
+		}
 		
 		public function deleteCategoryGroup(){
 			try{
 				$groupCategory = CategoryGroup::findOrFail($this->groupId);
 				$groupCategory->delete();
-				
-				// Emitir evento para actualizar la lista
 				$this->loadCategoryGroups();
-				// Limpiar el campo y cerrar el modal
 				$this->hideEditCategoryGroupModal();
-				
 			} catch(\Throwable $e){
-				Log::error('Error al eliminar el grupo de categorías: '.$e->getMessage());
-				$this->addError('deleteError','No se pudo eliminar el grupo. Intenta de nuevo.');
+				$this->handleError('Error al eliminar el grupo de categorías: '.$e->getMessage(),'deleteError');
 			}
-		} //End Method
+		}
 		
-		/** CATEGORY */
 		public function addCategoryModal($groupId){
-			$this->groupId                = $groupId; // Guardamos el ID del grupo seleccionado
+			$this->groupId                = $groupId;
 			$this->isOpenNewCategoryModal = true;
-			
 			$this->dispatch('focusInput',inputId:'category');
 		}
 		
@@ -356,29 +293,19 @@
 			]);
 			
 			try{
-				
 				Category::create([
 					'group_id' => $this->groupId,
 					'name'     => $this->name,
 				]);
 				
-				// Emitir evento para actualizar la lista
 				$this->loadCategoryGroups();
-				
-				// Limpiar el campo y cerrar el modal
 				$this->reset('name');
 				$this->resetValidation();
 				$this->isOpenNewCategoryModal = false;
-				
 			} catch(\Throwable $e){
-				// Registrar el error en los logs de Laravel (opcional)
-				\Log::error('Error al crear un grupo de categorías: '.$e->getMessage());
-				
-				// Mostrar un mensaje de error en Livewire
-				$this->addError('name','Algo salió mal. Inténtalo de nuevo.');
+				$this->handleError('Error al crear una categoría: '.$e->getMessage(),'name');
 			}
-			
-		} //End Method
+		}
 		
 		public function editCategoryModal($id){
 			$category         = Category::findOrFail($id);
@@ -402,40 +329,25 @@
 				'name.unique'   => 'A category with this name already exists in this group',
 			]);
 			
-			/** Update Category Group */
 			try{
-				
-				$category->update([
-					'name' => $this->name,
-				]);
-				
-				// Emitir evento para actualizar la lista
+				$category->update(['name' => $this->name]);
 				$this->loadCategoryGroups();
-				// Limpiar el campo y cerrar el modal
 				$this->hideCategoryModal();
-				
 			} catch(\Throwable $e){
-				Log::error('Error al actualizar un grupo de categorías: '.$e->getMessage());
-				$this->addError('name','Algo salió mal. Inténtalo de nuevo.');
+				$this->handleError('Error al actualizar una categoría: '.$e->getMessage(),'name');
 			}
-			
-		} //End Method
+		}
 		
 		public function deleteCategory(){
 			try{
 				$category = Category::findOrFail($this->categoryId);
 				$category->delete();
-				
-				// Emitir evento para actualizar la lista
 				$this->loadCategoryGroups();
-				// Limpiar el campo y cerrar el modal
 				$this->hideCategoryModal();
-				
 			} catch(\Throwable $e){
-				Log::error('Error al eliminar la categoría: '.$e->getMessage());
-				$this->addError('deleteError','No se pudo eliminar la categoria. Intenta de nuevo.');
+				$this->handleError('Error al eliminar la categoría: '.$e->getMessage(),'deleteError');
 			}
-		} //End Method
+		}
 		
 		public function hideNewCategoryModal(){
 			$this->isOpenNewCategoryModal = false;
@@ -447,6 +359,25 @@
 			$this->isOpenEditCategoryModal = false;
 			$this->reset('name');
 			$this->resetValidation();
+		}
+		
+		private function validateCategoryGroupName($ignoreId = null){
+			$this->validate([
+				'name' => [
+					'required',
+					Rule::unique('category_groups','name')->ignore($ignoreId),
+				],
+			],[
+				'name.required' => 'The group name is required.',
+				'name.unique'   => 'This group name already exists.',
+			]);
+		}
+		
+		private function handleError($errorMessage,$field = null){
+			Log::error($errorMessage);
+			if($field){
+				$this->addError($field,'Algo salió mal. Inténtalo de nuevo.');
+			}
 		}
 		
 		public function render(){

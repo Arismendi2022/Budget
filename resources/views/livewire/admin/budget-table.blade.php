@@ -1336,7 +1336,8 @@
 					<div class="fieldset">
 						<div class="field-with-error {{ $errors->has('name') ? 'has-errors' : '' }} ">
 							<div>
-								<input id="editCategory" placeholder="Enter category name" class="modal-budget-edit-category-name user-data js-focus-on-start" wire:model="name">
+								<input id="editCategory" placeholder="Enter category name" class="modal-budget-edit-category-name user-data js-focus-on-start" wire:model="name"
+											 wire:keydown.enter="updateModalCategory">
 							</div>
 							@if ($errors->has('name'))
 								<ul class="errors">
