@@ -24,25 +24,25 @@
 					<div data-login-target="loginSubheader">
 						<p>
 							New to YNAB?
-							<a data-action="login#trackClickedSignUp" href="{{ route('users.register') }}">Sign up today.</a>
+							<a data-action="login#trackClickedSignUp" href="{{ route('users.register') }}" wire:navigate>Sign up today.</a>
 						</p>
 					</div>
 				</div>
 				<form id="login-form" class="authentications-panel__form" data-login-target="form" action="{{ route('users.login_handler') }}" accept-charset="UTF-8" method="POST"
-							novalidate="novalidate">
+					novalidate="novalidate">
 					@csrf
 					<div data-login-target="identityContainer">
 						<p class="authentications-panel__input-group js-form-email">
 							<label class="u-sr-only" for="request_data_email">Email:</label>
 							<input class="authentications-panel__email-field required" autofocus="autofocus" spellcheck="false" placeholder="Email address"
-										 data-login-target="emailInput"
-										 type="text" name="email" id="request_data_email" value="{{ old('email') }}">
+								data-login-target="emailInput"
+								type="text" name="email" id="request_data_email" value="{{ old('email') }}">
 							<label class="error" id="email-error" for="request_data_email"></label>
 						</p>
 						<p class="authentications-panel__input-group js-form-password">
 							<label class="u-sr-only" for="request_data_password">Password:</label>
 							<span class="password-toggle"><input class="authentications-panel__password-field required" placeholder="Password" data-login-target="passwordInput"
-																									 autocapitalize="none" autocomplete="off" type="password" name="password" id="request_data_password">
+									autocapitalize="none" autocomplete="off" type="password" name="password" id="request_data_password">
 								<label><input type="checkbox" id="togglePassword" data-password-toggle="" data-gtm-form-interact-field-id="0">Show</label>
 							</span>
 							<label class="error" id="password-error" for="request_data_password"></label>
@@ -65,7 +65,7 @@
 								<p class="js-form-otp">
 									<label data-otp-form-target="label" for="request_data_otp">Enter the 6-digit code from your authenticator app:</label>
 									<input placeholder="6-digit code" maxlength="6" class="required" autocomplete="off" autofocus="autofocus" data-otp-form-target="input" size="6" type="text"
-												 name="request_data[otp]" id="request_data_otp">
+										name="request_data[otp]" id="request_data_otp">
 									<label class="error" for="request_data_otp"></label>
 								</p>
 							</div>
@@ -77,7 +77,7 @@
 								</p>
 								<p data-otp-form-target="troubleshootLink" hidden="">
 									<a rel="noopener noreferrer" target="_blank"
-										 href="#">I don't have my backup code</a>
+										href="#">I don't have my backup code</a>
 								</p>
 							</div>
 						</div>
@@ -88,15 +88,15 @@
 							<div class="u-sr-only">Or sign up with your Apple or Google account</div>
 							<div class="authentications-sso-buttons__button">
 								<a class="sso-button sso-button--apple js-disabled" data-label="Continue with Apple" data-trigger-action="false" data-login-target="appleButton"
-									 href="#"><span class="sso-button__logo"><img class="sso-provider-logo"
-																																src="{{ asset('images/shared/brand/apple-logo.svg') }}"/></span><span
+									href="#"><span class="sso-button__logo"><img class="sso-provider-logo"
+											src="{{ asset('images/shared/brand/apple-logo.svg') }}"/></span><span
 										class="sso-button__label">Continue with Apple</span></a>
 								<p class="authentications-sso-button__error authentications-sso-button__error--apple"></p>
 							</div>
 							<div class="authentications-sso-buttons__button">
 								<div class="sso-button sso-button--google" data-login-target="googleButton">
 									<div class="sso-button__inner js-disabled" aria-labelledby="button-label"><span class="sso-button__logo"><img class="sso-provider-logo"
-																																																																src="{{ asset('images/shared/brand/google-logo.svg') }}"/></span><span
+												src="{{ asset('images/shared/brand/google-logo.svg') }}"/></span><span
 											class="sso-button__label1">Continuar con Google</span></div>
 								</div>
 								<p class="authentications-sso-button__error authentications-sso-button__error--google"></p>

@@ -29,7 +29,7 @@
 <div class="page-wrapper">
   <header class="authentications-page-header">
     <div class="authentications-page-header__inner">
-      <a title="Back to ynab.com" class="authentications-page-header__logo" href="#" onclick="return false;"><img alt=""
+      <a title="Back to ynab.com" class="authentications-page-header__logo" href="/" onclick="return false;"><img alt=""
 																																																									src="{{ asset('images/back/brand/ynab-logo-buttermilk.svg') }}"></a>
       <a class="authentications-page-header__back-button" href="#" onclick="return false;">
         <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" fill="#FEF9ED" viewBox="0 0 18 18" width="0.75em" height="0.75em">

@@ -2050,17 +2050,14 @@ ul.budget-view-buttons li:not(.views-menu-button) button:hover {
 	height: calc(100% - 5.625rem);
 	width: 100%;
 }
-
-.budget-table-container {
-	overflow: auto;
-	scroll-padding-top: 5.5rem;
-}
-
 .budget-table-container {
 	flex: 1;
 	height: 100%;
 }
-
+.budget-table-container {
+	overflow: auto;
+	scroll-padding-top: 5.5rem;
+}
 .budget-table,
 .budget-table-header {
 	display: block;
@@ -2258,17 +2255,18 @@ button[disabled] {
 .budget-table-container .budget-table-cell-name[role=columnheader] {
 	padding-left: .375rem;
 }
-.budget-table-container .budget-table-cell-name {
-	align-items: center;
-	display: flex;
-	justify-content: flex-start;
-	overflow: hidden;
-}
+
 .budget-table-container .budget-table-cell-name {
 	flex: 1;
 	justify-self: flex-start;
 	padding-left: .125rem;
 	width: auto;
+}
+.budget-table-container .budget-table-cell-name {
+	align-items: center;
+	display: flex;
+	justify-content: flex-start;
+	overflow: hidden;
 }
 .budget-table-container.is-expanded .budget-table-cell-activity, .budget-table-container.is-expanded .budget-table-cell-available, .budget-table-container.is-expanded .budget-table-cell-budgeted {
 	width: 15%;
@@ -2328,9 +2326,9 @@ div {
 .budget-table-row.is-master-category .budget-table-cell-checkbox {
 	transition-property: all;
 }
-.budget-table-container .budget-table-row.is-master-category .budget-table-row-li, .budget-table-container .is-master-category + .is-sub-category .budget-table-row-li {
+/*.budget-table-container .budget-table-row.is-master-category .budget-table-row-li, .budget-table-container .is-master-category + .is-sub-category .budget-table-row-li {
 	border-top: 1px solid var(--separatorStandard);
-}
+}*/
 
 .budget-table-row.is-master-category .budget-table-cell-name {
 	line-height: 2.2rem;
@@ -2394,6 +2392,16 @@ budget-table-container .budget-table-cell-name .budget-table-cell-edit-category 
 	padding: 0 .25rem;
 	text-overflow: ellipsis;
 	white-space: pre;
+}
+.budget-table-header-labels.is-checked .budget-table-cell-button:hover, .budget-table-row.is-checked
+.budget-table-cell-button:hover {
+	text-decoration: underline;
+}
+.budget-table-cell-name-row-label-item {
+	flex: 0 1 auto;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .budget-table-row .budget-table-cell-available .currency.zero, .budget-table-row.is-master-category .budget-table-cell-available .currency.negative,
 .budget-table-row.is-master-category .budget-table-cell-available .currency.positive, .budget-table-row.is-master-category .budget-table-cell-available-div,
@@ -2470,14 +2478,14 @@ number[aria-disabled="true"], .budget-table-header-labels .budget-table-cell-ava
 .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-row-li {
 	height: 2.75rem;
 }
-.budget-table-row.is-sub-category {
-	background-color: var(--backgroundTableRow);
-	transition: height .15s ease-out;
-}
 .budget-table-cell-add-category.active .ynab-new-icon, .budget-table-row.is-sub-category {
 	opacity: 1;
 	-ms-filter: none;
 	filter: none;
+}
+.budget-table-row.is-sub-category {
+	background-color: var(--backgroundTableRow);
+	transition: height .15s ease-out;
 }
 .budget-table-row.is-sub-category .budget-table-row-li {
 	padding-top: 0;
@@ -2601,6 +2609,9 @@ number[aria-disabled="true"], .budget-table-header-labels .budget-table-cell-ava
 }
 
 /* || BUDGET INSPECTOR */
+.budget-inspector {
+	color: var(--labelPrimary);
+}
 .budget-inspector, .reports-inspector {
 	background-color: var(--backgroundGroupedPrimary);
 	border-left: 1px solid var(--separatorStandard);
@@ -2608,17 +2619,6 @@ number[aria-disabled="true"], .budget-table-header-labels .budget-table-cell-ava
 	min-width: 300px;
 	width: 33%;
 }
-
-.budget-inspector {
-	color: var(--labelPrimary);
-}
-
-.budget-inspector {
-	font-size: .875rem;
-	font-weight: 500;
-	line-height: 1.2;
-}
-
 .budget-inspector .budget-inspector-resizer {
 	align-items: center;
 	cursor: ew-resize;
@@ -2626,7 +2626,6 @@ number[aria-disabled="true"], .budget-table-header-labels .budget-table-cell-ava
 	position: relative;
 	width: .1875rem;
 }
-
 .budget-inspector .budget-inspector-resizer-indicator {
 	border-radius: 6.25rem;
 	height: 2.5rem;
@@ -2641,12 +2640,141 @@ number[aria-disabled="true"], .budget-table-header-labels .budget-table-cell-ava
 	pointer-events: none;
 	transition: opacity .25s;
 }
-
 .budget-inspector .budget-inspector-content {
 	overflow: auto;
 	padding: 1rem 1rem 3rem .8125rem;
 	width: calc(100% - .1875rem);
 }
+.budget-inspector .budget-inspector-content > div, .reports-inspector .budget-inspector-content > div {
+	margin-bottom: .5rem;
+}
+/* section */
+.card {
+	font-weight: 500;
+	line-height: 1.2;
+}
+.card {
+	background-color: var(--backgroundGroupedSecondary);
+	border-radius: .5rem;
+	display: flex;
+	flex-direction: column;
+	color: var(--labelSecondary);
+	font-size: .875rem;
+	margin-bottom: 1rem;
+	padding: 0;
+}
+.account-widget .account-widget-loan-category .account-widget-radio-button-list label .account-widget-loan-category-radio-description .account-widget-loan-category-radio-description-title, .account-widget .account-widget-search-institutions .account-widget-search-input label, .accounts-calendar-weekdays li, .add-activity-dropdown-options-item-title, .budget-inspector h3, .budget-inspector-button strong, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category-label .budget-table-cell-goal-status span.highlighted-message-part, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category-label button span.highlighted-message-part, .card h2, .category-merge-wizard .merge-wizard-select-category, .dashboard-link-protection-modal .dashboard-link-protection-modal-add-domain p, .dashboard-link-protection-modal .dashboard-link-protection-modal-domains p, .family-body .budgets-shared-with-you .budgets-shared-with-you-header, .ftue-onboarding-extended .ftue-onboarding-number, .ftue-onboarding-lead-title, .ftue-onboarding-number, .group-subscription-credit-card-form label, .income-expense-level1 .income-expense-column:first-child, .loan-account .loan-account-activity-history-month .loan-account-history-month-header .loan-account-history-balance-amount, .loan-account .loan-account-activity-history-month .loan-account-history-month-header .loan-account-history-month-title, .loan-account .loan-account-activity-monthly-item .activity-amount, .loan-account .loan-account-activity-monthly-item .activity-progress-and-description .activity-description .activity-title, .loan-account .loan-account-activity-monthly-item .activity-progress-and-description .activity-description button.button-link, .loan-account .loan-account-container .loan-account-details-button-link, .loan-account-inspector-progress-analysis-data, .loan-account-inspector-progress-message-highlighted, .loan-account-inspector-progress-overview-group-amount, .loan-account-lpv2 button.navigate-tracking-account, .loan-account-payoff-simulator .payoff-simulator-inputs-reset.button-link, .loan-account-payoff-simulator .payoff-simulator-inputs-section-label, .loan-paired-category-card .card-body .paired-category-card-section .paired-category-card-section-value, .loan-progress-container .loan-progress-intro .open-payoff-simulator-link, .manage-payees .modal-payees-list .modal-payee-list-button, .modal-account-flags .modal .button, .modal-account-payees .modal-account-payees-expand .modal-account-payees-expand-inner .modal-account-payees-expand-inner-body .modal-account-payees-expand-inner-body-header, .modal-account-reconcile .modal-account-reconcile-enter-balance h3, .modal-account-reconcile .modal-account-reconcile-reconciled p.reconciled-message-title, .modal-account-view-options .date-range-from-to, .modal-budget-fresh-start .fieldset label, .modal-budget-fresh-start .fresh-start-details, .modal-generic label, .modal-popup dt, .modal-popup label, .modal-reports-dropdown .modal-list li span.main-category, .modal-reports-timeframe .date-range-from-to, .month-picker-months .month-picker-months-item, .recent-moves-day-section .recent-moves-date-wrapper, .reflect-month-picker-option-container label, .reflect-networth-monthly-table .networth-table-second-section > span.amount, .reports-inspector h3, .reports-inspector-table th, .settings-page .page-header .back-links a, .spending-breakdown-bar-chart-section > span, .spending-breakdown-donut-chart__bb .bb-chart-arc text tspan:first-child, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_amount, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_total, .transaction-search .transaction-search-recommendations .category-group-recommendation, .type-body-bold, .ynab-breakdown > div div:last-child, .ynab-grid-body-row.needs-approved:not(.is-pending), .ynab-grid-collapsible-transactions-toggle.ynab-grid-body-row, .ynab-new-inspector-goals .goal-progress-label-container .figure, .ynab-new-inspector-goals .ynab-new-inspector-goals-payment-payoff .ynab-new-inspector-goals-payment-payoff-field-name, .ynab-new-inspector-goals .ynab-new-inspector-goals-view-goal .goal-dates, .ynab-new-theme-switcher .ynab-new-theme-switcher-option h3, .ynab-table-4-col .ynab-table-col .category-moves-active-category {
+	font-size: .875rem;
+	font-weight: 600;
+	line-height: 1.2;
+}
+.card .card-roll-up {
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	padding: 1rem;
+}
+.card .card-roll-up h2 {
+	border: 0;
+	flex: 1 1 auto;
+	justify-content: space-between;
+	padding: 0;
+}
+.card h2, .dialog .dialog-footer {
+	align-items: center;
+	display: flex;
+	padding: 1rem;
+}
+.card h2 {
+	color: var(--labelHeading);
+	border-bottom: .0625rem solid var(--separatorSubdued);
+	line-height: 1.5;
+	margin: 0;
+	overflow: hidden;
+}
+.budget-breakdown-auto-assign .ynab-new-icon:first-child {
+	margin-left: 0;
+	margin-right: .5rem;
+}
+.card h2 .ynab-new-icon {
+	color: var(--labelHeading);
+	margin-left: .5rem;
+}
+.card .card-chevron {
+	color: var(--iconFillPrimary);
+	margin-left: .5rem;
+	margin-right: auto;
+}
+.budget-inspector-button:hover {
+	background-color: var(--buttonTertiaryBackgroundActive);
+}
+
+/* card body */
+.budget-breakdown .card .card-body {
+	overflow: visible;
+}
+.card.is-collapsed .card-body {
+	border-top: 0;
+	max-height: 0;
+	opacity: 0;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	padding: 0;
+	visibility: hidden;
+}
+.card .card-body {
+	border-top: .0625rem solid var(--separatorSubdued);
+	max-height: 100vh;
+	overflow: hidden;
+	padding: 1rem;
+	transition: max-height,padding-top,opacity .3s cubic-bezier(.45,0,0,1);
+}
+.budget-inspector-button {
+	align-items: center;
+	border-radius: .5rem;
+	display: flex;
+	height: 2rem;
+	justify-content: space-between;
+	margin-bottom: .125rem;
+	padding: 0 1rem;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	background-color: var(--buttonTertiaryBackground);
+	color: var(--labelAction);
+}
+.inspector-quick-budget .option-groups > div:nth-child(n+2) {
+	margin-top: 1rem;
+}
+.card h2 > .currency, .cleared-balances .cleared-balances-h2 {
+	color: var(--labelSecondary);
+}
+/* breakdown */
+.ynab-breakdown {
+	color: var(--labelSecondary);
+	margin-bottom: .5rem;
+}
+.ynab-breakdown > div {
+	align-items: center;
+	display: flex;
+	justify-content: flex-start;
+	margin: 0 0 .5rem;
+}
+.ynab-breakdown > div div:first-child {
+	cursor: default;
+}
+.ynab-breakdown > div div:last-child {
+	margin-left: auto;
+}
+.ynab-breakdown > div:last-child {
+	margin: 0;
+}
+
+
+
+
+/* final aside */
 
 /* || MODAL SETTINGS MENU */
 .ynab-new-settings-menu.modal-overlay {
@@ -5398,6 +5526,9 @@ b, strong {
 	visibility: visible;
 	opacity: 1;
 }
+
+/* ASIDE BIDGET INSPECTOR */
+
 
 
 

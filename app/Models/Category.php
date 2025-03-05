@@ -21,7 +21,7 @@
 		}
 		
 		public function setNameAttribute($value){
-			$this->attributes['name'] = Str::title($value);
+			$this->attributes['name'] = Str::ucfirst(Str::lower(trim($value)));
 		}
 	}
 	

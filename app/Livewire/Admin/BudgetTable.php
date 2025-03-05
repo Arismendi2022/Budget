@@ -29,6 +29,7 @@
 		public $selectedCategories = [];
 		public $editingCategoryId;
 		public $isMasterPartial    = false;
+		public $showProgressBar    = true;
 		
 		// Listeners
 		protected $listeners = [
@@ -378,6 +379,10 @@
 			if($field){
 				$this->addError($field,'Algo salió mal. Inténtalo de nuevo.');
 			}
+		}
+		
+		public function toggleProgressBar(){
+			$this->showProgressBar = !$this->showProgressBar;
 		}
 		
 		public function render(){
