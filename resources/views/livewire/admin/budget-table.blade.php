@@ -1478,6 +1478,7 @@
 			});
 			updateMasterIcon();
 		});
+		
 	
 	</script>
 @endpush

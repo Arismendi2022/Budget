@@ -94,7 +94,7 @@
 	<!-- Add Account Modal -->
 	@if($isOpenAccountModal)
 		<div id="add_account" class="modal-overlay active ynab-u modal-generic self-centered account-widget-modal">
-			<div class="modal" role="dialog" aria-modal="true">
+			<div class="modal" role="dialog" aria-modal="true" >
 				<div class="account-widget" tabindex="0">
 					<!-- Sección de selección de Linked/Unlinked -->
 					@if($currentSection === 1)

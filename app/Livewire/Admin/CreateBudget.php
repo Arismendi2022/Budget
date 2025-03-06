@@ -182,7 +182,7 @@
 				foreach($budgetCategories as $budgetCategory){
 					Category::create([
 						'group_id' => $categoryGroup->id,
-						'name' => $budgetCategory->name,
+						'name'     => $budgetCategory->name,
 					]);
 				}
 			}

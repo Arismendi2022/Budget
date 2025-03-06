@@ -3,7 +3,6 @@
 	@if($isOpenCreateModal)
 		<div id="new_budget_modal" class="modal-overlay active modal-fresh mod-skinny modal-budget-settings">
 			<div class="modal" role="dialog" aria-modal="true" style="left: 720px; top: 171.5px;">
-				{{-- <div class="modal" role="dialog" aria-modal="true">--}}
 				<div class="modal-fresh-header">
 					<div class="modal-fresh-title">{{ $isUpdateBudgetModal ? 'Budget Settings' : 'New Budget' }}</div>
 					<button class="modal-fresh-close" aria-label="Close" title="Close" type="button" wire:click="hideCreateModalForm">
@@ -12,8 +11,8 @@
 							<use href="#icon_sprite_close">
 								<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_close" fill="n¶one" viewBox="0 0 24 24">
 									<path fill="currentColor" fill-rule="evenodd"
-												d="M22.5 22.5a1.4 1.4 0 0 1-2 0L12 13.9l-8.6 8.6a1.4 1.4 0 0 1-1.9-2l8.6-8.5-8.6-8.5a1.4 1.4 0 0 1 2-2l8.5 8.6 8.5-8.6a1.4 1.4 0 1 1 2 2L13.9 12l8.6 8.6a1.4 1.4 0 0 1 0 1.9"
-												clip-rule="evenodd"></path>
+										d="M22.5 22.5a1.4 1.4 0 0 1-2 0L12 13.9l-8.6 8.6a1.4 1.4 0 0 1-1.9-2l8.6-8.5-8.6-8.5a1.4 1.4 0 0 1 2-2l8.5 8.6 8.5-8.6a1.4 1.4 0 1 1 2 2L13.9 12l8.6 8.6a1.4 1.4 0 0 1 0 1.9"
+										clip-rule="evenodd"></path>
 								</symbol>
 							</use>
 						</svg>
@@ -138,6 +137,30 @@
 		Livewire.on('console-error', data => {
 			console.error('Error:', data.error);
 		});
+
+		// Función para centrar el modal dinámicamente usando un ID específico
+		// Función para centrar el modal con ID new_budget_modal
+		const centerBudgetModal = () => {
+			const modalOverlay = document.getElementById('new_budget_modal');
+
+			// Si el modal existe
+			if (modalOverlay) {
+				const modal = modalOverlay.querySelector('.modal');
+				if (modal) {
+					modal.style.left = `${(window.innerWidth - modal.offsetWidth) / 2}px`;
+					modal.style.top = `${(window.innerHeight - modal.offsetHeight) / 2}px`;
+				}
+			}
+		};
+
+		// Ejecutar al cargar
+		document.addEventListener('DOMContentLoaded', centerBudgetModal);
+
+		// Ejecutar cuando cambie el tamaño de ventana
+		window.addEventListener('resize', centerBudgetModal);
+
+		// Usar MutationObserver para detectar cuando aparece el modal
+
 	
 	</script>
 @endpush
