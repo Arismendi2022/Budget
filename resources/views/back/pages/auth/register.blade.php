@@ -6,9 +6,9 @@
 			<aside class="authentications-aside">
 				<div class="authentications-aside__image authentications-aside__image--default"><img
 						src="{{ asset('images/back/brand/doodle-logo.svg') }}"></div>
-				<h2>Transforma el dinero.</h2>
+				<h2>Try YNAB free for 34 days</h2>
 				<p>
-					El YNABer promedio ahorra $600 en sus primeros dos meses (y, sinceramente, parece estar por encima del promedio).
+					The average YNABer saves $600 in their first two months (and you seem above average, honestly).
 				</p>
 			</aside>
 			
@@ -24,7 +24,7 @@
 					<div data-login-target="loginSubheader">
 						<p>
 							Have an account?
-							<a data-action="login#trackClickedSignUp" href="{{ route('users.login') }}" wire:navigate>Log in.</a>
+							<a data-action="login#trackClickedSignUp" href="{{ route('users.login') }}">Log in.</a>
 						</p>
 					</div>
 				</div>
@@ -69,9 +69,9 @@
 							</div>
 							<div class="authentications-sso-buttons__button">
 								<div class="sso-button sso-button--google" data-login-target="googleButton">
-									<div class="sso-button__inner js-disabled" aria-labelledby="button-label"><span class="sso-button__logo"><img class="sso-provider-logo"
+									<div class="sso-button__inner " aria-labelledby="button-label"><span class="sso-button__logo"><img class="sso-provider-logo"
 												src="{{ asset('images/shared/brand/google-logo.svg') }}"/></span><span
-											class="sso-button__label1">Continuar con Google</span></div>
+											class="sso-button__label">Continuar con Google</span></div>
 								</div>
 								<p class="authentications-sso-button__error authentications-sso-button__error--google"></p>
 							</div>

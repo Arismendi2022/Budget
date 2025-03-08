@@ -24,7 +24,7 @@
 					<div data-login-target="loginSubheader">
 						<p>
 							New to YNAB?
-							<a data-action="login#trackClickedSignUp" href="{{ route('users.register') }}" wire:navigate>Sign up today.</a>
+							<a data-action="login#trackClickedSignUp" href="{{ route('users.register') }}">Sign up today.</a>
 						</p>
 					</div>
 				</div>
@@ -87,17 +87,18 @@
 							<hr class="u-hr-text authentications-sso-buttons__separator" data-content="or"/>
 							<div class="u-sr-only">Or sign up with your Apple or Google account</div>
 							<div class="authentications-sso-buttons__button">
-								<a class="sso-button sso-button--apple js-disabled" data-label="Continue with Apple" data-trigger-action="false" data-login-target="appleButton"
-									href="#"><span class="sso-button__logo"><img class="sso-provider-logo"
-											src="{{ asset('images/shared/brand/apple-logo.svg') }}"/></span><span
+								<a class="sso-button sso-button--apple" data-label="Continue with Apple" data-trigger-action="false"
+									data-login-target="appleButton" href="#"><span
+										class="sso-button__logo"><img class="sso-provider-logo"
+											src="/images/shared/brand/apple-logo.svg"></span><span
 										class="sso-button__label">Continue with Apple</span></a>
 								<p class="authentications-sso-button__error authentications-sso-button__error--apple"></p>
 							</div>
 							<div class="authentications-sso-buttons__button">
 								<div class="sso-button sso-button--google" data-login-target="googleButton">
-									<div class="sso-button__inner js-disabled" aria-labelledby="button-label"><span class="sso-button__logo"><img class="sso-provider-logo"
-												src="{{ asset('images/shared/brand/google-logo.svg') }}"/></span><span
-											class="sso-button__label1">Continuar con Google</span></div>
+									<div class="sso-button__inner "><span class="sso-button__logo"><img class="sso-provider-logo"
+												src="/images/shared/brand/google-logo.svg"/></span><span
+											class="sso-button__label">Continuar con Google</span></div>
 								</div>
 								<p class="authentications-sso-button__error authentications-sso-button__error--google"></p>
 							</div>
