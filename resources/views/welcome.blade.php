@@ -1,5 +1,6 @@
-<html data-wf-domain="www.ynab.com" data-wf-page="640f69143ec11b6bdb2015c7" data-wf-site="640f69143ec11b21d42015c6"
-	lang="en" class="w-mod-js wf-inconsolata-n4-active wf-inconsolata-n7-active wf-active w-mod-ix">
+<!DOCTYPE html>
+<html data-wf-domain="https://ynab.test" data-wf-page="640f69143ec11b6bdb2015c7" data-wf-site="640f69143ec11b21d42015c6"
+	lang="en" class="w-mod-js w-mod-ix wf-inconsolata-n4-active wf-inconsolata-n7-active wf-active">
 
 <head>
 	<style>
@@ -13,41 +14,21 @@
 	<meta content="YNAB" property="og:title">
 	<meta content="width=device-width, initial-scale=1" name="viewport">
 	
-	<link href="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/css/staging-www.11ebddd54.css" rel="stylesheet" type="text/css">
+	<link href="{{ asset('images/front/brand/TreeLogoBlurple.png') }}" rel="shortcut icon" type="image/x-icon">
 	<link rel="stylesheet" href="{{ asset('css/front/home.css') }}">
 	{{--	 Fonts --}}
 	<link href="https://fonts.googleapis.com" rel="preconnect">
 	<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
-	
-	{{--<script src="https://js.hs-banner.com/v2/39496842/banner.js" type="text/javascript" id="cookieBanner-39496842"
-		data-cookieconsent="ignore" data-hs-ignore="true" data-loader="hs-scriptloader" data-hsjs-portal="39496842"
-		data-hsjs-env="prod" data-hsjs-hublet="na1"></script>--}}
-	{{--<script async="" src="https://s.pinimg.com/ct/lib/main.8821a9da.js"></script>--}}
-	<script async="" src="https://cdn.mgln.ai/pixel.min.js"></script>
-	<script type="text/javascript" async="" src="https://snap.licdn.com/li.lms-analytics/insight.min.js"></script>
-	<script defer="" src="https://sc-static.net/scevent.min.js"></script>
-	<script async="" src="//d.impactradius-event.com/A2030911-2814-4fd7-856b-4c451f8848181.js"></script>
-	<script type="text/javascript" async="" src="https://s.pinimg.com/ct/core.js"></script>
-	<script type="text/javascript" async=""
-		src="https://www.googletagmanager.com/gtag/js?id=G-T04N4SXCZV&amp;l=dataLayer&amp;cx=c&amp;gtm=45He5350v79132634za200&amp;tag_exp=102067808~102482433~102539968~102558064~102587591~102605417~102640600~102717422~102788824"></script>
-	<script async="" src="https://www.clarity.ms/s/0.8.0/clarity.js"></script>
-	<script type="text/javascript" integrity="sha384-38BCe5azcFbkEgj2CKunEwd91PUwSx/CyEsojGDkPglLSsaVvXrtAg0JrecV3kMv"
-		crossorigin="anonymous" async=""
-		src="https://cdn.amplitude.com/libs/analytics-browser-gtm-2.11.8-min.js.gz"></script>
-	<script async="" src="https://www.clarity.ms/tag/hfo1njbui2"></script>
-	<script type="text/javascript" async=""
-		src="https://cdn.amplitude.com/libs/analytics-browser-gtm-wrapper-3.11.2.js.br"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" media="all">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
 	<script type="text/javascript">WebFont.load({google: {families: ["Inconsolata:400,700"]}});</script>
 	<script
 		type="text/javascript">!function (o, c) {
 			var n = c.documentElement, t = " w-mod-";
 			n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
 		}(window, document);</script>
-	<link
-		href="{{ asset('images/front/brand/TreeLogoBlurple.png') }}"
-		rel="shortcut icon" type="image/x-icon">
+
 </head>
 
 <body data-track-page-view="true" data-track-page-name="Home" class="body">
@@ -60,9 +41,9 @@
 			class="design-system--au_modal_mask design-system--hide">
 			<div class="design-system--hide"></div>
 			<div class="design-system--au_modal_content"><img loading="lazy"
-					src="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/6758a5396561162bbe65ae5c_Tree%20Logo%20Blurple%20(2).svg"
+					src="/images/front/brand/TreeLogoBlurple.png"
 					alt="YNAB tree logo" class="design-system--hide"><img loading="lazy"
-					src="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/6758a6c2e8c0f58105ed4f60_flag%20(2).png"
+					src="/images/shared/brand/flag.png"
 					alt="Australian flag" class="design-system--au_modal-flag">
 				<div>It looks like you're located in Australia.<br>We have an Australian version of our website.<br><br>Please
 					confirm your location and we’ll send you to the appropriate site!
@@ -77,35 +58,6 @@
 				</div>
 			</div>
 		</div>
-		<div data-referral-modal-target="background" data-controller="referral-modal" class="referral_modal_mask hide"
-			data-action=" click->referral-modal#close:self transitionend->referral-modal#toggled animationend->referral-modal#toggled keydown.esc@document->referral-modal#close keydown.tab@document->referral-modal#moveFocusForward keydown.shift+tab@document->referral-modal#moveFocusBackward">
-			<div aria-describedby="referral_modal_description" data-referral-modal-target="content" role="dialog"
-				aria-modal="true" aria-labelledby="referral_modal_label" class="referral_modal_content"><img
-					class="referral_modal_close"
-					src="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/66cc892582cc0cb8c1782479_x%20icon.svg"
-					alt="Dismiss modal icon" title="Close" tabindex="0" data-referral-modal-target="closeButton firstFocusable"
-					data-action=" click->referral-modal#close:prevent"><img
-					src="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/675f9022e4ca9512ef776e4f_Referrals-Card-Sparks.svg"
-					alt="Card showing 'One free month of YNAB.'" class="referral_modal_image">
-				<div class="referral_modal_text">
-					<div class="w-richtext">
-						<h2 data-referral-modal-target="sponsorName" class="display-inline referral_modal_title">A friend</h2>
-						<h2 class="display-inline referral_modal_title"> sent you a free month of YNAB!</h2>
-						<p>‍</p>
-					</div>
-					<div class="text-align-left w-richtext">
-						<p>Join the movement of&nbsp;YNABers who spend guilt-free thanks to our simple set of life-changing
-							habits.</p>
-						<p>Start with our 34-day free trial and you'll both get an <strong>additional free month</strong> when you
-							subscribe.</p>
-					</div>
-				</div>
-				<div class="button-group is-centered">
-					<div class="button-wrapper is-left"><a data-referral-modal-target="lastFocusable" href="/sign-up"
-							class="button-primary-dark w-button">Start Your Free Trial</a></div>
-				</div>
-			</div>
-		</div>
 	</div>
 	<nav class="section_navbar">
 		<div class="padding-global">
@@ -116,7 +68,7 @@
 						<div class="navbar_wrapper">
 							<div class="navbar_left"><a href="/" aria-current="page" class="navbar_brand w-nav-brand w--current"
 									aria-label="home"><img
-										src="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/66fdcbae99333809c14a9de3_Logotype%20Buttermilk.svg"
+										src="/images/shared/brand/Logotype-Buttermilk.svg"
 										loading="lazy" alt="It's pronounced Why-NAB" class="navbar-brand-image">
 									<div class="navbar-brand-tooltip-container">
 										<div class="navbar-brand-tooltip">
@@ -736,7 +688,6 @@
 	crossorigin="anonymous"></script>
 <script src="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/js/staging-www.c5ba78aa.f8bee29c3bf19b15.js"
 	type="text/javascript"></script>
-
 
 </body>
 

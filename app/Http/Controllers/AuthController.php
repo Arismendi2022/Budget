@@ -11,7 +11,6 @@
 	use App\UserType;
 	use Illuminate\Http\Request;
 	use Illuminate\Support\Carbon;
-	use Illuminate\Support\Facades\Auth;
 	use Illuminate\Support\Facades\DB;
 	use Illuminate\Support\Facades\Hash;
 	use Illuminate\Support\Str;
@@ -31,64 +30,6 @@
 			];
 			return view('back.pages.auth.forgot',$data);
 		}
-		
-		public function loginHandler(Request $request){
-			// Validación para correo electrónico
-			$request->validate([
-				'email'    => 'required|email:rfc,dns|exists:users,email',
-				'password' => 'required|min:6'
-			],[
-				'email.required'    => 'Se requiere correo electrónico.',
-				'email.email'       => 'Dirección de correo electrónico no válida.',
-				'email.exists'      => 'El correo electrónico no existe en el sistema.',
-				'password.required' => 'Se requiere contraseña.',
-				'password.min'      => 'La contraseña debe tener al menos 6 caracteres.',
-			]);
-			
-			// Credenciales para autenticación
-			$creds = [
-				'email'    => $request->email,
-				'password' => $request->password
-			];
-			
-			if(Auth::attempt($creds)){
-				// Check if account is inactive
-				if(auth()->user()->status == UserStatus::Inactive){
-					Auth::logout();
-					$request->session()->invalidate();
-					$request->session()->regenerateToken();
-					
-					return response()->json([
-						'status'  => 'error',
-						'message' => 'Su cuenta está inactiva en este momento. Póngase en contacto con soporte técnico en soporte@ynab.co.'
-					],500);
-				}
-				// Check if account is in Pending mode
-				if(auth()->user()->status == UserStatus::Pending){
-					Auth::logout();
-					$request->session()->invalidate();
-					$request->session()->regenerateToken();
-					
-					return response()->json([
-						'status'  => 'error',
-						'message' => 'Su cuenta está actualmente pendiente de aprobación. Por favor, revise su correo electrónico para obtener más instrucciones.'
-					],500);
-				}
-				
-				// Redirect user to dashboard
-				return response()->json([
-					'status'   => 'success',
-					'redirect' => route('admin.budget')
-				]);
-			}else{
-				return response()->json([
-					'success' => false,
-					'errors'  => [
-						'password' => ['La contraseña es incorrecta.']
-					]
-				],422);
-			}
-		}//End Method
 		
 		public function sendPasswordResetLink(Request $request){
 			//Validate the form
