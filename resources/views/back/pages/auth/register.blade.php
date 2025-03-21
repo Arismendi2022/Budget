@@ -24,7 +24,7 @@
 					<div data-login-target="loginSubheader">
 						<p>
 							Have an account?
-							<a data-action="login#trackClickedSignUp" href="{{ route('users.login') }}" wire:navigate>Log in.</a>
+							<a data-action="login#trackClickedSignUp" href="{{ route('users.login') }}">Log in.</a>
 						</p>
 					</div>
 				</div>

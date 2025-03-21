@@ -8,15 +8,15 @@
 	use App\Livewire\Admin\FormWizard;
 	use Illuminate\Support\Facades\Route;
 	
-	/*
+	
 	  Route::get('/',function(){
 		return view('welcome');
 	})->name('home');
-	*/
 	
-	Route::get('/',function(){
+	
+	/*Route::get('/',function(){
 		return redirect()->route('admin.budget');
-	});
+	});*/
 	
 	/**
 	 * TESTING ROUTES

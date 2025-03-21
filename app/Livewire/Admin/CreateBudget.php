@@ -122,9 +122,7 @@
 				$this->hideCreateModalForm();
 				
 			} catch(\Exception $e){
-				// Nueva sintaxis para Livewire 3
-				$this->dispatch('console-error',['error' => $e->getMessage()]);
-				
+				\Log::error('Error en el sistema: '.$e->getMessage());
 				return false;
 			}
 			
@@ -162,7 +160,8 @@
 				$this->hideCreateModalForm();
 				
 			} catch(\Exception $e){
-				return "No se pudo actualizar el presupuesto.".$e->getMessage();
+				\Log::error('Error en el sistema: '.$e->getMessage());
+				return false;
 			};
 		} //End Method
 		

@@ -1,10 +1,9 @@
 <div>
 	{{-- Care about people's approval and you will be their prisoner. --}}
 	@if($isOpenEditAccountModal)
-		<div id="editAccount" class="modal-overlay active ynab-u modal-popup account-modal">
-			 <div class="modal" role="dialog" aria-modal="true" style="left: 720px; top: 171.5px;">
-			{{--<div class="modal " role="dialog" aria-modal="true">--}}
-				 <div class="modal-header modal-header-with-close">
+		<div id="editAccount" class="modal-overlay active ynab-u modal-popup account-modal is-centered">
+			<div class="modal" role="dialog" aria-modal="true" >
+				<div class="modal-header modal-header-with-close">
         <span class="modal-header-with-close-title">
           Edit Account
         </span>
@@ -60,10 +59,10 @@
 											<!---->
 											<div class="input-wrapper">
 												<input id="balance" class="ember-text-field ember-view" placeholder="What is the balance of this account right now?"
-															 title="Working Balance" aria-label="Working Balance" type="text" wire:model="balance">
+													title="Working Balance" aria-label="Working Balance" type="text" wire:model="balance">
 												<button class="user-data currency tabular-nums positive">
 													<bdi>$</bdi>
-													1800,00
+													0,00
 												</button>
 											</div>
 											<!---->
@@ -135,7 +134,7 @@
 													<!---->
 													<div class="input-wrapper">
 														<input id="ember144" class="ember-text-field ember-view" title="Minimum Monthly Payment" aria-label="Minimum Monthly Payment" type="text"
-																	 wire:model="payment">
+															wire:model="payment">
 														<button class="user-data currency tabular-nums positive">
 															<bdi>$</bdi>
 															120,00
@@ -162,7 +161,7 @@
 														<input id="ember146" class="ember-text-field ember-view" title="Interest Rate (%)" aria-label="Interest Rate (%)" type="text" wire:model="interest">
 														<button class="user-data currency tabular-nums positive">
 															<bdi>$</bdi>
-															10,00
+															0,00
 														</button>
 													</div>
 													<!---->
@@ -216,11 +215,11 @@
 						Cancel
 					</button>
 					<button class="ynab-button primary js-primary-action save-account-button" type="button"
-									wire:click="{{ $accountGroupType === 'Loans' ? 'updateMortgageLoans' : 'updateBudgetTracking' }}">
+						wire:click="{{ $accountGroupType === 'Loans' ? 'updateMortgageLoans' : 'updateBudgetTracking' }}">
 						Save
 					</button>
 				</div>
-				 <!---->
+				<!---->
 			</div>
 		</div>
 	@endif
@@ -230,19 +229,12 @@
 	<script>
 
 		$(function () {
-
 			window.addEventListener('focusInput', function () {
 				setTimeout(function () {
 					$('#nickname').focus();
 				}, 10); // Retraso de 10 ms
 			});
 		});
-
-		// Para Livewire 3
-		Livewire.on('console-error', data => {
-			console.error('Error:', data.error);
-		});
-		
-		
+	
 	</script>
 @endpush

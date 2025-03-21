@@ -13,7 +13,10 @@
 		public $isOpenCalendarModal = false;
 		
 		// Escucha el evento 'numberFormatUpdated'
-		protected $listeners = ['numberFormatUpdated' => '$refresh'];
+		protected $listeners = [
+			'numberFormatUpdated' => '$refresh',
+			'budgetTotalUpdated'  => 'getPositiveBudgetTotal' // o $refresh
+		];
 		
 		public function mount(){
 			$this->currentDate  = now();

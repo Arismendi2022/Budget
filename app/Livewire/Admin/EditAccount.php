@@ -53,34 +53,35 @@
 			}
 			
 			try{
-				DB::transaction(
-					function() use ($isLoan,$payoffDate){
-						$data = [
-							'nickname' => $this->nickname,
-							'notes'    => $this->notes,
-							'balance'  => $this->balance,
-						];
-						
-						if($isLoan){
-							$data['interest']    = $this->convertToDecimal($this->interest);
-							$data['payment']     = $this->convertToDecimal($this->payment);
-							$data['payoff_date'] = $payoffDate;
-						}
-						
-						BudgetAccount::where('id',$this->accountId)->update($data);
-					},
-					$this->hideEditAccountModalForm()
-				);
-				//Actualñiza las cuentas
+				DB::transaction(function() use ($isLoan,$payoffDate){
+					$data = [
+						'nickname' => $this->nickname,
+						'notes'    => $this->notes,
+						'balance'  => $this->balance,
+					];
+					
+					if($isLoan){
+						$data['interest']    = $this->convertToDecimal($this->interest);
+						$data['payment']     = $this->convertToDecimal($this->payment);
+						$data['payoff_date'] = $payoffDate;
+					}
+					
+					BudgetAccount::where('id',$this->accountId)->update($data);
+				});
+				
+				$this->hideEditAccountModalForm();
+				
+				// Actualiza las cuentas
 				$this->dispatch('account-refresh');
-				//Actualiza el balance en el header
+				// Actualiza el balance en el header
 				$this->dispatch('budgetTotalUpdated');
 				
+				return true;
 			} catch(\Exception $e){
-				$this->dispatch('console-error',['error' => $e->getMessage()]);
+				\Log::error('Error en el sistema: '.$e->getMessage());
 				return false;
 			}
-		} //End Methos
+		} // End Method
 		
 		private function validateNickname(){
 			$this->validate(
@@ -121,7 +122,7 @@
 				$this->dispatch('budgetTotalUpdated');
 				
 			} catch(\Exception $e){
-				$this->dispatch('console-error',['error' => $e->getMessage()]);
+				\Log::error('Error en el sistema: '.$e->getMessage());
 				return false;
 			}
 		}

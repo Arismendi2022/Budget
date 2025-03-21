@@ -375,7 +375,7 @@
 		}
 		
 		private function handleError($errorMessage,$field = null){
-			Log::error($errorMessage);
+			\Log::error($errorMessage);
 			if($field){
 				$this->addError($field,'Algo salió mal. Inténtalo de nuevo.');
 			}

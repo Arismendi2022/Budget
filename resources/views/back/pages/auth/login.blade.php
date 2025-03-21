@@ -24,7 +24,7 @@
 					<div data-login-target="loginSubheader">
 						<p>
 							New to YNAB?
-							<a data-action="login#trackClickedSignUp" href="{{ route('users.register') }}" wire:navigate>Sign up today.</a>
+							<a data-action="login#trackClickedSignUp" href="{{ route('users.register') }}">Sign up today.</a>
 						</p>
 					</div>
 				</div>
@@ -55,8 +55,7 @@
 							</label> <a href="{{ route('users.forgot') }}">Forgot password?</a>
 						</p>
 						<p>
-							<button name="login" type="submit" id="login-button" class="authentications-panel__form-button button button-primary" data-disable-with="Logging In...">Log In
-							</button>
+							<button name="login" type="submit" id="login" class="authentications-panel__form-button button button-primary " data-disable-with="Logging In...">Log In</button>
 						</p>
 					</div>
 					<div class="authentications-panel__otp-form">
@@ -95,9 +94,9 @@
 							</div>
 							<div class="authentications-sso-buttons__button">
 								<div class="sso-button sso-button--google" data-login-target="googleButton">
-									<div class="sso-button__inner js-disabled" aria-labelledby="button-label"><span class="sso-button__logo"><img class="sso-provider-logo"
-												src="{{ asset('images/shared/brand/google-logo.svg') }}"/></span><span
-											class="sso-button__label1">Continuar con Google</span></div>
+									<div class="sso-button__inner js-disabled "><span class="sso-button__logo"><img class="sso-provider-logo"
+												src="/images/shared/brand/google-logo.svg"/></span><span
+											class="sso-button__label">Continuar con Google</span></div>
 								</div>
 								<p class="authentications-sso-button__error authentications-sso-button__error--google"></p>
 							</div>
@@ -116,7 +115,7 @@
 			const $togglePassword = $('#togglePassword');
 			const $emailField = $('#request_data_email');
 			const $form = $('#login-form');
-			const $loginButton = $('#login-button');
+			const $loginButton = $('#login');
 
 			// Toggle password visibility
 			$togglePassword.on('change', function () {
@@ -145,7 +144,7 @@
 			// Handle form submission
 			function handleFormSubmit(e) {
 				e.preventDefault();
-				$loginButton.prop('disabled', true).css('opacity', '0.60').text('Logging In...');
+				$loginButton.prop('disabled', true).text('Logging In...'); // Solo deshabilita el botón
 
 				$.ajax({
 					url: $form.attr('action'),
@@ -165,7 +164,7 @@
 								$(`#${field}-error`).text(errorMessage);
 								if (errorMessage) $field.val('');
 							});
-							$loginButton.prop('disabled', false).css('opacity', '1').text('Login');
+							$loginButton.prop('disabled', false).text('Log In'); // Solo rehabilita el botón
 						}
 					}
 				});

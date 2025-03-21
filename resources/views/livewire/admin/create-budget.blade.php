@@ -1,8 +1,8 @@
 {{-- modal create new budget --}}
 <div>
 	@if($isOpenCreateModal)
-		<div id="new_budget_modal" class="modal-overlay active modal-fresh mod-skinny modal-budget-settings">
-			<div class="modal" role="dialog" aria-modal="true" style="left: 720px; top: 171.5px;">
+		<div id="new_budget_modal" class="modal-overlay active modal-fresh mod-skinny modal-budget-settings is-centered">
+			<div class="modal" role="dialog" aria-modal="true" >
 				<div class="modal-fresh-header">
 					<div class="modal-fresh-title">{{ $isUpdateBudgetModal ? 'Budget Settings' : 'New Budget' }}</div>
 					<button class="modal-fresh-close" aria-label="Close" title="Close" type="button" wire:click="hideCreateModalForm">
@@ -133,34 +133,31 @@
 			});
 		});
 
-		// Para Livewire 3
-		Livewire.on('console-error', data => {
-			console.error('Error:', data.error);
-		});
+		// Función para centrar el modal
+		/*(function () {
+			// Si ya existe la función, no la redefinimos
+			if (window.updateModalPosition) return;
 
-		// Función para centrar el modal dinámicamente usando un ID específico
-		// Función para centrar el modal con ID new_budget_modal
-		const centerBudgetModal = () => {
-			const modalOverlay = document.getElementById('new_budget_modal');
-
-			// Si el modal existe
-			if (modalOverlay) {
-				const modal = modalOverlay.querySelector('.modal');
-				if (modal) {
-					modal.style.left = `${(window.innerWidth - modal.offsetWidth) / 2}px`;
-					modal.style.top = `${(window.innerHeight - modal.offsetHeight) / 2}px`;
+			window.updateModalPosition = () => {
+				const modal = document.querySelector('#new_budget_modal .modal');
+				const modalOverlay = document.querySelector('#new_budget_modal.modal-overlay.active');
+				if (!modal) return;
+				if (modalOverlay) {
+					const left = (window.innerWidth - modal.offsetWidth) / 2;
+					const top = (window.innerHeight - modal.offsetHeight) / 2;
+					modal.setAttribute('style', `left: ${left}px; top: ${top}px;`);
+				} else {
+					modal.removeAttribute('style');
 				}
-			}
-		};
+			};
 
-		// Ejecutar al cargar
-		document.addEventListener('DOMContentLoaded', centerBudgetModal);
-
-		// Ejecutar cuando cambie el tamaño de ventana
-		window.addEventListener('resize', centerBudgetModal);
-
-		// Usar MutationObserver para detectar cuando aparece el modal
-
+			const observer = new MutationObserver(() => window.updateModalPosition());
+			window.addEventListener('resize', () => window.updateModalPosition());
+			document.addEventListener('DOMContentLoaded', () => {
+				observer.observe(document.body, {childList: true, subtree: true});
+				window.updateModalPosition();
+			});
+		})();*/
 	
 	</script>
 @endpush

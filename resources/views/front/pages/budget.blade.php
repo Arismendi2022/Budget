@@ -60,7 +60,7 @@
 			<!---->
 			@livewire('admin.budget-table')
 			<!---->
-		   @livewire('admin.target-creation')
+			@livewire('admin.target-creation')
 		</div>
 		<!---->
 	</div>
@@ -121,15 +121,15 @@
 
 			const $newBudget = $('#new_budget_modal');
 			//Abre modal New Budget
-			window.addEventListener('showCreateModalForm', function () {
+		/*	window.addEventListener('showCreateModalForm', function () {
 				$('#new_budget_modal').show();
 				$('#modal-settings-budget-name').focus();
-			})
+			})*/
 
 			//Cierra el modal New Budget
-			window.addEventListener('hideCreateModalForm', function () {
+		/*	window.addEventListener('hideCreateModalForm', function () {
 				$('#new_budget_modal').hide();
-			})
+			})*/
 		});
 
 		/** TOOLTIP GLOBAL POCISION  */
@@ -249,52 +249,6 @@
 
 		// Run the setup when the DOM is fully loaded
 		document.addEventListener('DOMContentLoaded', setupCardToggles);
-
-		// Función para centrar el modal dinámicamente usando un ID específico
-		function centerElement(element) {
-			//element.style.position = 'fixed';
-			element.style.left = `${(window.innerWidth - element.offsetWidth) / 2}px`;
-			element.style.top = `${(window.innerHeight - element.offsetHeight) / 2}px`;
-		}
-
-		function centerModal() {
-			const modalContainer = document.getElementById('auto_assign'); // Selecciona por ID
-			const modalContent = document.querySelector('.modal'); // Selecciona por clase
-
-			//if (modalContainer) centerElement(modalContainer); // Centra el contenedor
-			if (modalContent) centerElement(modalContent); // Centra el modal
-		}
-
-		window.addEventListener('resize', centerModal);
-		window.addEventListener('load', centerModal);
-		centerModal();
-
-		/*function centerModal() {
-			// Selecciona el modal
-			const modal = document.querySelector('.modal');
-
-			// Obtiene las dimensiones del modal
-			const modalWidth = modal.offsetWidth;
-			const modalHeight = modal.offsetHeight;
-
-			// Obtiene las dimensiones de la ventana
-			const windowWidth = window.innerWidth;
-			const windowHeight = window.innerHeight;
-
-			// Calcula la posición para centrar el modal
-			const left = (windowWidth - modalWidth) / 2;
-			const top = (windowHeight - modalHeight) / 2;
-
-			// Aplica las nuevas posiciones al modal
-			modal.style.left = `${left}px`;
-			modal.style.top = `${top}px`;
-		}
-
-		// Centrar el modal cuando la ventana cambie de tamaño
-		window.addEventListener('resize', centerModal);
-
-		// Centrar el modal al cargar la página
-		window.addEventListener('load', centerModal);*/
 	
 	</script>
 @endpush

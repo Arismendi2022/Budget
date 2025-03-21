@@ -1038,9 +1038,8 @@
 							class="button budget-table-cell-button budget-table-cell-edit-category user-data "
 							title="{{ $group->name }}">{{ $group->name }}</button>
 						<button class="button budget-table-cell-add-category budget-table-cell-button " aria-label="Add Category" aria-describedby="addCategory"
-							wire:click="addCategoryModal({{ $group->id }})" onclick="setModalPositionCategory(event)"
-							onmouseover="showTooltip(event)"
-							onmouseout="hideTooltip()">
+							wire:click="addCategoryModal({{ $group->id }})" onclick="setModalPositionCategory(event)">
+							
 							<svg class="ynab-new-icon " width="14" height="14">
 								<!---->
 								<use href="#icon_sprite_plus_circle_fill">
@@ -1383,6 +1382,7 @@
 				setTimeout(() => document.getElementById(e.detail.inputId)?.focus(), 10)
 			);
 
+			/*
 			const isCollapsed = () =>
 				document.querySelector(".sidebar").classList.contains("sidebar-resized-collapsed");
 
@@ -1477,8 +1477,10 @@
 				toggleGroup(group, isExpanded);
 			});
 			updateMasterIcon();
+			
+			 */
 		});
-		
+	
 	
 	</script>
 @endpush

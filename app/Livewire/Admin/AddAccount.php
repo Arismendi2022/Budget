@@ -7,7 +7,6 @@
 	use App\Models\BudgetAccount;
 	use App\Models\CategoryGroup;
 	use Illuminate\Support\Facades\DB;
-	use Livewire\Attributes\On;
 	use Livewire\Component;
 	
 	class AddAccount extends Component
@@ -50,9 +49,7 @@
 		
 		// Registrar el listener para el evento `reorderAccounts`
 		protected $listeners = [
-			'updateOrder','handleDragEnd',
 			'numberFormatUpdated' => 'accountRefresh'  //Escucha el evento 'numberFormatUpdated'
-		
 		];
 		
 		public function mount(){
@@ -66,23 +63,7 @@
 			$this->accountTypes      = AccountHelper::getAccountTypes();
 			$this->categoriesByGroup = CategoryGroup::with('categories')->get();
 			
-			// Recuperar el estado de los grupos desde la sesión o inicializarlo como vacío
-			$this->showGroups = session()->get('showGroups',[]);
-			
-			// Si no hay estado guardado en la sesión, inicializar todos los grupos como expandidos
-			if(empty($this->showGroups)){
-				$this->showGroups = collect($this->accountGroups)
-					->pluck('type') // Obtiene los tipos de grupo
-					->mapWithKeys(fn($type) => [$type => true]) // Inicializa cada grupo como expandido
-					->toArray();
-			}
-			
 		} //End Method
-		
-		#[On('account-refresh')]
-		public function accountRefresh(){
-			$this->updateAccountLists();
-		}
 		
 		public function addAccountModal(){
 			$this->resetFields();
@@ -168,7 +149,8 @@
 					         'account_group' => $this->selectedCategoryGroup,
 					         'data_type'     => $this->selectedDataAccountType,
 					         'account_type'  => $this->selectedAccountType,
-					         'balance'       => $this->balance,];
+					         'balance'       => $this->balance,
+					];
 					
 					if($isLoan){
 						$data['interest']    = $this->interest;
@@ -185,7 +167,7 @@
 				});
 				// Código que puede lanzar una excepción
 			} catch(\Exception $e){
-				$this->dispatch('console-error',['error' => $e->getMessage()]);
+				\Log::error('Error en el sistema: '.$e->getMessage());
 				return false;
 			}
 		} //End Method
@@ -274,20 +256,6 @@
 			$this->newMasterCategory = '';
 		}
 		
-		public function openEditAccountModal($accountId){
-			$this->dispatch('account-edit',$accountId);
-		}
-		
-		public function updateOrder($orderedIds){
-			// Actualiza el campo 'ordering' para cada cuenta
-			foreach($orderedIds as $position => $accountId){
-				BudgetAccount::where('id',$accountId)->update(['ordering' => $position + 1]);
-			}
-			// Recargar cuentas después de actualizar
-			$this->updateAccountLists();
-			
-		}
-		
 		//funcion para calcular la fecha final de pago.
 		private function calculatePayoffDate($balance,$interestRate,$minimumPayment){
 			$interestRateDecimal = $interestRate / 100;
@@ -304,16 +272,6 @@
 			return now()->addMonths($months);
 			
 		} //End Method
-		
-		public function toggleGroup($type){
-			// Alternar el estado del grupo
-			$this->showGroups[$type] = !($this->showGroups[$type] ?? true);
-			// Guardar el estado actualizado en la sesión
-			session()->put('showGroups',$this->showGroups);
-			
-			// Emitir evento para reinicializar drag & drop
-			$this->dispatch('groupToggled');
-		}
 		
 		// Esta nueva función actualiza la cuenta activa
 		public function updateActiveAccount($accountId){
