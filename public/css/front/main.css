@@ -91,6 +91,7 @@
 	--brandNeutral900: #0c1722;
 	--brandSPBlurple1000: #121330;
 	--brandSPBlurple100: #f1f1ff;
+	--brandSPBlurple150: #e2e3ff;
 	--brandSPBlurple200: #d4d5ff;
 	--brandSPBlurple300: #a3acff;
 	--brandSPBlurple400: #7583ff;
@@ -103,16 +104,17 @@
 	--brandSPBlurple900: #1b1d48;
 	--brandSPCoolGrey1000: #0c0d22;
 	--brandSPCoolGrey100: #ededf5;
-	--brandSPCoolGrey1100: #080916;
+	--brandSPCoolGrey1100: #06060f;
 	--brandSPCoolGrey200: #c4c5cf;
 	--brandSPCoolGrey300: #9b9caa;
 	--brandSPCoolGrey400: #727484;
 	--brandSPCoolGrey500: #56596c;
 	--brandSPCoolGrey50: #f5f5f9;
 	--brandSPCoolGrey600: #3c3e53;
-	--brandSPCoolGrey700: #24263d;
-	--brandSPCoolGrey750: #292b3d;
+	--brandSPCoolGrey700: #292b3d;
+	--brandSPCoolGrey750: #24263d;
 	--brandSPCoolGrey800: #1f2038;
+	--brandSPCoolGrey850: #1a1c32;
 	--brandSPCoolGrey900: #15172d;
 	--brandSPCoolGrey950: #111228;
 	--brandSPDandelion100: #fef9ed;
@@ -149,6 +151,7 @@
 	--brandSPMulberry300: #faada5;
 	--brandSPMulberry400: #e48585;
 	--brandSPMulberry500: #ce5e66;
+	--brandSPMulberry550: #ee5867;
 	--brandSPMulberry600: #bf2e3b;
 	--brandSPMulberry700: #912333;
 	--brandSPMulberry800: #6a1020;
@@ -187,7 +190,9 @@
 	--utilityBlack10: rgba(0, 0, 0, 0.102);
 	--utilityBlack12: rgba(0, 0, 0, 0.122);
 	--utilityBlack15: rgba(0, 0, 0, 0.149);
+	--utilityBlack20: rgba(0, 0, 0, 0.2);
 	--utilityBlack33: rgba(0, 0, 0, 0.329);
+	--utilityBlack49: rgba(0, 0, 0, 0.49);
 	--utilityBlack4: rgba(0, 0, 0, 0.039);
 	--utilityBlack5: rgba(0, 0, 0, 0.051);
 	--utilityBlack66: rgba(0, 0, 0, 0.659);
@@ -419,6 +424,10 @@
 	--pillLabel: #3b5eda;
 	--registerSecondaryButtonLabel: #3b5eda;
 	--registerSecondaryButtonLabelActive: #374d9b;
+	--reportsChartTrendAOMSelected: #4d9119;
+	--reportsChartTrendLine: #1b1d48;
+	--reportsChartTrendPoint: #1b1d48;
+	--reportsChartTrendPointShadow: rgba(0, 0, 0, 0.102);
 	--reportsEight: #fbe48e;
 	--reportsEleven: #d2d8de;
 	--reportsFive: #84dd3e;
@@ -690,6 +699,10 @@ body.theme-dark {
 	--pillLabel: #d8e0fd;
 	--registerSecondaryButtonLabel: #fff;
 	--registerSecondaryButtonLabelActive: rgba(255, 255, 255, 0.8);
+	--reportsChartTrendAOMSelected: #84dd3e;
+	--reportsChartTrendLine: #f1f1ff;
+	--reportsChartTrendPoint: #f1f1ff;
+	--reportsChartTrendPointShadow: rgba(255, 255, 255, 0.149);
 	--reportsEight: #f6c91d;
 	--reportsEleven: #405163;
 	--reportsFive: #4d9119;
@@ -969,6 +982,10 @@ body.theme-dark ::-webkit-scrollbar-thumb {
 		--pillLabel: #d8e0fd;
 		--registerSecondaryButtonLabel: #fff;
 		--registerSecondaryButtonLabelActive: rgba(255, 255, 255, 0.8);
+		--reportsChartTrendAOMSelected: #84dd3e;
+		--reportsChartTrendLine: #f1f1ff;
+		--reportsChartTrendPoint: #f1f1ff;
+		--reportsChartTrendPointShadow: rgba(255, 255, 255, 0.149);
 		--reportsEight: #f6c91d;
 		--reportsEleven: #405163;
 		--reportsFive: #4d9119;
@@ -1077,7 +1094,7 @@ body.theme-var-light {
 	--backgroundSecondaryElevated: #f8f6f2;
 	--backgroundTableHeader: #f8f6f2;
 	--backgroundTableRow: #fff;
-	--backgroundTableRowSelected: #d4d5ff;
+	--backgroundTableRowSelected: #e2e3ff;
 	--backgroundTertiary: #f3eee2;
 	--backgroundTertiaryElevated: #f3eee2;
 	--backgroundVideoControls: #000;
@@ -1249,6 +1266,10 @@ body.theme-var-light {
 	--pillLabel: #545bfe;
 	--registerSecondaryButtonLabel: #545bfe;
 	--registerSecondaryButtonLabelActive: #383ca3;
+	--reportsChartTrendAOMSelected: #508316;
+	--reportsChartTrendLine: #1b1d48;
+	--reportsChartTrendPoint: #1b1d48;
+	--reportsChartTrendPointShadow: rgba(0, 0, 0, 0.102);
 	--reportsEight: #fbe48e;
 	--reportsEleven: #c4c5cf;
 	--reportsFive: #93d53e;
@@ -1333,11 +1354,11 @@ body.theme-var-dark {
 	--accountwidgetMxWidgetBackground: #121417;
 	--actionPrimary: #7583ff;
 	--actionPrimaryActive: #a3acff;
-	--actionPrimaryDisabled: #374d9b;
+	--actionPrimaryDisabled: #383ca3;
 	--actionSecondary: #3c3e53;
 	--actionSecondaryActive: #727484;
 	--actionSecondaryBorder: #56596c;
-	--actionSecondaryDisabled: #24263d;
+	--actionSecondaryDisabled: #292b3d;
 	--actionTertiary: #a3acff;
 	--actionTertiaryActive: #545bfe;
 	--actionbarBackground: #383ca3;
@@ -1352,7 +1373,7 @@ body.theme-var-dark {
 	--backgroundPrimary: #0c0d22;
 	--backgroundPrimaryElevated: #1f2038;
 	--backgroundSecondary: #15172d;
-	--backgroundSecondaryElevated: #24263d;
+	--backgroundSecondaryElevated: #292b3d;
 	--backgroundTableHeader: #15172d;
 	--backgroundTableRow: #0c0d22;
 	--backgroundTableRowSelected: #1b1d48;
@@ -1360,9 +1381,9 @@ body.theme-var-dark {
 	--backgroundTertiaryElevated: #3c3e53;
 	--backgroundVideoControls: #000;
 	--budgetBarBackground: #3c3e53;
-	--budgetBarBackgroundOnNonWhite: #24263d;
+	--budgetBarBackgroundOnNonWhite: #292b3d;
 	--budgetBarBorder: #3c3e53;
-	--budgetBarEmpty: #24263d;
+	--budgetBarEmpty: #292b3d;
 	--budgetBarFunded: #77ba21;
 	--budgetBarFundedSpending: #346011;
 	--budgetBarFundedSpendingStripe: #1d300d;
@@ -1380,7 +1401,7 @@ body.theme-var-dark {
 	--buttonEmphasizedBackgroundDisabled: #3c3e53;
 	--buttonPrimaryBackground: #545bfe;
 	--buttonPrimaryBackgroundActive: #7583ff;
-	--buttonPrimaryBackgroundDisabled: #24263d;
+	--buttonPrimaryBackgroundDisabled: #292b3d;
 	--buttonSecondaryBackground: rgba(117, 131, 255, 0.2);
 	--buttonSecondaryBackgroundActive: rgba(117, 131, 255, 0.271);
 	--buttonSecondaryLabel: #f1f1ff;
@@ -1467,7 +1488,7 @@ body.theme-var-dark {
 	--fillQuarternary: rgba(114, 116, 132, 0.18);
 	--fillSecondary: rgba(114, 116, 132, 0.322);
 	--fillTertiary: rgba(114, 116, 132, 0.239);
-	--filterBackground: #24263d;
+	--filterBackground: #292b3d;
 	--filterBackgroundActive: rgba(117, 131, 255, 0.271);
 	--filterLabel: #f1f1ff;
 	--filterLabelDisabled: #727484;
@@ -1501,8 +1522,8 @@ body.theme-var-dark {
 	--labelDarkBackgroundPrimary: #fff;
 	--labelDarkBackgroundSecondary: #ededf5;
 	--labelHeading: #f1f1ff;
-	--labelNegative: #ce5e66;
-	--labelNegativeActive: #e48585;
+	--labelNegative: #ee5867;
+	--labelNegativeActive: #ce5e66;
 	--labelNegativeDisabled: #6a1020;
 	--labelPositive: #77ba21;
 	--labelPositiveActive: #93d53e;
@@ -1527,6 +1548,10 @@ body.theme-var-dark {
 	--pillLabel: #d4d5ff;
 	--registerSecondaryButtonLabel: #fff;
 	--registerSecondaryButtonLabelActive: rgba(255, 255, 255, 0.8);
+	--reportsChartTrendAOMSelected: #93d53e;
+	--reportsChartTrendLine: #f1f1ff;
+	--reportsChartTrendPoint: #f1f1ff;
+	--reportsChartTrendPointShadow: rgba(255, 255, 255, 0.149);
 	--reportsEight: #f6c91d;
 	--reportsEleven: #56596c;
 	--reportsFive: #508316;
@@ -1557,11 +1582,11 @@ body.theme-var-dark {
 	--separatorStandard: rgba(255, 255, 255, 0.102);
 	--separatorStrong: #727484;
 	--separatorSubdued: rgba(255, 255, 255, 0.078);
-	--settingsHeaderBackground: #24263d;
+	--settingsHeaderBackground: #292b3d;
 	--sidebarAccountNegativeBalanceBackground: rgba(0, 0, 0, 0);
 	--sidebarBackground: #121330;
-	--sidebarButtonBackgroundActive: #1c1f58;
-	--sidebarButtonBackgroundSelected: #383ca3;
+	--sidebarButtonBackgroundActive: #1b1d48;
+	--sidebarButtonBackgroundSelected: #1c1f58;
 	--sidebarButtonSecondaryBackground: #3c3e53;
 	--sidebarButtonSecondaryBackgroundActive: #56596c;
 	--sidebarButtonSecondaryBackgroundPressed: #56596c;
@@ -1589,7 +1614,7 @@ body.theme-var-dark {
 	--viewsNeutralSelectedAccent: #7583ff;
 	--viewsWarningBackground: #f6c91d;
 	--viewsWarningBackgroundHover: #daac00;
-	--viewsWarningBackgroundSelected: #daac00;
+	--viewsWarningBackgroundSelected: #362c05;
 	--viewsWarningBackgroundSelectedHover: #6d5600;
 	--viewsWarningLabel: #362c05;
 	--viewsWarningLabelSelected: #daac00;
@@ -3084,7 +3109,7 @@ table {
 	margin: 0 2px;
 	padding: .35em .625em .75em
 }
-.all-set-banner-title, .family .family-invite-title-l, .group-subpage-header .group-subpage-header__title, .lead-in-message h1, .loan-account-reconciliation-amount, .reflect-net-worth .net-worth-value, .reflect-spending-breakdown .spending-breakdown__total-spending .total-spending-value, .reflect-spending-trends .spending-trends__average-monthly-spending .average-monthly-spending-value, .rollout-header__title, .type-title-l {
+.all-set-banner-title, .family .family-invite-title-l, .group-subpage-header .group-subpage-header__title, .lead-in-message h1, .loan-account-reconciliation-amount, .reflect-age-of-money .chart-card .current-age-of-money .current-age-of-money-value, .reflect-net-worth .net-worth-value, .reflect-spending-breakdown .spending-breakdown__total-spending .total-spending-value, .reflect-spending-trends .spending-trends__average-monthly-spending .average-monthly-spending-value, .rollout-header__title, .type-title-l {
 	font-size: 1.875rem;
 	font-weight: 700;
 	line-height: 1.2;
@@ -3105,7 +3130,7 @@ table {
 	font-weight: 700;
 	line-height: 1.2
 }
-.account-widget .account-list .account-widget-body h2, .account-widget .account-widget-apple-handoff .account-widget-body h3, .account-widget .account-widget-error-screen .account-widget-body h3, .account-widget .account-widget-error-screen-retry .account-widget-body h3, .account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-text .select-linked-unlinked-box-title, .account-widget .account-widget-step .account-widget-header .account-widget-header-title h1, .account-widget .account-widget-success-screen .account-widget-add-account-success-screen .account-widget-success-screen-accounts-added .account-widget-success-screen-accounts-added-header, .account-widget .account-widget-success-screen .account-widget-body h3, .accounts-header .accounts-header-balances, .budget-inspector h1, .dialog .dialog-header, .group-container .sidebar__link, .group-subpage-header .group-subpage-header__navlist li, .income-expense-expense .income-expense-h1, .income-expense-expense .income-expense-h1 button, .income-expense-income .income-expense-h1, .income-expense-income .income-expense-h1 button, .income-expense-net-income .income-expense-column:first-child, .income-expense-net-income .income-expense-h1, .income-expense-net-income .income-expense-h1 button, .loan-account h3, .loan-account header.loan-account-header, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-balance .loan-account-header-balance-amount, .loan-account-account-header, .loan-account-account-header .loan-account-header-element .loan-account-header-element-amount, .loan-account-payoff-simulator-banner .banner-text .banner-heading, .loan-progress-container .loan-progress-intro .loan-progress-balance-remaining .loan-progress-balance-remaining-percent, .modal .activity-header, .modal .category-moves-header, .modal-account-reconcile .modal-account-reconcile-difference .modal-account-reconcile-difference-header .modal-account-reconcile-cleared-balance-amount, .modal-budget-hidden-categories .modal-header, .modal-fresh .modal-fresh-header, .modal-generic .modal-header, .modal-popup.account-modal .modal-header, .modal-popup.unpair-confirm-modal .modal-header, .reports-header button, .reports-inspector h1, .sidebar-nav-menu .sidebar-nav-budget-email .sidebar-nav-budget-email-budget, .type-title-xs {
+.account-widget .account-list .account-widget-body h2, .account-widget .account-widget-apple-handoff .account-widget-body h3, .account-widget .account-widget-error-screen .account-widget-body h3, .account-widget .account-widget-error-screen-retry .account-widget-body h3, .account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-text .select-linked-unlinked-box-title, .account-widget .account-widget-step .account-widget-header .account-widget-header-title h1, .account-widget .account-widget-success-screen .account-widget-add-account-success-screen .account-widget-success-screen-accounts-added .account-widget-success-screen-accounts-added-header, .account-widget .account-widget-success-screen .account-widget-body h3, .accounts-header .accounts-header-balances, .budget-inspector h1, .dialog .dialog-header, .group-container .sidebar__link, .group-subpage-header .group-subpage-header__navlist li, .income-expense-expense .income-expense-h1, .income-expense-expense .income-expense-h1 button, .income-expense-income .income-expense-h1, .income-expense-income .income-expense-h1 button, .income-expense-net-income .income-expense-column:first-child, .income-expense-net-income .income-expense-h1, .income-expense-net-income .income-expense-h1 button, .loan-account h3, .loan-account header.loan-account-header, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-balance .loan-account-header-balance-amount, .loan-account-account-header, .loan-account-account-header .loan-account-header-element .loan-account-header-element-amount, .loan-account-payoff-simulator-banner .banner-text .banner-heading, .loan-progress-container .loan-progress-intro .loan-progress-balance-remaining .loan-progress-balance-remaining-percent, .modal .activity-header, .modal .category-moves-header, .modal-account-reconcile .modal-account-reconcile-difference .modal-account-reconcile-difference-header .modal-account-reconcile-cleared-balance-amount, .modal-budget-hidden-categories .modal-header, .modal-fresh .modal-fresh-header, .modal-generic .modal-header, .modal-popup.account-modal .modal-header, .modal-popup.unpair-confirm-modal .modal-header, .reflect-age-of-money .chart-card .empty-state-content h4, .reflect-age-of-money-tooltip .age-of-money-value, .reports-header button, .reports-inspector h1, .sidebar-nav-menu .sidebar-nav-budget-email .sidebar-nav-budget-email-budget, .type-title-xs {
 	font-size: 1.125rem;
 	font-weight: 600;
 	line-height: 1.2
@@ -3129,12 +3154,12 @@ table {
 	font-weight: 500;
 	line-height: 1.2
 }
-.account-widget .account-widget-loan-category .account-widget-radio-button-list label .account-widget-loan-category-radio-description .account-widget-loan-category-radio-description-title, .account-widget .account-widget-search-institutions .account-widget-search-input label, .accounts-calendar-weekdays li, .add-activity-dropdown-options-item-title, .budget-inspector h3, .budget-inspector-button strong, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category-label .budget-table-cell-goal-status span.highlighted-message-part, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category-label button span.highlighted-message-part, .card h2, .category-merge-wizard .merge-wizard-select-category, .dashboard-link-protection-modal .dashboard-link-protection-modal-add-domain p, .dashboard-link-protection-modal .dashboard-link-protection-modal-domains p, .family-body .budgets-shared-with-you .budgets-shared-with-you-header, .ftue-onboarding-extended .ftue-onboarding-number, .ftue-onboarding-lead-title, .ftue-onboarding-number, .group-subscription-credit-card-form label, .income-expense-level1 .income-expense-column:first-child, .loan-account .loan-account-activity-history-month .loan-account-history-month-header .loan-account-history-balance-amount, .loan-account .loan-account-activity-history-month .loan-account-history-month-header .loan-account-history-month-title, .loan-account .loan-account-activity-monthly-item .activity-amount, .loan-account .loan-account-activity-monthly-item .activity-progress-and-description .activity-description .activity-title, .loan-account .loan-account-activity-monthly-item .activity-progress-and-description .activity-description button.button-link, .loan-account .loan-account-container .loan-account-details-button-link, .loan-account-inspector-progress-analysis-data, .loan-account-inspector-progress-message-highlighted, .loan-account-inspector-progress-overview-group-amount, .loan-account-lpv2 button.navigate-tracking-account, .loan-account-payoff-simulator .payoff-simulator-inputs-reset.button-link, .loan-account-payoff-simulator .payoff-simulator-inputs-section-label, .loan-paired-category-card .card-body .paired-category-card-section .paired-category-card-section-value, .loan-progress-container .loan-progress-intro .open-payoff-simulator-link, .manage-payees .modal-payees-list .modal-payee-list-button, .modal-account-flags .modal .button, .modal-account-payees .modal-account-payees-expand .modal-account-payees-expand-inner .modal-account-payees-expand-inner-body .modal-account-payees-expand-inner-body-header, .modal-account-reconcile .modal-account-reconcile-enter-balance h3, .modal-account-reconcile .modal-account-reconcile-reconciled p.reconciled-message-title, .modal-account-view-options .date-range-from-to, .modal-budget-fresh-start .fieldset label, .modal-budget-fresh-start .fresh-start-details, .modal-generic label, .modal-popup dt, .modal-popup label, .modal-reports-dropdown .modal-list li span.main-category, .modal-reports-timeframe .date-range-from-to, .month-picker-months .month-picker-months-item, .recent-moves-day-section .recent-moves-date-wrapper, .reflect-month-picker-option-container label, .reflect-networth-monthly-table .networth-table-second-section > span.amount, .reports-inspector h3, .reports-inspector-table th, .settings-page .page-header .back-links a, .spending-breakdown-bar-chart-section > span, .spending-breakdown-donut-chart__bb .bb-chart-arc text tspan:first-child, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_amount, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_total, .transaction-search .transaction-search-recommendations .category-group-recommendation, .type-body-bold, .ynab-breakdown > div div:last-child, .ynab-grid-body-row.needs-approved:not(.is-pending), .ynab-grid-collapsible-transactions-toggle.ynab-grid-body-row, .ynab-new-inspector-goals .goal-progress-label-container .figure, .ynab-new-inspector-goals .ynab-new-inspector-goals-payment-payoff .ynab-new-inspector-goals-payment-payoff-field-name, .ynab-new-inspector-goals .ynab-new-inspector-goals-view-goal .goal-dates, .ynab-new-theme-switcher .ynab-new-theme-switcher-option h3, .ynab-table-4-col .ynab-table-col .category-moves-active-category {
+.account-widget .account-list .account-widget-body .account-list-authorization-section .account-list-authorization-section-header, .account-widget .account-widget-loan-category .account-widget-radio-button-list label .account-widget-loan-category-radio-description .account-widget-loan-category-radio-description-title, .account-widget .account-widget-search-institutions .account-widget-search-input label, .account-widget .account-widget-search-institutions .divider span, .accounts-calendar-weekdays li, .add-activity-dropdown-options-item-title, .budget-inspector h3, .budget-inspector-button strong, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category-label .budget-table-cell-goal-status span.highlighted-message-part, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category-label button span.highlighted-message-part, .card h2, .category-merge-wizard .merge-wizard-select-category, .cost-to-be-me-summary .edit-income-description, .cost-to-be-me-summary .label .amount, .dashboard-link-protection-modal .dashboard-link-protection-modal-add-domain p, .dashboard-link-protection-modal .dashboard-link-protection-modal-domains p, .family-body .budgets-shared-with-you .budgets-shared-with-you-header, .ftue-onboarding-extended .ftue-onboarding-number, .ftue-onboarding-lead-title, .ftue-onboarding-number, .group-subscription-credit-card-form label, .income-expense-level1 .income-expense-column:first-child, .loan-account .loan-account-activity-history-month .loan-account-history-month-header .loan-account-history-balance-amount, .loan-account .loan-account-activity-history-month .loan-account-history-month-header .loan-account-history-month-title, .loan-account .loan-account-activity-monthly-item .activity-amount, .loan-account .loan-account-activity-monthly-item .activity-progress-and-description .activity-description .activity-title, .loan-account .loan-account-activity-monthly-item .activity-progress-and-description .activity-description button.button-link, .loan-account .loan-account-container .loan-account-details-button-link, .loan-account-inspector-progress-analysis-data, .loan-account-inspector-progress-message-highlighted, .loan-account-inspector-progress-overview-group-amount, .loan-account-lpv2 button.navigate-tracking-account, .loan-account-payoff-simulator .payoff-simulator-inputs-reset.button-link, .loan-account-payoff-simulator .payoff-simulator-inputs-section-label, .loan-paired-category-card .card-body .paired-category-card-section .paired-category-card-section-value, .loan-progress-container .loan-progress-intro .open-payoff-simulator-link, .manage-payees .modal-payees-list .modal-payee-list-button, .modal-account-flags .modal .button, .modal-account-payees .modal-account-payees-expand .modal-account-payees-expand-inner .modal-account-payees-expand-inner-body .modal-account-payees-expand-inner-body-header, .modal-account-reconcile .modal-account-reconcile-enter-balance h3, .modal-account-reconcile .modal-account-reconcile-reconciled p.reconciled-message-title, .modal-account-view-options .date-range-from-to, .modal-budget-fresh-start .fieldset label, .modal-budget-fresh-start .fresh-start-details, .modal-generic label, .modal-popup dt, .modal-popup label, .modal-reports-dropdown .modal-list li span.main-category, .modal-reports-timeframe .date-range-from-to, .month-picker-months .month-picker-months-item, .recent-moves-day-section .recent-moves-date-wrapper, .reflect-month-picker-option-container label, .reflect-networth-monthly-table .networth-table-second-section > span.amount, .reports-inspector h3, .reports-inspector-table th, .settings-page .page-header .back-links a, .spending-breakdown-bar-chart-section > span, .spending-breakdown-donut-chart__bb .bb-chart-arc text tspan:first-child, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_amount, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_total, .transaction-search .transaction-search-recommendations .category-group-recommendation, .type-body-bold, .ynab-breakdown > div div:last-child, .ynab-grid-body-row.needs-approved:not(.is-pending), .ynab-grid-collapsible-transactions-toggle.ynab-grid-body-row, .ynab-new-inspector-goals .goal-progress-label-container .figure, .ynab-new-inspector-goals .ynab-new-inspector-goals-payment-payoff .ynab-new-inspector-goals-payment-payoff-field-name, .ynab-new-inspector-goals .ynab-new-inspector-goals-view-goal .goal-dates, .ynab-new-theme-switcher .ynab-new-theme-switcher-option h3, .ynab-table-4-col .ynab-table-col .category-moves-active-category {
 	font-size: .875rem;
 	font-weight: 600;
 	line-height: 1.2
 }
-.auto-assign-preview.modal-fresh .auto-assign-preview-category-list, .auto-assign-preview.modal-fresh .auto-assign-preview-funding-banner p, .budget-breakdown-multiple, .budget-breakdown-tbb-card h2, .budget-breakdown-to-be-budgeted-breakdown, .budget-views-empty-state .budget-views-empty-state-content .budget-views-empty-state-subheader, .type-body, .ynab-breakdown, .ynab-checkbox, .ynab-helpbox, .ynab-new-budget-available-number {
+.auto-assign-preview.modal-fresh .auto-assign-preview-category-list, .auto-assign-preview.modal-fresh .auto-assign-preview-funding-banner p, .budget-breakdown .ynab-breakdown-available-heading, .budget-breakdown-multiple, .budget-breakdown-tbb-card h2, .budget-breakdown-to-be-budgeted-breakdown, .budget-views-empty-state .budget-views-empty-state-content .budget-views-empty-state-subheader, .cost-to-be-me-summary .description, .cost-to-be-me-summary .title, .type-body, .ynab-breakdown, .ynab-checkbox, .ynab-helpbox, .ynab-new-budget-available-number {
 	font-size: .875rem;
 	font-weight: 500;
 	line-height: 1.2
@@ -3174,17 +3199,17 @@ table {
 	font-size: .875rem;
 	font-weight: 500
 }
-.account-flash-notification, .account-header-balances-tooltip.modal-overlay .modal .modal-content, .account-widget, .account-widget .account-widget-account-list-item .account-widget-account-list-item-type-and-mask, .account-widget .account-widget-add-unlinked-account .negative-asset-warning .warnings, .account-widget .account-widget-apple-handoff .account-widget-body p, .account-widget .account-widget-connections .account-widget-already-connected .already-connected-row-wrapper .needs-attention-banner, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-amount-and-type, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-bank-name, .account-widget .account-widget-error-screen .account-widget-body p, .account-widget .account-widget-error-screen-retry .account-widget-body p, .account-widget .account-widget-item-list button.account-widget-institution-button .account-widget-url-or-country, .account-widget .account-widget-loan-pair-with-loan .loan-pair-with-loan-existing-list .ynab-button .loan-pair-with-loan-existing-list-balance, .account-widget .account-widget-search-institutions .account-widget-search-input, .account-widget .account-widget-search-institutions .account-widget-search-input input, .account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-text .select-linked-unlinked-box-message, .account-widget .account-widget-success-screen .account-widget-body p, .account-widget .x-select-container select, .account-widget h3, .accounts-header .header-currency-label span.currency, .all-set-banner-description, .budget-header-calendar .budget-header-calendar-note, .budget-header-days .budget-header-days-label, .budget-inspector, .budget-inspector .budget-inspector-paring-account-splash p, .budget-inspector-button, .budget-table-container .budget-table-header .budget-table-cell-name, .budget-table-container .budget-table-row-li button, .budget-table-container .budget-table-row-ul, .budget-table-container.is-expanded .budget-table-cell-goal-status, .budget-table-container.is-expanded .budget-table-cell-goal-status-details, .budget-table-header-labels .budget-table-cell-activity, .budget-table-header-labels .budget-table-cell-activity span.currency, .budget-table-header-labels .budget-table-cell-available, .budget-table-header-labels .budget-table-cell-available span.currency, .budget-table-header-labels .budget-table-cell-budgeted, .budget-table-header-labels .budget-table-cell-budgeted span.currency, .budget-table-row .budget-table-cell-activity, .budget-table-row .budget-table-cell-activity span.currency, .budget-table-row .budget-table-cell-available, .budget-table-row .budget-table-cell-available span.currency, .budget-table-row .budget-table-cell-budgeted, .budget-table-row .budget-table-cell-budgeted span.currency, .budget-table-row.is-dragging, .budget-table-row.is-dragging .budget-table-row-li button, .budget-table-row.is-master-category .budget-table-cell-activity, .budget-table-row.is-master-category .budget-table-cell-activity .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-available, .budget-table-row.is-master-category .budget-table-cell-available .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-budgeted, .budget-table-row.is-master-category .budget-table-cell-budgeted .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-budgeted button.currency, .budget-toolbar .button, .button-cancel-small, .button-link, .button-list, .button-primary-small, .clear-budget-filter, .create-new-payee-button, .dashboard .dashboard-group, .dashboard-link-protection, .dropdown-container .dropdown-list-button, .employees-page .membership-search-field input, .enter-emails .feedback, .enter-emails .replace-list-checkbox, .enter-emails textarea, .family .info-box, .family a, .family-content .member-budgets, .file-incoming, .flash-message-body, .group-card-invite-members .create-new-invite-link, .group-card-upload-csv .group-upload-csv-upload-col .uploaded-filename, .group-container .public-beta__action, .group-container .public-beta__message, .group-container p, .group-subscription-credit-card-form .terms-agreement span, .group-subscription-credit-card-form input[type=text], .group-subscription-credit-card-form select, .inspector-category-note, .inspector-message, .join-container .group-join-form-inputs input, .join-container .group-join-why-share-info, .loan-account .loan-account-container .loan-account-details-goal-description, .loan-account .loan-account-container .loan-account-details-items, .loan-account-inspector-record-payment-panel .loan-account-inspector-record-payment-message.inspector-message, .loan-account-pair-category-banner .banner-text .banner-subheading, .loan-invalid-initial-balance-banner .banner-text .banner-subheading, .loan-modal.loan-account-reconciliation .modal .modal-content, .loan-paydown-chart .chart-tooltip-container, .loan-progress-container .loan-progress-intro .loan-progress-balance-remaining .loan-progress-balance-remaining-subheading, .loan-progress-container .minimized-loan-progress .loan-progress-barchart-text, .manage-payees .button, .manage-payees h3, .modal-account-categories .modal-actions .button, .modal-account-dropdown .modal, .modal-account-dropdown .modal-action-header .button, .modal-account-dropdown ul.modal-list li.section-item .section-item-empty-state, .modal-account-edit-transaction-list ul.action-bar-menu li, .modal-account-edit-transaction-list ul.modal-list li, .modal-account-edit-transaction-list ul.submenu li, .modal-account-flags .modal, .modal-account-payees .modal-account-payees-main-footer .button, .modal-account-reconcile .modal, .modal-account-reconcile .modal a, .modal-account-register-action-bar ul.action-bar-menu li, .modal-account-register-action-bar ul.modal-list li, .modal-account-register-action-bar ul.submenu li, .modal-account-view-options .date-range-dates button, .modal-account-view-options .date-range-dates li, .modal-budget-hidden-categories .modal, .modal-budget-move-money .modal, .modal-budget-note textarea, .modal-budget-overspending .modal, .modal-direct-import-status.modal-popup .modal-content, .modal-direct-import-status.modal-popup .modal-header, .modal-generic .modal-content, .modal-generic input, .modal-generic select, .modal-generic textarea, .modal-payees .modal, .modal-popup input, .modal-popup textarea, .modal-popup ul.modal-list li, .modal-popup ul.submenu li, .modal-popup.account-modal .modal-callout p, .modal-reports-dropdown .modal-overflow-area, .modal-reports-timeframe .date-range-dates button, .modal-reports-timeframe .date-range-dates li, .nav-account-row .nav-account-name, .nav-accounts-empty-state p, .open-create-category-modal-button, .page-membership-candidates .manage-candidates-card .membership-totals, .petition-container .group-petition-form-inputs input, .plan-subtitle, .privacy-policy-require-agreement .privacy-policy-require-agreement-p, .recent-moves .recent-moves-filter-options .recent-moves-filter-option, .recent-moves-row-wrapper, .reflect-month-picker-option-container .month-picker-select-button span, .reflect-net-worth .net-worth-title, .reflect-net-worth-summary .negative-net-worth, .reflect-net-worth-summary .positive-net-worth, .reflect-net-worth-summary .static-net-worth, .reflect-net-worth-summary .summary-titles, .reflect-networth-monthly-table .networth-table-body.card-body .negative-net-worth, .reflect-networth-monthly-table .networth-table-body.card-body .positive-net-worth, .reflect-networth-monthly-table .networth-table-body.card-body .reflect-net-worth-empty-table-state > span, .reflect-networth-monthly-table .networth-table-body.card-body .static-net-worth, .reflect-networth-monthly-table .networth-table-first-section > span, .reflect-networth-monthly-table .networth-table-second-section > span, .reflect-networth-monthly-table .networth-table-third-section > span, .reflect-spending-breakdown .spending-breakdown__metrics .spending-breakdown__metric .spending-metric-subtitle, .reflect-spending-breakdown .spending-breakdown__metrics .spending-breakdown__metric .spending-metric-title, .reflect-spending-breakdown .spending-breakdown__total-spending .total-spending-title, .reflect-spending-empty-table-state > span, .reflect-spending-tooltip em, .reflect-spending-tooltip h4, .reflect-spending-trends .spending-trends__average-monthly-spending .average-monthly-spending-title, .reflect-spending-trends .spending-trends__total-spending .total-spending-title, .reflect-timeframe-dropdown .timeframe-preset-options button, .register-action-bar-container .register-action-bar-inner, .register-action-bar-container .register-action-bar-inner button, .reports-controls .button, .reports-income-expense, .reports-inspector, .reports-inspector .budget-inspector-paring-account-splash p, .reports-inspector .reports-inspector-description, .reports-inspector h4, .reports-inspector-timeframe-selection, .resource-article-description, .rollout-card__description, .sidebar .button-sidebar, .spending-breakdown-bar-chart-header > span, .spending-breakdown-donut-chart__bb .bb-chart-arc text, .spending-breakdown-inflow-warning-modal .modal-fresh-footer a, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_name, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_title, .spending-trends-table-third-section, .subscription-management .subscription-management-section p, .subscription-management .subscription-management__body, .subscription-management .subscription-management__body p, .subscription-management .subscription-management__loading, .transaction-search .transaction-search-input, .transaction-search .transaction-search-recommendations button span, .upload-file .chosen-file-name, .upload-file .feedback, .upload-file .replace-list-checkbox, .users-budgets .last-modified, .view-debt-payoff em, .wellness-dashboard-settings-menu ul.modal-list a, .wellness-dashboard-settings-menu ul.modal-list button, .x-select-container select, .ynab-grid-body-row, .ynab-grid-body-row-bottom, .ynab-grid-body-row-top, .ynab-grid-footer .ynab-grid-footer-action, .ynab-grid-footer .ynab-grid-footer-message, .ynab-table, .ynab-table-col, .ynab-tooltip:hover:after, div.accounts-toolbar, select {
+.account-flash-notification, .account-header-balances-tooltip.modal-overlay .modal .modal-content, .account-widget, .account-widget .account-widget-account-list-item .account-widget-account-list-item-type-and-mask, .account-widget .account-widget-add-unlinked-account .negative-asset-warning .warnings, .account-widget .account-widget-apple-handoff .account-widget-body p, .account-widget .account-widget-connections .account-widget-already-connected .already-connected-row-wrapper .needs-attention-banner, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-amount-and-type, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-bank-name, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-linked-status, .account-widget .account-widget-error-screen .account-widget-body p, .account-widget .account-widget-error-screen-retry .account-widget-body p, .account-widget .account-widget-item-list button.account-widget-institution-button .account-widget-url-or-country, .account-widget .account-widget-loan-pair-with-loan .loan-pair-with-loan-existing-list .ynab-button .loan-pair-with-loan-existing-list-balance, .account-widget .account-widget-search-institutions .account-widget-search-input, .account-widget .account-widget-search-institutions .account-widget-search-input input, .account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-text .select-linked-unlinked-box-message, .account-widget .account-widget-success-screen .account-widget-body p, .account-widget .x-select-container select, .account-widget h3, .accounts-header .header-currency-label span.currency, .all-set-banner-description, .budget-header-calendar .budget-header-calendar-note, .budget-header-days .budget-header-days-label, .budget-inspector, .budget-inspector .budget-inspector-paring-account-splash p, .budget-inspector-button, .budget-table-container .budget-table-header .budget-table-cell-name, .budget-table-container .budget-table-row-li button, .budget-table-container .budget-table-row-ul, .budget-table-container.is-expanded .budget-table-cell-goal-status, .budget-table-container.is-expanded .budget-table-cell-goal-status-details, .budget-table-header-labels .budget-table-cell-activity, .budget-table-header-labels .budget-table-cell-activity span.currency, .budget-table-header-labels .budget-table-cell-available, .budget-table-header-labels .budget-table-cell-available span.currency, .budget-table-header-labels .budget-table-cell-budgeted, .budget-table-header-labels .budget-table-cell-budgeted span.currency, .budget-table-row .budget-table-cell-activity, .budget-table-row .budget-table-cell-activity span.currency, .budget-table-row .budget-table-cell-available, .budget-table-row .budget-table-cell-available span.currency, .budget-table-row .budget-table-cell-budgeted, .budget-table-row .budget-table-cell-budgeted span.currency, .budget-table-row.is-dragging, .budget-table-row.is-dragging .budget-table-row-li button, .budget-table-row.is-master-category .budget-table-cell-activity, .budget-table-row.is-master-category .budget-table-cell-activity .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-available, .budget-table-row.is-master-category .budget-table-cell-available .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-budgeted, .budget-table-row.is-master-category .budget-table-cell-budgeted .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-budgeted button.currency, .budget-toolbar .button, .button-cancel-small, .button-link, .button-list, .button-primary-small, .clear-budget-filter, .create-new-payee-button, .dashboard .dashboard-group, .dashboard-link-protection, .dropdown-container .dropdown-list-button, .employees-page .membership-search-field input, .enter-emails .feedback, .enter-emails .replace-list-checkbox, .enter-emails textarea, .family .info-box, .family a, .family-content .member-budgets, .file-incoming, .flash-message-body, .group-card-invite-members .create-new-invite-link, .group-card-upload-csv .group-upload-csv-upload-col .uploaded-filename, .group-container .public-beta__action, .group-container .public-beta__message, .group-container p, .group-subscription-credit-card-form .terms-agreement span, .group-subscription-credit-card-form input[type=text], .group-subscription-credit-card-form select, .inspector-category-note, .inspector-message, .join-container .group-join-form-inputs input, .join-container .group-join-why-share-info, .loan-account .loan-account-container .loan-account-details-goal-description, .loan-account .loan-account-container .loan-account-details-items, .loan-account-inspector-record-payment-panel .loan-account-inspector-record-payment-message.inspector-message, .loan-account-pair-category-banner .banner-text .banner-subheading, .loan-invalid-initial-balance-banner .banner-text .banner-subheading, .loan-modal.loan-account-reconciliation .modal .modal-content, .loan-paydown-chart .chart-tooltip-container, .loan-progress-container .loan-progress-intro .loan-progress-balance-remaining .loan-progress-balance-remaining-subheading, .loan-progress-container .minimized-loan-progress .loan-progress-barchart-text, .manage-payees .button, .manage-payees h3, .modal-account-categories .modal-actions .button, .modal-account-dropdown .modal, .modal-account-dropdown .modal-action-header .button, .modal-account-dropdown ul.modal-list li.section-item .section-item-empty-state, .modal-account-edit-transaction-list ul.action-bar-menu li, .modal-account-edit-transaction-list ul.modal-list li, .modal-account-edit-transaction-list ul.submenu li, .modal-account-flags .modal, .modal-account-payees .modal-account-payees-main-footer .button, .modal-account-reconcile .modal, .modal-account-reconcile .modal a, .modal-account-register-action-bar ul.action-bar-menu li, .modal-account-register-action-bar ul.modal-list li, .modal-account-register-action-bar ul.submenu li, .modal-account-view-options .date-range-dates button, .modal-account-view-options .date-range-dates li, .modal-budget-hidden-categories .modal, .modal-budget-move-money .modal, .modal-budget-note textarea, .modal-budget-overspending .modal, .modal-direct-import-status.modal-popup .modal-content, .modal-direct-import-status.modal-popup .modal-header, .modal-generic .modal-content, .modal-generic input, .modal-generic select, .modal-generic textarea, .modal-payees .modal, .modal-popup input, .modal-popup textarea, .modal-popup ul.modal-list li, .modal-popup ul.submenu li, .modal-popup.account-modal .modal-callout p, .modal-reports-dropdown .modal-overflow-area, .modal-reports-timeframe .date-range-dates button, .modal-reports-timeframe .date-range-dates li, .nav-account-row .nav-account-name, .nav-accounts-empty-state p, .open-create-category-modal-button, .page-membership-candidates .manage-candidates-card .membership-totals, .petition-container .group-petition-form-inputs input, .plan-subtitle, .privacy-policy-require-agreement .privacy-policy-require-agreement-p, .recent-moves .recent-moves-filter-options .recent-moves-filter-option, .recent-moves-row-wrapper, .reflect-age-of-money .chart-card .current-age-of-money .current-age-of-money-title, .reflect-age-of-money .chart-card .empty-state-content p, .reflect-age-of-money-tooltip .age-of-money-month, .reflect-month-picker-option-container .month-picker-select-button span, .reflect-net-worth .net-worth-title, .reflect-net-worth-summary .negative-net-worth, .reflect-net-worth-summary .positive-net-worth, .reflect-net-worth-summary .static-net-worth, .reflect-net-worth-summary .summary-titles, .reflect-networth-monthly-table .networth-table-body.card-body .negative-net-worth, .reflect-networth-monthly-table .networth-table-body.card-body .positive-net-worth, .reflect-networth-monthly-table .networth-table-body.card-body .reflect-net-worth-empty-table-state > span, .reflect-networth-monthly-table .networth-table-body.card-body .static-net-worth, .reflect-networth-monthly-table .networth-table-first-section > span, .reflect-networth-monthly-table .networth-table-second-section > span, .reflect-networth-monthly-table .networth-table-third-section > span, .reflect-spending-breakdown .spending-breakdown__metrics .spending-breakdown__metric .spending-metric-subtitle, .reflect-spending-breakdown .spending-breakdown__metrics .spending-breakdown__metric .spending-metric-title, .reflect-spending-breakdown .spending-breakdown__total-spending .total-spending-title, .reflect-spending-empty-table-state > span, .reflect-spending-tooltip em, .reflect-spending-tooltip h4, .reflect-spending-trends .spending-trends__average-monthly-spending .average-monthly-spending-title, .reflect-spending-trends .spending-trends__total-spending .total-spending-title, .reflect-timeframe-dropdown .timeframe-preset-options button, .register-action-bar-container .register-action-bar-inner, .register-action-bar-container .register-action-bar-inner button, .reports-controls .button, .reports-income-expense, .reports-inspector, .reports-inspector .budget-inspector-paring-account-splash p, .reports-inspector .reports-inspector-description, .reports-inspector h4, .reports-inspector-timeframe-selection, .resource-article-description, .rollout-card__description, .sidebar .button-sidebar, .spending-breakdown-bar-chart-header > span, .spending-breakdown-donut-chart__bb .bb-chart-arc text, .spending-breakdown-inflow-warning-modal .modal-fresh-footer a, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_name, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_title, .spending-trends-table-third-section, .subscription-management .subscription-management-section p, .subscription-management .subscription-management__body, .subscription-management .subscription-management__body p, .subscription-management .subscription-management__loading, .transaction-search .transaction-search-input, .transaction-search .transaction-search-recommendations button span, .upload-file .chosen-file-name, .upload-file .feedback, .upload-file .replace-list-checkbox, .users-budgets .last-modified, .view-debt-payoff em, .wellness-dashboard-settings-menu ul.modal-list a, .wellness-dashboard-settings-menu ul.modal-list button, .x-select-container select, .ynab-grid-body-row, .ynab-grid-body-row-bottom, .ynab-grid-body-row-top, .ynab-grid-footer .ynab-grid-footer-action, .ynab-grid-footer .ynab-grid-footer-message, .ynab-table, .ynab-table-col, .ynab-tooltip:hover:after, div.accounts-toolbar, select {
 	font-size: .875rem;
 	font-weight: 500;
 	line-height: 1.2
 }
-.account-info-small-text-container small, .account-widget .account-widget-connections .account-widget-already-connected .already-connected-row-wrapper .already-connected-row .already-connected-select .already-connected-select-id, .account-widget .account-widget-connections .account-widget-security-policy-footer > a, .account-widget .account-widget-info-matrix .account-widget-info-matrix-note, .account-widget .account-widget-info-matrix .info-matrix-table tbody tr td.info-matrix-text-value, .account-widget .account-widget-info-matrix .info-matrix-table thead tr, .account-widget .account-widget-loan-category .account-widget-radio-button-list label .account-widget-loan-category-radio-description .account-widget-loan-category-radio-description-subtitle, .account-widget .account-widget-step .account-widget-header .account-widget-header-title h2, .account-widget .y-form-note, .accounts-header .accounts-header-label, .budget-table-row.is-master-category .budget-table-cell-name button.ftue-add-category-button, .budget-view-row ul.budget-view-buttons li, .cleared-balances .cleared-balances-h2, .cleared-balances .cleared-balances-h3, .dashboard h4, .dashboard-link-protection-modal .dashboard-link-protection-modal-status, .dialog .dialog-title em, .enter-emails .help-note, .family-body .budgets-shared-with-you li .budget-owner, .family-body .manage-member .owner-budgets li, .family.family-body .budgets-list li a .budget-sharing-status, .group-subscription-credit-card-form .expiration-cvv-row .cvv .cvv-row .cvv-caption, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-balance .loan-account-header-balance-label, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-update-balance-date, .loan-account-account-header .loan-account-header-account-details .loan-account-header-account-info, .loan-account-account-header .loan-account-header-element .loan-account-header-element-label, .loan-account-activity-entry .modal .loan-account-activity-entry-fieldset-group-note, .loan-account-payoff-simulator .paydown-analysis-min-payment-section .paydown-analysis-min-payment-note, .loan-account-payoff-simulator .paydown-analysis-note, .loan-paydown-chart .loan-paydown-chart-body text, .loan-paydown-chart .loan-paydown-chart-legend, .manage-payees em, .menu .menu-item-subtext div:last-child, .modal-account-payees .modal-account-payees-expand .modal-account-payees-expand-inner .modal-account-payees-expand-inner-body .modal-account-payees-expand-inner-body-section .section-caption, .modal-budget-fresh-start em, .modal-budget-settings .ynab4-migration .button, .modal-budget-views-manage .modal-budget-views-manage-limit-reached, .modal-budget-views-menu .budget-views-menu-item.budget-views-menu-item-limit-reached, .modal-fresh .modal-fresh-title em, .nav-account-block .nav-account-name, .nav-account-notification, .nav-account-value, .petition-container .group-petition-form-error, .petition-container .group-petition-form-inputs a, .petition-container .group-petition-form-notice, .plan-chart-header__boundary, .plan-chart-row, .plan-description, .plan-header-pricing__subtitle, .plan-header__subtitle, .recent-moves-row-wrapper .money-movement-group .money-movement-details, .recent-moves-row-wrapper .recent-moves-row-subheader, .reflect-net-worth-tooltip em, .reflect-net-worth-tooltip h4, .reports-net-worth .reports-net-worth-tooltip em, .reports-net-worth .reports-net-worth-tooltip h4, .setup-subscription .setup-subscription-video .video-footnote, .sidebar-nav-menu .sidebar-nav-budget-email .sidebar-nav-budget-email-email, .subscribe-invite__subtitle, .type-footnote, .ynab-new-inspector-goals .goal-progress-label-container .label, .ynab-new-inspector-goals .target-behavior-dropdown .type-dropdown-label .type-dropdown-label-tagline.callout, .ynab-table-head .ynab-table-col {
+.account-info-small-text-container small, .account-widget .account-widget-connections .account-widget-already-connected .already-connected-row-wrapper .already-connected-row .already-connected-select .already-connected-select-id, .account-widget .account-widget-connections .account-widget-security-policy-footer > a, .account-widget .account-widget-info-matrix .account-widget-info-matrix-note, .account-widget .account-widget-info-matrix .info-matrix-table tbody tr td.info-matrix-text-value, .account-widget .account-widget-info-matrix .info-matrix-table thead tr, .account-widget .account-widget-loan-category .account-widget-radio-button-list label .account-widget-loan-category-radio-description .account-widget-loan-category-radio-description-subtitle, .account-widget .account-widget-step .account-widget-header .account-widget-header-title h2, .account-widget .y-form-note, .accounts-header .accounts-header-label, .age-of-money-chart .chart .bb-axis .tick tspan, .budget-table-row.is-master-category .budget-table-cell-name button.ftue-add-category-button, .budget-view-row ul.budget-view-buttons li, .cleared-balances .cleared-balances-h2, .cleared-balances .cleared-balances-h3, .dashboard h4, .dashboard-link-protection-modal .dashboard-link-protection-modal-status, .dialog .dialog-title em, .enter-emails .help-note, .family-body .budgets-shared-with-you li .budget-owner, .family-body .manage-member .owner-budgets li, .family.family-body .budgets-list li a .budget-sharing-status, .group-subscription-credit-card-form .expiration-cvv-row .cvv .cvv-row .cvv-caption, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-balance .loan-account-header-balance-label, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-update-balance-date, .loan-account-account-header .loan-account-header-account-details .loan-account-header-account-info, .loan-account-account-header .loan-account-header-element .loan-account-header-element-label, .loan-account-activity-entry .modal .loan-account-activity-entry-fieldset-group-note, .loan-account-payoff-simulator .paydown-analysis-min-payment-section .paydown-analysis-min-payment-note, .loan-account-payoff-simulator .paydown-analysis-note, .loan-paydown-chart .loan-paydown-chart-body text, .loan-paydown-chart .loan-paydown-chart-legend, .manage-payees em, .menu .menu-item-subtext div:last-child, .modal-account-payees .modal-account-payees-expand .modal-account-payees-expand-inner .modal-account-payees-expand-inner-body .modal-account-payees-expand-inner-body-section .section-caption, .modal-budget-fresh-start em, .modal-budget-settings .ynab4-migration .button, .modal-budget-views-manage .modal-budget-views-manage-limit-reached, .modal-budget-views-menu .budget-views-menu-item.budget-views-menu-item-limit-reached, .modal-fresh .modal-fresh-title em, .nav-account-block .nav-account-name, .nav-account-notification, .nav-account-value, .petition-container .group-petition-form-error, .petition-container .group-petition-form-inputs a, .petition-container .group-petition-form-notice, .plan-chart-header__boundary, .plan-chart-row, .plan-description, .plan-header-pricing__subtitle, .plan-header__subtitle, .recent-moves-row-wrapper .money-movement-group .money-movement-details, .recent-moves-row-wrapper .recent-moves-row-subheader, .reflect-net-worth-tooltip em, .reflect-net-worth-tooltip h4, .reports-net-worth .reports-net-worth-tooltip em, .reports-net-worth .reports-net-worth-tooltip h4, .setup-subscription .setup-subscription-video .video-footnote, .sidebar-nav-menu .sidebar-nav-budget-email .sidebar-nav-budget-email-email, .subscribe-invite__subtitle, .type-footnote, .ynab-new-inspector-goals .goal-progress-label-container .label, .ynab-new-inspector-goals .target-behavior-dropdown .type-dropdown-label .type-dropdown-label-tagline.callout, .ynab-table-head .ynab-table-col {
 	font-size: .75rem;
 	font-weight: 500;
 	line-height: 1.2
 }
-.budget-table-row.is-debt-payment-category .budget-table-cell-available .budget-table-cell-available-payment, .dropdown-container li.section-item, .loan-account-payoff-simulator .payoff-simulator-inputs-section-copy.button-link, .menu .menu-heading, .modal-account-dropdown ul.modal-list li.section-item, .nav-accounts .negative, .plan-chart-row__price, .plan-learn__link, .plan-learn__link:active, .plan-learn__link:focus, .plan-learn__link:hover, .plan-learn__link:visited, .recent-moves-day-section .recent-moves-date-wrapper .recent-moves-date-label, .recent-moves-row-wrapper .money-movement-amount-with-date .money-movement-date-label, .reflect-filter-button-group .filter-button__pill, .spending-trends-table-header > span, .transaction-search .transaction-search-recommendations button .recommendation-type, .type-footnote-bold, .wellness-dashboard-settings-menu ul.modal-list .modal-list-header, .ynab-grid-header-row .is-sorting, .ynab-new-settings-menu ul.modal-list .modal-list-header, .ynab-table-head .ynab-table-col.is-sorting {
+.budget-header-moved-aom-warning .moved-aom-warning-box, .budget-header-moved-aom-warning .moved-aom-warning-box a, .budget-table-row.is-debt-payment-category .budget-table-cell-available .budget-table-cell-available-payment, .dropdown-container li.section-item, .loan-account-payoff-simulator .payoff-simulator-inputs-section-copy.button-link, .menu .menu-heading, .modal-account-dropdown ul.modal-list li.section-item, .nav-accounts .negative, .plan-chart-row__price, .plan-learn__link, .plan-learn__link:active, .plan-learn__link:focus, .plan-learn__link:hover, .plan-learn__link:visited, .recent-moves-day-section .recent-moves-date-wrapper .recent-moves-date-label, .recent-moves-row-wrapper .money-movement-amount-with-date .money-movement-date-label, .reflect-filter-button-group .filter-button__pill, .spending-trends-table-header > span, .transaction-search .transaction-search-recommendations button .recommendation-type, .type-footnote-bold, .wellness-dashboard-settings-menu ul.modal-list .modal-list-header, .ynab-grid-header-row .is-sorting, .ynab-new-settings-menu ul.modal-list .modal-list-header, .ynab-table-head .ynab-table-col.is-sorting {
 	font-size: .75rem;
 	font-weight: 600;
 	line-height: 1.2
@@ -3472,6 +3497,10 @@ body.theme-dark {
 	--pillLabel: #d8e0fd;
 	--registerSecondaryButtonLabel: #fff;
 	--registerSecondaryButtonLabelActive: rgba(255, 255, 255, 0.8);
+	--reportsChartTrendAOMSelected: #84dd3e;
+	--reportsChartTrendLine: #f1f1ff;
+	--reportsChartTrendPoint: #f1f1ff;
+	--reportsChartTrendPointShadow: rgba(255, 255, 255, 0.149);
 	--reportsEight: #f6c91d;
 	--reportsEleven: #405163;
 	--reportsFive: #4d9119;
@@ -3751,6 +3780,10 @@ body.theme-dark ::-webkit-scrollbar-thumb {
 		--pillLabel: #d8e0fd;
 		--registerSecondaryButtonLabel: #fff;
 		--registerSecondaryButtonLabelActive: rgba(255, 255, 255, 0.8);
+		--reportsChartTrendAOMSelected: #84dd3e;
+		--reportsChartTrendLine: #f1f1ff;
+		--reportsChartTrendPoint: #f1f1ff;
+		--reportsChartTrendPointShadow: rgba(255, 255, 255, 0.149);
 		--reportsEight: #f6c91d;
 		--reportsEleven: #405163;
 		--reportsFive: #4d9119;
@@ -3859,7 +3892,7 @@ body.theme-var-light {
 	--backgroundSecondaryElevated: #f8f6f2;
 	--backgroundTableHeader: #f8f6f2;
 	--backgroundTableRow: #fff;
-	--backgroundTableRowSelected: #d4d5ff;
+	--backgroundTableRowSelected: #e2e3ff;
 	--backgroundTertiary: #f3eee2;
 	--backgroundTertiaryElevated: #f3eee2;
 	--backgroundVideoControls: #000;
@@ -4031,6 +4064,10 @@ body.theme-var-light {
 	--pillLabel: #545bfe;
 	--registerSecondaryButtonLabel: #545bfe;
 	--registerSecondaryButtonLabelActive: #383ca3;
+	--reportsChartTrendAOMSelected: #508316;
+	--reportsChartTrendLine: #1b1d48;
+	--reportsChartTrendPoint: #1b1d48;
+	--reportsChartTrendPointShadow: rgba(0, 0, 0, 0.102);
 	--reportsEight: #fbe48e;
 	--reportsEleven: #c4c5cf;
 	--reportsFive: #93d53e;
@@ -4115,11 +4152,11 @@ body.theme-var-dark {
 	--accountwidgetMxWidgetBackground: #121417;
 	--actionPrimary: #7583ff;
 	--actionPrimaryActive: #a3acff;
-	--actionPrimaryDisabled: #374d9b;
+	--actionPrimaryDisabled: #383ca3;
 	--actionSecondary: #3c3e53;
 	--actionSecondaryActive: #727484;
 	--actionSecondaryBorder: #56596c;
-	--actionSecondaryDisabled: #24263d;
+	--actionSecondaryDisabled: #292b3d;
 	--actionTertiary: #a3acff;
 	--actionTertiaryActive: #545bfe;
 	--actionbarBackground: #383ca3;
@@ -4134,7 +4171,7 @@ body.theme-var-dark {
 	--backgroundPrimary: #0c0d22;
 	--backgroundPrimaryElevated: #1f2038;
 	--backgroundSecondary: #15172d;
-	--backgroundSecondaryElevated: #24263d;
+	--backgroundSecondaryElevated: #292b3d;
 	--backgroundTableHeader: #15172d;
 	--backgroundTableRow: #0c0d22;
 	--backgroundTableRowSelected: #1b1d48;
@@ -4142,9 +4179,9 @@ body.theme-var-dark {
 	--backgroundTertiaryElevated: #3c3e53;
 	--backgroundVideoControls: #000;
 	--budgetBarBackground: #3c3e53;
-	--budgetBarBackgroundOnNonWhite: #24263d;
+	--budgetBarBackgroundOnNonWhite: #292b3d;
 	--budgetBarBorder: #3c3e53;
-	--budgetBarEmpty: #24263d;
+	--budgetBarEmpty: #292b3d;
 	--budgetBarFunded: #77ba21;
 	--budgetBarFundedSpending: #346011;
 	--budgetBarFundedSpendingStripe: #1d300d;
@@ -4162,7 +4199,7 @@ body.theme-var-dark {
 	--buttonEmphasizedBackgroundDisabled: #3c3e53;
 	--buttonPrimaryBackground: #545bfe;
 	--buttonPrimaryBackgroundActive: #7583ff;
-	--buttonPrimaryBackgroundDisabled: #24263d;
+	--buttonPrimaryBackgroundDisabled: #292b3d;
 	--buttonSecondaryBackground: rgba(117, 131, 255, 0.2);
 	--buttonSecondaryBackgroundActive: rgba(117, 131, 255, 0.271);
 	--buttonSecondaryLabel: #f1f1ff;
@@ -4249,7 +4286,7 @@ body.theme-var-dark {
 	--fillQuarternary: rgba(114, 116, 132, 0.18);
 	--fillSecondary: rgba(114, 116, 132, 0.322);
 	--fillTertiary: rgba(114, 116, 132, 0.239);
-	--filterBackground: #24263d;
+	--filterBackground: #292b3d;
 	--filterBackgroundActive: rgba(117, 131, 255, 0.271);
 	--filterLabel: #f1f1ff;
 	--filterLabelDisabled: #727484;
@@ -4283,8 +4320,8 @@ body.theme-var-dark {
 	--labelDarkBackgroundPrimary: #fff;
 	--labelDarkBackgroundSecondary: #ededf5;
 	--labelHeading: #f1f1ff;
-	--labelNegative: #ce5e66;
-	--labelNegativeActive: #e48585;
+	--labelNegative: #ee5867;
+	--labelNegativeActive: #ce5e66;
 	--labelNegativeDisabled: #6a1020;
 	--labelPositive: #77ba21;
 	--labelPositiveActive: #93d53e;
@@ -4309,6 +4346,10 @@ body.theme-var-dark {
 	--pillLabel: #d4d5ff;
 	--registerSecondaryButtonLabel: #fff;
 	--registerSecondaryButtonLabelActive: rgba(255, 255, 255, 0.8);
+	--reportsChartTrendAOMSelected: #93d53e;
+	--reportsChartTrendLine: #f1f1ff;
+	--reportsChartTrendPoint: #f1f1ff;
+	--reportsChartTrendPointShadow: rgba(255, 255, 255, 0.149);
 	--reportsEight: #f6c91d;
 	--reportsEleven: #56596c;
 	--reportsFive: #508316;
@@ -4339,11 +4380,11 @@ body.theme-var-dark {
 	--separatorStandard: rgba(255, 255, 255, 0.102);
 	--separatorStrong: #727484;
 	--separatorSubdued: rgba(255, 255, 255, 0.078);
-	--settingsHeaderBackground: #24263d;
+	--settingsHeaderBackground: #292b3d;
 	--sidebarAccountNegativeBalanceBackground: rgba(0, 0, 0, 0);
 	--sidebarBackground: #121330;
-	--sidebarButtonBackgroundActive: #1c1f58;
-	--sidebarButtonBackgroundSelected: #383ca3;
+	--sidebarButtonBackgroundActive: #1b1d48;
+	--sidebarButtonBackgroundSelected: #1c1f58;
 	--sidebarButtonSecondaryBackground: #3c3e53;
 	--sidebarButtonSecondaryBackgroundActive: #56596c;
 	--sidebarButtonSecondaryBackgroundPressed: #56596c;
@@ -4371,7 +4412,7 @@ body.theme-var-dark {
 	--viewsNeutralSelectedAccent: #7583ff;
 	--viewsWarningBackground: #f6c91d;
 	--viewsWarningBackgroundHover: #daac00;
-	--viewsWarningBackgroundSelected: #daac00;
+	--viewsWarningBackgroundSelected: #362c05;
 	--viewsWarningBackgroundSelectedHover: #6d5600;
 	--viewsWarningLabel: #362c05;
 	--viewsWarningLabelSelected: #daac00;
@@ -5004,6 +5045,111 @@ body.theme-var-dark ::-webkit-scrollbar-thumb {
 	fill: none;
 	stroke: var(--labelAction)
 }
+.cost-to-be-me-summary {
+	border-radius: .4rem
+}
+.cost-to-be-me-summary .cost-to-be-me-separator {
+	border-top: 1px solid var(--separatorSubdued);
+	line-height: 0;
+	margin-bottom: 1.25rem;
+	margin-top: 1.25rem;
+	position: relative;
+	width: 100%
+}
+.cost-to-be-me-summary .description {
+	color: var(--labelSecondary);
+	margin: 0
+}
+.cost-to-be-me-summary .edit-income-description {
+	color: var(--labelPrimary)
+}
+.cost-to-be-me-summary .edit-income {
+	align-items: center;
+	display: flex;
+	gap: .5rem;
+	height: 2.25rem;
+	margin-bottom: .5rem;
+	margin-top: .25rem
+}
+.cost-to-be-me-summary .edit-income .ynab-new-currency-input {
+	height: 2.25rem
+}
+.cost-to-be-me-summary .title {
+	color: var(--labelHeading);
+	padding-bottom: 1rem
+}
+.cost-to-be-me-summary .label {
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: .5rem
+}
+.cost-to-be-me-summary .income-button {
+	display: flex;
+	justify-content: center;
+	margin-top: .5rem;
+	width: 100%
+}
+.cost-to-be-me-summary .actions {
+	align-itmes: flex-start;
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+	justify-content: flex-end;
+	margin-left: auto
+}
+.cost-to-be-me-summary .actions button {
+	width: 50
+}
+.cost-to-be-me-summary .actions button.primary {
+	text-wrap: nowrap
+}
+.cost-to-be-me-summary .income-progress-wrapper {
+	height: auto;
+	visibility: visible
+}
+.cost-to-be-me-summary .income-progress-wrapper .amount {
+	display: flex
+}
+.cost-to-be-me-summary .income-progress-wrapper .edit-income-icon {
+	cursor: pointer;
+	margin-left: .5rem
+}
+.cost-to-be-me-summary .income-progress-wrapper.hide {
+	height: 0;
+	visibility: collapse
+}
+.cost-to-be-me-summary .progress {
+	border-radius: .25rem;
+	height: .25rem;
+	transition: width 1s ease-in-out
+}
+.cost-to-be-me-summary .progress.needed {
+	background: var(--actionPrimary);
+	margin-bottom: .5rem
+}
+.cost-to-be-me-summary .progress.has-deficit {
+	background: linear-gradient(90deg, #fc6350 0, #c72c1e 100%);
+	margin-bottom: .5rem
+}
+.cost-to-be-me-summary .progress.income {
+	background: var(--iconFillTertiary)
+}
+.cost-to-be-me-summary .next-month-section {
+	color: var(--labelPrimary);
+	background-color: var(--fillTertiary);
+	border-radius: .5rem;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	line-height: 1.5em;
+	margin-top: 1rem;
+	text-align: center;
+	width: 100%
+}
+.cost-to-be-me-summary .next-month-section .description {
+	margin: 0;
+	padding: 1rem
+}
 .budget-breakdown-multiple {
 	color: var(--labelSecondary);
 	margin-bottom: 1rem
@@ -5164,6 +5310,12 @@ body.theme-var-dark ::-webkit-scrollbar-thumb {
 }
 .budget-breakdown .inspector-notes .inspector-category-note textarea {
 	flex: 1 1 auto
+}
+.budget-breakdown .ynab-breakdown-available {
+	padding-top: .5rem
+}
+.budget-breakdown .ynab-breakdown-available-heading {
+	color: var(--labelHeading)
 }
 .budget-breakdown-to-be-budgeted .modal-overlay {
 	align-items: center;
@@ -5686,11 +5838,9 @@ body.theme-var-dark ::-webkit-scrollbar-thumb {
 	min-height: 3rem;
 	padding: .375rem 1.5rem
 }
-.ynab-button:active, .ynab-button:hover {
+.ynab-button:active {
 	background-color: var(--buttonPrimaryBackgroundActive);
-	color: var(--labelDarkBackgroundPrimary);
-	align-items: center;
-	justify-content: center
+	color: var(--labelDarkBackgroundPrimary)
 }
 .ynab-button:focus-visible {
 	outline-color: var(--actionPrimary);
@@ -5709,7 +5859,7 @@ body.theme-var-dark ::-webkit-scrollbar-thumb {
 	color: var(--buttonSecondaryLabel);
 	border: 0
 }
-.ynab-button.secondary:not([disabled]):active, .ynab-button.secondary:not([disabled]):hover {
+.ynab-button.secondary:not([disabled]):active {
 	background-color: var(--buttonSecondaryBackgroundActive);
 	color: var(--buttonSecondaryLabel)
 }
@@ -5723,7 +5873,7 @@ body.theme-var-dark ::-webkit-scrollbar-thumb {
 	background-color: var(--buttonDestructiveBackground);
 	border: 0
 }
-.ynab-button.destructive:not([disabled]):active, .ynab-button.destructive:not([disabled]):hover {
+.ynab-button.destructive:not([disabled]):active {
 	background-color: var(--buttonDestructiveBackgroundActive);
 	border-color: var(--buttonDestructiveBackgroundActive);
 	color: var(--labelDarkBackgroundPrimary)
@@ -5738,7 +5888,7 @@ body.theme-var-dark ::-webkit-scrollbar-thumb {
 	background-color: var(--calloutWarningButtonBackground);
 	border: 0
 }
-.ynab-button.warning:not([disabled]):active, .ynab-button.warning:not([disabled]):hover {
+.ynab-button.warning:not([disabled]):active {
 	background-color: var(--calloutWarningButtonBackgroundActive);
 	border-color: var(--calloutWarningButtonBackgroundActive);
 	color: var(--calloutWarningButtonForeground)
@@ -5752,7 +5902,7 @@ body.theme-var-dark ::-webkit-scrollbar-thumb {
 	background-color: var(--backgroundDarkSecondary);
 	color: var(--labelDarkBackgroundPrimary)
 }
-.ynab-button.contrast:not([disabled]):active, .ynab-button.contrast:not([disabled]):hover {
+.ynab-button.contrast:not([disabled]):active {
 	background-color: var(--backgroundDarkTertiary);
 	color: var(--labelDarkBackgroundPrimary)
 }
@@ -5761,13 +5911,44 @@ body.theme-var-dark ::-webkit-scrollbar-thumb {
 	outline-style: auto;
 	outline-width: 1px
 }
+@media (hover: hover) and (pointer: fine) {
+	.ynab-button:not([disabled]):hover {
+		background-color: var(--buttonPrimaryBackgroundActive);
+		color: var(--labelDarkBackgroundPrimary)
+	}
+	
+	.ynab-button.secondary:not([disabled]):hover {
+		background-color: var(--buttonSecondaryBackgroundActive);
+		color: var(--buttonSecondaryLabel)
+	}
+	
+	.ynab-button.destructive:not([disabled]):hover {
+		background-color: var(--buttonDestructiveBackgroundActive);
+		border-color: var(--buttonDestructiveBackgroundActive);
+		color: var(--labelDarkBackgroundPrimary)
+	}
+	
+	.ynab-button.warning:not([disabled]):hover {
+		background-color: var(--calloutWarningButtonBackgroundActive);
+		border-color: var(--calloutWarningButtonBackgroundActive);
+		color: var(--calloutWarningButtonForeground)
+	}
+	
+	.ynab-button.contrast:not([disabled]):hover {
+		background-color: var(--backgroundDarkTertiary);
+		color: var(--labelDarkBackgroundPrimary)
+	}
+}
 a.ynab-button {
 	box-sizing: border-box;
+	display: inline-flex;
 	height: 2rem;
 	text-decoration: none
 }
-a.ynab-button, a.ynab-button:hover {
-	display: inline-flex
+@media (hover: hover) and (pointer: fine) {
+	a.ynab-button:hover {
+		display: inline-flex
+	}
 }
 .ynab-toast-has-action-bar-offset {
 	margin-bottom: 7rem
@@ -7335,11 +7516,13 @@ table.data-table tbody {
 .target-inspector .budget-inspector-goals-create {
 	margin-top: 0
 }
-.ftue-onboarding-account-warning-modal .modal-fresh .modal-fresh-hero div {
-	align-items: center;
-	display: flex;
+.ftue-onboarding-account-warning-modal .account-warning-modal-image {
 	height: 13.125rem;
-	justify-content: center;
+	width: 100%
+}
+.ftue-onboarding-account-warning-modal .account-warning-modal-image img, .ftue-onboarding-overdraft-modal .overdraft-modal-hero-image img {
+	display: block;
+	height: auto;
 	width: 100%
 }
 .ftue-onboarding-extended.ftue-onboarding-outro .ftue-onboarding-step {
@@ -7358,25 +7541,25 @@ table.data-table tbody {
 }
 .ftue-onboarding-outro-modal .modal-fresh .modal-fresh-hero .outro-hero {
 	align-items: center;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
 	border-radius: .5rem;
-	display: flex;
-	flex-direction: column;
 	height: 100%;
 	justify-content: space-around;
-	padding: 1rem;
+	padding: 0;
+	position: relative;
 	width: 100%
 }
 .ftue-onboarding-outro-modal .modal-fresh .modal-fresh-hero img {
 	border-radius: .5rem;
-	max-height: 80%;
-	max-width: 100%
+	height: 100%;
+	object-fit: cover;
+	width: 100%
 }
 .ftue-onboarding-outro-modal .modal-fresh .modal-fresh-hero .secondary-image {
-	flex-grow: 1;
-	padding: 16px
+	height: auto;
+	left: 1rem;
+	position: absolute;
+	top: 1rem;
+	width: calc(100% - 2rem)
 }
 .ftue-onboarding-outro-modal .modal-fresh .modal-header {
 	border-bottom: none;
@@ -7428,11 +7611,8 @@ table.data-table tbody {
 .ftue-onboarding-overdraft .ftue-onboarding-step {
 	display: none
 }
-.ftue-onboarding-overdraft-modal .modal-fresh .modal-fresh-hero div {
-	align-items: center;
-	display: flex;
-	height: 12rem;
-	justify-content: center;
+.ftue-onboarding-overdraft-modal .overdraft-modal-hero-image {
+	height: 13.125rem;
 	width: 100%
 }
 .ftue-bg-blue {
@@ -7501,7 +7681,7 @@ table.data-table tbody {
 	align-items: center;
 	align-self: stretch;
 	background-color: var(--illustrationBackgroundBlurple);
-	background-image: var(--cdn_url_ftue_background-intro_svg);
+	background-image: var(--cdn_url_ftue_background-blurple-bottom_svg);
 	background-size: cover;
 	border-radius: .5rem;
 	display: flex;
@@ -7509,6 +7689,13 @@ table.data-table tbody {
 	margin: 1.5rem 0;
 	overflow: hidden;
 	width: calc(100% - 30rem)
+}
+.ftue-onboarding-doodle.mod-meadow-bottom {
+	background-color: var(--brandSPMeadow400);
+	background-image: var(--cdn_url_ftue_background-meadow-bottom_svg)
+}
+.ftue-onboarding-doodle.mod-blurple-top-bottom {
+	background-image: var(--cdn_url_ftue_background-blurple-top-bottom_svg)
 }
 .ftue-onboarding-doodle canvas {
 	height: 90%;
@@ -7653,6 +7840,20 @@ table.data-table tbody {
 }
 .ftue-onboarding-step-assigning-dollars .ftue-onboarding-doodle canvas, .ftue-onboarding-step-connecting-accounts .ftue-onboarding-doodle canvas {
 	height: 120%
+}
+.ftue-onboarding-step-cash-flow-summary .ftue-onboarding-step-cash-flow-summary-table {
+	display: inline-grid;
+	gap: .5rem 1rem;
+	grid-template-columns:repeat(2, max-content);
+	text-align: left
+}
+.ftue-onboarding-step-cash-flow-summary .ftue-onboarding-step-cash-flow-summary-table div:nth-child(1), .ftue-onboarding-step-cash-flow-summary .ftue-onboarding-step-cash-flow-summary-table div:nth-child(2) {
+	color: #000
+}
+.ftue-onboarding-step-cash-flow-summary .ftue-onboarding-step-cash-flow-summary-table div:nth-child(3), .ftue-onboarding-step-cash-flow-summary .ftue-onboarding-step-cash-flow-summary-table div:nth-child(4) {
+	color: #000;
+	font-size: 1.2rem;
+	font-weight: 600
 }
 .ftue-onboarding.entering .ftue-onboarding-step > *, .ftue-onboarding.exiting .ftue-onboarding-step > * {
 	opacity: 0;
@@ -8177,7 +8378,7 @@ table.data-table tbody {
 	color: var(--labelAction)
 }
 .ghost-button.primary[disabled] {
-	color: var(--actionPrimaryDisabled)
+	color: var(--labelActionDisabled)
 }
 .ghost-button.destructive {
 	color: var(--labelNegative)
@@ -13628,24 +13829,26 @@ text.bb-chart-arcs-gauge-title {
 .manage-payees-renaming-rules .manage-payees-renaming-rule {
 	align-items: flex-start;
 	display: flex;
-	justify-content: space-between;
+	gap: 1rem;
 	margin-bottom: 1rem
 }
 .manage-payees-renaming-rules .manage-payees-renaming-rule:last-child {
 	margin-bottom: 0
 }
+.manage-payees-renaming-rules .manage-payees-renaming-rule .x-select-container {
+	width: 6rem
+}
 .manage-payees-renaming-rules .manage-payees-renaming-rule input {
 	margin-bottom: 0;
-	width: 12.9rem
+	width: 14rem
 }
 .manage-payees-renaming-rules .manage-payees-renaming-rule-actions {
 	display: flex;
-	justify-content: flex-end;
-	width: 6.5rem
+	gap: .5rem;
+	width: 5rem
 }
 .manage-payees-renaming-rules .manage-payees-renaming-rule-actions .button {
 	height: 2rem;
-	margin-left: .5rem;
 	padding: 0;
 	text-align: center;
 	width: 2rem;
@@ -13656,6 +13859,12 @@ text.bb-chart-arcs-gauge-title {
 }
 .manage-payees-renaming-rules .ynab-new-icon.gear {
 	color: var(--iconFillSecondary)
+}
+.manage-payees-renaming-rules .manage-payees-renaming-rule .button-add-rule {
+	display: none
+}
+.manage-payees-renaming-rules .manage-payees-renaming-rule:last-of-type .button-add-rule {
+	display: inline-block
 }
 .modal-payee-list-item .ynab-new-icon.gear {
 	bottom: 0;
@@ -13868,6 +14077,34 @@ text.bb-chart-arcs-gauge-title {
 .budget-header-days .budget-header-days-label .ynab-new-icon {
 	position: relative;
 	top: .14em
+}
+.budget-header-moved-aom-warning {
+	align-items: center;
+	display: flex;
+	flex: 1 1 auto;
+	justify-content: flex-end;
+	margin-right: 1rem
+}
+.budget-header-moved-aom-warning .moved-aom-warning-box {
+	color: var(--labelTertiary);
+	background-color: var(--fillQuarternary);
+	border-radius: .5rem;
+	display: flex;
+	gap: 1rem;
+	padding: 1rem;
+	text-align: left
+}
+.budget-header-moved-aom-warning .moved-aom-warning-box .icon-close {
+	color: var(--iconFillSecondary)
+}
+.budget-header-moved-aom-warning .moved-aom-warning-box .info-box-content {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap
+}
+.budget-header-moved-aom-warning .moved-aom-warning-box a {
+	text-decoration: none;
+	color: var(--labelAction)
 }
 .budget-toolbar {
 	background-color: var(--headerBackground);
@@ -16890,11 +17127,11 @@ div.accounts-toolbar hr {
 	align-items: center;
 	display: flex
 }
-.account-flash-notification:after, .account-flash-notification:before, .modal-account-view-options ul:after, .modal-account-view-options ul:before, .modal-reports-timeframe ul:after, .modal-reports-timeframe ul:before {
+.account-flash-notification:after, .account-flash-notification:before, .modal-account-view-options ul:after, .modal-account-view-options ul:before, .modal-reports-dropdown .modal-list li:after, .modal-reports-dropdown .modal-list li:before, .modal-reports-dropdown .modal-list:after, .modal-reports-dropdown .modal-list:before, .modal-reports-timeframe ul:after, .modal-reports-timeframe ul:before, .wellness-dashboard-settings-menu ul.modal-list:after, .wellness-dashboard-settings-menu ul.modal-list:before {
 	content: "";
 	display: table
 }
-.account-flash-notification:after, .modal-account-view-options ul:after, .modal-reports-timeframe ul:after {
+.account-flash-notification:after, .modal-account-view-options ul:after, .modal-reports-dropdown .modal-list li:after, .modal-reports-dropdown .modal-list:after, .modal-reports-timeframe ul:after, .wellness-dashboard-settings-menu ul.modal-list:after {
 	clear: both
 }
 .account-flash-notification .ynab-button.secondary {
@@ -17596,7 +17833,7 @@ div.accounts-toolbar hr {
 	height: auto;
 	width: auto
 }
-.modal-account-view-options .modal-header, .modal-reports-timeframe .modal-header {
+.modal-account-view-options .modal-header, .modal-reports-dropdown .modal-list li span.main-category, .modal-reports-timeframe .modal-header {
 	color: var(--labelPrimary)
 }
 .modal-account-view-options ul, .modal-reports-timeframe ul {
@@ -17727,7 +17964,7 @@ div.accounts-toolbar hr {
 .transaction-notification .ynab-new-icon.transaction-notification-error {
 	color: var(--statusNegative)
 }
-.modal-reports-dropdown .modal-list li.is-hidden-item .filter-item-hidden-label svg, .transaction-notification .ynab-new-icon.transaction-notification-subdued {
+.modal-reports-dropdown .modal-list li.is-hidden-item .filter-item-hidden-label svg, .modal-reports-dropdown .modal-list li.is-hidden-item span, .transaction-notification .ynab-new-icon.transaction-notification-subdued {
 	color: var(--labelTertiary)
 }
 .modal-account-approve-reject.modal-account-dropdown .modal, .modal-account-match-transaction.modal-account-dropdown .modal {
@@ -17906,47 +18143,6 @@ div.accounts-toolbar hr {
 .users-upload .fieldset {
 	padding: 0 1em;
 	width: 50%
-}
-.reports-header-top {
-	zoom: 1;
-	display: flex;
-	flex-flow: column;
-	height: 100%
-}
-.reports-header-top:after, .reports-header-top:before {
-	content: "";
-	display: table
-}
-.reports-header-top:after {
-	clear: both
-}
-.reports-header {
-	background-color: var(--backgroundGroupedSecondary);
-	display: flex;
-	flex: 0 0 auto;
-	height: 4rem;
-	padding: 0 0 0 1rem;
-	width: 100%
-}
-.reports-header button {
-	color: var(--labelSecondary);
-	align-items: flex-end;
-	border-bottom-color: transparent;
-	border-bottom-style: solid;
-	border-bottom-width: .25rem;
-	margin-right: 1.5rem;
-	padding: 1.25rem 0 1rem
-}
-.reports-header button .ynab-badge {
-	margin-left: .5rem;
-	vertical-align: middle
-}
-.modal-reports-dropdown .modal-list li span.main-category, .reports-header button:hover {
-	color: var(--labelPrimary)
-}
-.reports-header button.active {
-	color: var(--labelPrimary);
-	border-bottom-color: var(--actionPrimary)
 }
 .reports-container {
 	display: flex;
@@ -18154,13 +18350,6 @@ div.accounts-toolbar hr {
 	margin: 0;
 	padding: 0 .25rem .5rem
 }
-.modal-reports-dropdown .modal-list li:after, .modal-reports-dropdown .modal-list li:before, .modal-reports-dropdown .modal-list:after, .modal-reports-dropdown .modal-list:before, .wellness-dashboard-settings-menu ul.modal-list:after, .wellness-dashboard-settings-menu ul.modal-list:before {
-	content: "";
-	display: table
-}
-.modal-reports-dropdown .modal-list li:after, .modal-reports-dropdown .modal-list:after, .wellness-dashboard-settings-menu ul.modal-list:after {
-	clear: both
-}
 .modal-reports-dropdown .modal-list li {
 	zoom: 1;
 	align-items: center;
@@ -18187,9 +18376,6 @@ div.accounts-toolbar hr {
 }
 .modal-reports-dropdown .modal-list li.is-hidden-item .filter-item-hidden-label span {
 	padding-left: .25rem
-}
-.modal-reports-dropdown .modal-list li.is-hidden-item span {
-	color: var(--labelTertiary)
 }
 .modal-reports-dropdown .ynab-checkbox {
 	cursor: pointer;
@@ -18972,6 +19158,13 @@ html.ie-11 .budget-table {
 .account-widget .account-list .account-widget-body .account-list-section-paragraph {
 	margin: 1.5rem 0 .5rem
 }
+.account-widget .account-list .account-widget-body .account-list-authorization-section {
+	margin-top: 1.5rem
+}
+.account-widget .account-list .account-widget-body .account-list-authorization-section .account-list-authorization-section-header {
+	padding-bottom: .75rem;
+	border-bottom: .0625rem solid var(--separatorSubdued)
+}
 .account-widget .account-list .account-widget-body h3 {
 	line-height: 1.5;
 	margin-bottom: .5rem;
@@ -19419,6 +19612,14 @@ html.ie-11 .budget-table {
 	position: absolute;
 	right: 1rem
 }
+.account-widget .account-widget-search-institutions .button-group {
+	display: flex;
+	flex-direction: column;
+	gap: .5rem
+}
+.account-widget .account-widget-search-institutions button {
+	width: 100%
+}
 .account-widget .account-widget-search-institutions .account-widget-search-input {
 	margin-bottom: 1rem
 }
@@ -19428,6 +19629,21 @@ html.ie-11 .budget-table {
 .account-widget .account-widget-search-institutions .account-widget-search-input input {
 	margin-bottom: .5rem;
 	margin-top: .5rem
+}
+.account-widget .account-widget-search-institutions .divider {
+	align-items: center;
+	display: flex;
+	margin: 1rem 0;
+	text-align: center;
+	width: 100%
+}
+.account-widget .account-widget-search-institutions .divider::after, .account-widget .account-widget-search-institutions .divider::before {
+	border-bottom: 1px solid var(--separatorStandard);
+	content: '';
+	flex: 1
+}
+.account-widget .account-widget-search-institutions .divider span {
+	padding: 0 .625rem
 }
 .account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box {
 	background: var(--buttonSecondaryBackground);
@@ -19554,10 +19770,14 @@ html.ie-11 .budget-table {
 	text-overflow: ellipsis;
 	white-space: nowrap
 }
-.account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-amount-and-type, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-bank-name {
+.account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-amount-and-type, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-bank-name, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-linked-status {
 	color: var(--labelSecondary);
 	display: flex;
 	gap: .25rem
+}
+.account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-linked-status .ynab-new-icon {
+	color: var(--labelSecondary);
+	fill: var(--iconFillPrimary)
 }
 .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-type {
 	overflow: hidden;
@@ -22200,7 +22420,7 @@ iframe[id^=plaid-link-iframe-] {
 	flex-direction: column;
 	flex-wrap: wrap;
 	gap: .5rem;
-	justify-content: center;
+	justify-content: flex-start;
 	margin: 0;
 	padding: 0
 }
@@ -22556,10 +22776,14 @@ iframe[id^=plaid-link-iframe-] {
 	height: 8.75rem;
 	margin: 0 auto;
 	width: auto;
-	fill: var(--illustrationBackgroundBlurple400)
+	fill: var(--illustrationBackgroundBlurple500)
 }
 .top-image .category-set-wizard-flow .category-set-wizard-flow-container .category-set-wizard-flow-image .lottie-animation {
 	height: 8.625rem
+}
+.top-image .category-set-wizard-flow .category-set-wizard-flow-container .category-set-wizard-flow-image .category-set-wizard-flow-image-animation {
+	height: 8.75rem;
+	width: 8.75rem
 }
 .left-image .category-set-wizard-flow .category-set-wizard-flow-container {
 	display: flex;
@@ -22572,10 +22796,11 @@ iframe[id^=plaid-link-iframe-] {
 }
 .left-image .category-set-wizard-flow .category-set-wizard-flow-container .category-set-wizard-flow-image {
 	border-radius: .5rem;
-	flex: 0 0 auto;
+	flex: 1;
 	height: 11.625rem;
 	justify-content: center;
-	padding: 1.5rem 0;
+	margin: 1.5rem 0;
+	overflow: hidden;
 	text-align: center;
 	width: auto;
 	z-index: 1
@@ -22584,18 +22809,22 @@ iframe[id^=plaid-link-iframe-] {
 	.left-image .category-set-wizard-flow .category-set-wizard-flow-container .category-set-wizard-flow-image {
 		align-items: center;
 		display: flex;
-		flex: 0 0 auto;
 		height: auto;
-		max-width: 50%;
-		padding: 0 1.5rem;
-		width: auto
+		margin: 0 1.5rem 0 0;
+		max-width: 50%
 	}
 }
-.left-image .category-set-wizard-flow .category-set-wizard-flow-container .category-set-wizard-flow-image .lottie-animation, .left-image .category-set-wizard-flow .category-set-wizard-flow-container .category-set-wizard-flow-image img {
+.left-image .category-set-wizard-flow .category-set-wizard-flow-container .category-set-wizard-flow-image img {
+	display: block;
+	height: 100%;
+	object-fit: cover;
+	width: 100%
+}
+.left-image .category-set-wizard-flow .category-set-wizard-flow-container .category-set-wizard-flow-image .lottie-animation {
 	height: 100%
 }
 @media (min-width: 53.75rem) {
-	.left-image .category-set-wizard-flow .category-set-wizard-flow-container .category-set-wizard-flow-image .lottie-animation, .left-image .category-set-wizard-flow .category-set-wizard-flow-container .category-set-wizard-flow-image img {
+	.left-image .category-set-wizard-flow .category-set-wizard-flow-container .category-set-wizard-flow-image .lottie-animation {
 		height: auto;
 		width: 100%
 	}
@@ -22659,6 +22888,10 @@ iframe[id^=plaid-link-iframe-] {
 	.left-image .category-set-wizard-flow .category-set-wizard-flow-container .category-set-wizard-select-form {
 		max-height: 100%
 	}
+}
+.category-set-wizard-flow-image-animation {
+	height: 100%;
+	width: 100%
 }
 .transition-overlay .category-set-wizard-flow {
 	height: 70%;
@@ -22975,10 +23208,10 @@ iframe[id^=plaid-link-iframe-] {
 	justify-content: space-between;
 	margin: 1.5rem 0 .75rem
 }
-.reflect-page-header-group .reflect-page-title {
+.reflect-age-of-money .chart-card .empty-state-content p, .reflect-page-header-group .reflect-page-title {
 	margin: 0
 }
-.reflect-page-header-group .reflect-page-title .ynab-badge {
+.reflect-page-header-group .reflect-page-title .ynab-badge, .reports-header button .ynab-badge {
 	margin-left: .5rem;
 	vertical-align: middle
 }
@@ -22999,8 +23232,44 @@ iframe[id^=plaid-link-iframe-] {
 .reflect-page-header-group .reflect-breadcrumbs__selected-group-breadcrumbs .ynab-new-icon {
 	color: var(--iconFillPrimary)
 }
-.reflect-page-header-group .reflect-breadcrumbs__selected-group-breadcrumbs .group-name {
+.reflect-page-header-group .reflect-breadcrumbs__selected-group-breadcrumbs .group-name, .reports-header button {
 	color: var(--labelSecondary)
+}
+.reports-header-top {
+	zoom: 1;
+	display: flex;
+	flex-flow: column;
+	height: 100%
+}
+.reports-header-top:after, .reports-header-top:before {
+	content: "";
+	display: table
+}
+.reports-header-top:after {
+	clear: both
+}
+.reports-header {
+	background-color: var(--backgroundGroupedSecondary);
+	display: flex;
+	flex: 0 0 auto;
+	height: 4rem;
+	padding: 0 0 0 1rem;
+	width: 100%
+}
+.reports-header button {
+	align-items: flex-end;
+	border-bottom-color: transparent;
+	border-bottom-style: solid;
+	border-bottom-width: .25rem;
+	margin-right: 1.5rem;
+	padding: 1.25rem 0 1rem
+}
+.reports-header button:hover {
+	color: var(--labelPrimary)
+}
+.reports-header button.active {
+	color: var(--labelPrimary);
+	border-bottom-color: var(--actionPrimary)
 }
 .reflect-income-expense-header {
 	background: var(--backgroundGroupedPrimary);
@@ -23637,13 +23906,13 @@ iframe[id^=plaid-link-iframe-] {
 .reflect-spending-trends .tick line {
 	stroke: var(--labelPrimary)
 }
-.reflect-spending-trends .bb-axis-y .domain {
+.age-of-money-chart .chart .bb-axis-y .domain, .reflect-spending-trends .bb-axis-y .domain {
 	display: none
 }
 .reflect-spending-trends .bb-axis-x .domain {
 	fill: transparent
 }
-.reflect-spending-trends .bb-axis-x .domain, .reflect-spending-trends .bb-ygrid-line line {
+.age-of-money-chart .chart .bb-axis-x .domain, .age-of-money-chart .chart .bb-ygrid-line line, .reflect-spending-trends .bb-axis-x .domain, .reflect-spending-trends .bb-ygrid-line line {
 	stroke: var(--separatorStandard);
 	stroke-dasharray: 2, 2
 }
@@ -23665,7 +23934,7 @@ iframe[id^=plaid-link-iframe-] {
 .spending-trends-table-header {
 	padding: 1rem 1.5rem
 }
-.spending-trends-table-header > span {
+.age-of-money-chart .chart .bb-axis .tick tspan, .spending-trends-table-header > span {
 	color: var(--labelSecondary)
 }
 .spending-trends-table-header .spending-trends-info-circle {
@@ -23720,7 +23989,7 @@ iframe[id^=plaid-link-iframe-] {
 .spending-trends-table-body.card-body .static-net-worth {
 	color: var(--labelTertiary)
 }
-.reflect-spending-tooltip {
+.reflect-age-of-money-tooltip, .reflect-spending-tooltip {
 	background-color: var(--backgroundPrimaryElevated);
 	margin: 0 0 .7815rem;
 	max-width: 10rem;
@@ -23730,16 +23999,18 @@ iframe[id^=plaid-link-iframe-] {
 	border-radius: .25rem;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, .15), 0 3px 6px rgba(0, 0, 0, .1)
 }
-.reflect-spending-tooltip .tooltip-arrow {
+.reflect-age-of-money-tooltip .tooltip-arrow, .reflect-spending-tooltip .tooltip-arrow {
 	border-left: .9375rem solid transparent;
 	border-right: .9375rem solid transparent;
-	border-top: .9375rem solid var(--backgroundPrimaryElevated);
-	bottom: 0;
 	height: 0;
 	left: 50%;
 	position: absolute;
 	transform: translateX(-50%);
 	width: 0
+}
+.reflect-spending-tooltip .tooltip-arrow {
+	border-top: .9375rem solid var(--backgroundPrimaryElevated);
+	bottom: 0
 }
 .reflect-spending-tooltip h4 {
 	margin: 0;
@@ -23763,6 +24034,114 @@ iframe[id^=plaid-link-iframe-] {
 .reflect-spending-tooltip em.spending-net-inflows-breakdown {
 	color: var(--actionSecondary);
 	margin-top: 5px
+}
+.age-of-money-chart .chart svg {
+	font-family: inherit
+}
+.age-of-money-chart .chart .bb-shape.bb-area.bb-area-ageOfMoney {
+	opacity: 1;
+	-ms-filter: none;
+	filter: none
+}
+.age-of-money-chart .chart .bb-line-ageOfMoney {
+	stroke: var(--reportsChartTrendLine);
+	stroke-width: .25rem
+}
+.age-of-money-chart .chart circle.bb-circle {
+	stroke: var(--reportsChartTrendPointShadow);
+	stroke-width: .5rem;
+	fill: var(--reportsChartTrendLine)
+}
+.age-of-money-chart .chart circle.bb-circle.highlighted {
+	fill: var(--reportsChartTrendAOMSelected)
+}
+.age-of-money-chart .chart .bb-ygrid-line line {
+	stroke-width: .0625rem
+}
+.age-of-money-chart .chart .bb-xgrid-focus line, .age-of-money-chart .chart .bb-xgrid-line line {
+	stroke: var(--reportsChartTrendAOMSelected);
+	stroke-dasharray: 2, 2;
+	stroke-width: .0625rem
+}
+.reflect-age-of-money-tooltip {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	margin: .7815rem 0 0;
+	padding: 1rem
+}
+.reflect-age-of-money-tooltip .tooltip-arrow {
+	border-bottom: .9375rem solid var(--backgroundPrimaryElevated);
+	top: 0
+}
+.reflect-age-of-money-tooltip .age-of-money-month, .reflect-age-of-money-tooltip .age-of-money-value {
+	display: block;
+	padding: 0;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow-y: visible
+}
+.reflect-age-of-money-tooltip .age-of-money-value {
+	color: var(--labelPrimary);
+	margin: 0
+}
+.reflect-age-of-money-tooltip .age-of-money-month {
+	color: var(--labelSecondary);
+	margin: 0 0 .25rem
+}
+.reflect-age-of-money .reflect-page-header-group {
+	margin-bottom: 1rem
+}
+.reflect-age-of-money .chart-card {
+	padding: 1rem
+}
+.reflect-age-of-money .chart-card .top-row {
+	display: flex;
+	justify-content: space-between
+}
+.reflect-age-of-money .chart-card .top-row .segmented-control {
+	max-height: 2rem
+}
+.reflect-age-of-money .chart-card .top-row button {
+	flex: auto;
+	min-width: 4.6875rem
+}
+.reflect-age-of-money .chart-card.is-empty-state {
+	align-items: center;
+	align-self: stretch;
+	flex-direction: column;
+	justify-content: center;
+	padding: 2.875rem 1.5rem
+}
+.reflect-age-of-money .chart-card .empty-state-content {
+	display: flex;
+	flex-direction: column;
+	max-width: 23.375rem;
+	text-align: center;
+	color: var(--calloutSecondaryLabel);
+	border-radius: .5rem;
+	background-color: var(--calloutSecondarySubtleBackground);
+	padding: 1rem
+}
+.reflect-age-of-money .chart-card .empty-state-content h4 {
+	margin-bottom: .25rem;
+	margin-top: 0
+}
+.reflect-age-of-money .chart-card .current-age-of-money {
+	display: flex;
+	flex-direction: column
+}
+.reflect-age-of-money .chart-card .current-age-of-money .current-age-of-money-title {
+	padding-bottom: .25rem;
+	color: var(--labelSecondary)
+}
+.reflect-age-of-money .chart-card .current-age-of-money .current-age-of-money-value {
+	color: var(--labelPrimary)
+}
+.reflect-age-of-money .info-card .info-card-content {
+	padding: 1rem
 }
 .reflect-container {
 	background: var(--backgroundGroupedPrimary);
@@ -24251,3 +24630,4 @@ bdi {
 	justify-content: center;
 	align-items: center;
 }
+

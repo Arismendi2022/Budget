@@ -3,8 +3,7 @@
 @section('content')
 	{{-- Main content --}}
 	<div class="content-min-break has-budget-views">
-		<!---->
-		<header id="ember15" class="budget-header left-to-budget-is-positive">
+		<header id="budget-header" class="budget-header left-to-budget-is-positive">
 			@livewire('admin.header-calendar')
 		</header>
 		<section class="budget-view-row">
@@ -121,15 +120,15 @@
 
 			const $newBudget = $('#new_budget_modal');
 			//Abre modal New Budget
-		/*	window.addEventListener('showCreateModalForm', function () {
-				$('#new_budget_modal').show();
-				$('#modal-settings-budget-name').focus();
-			})*/
+			/*	window.addEventListener('showCreateModalForm', function () {
+					$('#new_budget_modal').show();
+					$('#modal-settings-budget-name').focus();
+				})*/
 
 			//Cierra el modal New Budget
-		/*	window.addEventListener('hideCreateModalForm', function () {
-				$('#new_budget_modal').hide();
-			})*/
+			/*	window.addEventListener('hideCreateModalForm', function () {
+					$('#new_budget_modal').hide();
+				})*/
 		});
 
 		/** TOOLTIP GLOBAL POCISION  */

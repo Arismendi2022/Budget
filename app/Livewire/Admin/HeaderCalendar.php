@@ -10,17 +10,16 @@
 	{
 		public $currentDate;
 		public $selectedYear,$months;
-		public $isOpenCalendarModal = false;
 		
 		// Escucha el evento 'numberFormatUpdated'
 		protected $listeners = [
 			'numberFormatUpdated' => '$refresh',
-			'budgetTotalUpdated'  => 'getPositiveBudgetTotal' // o $refresh
+			'budgetTotalUpdated'  => 'getPositiveBudgetTotal', // o $refresh
+			'dateSelected'        => 'updateDate'
 		];
 		
 		public function mount(){
-			$this->currentDate  = now();
-			$this->selectedYear = now()->year;
+			$this->currentDate = now(); // Inicializa con el mes actual.
 		}
 		
 		public function nextMonth(){
@@ -29,27 +28,6 @@
 		
 		public function previousMonth(){
 			$this->currentDate = Carbon::parse($this->currentDate)->subMonth();
-		}
-		
-		public function nextYear(){
-			$this->selectedYear++;
-		}
-		
-		public function previousYear(){
-			$this->selectedYear--;
-		}
-		
-		private function updateMonths(){
-			$this->months = collect(range(1,12))->map(function($month){
-				$date = Carbon::createFromDate($this->selectedYear,$month,1);
-				
-				return [
-					'number'         => $month,
-					'name'           => $date->format('M'),
-					'isSelected'     => $date->format('Y-m') === Carbon::parse($this->currentDate)->format('Y-m'),
-					'isCurrentMonth' => $date->format('Y-m') === now()->format('Y-m'),
-				];
-			});
 		}
 		
 		public function goToToday(){
@@ -61,24 +39,21 @@
 			return Carbon::parse($this->currentDate)->format('Y-m') === now()->format('Y-m');
 		}
 		
-		public function selectMonth($month){
-			$this->currentDate         = Carbon::createFromDate($this->selectedYear,$month,1);
-			$this->isOpenCalendarModal = false;
-		}
-		
 		public function openCalendarModal(){
-			$this->selectedYear        = Carbon::parse($this->currentDate)->year; // Sync selected year with current date
-			$this->isOpenCalendarModal = true;
-		}
-		
-		public function closeCalendarModal(){
-			$this->isOpenCalendarModal = false;
+			// Emite el evento y pasa el valor de $currentDate
+			$this->dispatch('openCalendarModal',currentDate:$this->currentDate->toDateString());
 		}
 		
 		public function getPositiveBudgetTotal(){
 			return BudgetAccount::where('account_group','Cash')
 				->where('balance','>',0)
 				->sum('balance');
+		}
+		
+		// Metodo para actualizar currentDate cuando se recibe el evento
+		public function updateDate($data){
+			$this->currentDate  = Carbon::parse($data['currentDate']);
+			$this->selectedYear = $this->currentDate->year; // Actualizar el año si es necesario
 		}
 		
 		public function render(){

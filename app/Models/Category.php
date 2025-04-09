@@ -4,7 +4,6 @@
 	
 	use Illuminate\Database\Eloquent\Factories\HasFactory;
 	use Illuminate\Database\Eloquent\Model;
-	use Illuminate\Support\Str;
 	
 	class Category extends Model
 	{
@@ -20,8 +19,5 @@
 			return $this->belongsTo(CategoryGroup::class,'group_id');
 		}
 		
-		public function setNameAttribute($value){
-			$this->attributes['name'] = Str::ucfirst(Str::lower(trim($value)));
-		}
 	}
 	

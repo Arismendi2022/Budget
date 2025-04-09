@@ -54,5 +54,19 @@
 			return $symbol.$formattedNumber;
 		}
 	}
+	
+	// Registrar la función global
+	if(!function_exists('generateDayOptions')){
+		/**
+		 * Genera las opciones HTML para un dropdown de días del mes.
+		 *
+		 * @param string|null $selected Día seleccionado (opcional)
+		 * @return string
+		 */
+		function generateDayOptions($selected = null){
+			return App\Helpers\DateHelpers::generateDayOptions($selected);
+		}
+	}
+	
 
-
+	

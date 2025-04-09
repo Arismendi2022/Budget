@@ -47,9 +47,8 @@
 							</span>
 							<label class="error" id="password-error" for="request_data_password"></label>
 						</p>
-						<span id="general-Message" class="notice"></span> <!-- Span para errores generales -->
 						<p>
-							<button type="submit" class="authentications-panel__form-button button button-primary" data-disable-with="Signing Up...">Sign Up</button>
+							<button type="submit" id="signup" class="authentications-panel__form-button button button-primary" data-disable-with="Signing Up...">Sign Up</button>
 						</p>
 					</div>
 					<p class="authentications-panel__terms">
@@ -69,9 +68,9 @@
 							</div>
 							<div class="authentications-sso-buttons__button">
 								<div class="sso-button sso-button--google" data-login-target="googleButton">
-									<div class="sso-button__inner js-disabled" aria-labelledby="button-label"><span class="sso-button__logo"><img class="sso-provider-logo"
-												src="{{ asset('images/shared/brand/google-logo.svg') }}"/></span><span
-											class="sso-button__label1">Continuar con Google</span></div>
+									<div class="sso-button__inner js-disabled "><span class="sso-button__logo"><img class="sso-provider-logo"
+												src="/images/shared/brand/google-logo.svg"/></span><span
+											class="sso-button__label">Continuar con Google</span></div>
 								</div>
 								<p class="authentications-sso-button__error authentications-sso-button__error--google"></p>
 							</div>
@@ -89,6 +88,7 @@
 			const $passwordField = $('#request_data_password_signup');
 			const $togglePassword = $('#togglePassword');
 			const $form = $('#register-form');
+			const $signupButton = $('#signup');
 
 			// Toggle password visibility
 			$togglePassword.on('change', function () {
@@ -108,6 +108,7 @@
 			// Handle form submission
 			$form.on('submit', function (e) {
 				e.preventDefault();
+				$signupButton.prop('disabled', true).text('Signing Up...'); // Solo deshabilita el botón
 
 				$.ajax({
 					url: $form.attr('action'),
@@ -116,8 +117,9 @@
 					dataType: 'json',
 					success: function (response) {
 						if (response.status === 'success') {
-							$('#general-Message').text(response.message);
+							$('#password-error').text(response.message);
 							$form[0].reset();
+							$signupButton.prop('disabled', false).text('Sign Up');
 						}
 					},
 					//Errores de validacion.
@@ -137,15 +139,18 @@
 									}
 								}
 							});
+							// Rehabilitar el botón y restaurar su texto original
+							$signupButton.prop('disabled', false).text('Sign Up');
 						} else if (xhr.status === 500) {
 							// Manejar error 500
 							const errorMessage = xhr.responseJSON.message || ''; // Accede al mensaje directamente
-							$('#general-Message').text(errorMessage);
+							$('#password-error').text(errorMessage);
 
 							// Limpiar todos los inputs si hay un error
 							if (errorMessage) {
 								Object.values(fieldsWithErrors).forEach($field => $field.val(''));
 							}
+							$signupButton.prop('disabled', false).text('Sign Up');
 						}
 					}
 				});

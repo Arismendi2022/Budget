@@ -12,10 +12,11 @@
 	<title>@yield('pageTitle')</title>
 	<!-- links -->
 	<link rel="shortcut icon" href="{{ asset('images/shared/brand/ynab-tree-logo.svg') }}">
+	
+	<style id="ynab-css-overrides"></style>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-	{{--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">--}}
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+	<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
 	{{--<link href="https://fonts.cdnfonts.com/css/helvetica-neue-5" rel="stylesheet">--}}
 	
 	<!--CSS-->
@@ -28,7 +29,7 @@
 
 </head>
 
-<body>
+<body class="ember-application">
 <div class="layout">
 	<div id="ember3" class="content-layout user-logged-in">
 		<a href="#start-of-content" class="skip-to-content">Skip to content</a>
@@ -39,14 +40,17 @@
 		{{-- main content --}}
 		<div id="start-of-content"></div>
 		<div class="ynab-u content">
-			
 			{{-- Content Header (Page header) --}}
 			@yield('content')
-		
 		</div>
 	</div>
 </div>
 
+{{-- Modal Calendar --}}
+<livewire:admin.modal-calendar/>
+{{-- Modal Budget --}}
+<livewire:admin.budget-modals/>
+<!---->
 {{-- footer --}}
 
 @livewireScripts
@@ -57,5 +61,6 @@
 @stack('scripts')
 
 </body>
+7
 </html>
 
