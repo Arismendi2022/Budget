@@ -7,9 +7,6 @@
 	<div class="budget-inspector-content">
 		@if($isAutoAssign = true)
 			<div class="budget-breakdown ">
-				<!---->
-				<!---->
-				<!---->
 				<section class="card budget-breakdown-auto-assign is-collapsed">
 					<button class="card-roll-up" aria-expanded="true" aria-controls="controls-ember95" type="button">
 						<h2>
@@ -158,8 +155,6 @@
 						<!---->
 					</div>
 				</section>
-				<!---->
-				<!---->
 			</div>
 		@endif
 	</div>

@@ -74,6 +74,7 @@
 			
 			$this->updateMasterPartialState();
 			$this->dispatch('focusInput',inputId:'dataCurrency-'.$categoryId);
+			$this->dispatch('showCategoryTarget',$categoryId);
 		}
 		
 		public function toggleCategory($categoryId,$groupId){
@@ -99,6 +100,7 @@
 			}
 			
 			$this->updateMasterPartialState();
+			$this->dispatch('hideCategoryTarget',$categoryId);
 		}
 		
 		public function startEditing($categoryId){
