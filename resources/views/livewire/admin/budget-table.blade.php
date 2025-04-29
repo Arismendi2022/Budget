@@ -1129,8 +1129,13 @@
 								<div class="budget-table-cell-button budget-table-cell-edit-category user-data">
 									<div class="budget-table-cell-edit-category-label js-budget-table-cell-edit-category-label">
 										<div class="budget-table-cell-goal-nowrap">
-											<button wire:click="{{ in_array($category->id, $selectedCategories) ? 'editCategoryModal('.$category->id.')' : '' }}"
-												title="{{ $category->name }}">{{ $category->name }}</button>
+											<button
+												@if(in_array($category->id, $selectedCategories))
+													wire:click="editCategoryModal({{ $category->id }})"
+												@endif
+												title="{{ $category->name }}">
+												{{ $category->name }}
+											</button>
 											<div class="budget-table-cell-goal-gap"></div>
 											<div class="budget-table-cell-goal-status"></div>
 										</div>

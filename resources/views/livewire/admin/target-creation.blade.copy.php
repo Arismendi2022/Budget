@@ -157,35 +157,41 @@
 				</section>
 			</div>
 		@else
-			<div class="budget-breakdown ">
-				<div id="ember304" class="budget-inspector-category-header">
+			<div class="budget-breakdown">
+				<div id="ember182" class="budget-inspector-category-header">
 					<div class="budget-inspector-category">
 						<div class="inspector-category-name user-data">
 							<div class="user-entered-text"><h1>{{ $category->name }}</h1></div>
 						</div>
-						<button class="inspector-category-edit" aria-label="Edit category: 🛒 Groceries" aria-describedby="ember305" type="button">
+						<button class="inspector-category-edit" aria-label="Edit category: {{ $category->name }}" aria-describedby="ember183" type="button">
 							<svg class="ynab-new-icon fill-secondary" width="16" height="16">
 								<!---->
 								<use href="#icon_sprite_pencil"></use>
 							</svg>
 						</button>
+						<!---->
 					</div>
 					<!---->
 				</div>
 				<section class="card budget-breakdown-available-balance ">
-					<button class="card-roll-up" aria-expanded="true" aria-controls="controls-ember306" type="button">
+					<button class="card-roll-up" aria-expanded="true" aria-controls="controls-ember184" type="button">
 						<h2>
 							Available Balance
 							<svg class="ynab-new-icon card-chevron" width="12" height="12">
 								<!---->
-								<use href="#icon_sprite_chevron_down"></use>
+								<use href="#icon_sprite_chevron_down">
+									<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_down" fill="none" viewBox="0 0 24 24">
+										<path fill="currentColor" fill-rule="evenodd"
+											d="M13 18.7a1.4 1.4 0 0 1-2 0L.4 7.4a2 2 0 0 1 0-2 1.4 1.4 0 0 1 2 0l9.6 10 9.6-10.2a1.4 1.4 0 0 1 2 0 2 2 0 0 1 0 2.1z" clip-rule="evenodd"></path>
+									</symbol>
+								</use>
 							</svg>
 							<span class="ynab-new-budget-available-number js-budget-available-number user-data zero" title="" aria-disabled="true" disabled="" type="button">
-								<span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>0.00</span>
-							</span>
+							<span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>0.00</span>
+						</span>
 						</h2>
 					</button>
-					<div class="card-body" aria-hidden="false" id="controls-ember306">
+					<div class="card-body" aria-hidden="false" id="controls-ember184">
 						<div class="ynab-breakdown">
 							<div tabindex="0">
 								<div>Cash Left Over From Last Month</div>
@@ -209,27 +215,27 @@
 						<!---->
 					</div>
 				</section>
-				<!---->
 				<section class="card target-inspector-card ">
 					@if(!$isCreateTarget)
-						<div id="ember131" class="ynab-new-inspector-goals">
-							<button wire:click="toggleCollapse" class="card-roll-up" aria-expanded="{{ $isCollapsed ? 'false' : 'true' }}" aria-controls="controls-ember132" type="button">
+						<div id="ember186" class="ynab-new-inspector-goals">
+							<button class="card-roll-up" aria-expanded="true" aria-controls="controls-ember187" type="button">
 								<h2>
+									<!---->
 									Target
 									<svg class="ynab-new-icon card-chevron" width="12" height="12">
 										<!---->
-										<use href="{{ $isCollapsed ? '#icon_sprite_chevron_right' : '#icon_sprite_chevron_down' }}"></use>
+										<use href="#icon_sprite_chevron_down"></use>
 									</svg>
 								</h2>
 							</button>
-							<div class="card-body" style="{{ $isCollapsed ? 'display: none;' : '' }}" aria-hidden="{{ $isCollapsed ? 'true' : 'false' }}" id="controls-ember132">
+							<div class="card-body" aria-hidden="false" id="controls-ember187">
 								<div class="target-inspector">
 									<div class="view-target-empty-state">
 										<strong>How much do you need for {{ $category->name }}?</strong>
 										<p>
 											When you create a target, we’ll let you know how much money to set aside to stay on track over time.
 										</p>
-										<button wire:click="showCreateTarget" class="ynab-button secondary   budget-inspector-goals-create" type="button">
+										<button wire:click="showCreateTarget" class="ynab-button secondary  budget-inspector-goals-create" type="button">
 											Create Target
 										</button>
 									</div>
@@ -237,11 +243,12 @@
 							</div>
 						</div>
 					@else
-						<div id="ember308" class="ynab-new-inspector-goals">
+						<div id="ember351" class="ynab-new-inspector-goals">
 							<h2>
+								<!---->
 								Target
 							</h2>
-							<div id="ember310" class=" ynab-new-inspector-goals-edit-goal">
+							<div id="ember369" class=" ynab-new-inspector-goals-edit-goal">
 								<div class="budget-inspector-goals-edit-section">
 									<div class="goal-body">
 										<dl>
@@ -272,7 +279,7 @@
 												<dl>
 													<dt>{{ $selectedFrequency == 'custom' ? 'Amount' : 'I need' }}</dt>
 													<dd class="user-data">
-														<div id="ember311" class="ynab-new-currency-input  mod-left-aligned text-input">
+														<div id="ember485" class="ynab-new-currency-input mod-left-aligned text-input">
 															<button tabindex="-1" class="button-calculator" aria-hidden="true" type="button">
 																<svg class="icon-calculator" viewBox="0 0 16 16">
 																	<desc>Clicking this button will open the calculator</desc>
@@ -281,14 +288,12 @@
 																</svg>
 															</button>
 															<div class="input-wrapper">
-																<input id="amount" class="ember-text-field ember-view" title="Target Amount" aria-label="Target Amount" type="text">
+																<input id="ember486" class="ember-text-field ember-view" title="Target Amount" aria-label="Target Amount" type="text">
 																<button class="user-data currency tabular-nums zero">
 																	<span><bdi>{{ currency() }}</bdi>0.00</span>
 																</button>
 															</div>
-															<!---->
 														</div>
-														<!---->
 													</dd>
 												</dl>
 												@if ($selectedFrequency == 'weekly')
@@ -343,71 +348,11 @@
 														<dt aria-label="By">
 															By
 														</dt>
-														<dd class="input-container-with-arrow " wire:click="showModalCalendar">
+														<dd class="input-container-with-arrow ">
 															<input id="ember488" class="ember-text-field ember-view ynab-new-inspector-goals-calendar-select js-ynab-new-inspector-goals-calendar-select"
-																readonly="readonly" type="text" value="{{ $formattedDate }}">
+																readonly="readonly" type="text">
 														</dd>
 														<!---->
-														<div class="ynab-new-inspector-goals-calendar">
-															@if($isOpenCalendarModal)
-																<div id="ember168" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
-																	wire:click.self="$set('isOpenCalendarModal', false)">
-																	<div class="modal" role="dialog" aria-modal="true" style="top: 647.8px; left: 1271.1px;">
-																		<div class="accounts-calendar">
-																			<ul class="accounts-calendar-date">
-																				<li class="accounts-calendar-prev">
-																					<button class="ghost-button primary is-icon-only type-body" aria-label="Previous month" type="button" wire:click="previousMonth">
-																						<svg class="ynab-new-icon" width="24" height="24">
-																							<use href="#icon_sprite_chevron_left_circle"></use>
-																						</svg>
-																					</button>
-																				</li>
-																				<li class="accounts-calendar-selected-date">
-																					{{ $monthName }}
-																				</li>
-																				<li class="accounts-calendar-next">
-																					<button class="ghost-button primary is-icon-only type-body" aria-label="Next month" type="button" wire:click="nextMonth">
-																						<svg class="ynab-new-icon" width="24" height="24">
-																							<use href="#icon_sprite_chevron_right_circle"></use>
-																						</svg>
-																					</button>
-																				</li>
-																			</ul>
-																			<ul class="accounts-calendar-weekdays">
-																				<li>Su</li>
-																				<li>Mo</li>
-																				<li>Tu</li>
-																				<li>We</li>
-																				<li>Th</li>
-																				<li>Fr</li>
-																				<li>Sa</li>
-																			</ul>
-																			<ul class="accounts-calendar-grid">
-																				@for ($i = 0; $i < $firstDayOfMonth; $i++)
-																					<li class="accounts-calendar-empty" data-date="">
-																						&nbsp;
-																					</li>
-																				@endfor
-																				@foreach ($daysInMonth as $day)
-																					<li
-																						class="accounts-calendar-day {{ $selectedDate == Carbon\Carbon::create($currentYear, $currentMonth, $day)->format('Y-m-d') ? 'accounts-calendar-day-selected' : '' }}"
-																						data-date="{{ Carbon\Carbon::create($currentYear, $currentMonth, $day)->format('Y-m-d') }}"
-																						wire:click="selectDate({{ $day }})">
-																						{{ $day }}
-																					</li>
-																				@endforeach
-																			</ul>
-																			<div class="modal-actions">
-																			</div>
-																		</div>
-																		<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none"
-																			style="left: 100px; bottom: 100%; height: 0.9375rem; width: 1.875rem;">
-																			<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform=""></path>
-																		</svg>
-																	</div>
-																</div>
-															@endif
-														</div>
 													</dl>
 												@elseif ($selectedFrequency == 'custom')
 													<dl>
@@ -484,70 +429,11 @@
 														<dt aria-label="Due on">
 															Due on
 														</dt>
-														<dd class="input-container-with-arrow " wire:click="showModalCalendar">
+														<dd class="input-container-with-arrow ">
 															<input id="ember488" class="ember-text-field ember-view ynab-new-inspector-goals-calendar-select js-ynab-new-inspector-goals-calendar-select"
-																readonly="readonly" type="text" value="{{ $formattedDate }}">
+																readonly="readonly" type="text">
 														</dd>
 														<!---->
-														<div class="ynab-new-inspector-goals-calendar">
-															@if($isOpenCalendarModal)
-																<div id="ember168" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
-																	wire:click.self="$set('isOpenCalendarModal', false)">
-																	<div class="modal" role="dialog" aria-modal="true" style="top: 400.4px; left: 1271.1px;">
-																		<div class="accounts-calendar">
-																			<ul class="accounts-calendar-date">
-																				<li class="accounts-calendar-prev">
-																					<button class="ghost-button primary is-icon-only type-body" aria-label="Previous month" type="button" wire:click="previousMonth">
-																						<svg class="ynab-new-icon" width="24" height="24">
-																							<use href="#icon_sprite_chevron_left_circle"></use>
-																						</svg>
-																					</button>
-																				</li>
-																				<li class="accounts-calendar-selected-date">
-																					{{ $monthName }}
-																				</li>
-																				<li class="accounts-calendar-next">
-																					<button class="ghost-button primary is-icon-only type-body" aria-label="Next month" type="button" wire:click="nextMonth">
-																						<svg class="ynab-new-icon" width="24" height="24">
-																							<use href="#icon_sprite_chevron_right_circle"></use>
-																						</svg>
-																					</button>
-																				</li>
-																			</ul>
-																			<ul class="accounts-calendar-weekdays">
-																				<li>Su</li>
-																				<li>Mo</li>
-																				<li>Tu</li>
-																				<li>We</li>
-																				<li>Th</li>
-																				<li>Fr</li>
-																				<li>Sa</li>
-																			</ul>
-																			<ul class="accounts-calendar-grid">
-																				@for ($i = 0; $i < $firstDayOfMonth; $i++)
-																					<li class="accounts-calendar-empty" data-date="">
-																						&nbsp;
-																					</li>
-																				@endfor
-																				@foreach ($daysInMonth as $day)
-																					<li
-																						class="accounts-calendar-day {{ $selectedDate == Carbon\Carbon::create($currentYear, $currentMonth, $day)->format('Y-m-d') ? 'accounts-calendar-day-selected' : '' }}"
-																						data-date="{{ Carbon\Carbon::create($currentYear, $currentMonth, $day)->format('Y-m-d') }}"
-																						wire:click="selectDate({{ $day }})">
-																						{{ $day }}
-																					</li>
-																				@endforeach
-																			</ul>
-																			<div class="modal-actions">
-																			</div>
-																		</div>
-																		<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none" style="top: 100%; left: 100px; height: 0.9375rem; width: 1.875rem;">
-																			<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform="rotate(180 50 50)"></path>
-																		</svg>
-																	</div>
-																</div>
-															@endif
-														</div>
 													</dl>
 													<div class="frequency-repeat">
 														<button class="ynab-switch off " role="checkbox" aria-checked="false" type="button">
@@ -561,21 +447,23 @@
 												@endif
 												@if($selectedFrequency != 'custom')
 													<dl>
-														<dt>{{ $selectedFrequency === 'yearly' ? 'Next year I want to' : 'Next month I want to' }}</dt>
+														<dt>Next month I want to</dt>
 														<dd>
 															<div class="type-dropdown target-behavior-dropdown">
-																<div class="ynab-new-dropdown js-ynab-new-dropdown " id="ember313">
+																<div id="ember372" class="ynab-new-dropdown js-ynab-new-dropdown is-dropdown-showing ">
 																	<button wire:click="showNextMonthModal" class="ynab-new-dropdown-container js-ynab-new-dropdown-container user-data" aria-haspopup="true"
 																		aria-expanded="true"
-																		aria-label="undefined, Popup button uncollapsed, Set aside another <bdi>$</bdi>0.00 selected" type="button">
-																		<span>Set aside another <bdi>{{ currency() }}</bdi>0.00{{ $selectedFrequency === 'weekly' ? '/week' : '' }}</span>
+																		aria-label="undefined, Popup button collapsed, Set aside another <bdi>{{ currency() }}</bdi>0.00 selected"
+																		type="button">
+																		<span>Set aside another <bdi>{{ currency() }}</bdi>0.00</span>
 																		<svg class="ynab-new-icon" width="9" height="9">
 																			<!---->
 																			<use href="#icon_sprite_caret_down"></use>
 																		</svg>
 																	</button>
+																	<!---->
 																	@if($openNextMonthModal)
-																		<div id="ember314" class="modal-overlay active ynab-new-dropdown-modal">
+																		<div id="ember114" class="modal-overlay active ynab-new-dropdown-modal" wire:click.self="$set('openNextMonthModal', false)">
 																			<div class="modal" role="dialog" aria-modal="true" style="top: 429.6px; left: 1145.2px; height: auto; width: 481.8px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
 																					<button class="type-dropdown-option is-selected" role="option" aria-selected="true" type="button">
@@ -586,8 +474,7 @@
 																									<use href="#icon_sprite_check_circle_fill"></use>
 																								</svg>
 																								<strong>Set aside another
-																									<bdi>$</bdi>
-																									0.00</strong>
+																									<span><bdi>$</bdi>0.00</span></strong>
 																							</div>
 																							<em>Use for: bills, subscriptions, saving over time</em>
 																							<div class="type-dropdown-label-tagline callout">
@@ -601,23 +488,21 @@
 																							<div class="type-dropdown-label-title">
 																								<!---->
 																								<strong>Refill up to
-																									<bdi>$</bdi>
-																									0.00</strong>
+																									<span><bdi>$</bdi>0.00</span></strong>
 																							</div>
 																							<em>Use for: gasoline, fun money, dining out</em>
 																							<div class="type-dropdown-label-tagline ">
 																								Sets a Target to have
-																								<bdi>$</bdi>
-																								0.00 on hand each month. Whatever you don't spend will get applied toward next month's
-																								<bdi>$</bdi>
-																								0.00.
+																								<span><bdi>$</bdi>0.00</span> on hand each month. Whatever you don't spend will get applied toward
+																								next month's
+																								<span><bdi>$</bdi>0.00.</span>
 																							</div>
 																						</div>
 																					</button>
 																					<hr class="dropdown-divider">
 																				</div>
 																				<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none"
-																					style="top: 100%; left: 225.9px; height: 0.9375rem; width: 1.875rem;">
+																					style="left: 225.9px; height: 0.9375rem; width: 1.875rem; top: 100%;">
 																					<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform="rotate(180 50 50)"></path>
 																				</svg>
 																			</div>
@@ -646,7 +531,8 @@
 												<button wire:click="hideCreateTarget" class="ghost-button primary type-body-large" type="button">
 													Cancel
 												</button>
-												<button class="ynab-button primary  " arial-label="Save Target, 0.00, Set aside another <bdi>$</bdi>0.00" type="button">
+												<button class="ynab-button primary  " arial-label="Save Target, 0.00, Set aside another <bdi>{{ currency() }}</bdi>0.00"
+													type="button">
 													Save Target
 												</button>
 											</div>
@@ -656,10 +542,10 @@
 							</div>
 						</div>
 					@endif
+					<!---->
 				</section>
-				<!---->
 				<section class="card budget-breakdown-auto-assign is-collapsed">
-					<button class="card-roll-up" aria-expanded="false" aria-controls="controls-ember119" type="button">
+					<button class="card-roll-up" aria-expanded="false" aria-controls="controls-ember99" type="button">
 						<h2>
 							<svg class="ynab-new-icon" width="16" height="16">
 								<!---->
@@ -672,46 +558,51 @@
 							</svg>
 						</h2>
 					</button>
-					<div class="card-body" aria-hidden="true" id="controls-ember119">
+					<div class="card-body" aria-hidden="true" id="controls-ember99">
 						<!---->
 						<div class="inspector-quick-budget">
 							<div class="option-groups">
 								<div>
 									<button class="budget-inspector-button  assigned-last month" type="button">
 										<div>Assigned Last Month</div>
-										<div><strong class="user-data" title="$0.00"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></strong></div>
+										<div><strong class="user-data" title="{{ currency() }}0.00"><span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>0.00</span></strong>
+										</div>
 									</button>
 									<button class="budget-inspector-button  spent-last month" type="button">
 										<div>Spent Last Month</div>
-										<div><strong class="user-data" title="$0.00"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></strong></div>
+										<div><strong class="user-data" title="{{ currency() }}0.00"><span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>0.00</span></strong>
+										</div>
 									</button>
 									<button class="budget-inspector-button  average-assigned" title="Feeling average? Fund all of your categories with your historical average assigned."
 										type="button">
 										<div>Average Assigned</div>
-										<div><strong class="user-data" title="$0.00"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></strong></div>
+										<div><strong class="user-data" title="{{ currency() }}0.00"><span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>0.00</span></strong>
+										</div>
 									</button>
 									<button class="budget-inspector-button  average-spent" title="Assign your historical average spent. Though you're above average in my book." type="button">
 										<div>Average Spent</div>
-										<div><strong class="user-data" title="$0.00"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></strong></div>
+										<div><strong class="user-data" title="{{ currency() }}0.00"><span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>0.00</span></strong>
+										</div>
 									</button>
 								</div>
 								<div>
 									<button class="budget-inspector-button  set-available amount to zero"
-										title="Want to start from zero? Set the available amounts of all of your categories to $0.00, making the funds ready to assign. It's like a mini Fresh Start!"
+										title="Want to start from zero? Set the available amounts of all of your categories to {{ currency() }}0.00, making the funds ready to assign. It's like a mini Fresh Start!"
 										type="button">
 										<div>Reset Available Amount</div>
-										<div><strong class="user-data" title="$0.00"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></strong></div>
+										<div><strong class="user-data" title="{{ currency() }}0.00"><span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>0.00</span></strong>
+										</div>
 									</button>
 									<button class="budget-inspector-button  reset-assigned amount" title="Reset all assigned amounts for this month, in case you want a do-over." type="button">
 										<div>Reset Assigned Amount</div>
-										<div><strong class="user-data" title="$0.00"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></strong></div>
+										<div><strong class="user-data" title="{{ currency() }}0.00"><span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>0.00</span></strong>
+										</div>
 									</button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</section>
-				<!---->
 				<section class="card  ">
 					<div class="inspector-notes ">
 						<h2>Notes</h2>
@@ -720,6 +611,7 @@
 						</p>
 					</div>
 				</section>
+				<!---->
 			</div>
 		@endif
 	</div>
@@ -789,14 +681,6 @@
 
 @push('scripts')
 	<script>
-
-		document.addEventListener('DOMContentLoaded', function () {
-			window.addEventListener('focusInput', function () {
-				setTimeout(function () {
-					document.getElementById('amount').focus();
-				}, 10); // Retraso de 10 ms
-			});
-		});
 	
 	</script>
 @endpush
