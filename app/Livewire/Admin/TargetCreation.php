@@ -13,22 +13,42 @@
 		public $isAutoAssign           = true;
 		public $isOpenModalAssign      = false;
 		public $isCreateTarget         = false;
-		public $openNextMonthModal     = false;
+		public $isOpenNextMonthModal   = false;
 		public $isOpenAsideCustomModal = false;
-		public $selectedFrequency      = 'monthly'; // Valor predeterminado
+		public $selectedFrequency      = 'monthly';
 		public $isOpenCalendarModal    = false;
+		public $isActive               = false;
+		public $isSwitchRepeat         = false;
+		public $isFocusedInput         = false;
+		
+		public $currencyAmount;
+		public $amount = '';
 		
 		public $daysInMonth = [];
 		public $firstDayOfMonth;
 		public $category,$selectedDate,$currentMonth,$currentYear;
 		
 		public function mount(){
-			$currentDate        = Carbon::now();
-			$nextMonth          = $currentDate->copy()->addMonth();
-			$this->currentMonth = $nextMonth->month;
-			$this->currentYear  = $nextMonth->year;
-			$this->selectedDate = $nextMonth->startOfMonth()->format('Y-m-d');
-			$this->updateCalendar();
+			try{
+				$currentDate        = Carbon::now();
+				$nextMonth          = $currentDate->copy()->addMonth();
+				$this->currentMonth = $nextMonth->month;
+				$this->currentYear  = $nextMonth->year;
+				$this->selectedDate = $nextMonth->startOfMonth()->format('Y-m-d');
+				$this->updateCalendar();
+			} catch(\Exception $e){
+				\Log::error('Error en mount: '.$e->getMessage());
+				$this->selectedDate = Carbon::now()->startOfMonth()->format('Y-m-d');
+				$this->updateCalendar();
+			}
+		}
+		
+		public function currency(){
+			return 'USD'; // O obtener de una configuración
+		}
+		
+		public function formatNumber($number){
+			return number_format((float)$number,2,'.','');
 		}
 		
 		public function showAutoAssignModal(){
@@ -47,25 +67,32 @@
 			$this->isCreateTarget    = true;
 			$this->selectedFrequency = 'monthly';
 			$this->dispatch('focusInput');
-			// Reiniciar la fecha al primer día del mes siguiente
 			$this->selectedDate = Carbon::now()->addMonth()->startOfMonth()->format('Y-m-d');
 			$this->updateCalendar();
+			
+			$this->resetErrorBag();
+			$this->reset('amount','currencyAmount');
 		}
 		
-		public function hideCreateTarget(){
-			$this->isCreateTarget     = false;
-			$this->openNextMonthModal = false;
-			// Reiniciar la fecha al primer día del mes siguiente
-			$this->selectedDate = Carbon::now()->addMonth()->startOfMonth()->format('Y-m-d');
+		public function cancelCreateTarget(){
+			$this->isCreateTarget       = false;
+			$this->isOpenNextMonthModal = false;
+			$this->selectedDate         = Carbon::now()->addMonth()->startOfMonth()->format('Y-m-d');
 			$this->updateCalendar();
 		}
 		
 		#[On('showCategoryTarget')]
 		public function showCategoryTarget($categoryId){
-			$this->category           = Category::findOrFail($categoryId);
-			$this->isAutoAssign       = false;
-			$this->isCreateTarget     = false;
-			$this->openNextMonthModal = false;
+			try{
+				$this->category             = Category::findOrFail($categoryId);
+				$this->isAutoAssign         = false;
+				$this->isCreateTarget       = false;
+				$this->isOpenNextMonthModal = false;
+			} catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
+				\Log::error('Categoría no encontrada: '.$categoryId);
+				$this->category = null;
+				$this->dispatch('notify',['message' => 'Categoría no encontrada','type' => 'error']);
+			}
 		}
 		
 		#[On('hideCategoryTarget')]
@@ -74,11 +101,11 @@
 		}
 		
 		public function showNextMonthModal(){
-			$this->openNextMonthModal = true;
+			$this->isOpenNextMonthModal = true;
 		}
 		
 		public function hideNextMonthModal(){
-			$this->openNextMonthModal = false;
+			$this->isOpenNextMonthModal = false;
 		}
 		
 		public function showAsideCustomModal(){
@@ -87,6 +114,33 @@
 		
 		public function hideAsideCustomModal(){
 			$this->isOpenAsideCustomModal = false;
+		}
+		
+		public function setFocused(){
+			$this->isFocusedInput = true;
+			$this->dispatch('focusInput');
+		}
+		
+		public function unsetFocused(){
+			$this->isFocusedInput = false;
+			try{
+				$num                  = preg_replace('/[^0-9.]/','',$this->amount);
+				$this->currencyAmount = is_numeric($num) ? (float)$num : 0;
+				$this->amount         = $this->currencyAmount ? $this->formatNumber($this->currencyAmount) : '';
+			} catch(\Exception $e){
+				\Log::error('Error en unsetFocused: '.$e->getMessage());
+				$this->currencyAmount = 0;
+				$this->amount         = '';
+			}
+		}
+		
+		public function updatedAmount($value){
+			$this->validate([
+				'amount' => 'nullable|numeric|min:0',
+			],[
+				'amount.numeric' => 'El monto debe ser un número válido.',
+				'amount.min'     => 'El monto no puede ser negativo.',
+			]);
 		}
 		
 		public function toggleCollapse(){
@@ -119,11 +173,16 @@
 		
 		public function selectDate($day){
 			$this->selectedDate        = Carbon::create($this->currentYear,$this->currentMonth,$day)->format('Y-m-d');
-			$this->isOpenCalendarModal = false; // Cerrar el modal después de seleccionar la fecha
+			$this->isOpenCalendarModal = false;
 		}
 		
 		public function getFormattedDateProperty(){
 			return Carbon::parse($this->selectedDate)->format('M j, Y');
+		}
+		
+		public function switchToggle(){
+			$this->isActive       = !$this->isActive;
+			$this->isSwitchRepeat = $this->isActive;
 		}
 		
 		public function render(){
@@ -133,5 +192,3 @@
 			]);
 		}
 	}
-	
-	

@@ -241,7 +241,7 @@
 							<h2>
 								Target
 							</h2>
-							<div id="ember310" class=" ynab-new-inspector-goals-edit-goal">
+							<div id="ember310" class="ynab-new-inspector-goals-edit-goal {{ $errors->has('currencyAmount') ? 'is-error' : '' }}">
 								<div class="budget-inspector-goals-edit-section">
 									<div class="goal-body">
 										<dl>
@@ -272,7 +272,7 @@
 												<dl>
 													<dt>{{ $selectedFrequency == 'custom' ? 'Amount' : 'I need' }}</dt>
 													<dd class="user-data">
-														<div id="ember311" class="ynab-new-currency-input  mod-left-aligned text-input">
+														<div id="new-currency" class="ynab-new-currency-input {{ $isFocusedInput ? 'is-focused is-editing' : '' }} mod-left-aligned text-input">
 															<button tabindex="-1" class="button-calculator" aria-hidden="true" type="button">
 																<svg class="icon-calculator" viewBox="0 0 16 16">
 																	<desc>Clicking this button will open the calculator</desc>
@@ -281,13 +281,18 @@
 																</svg>
 															</button>
 															<div class="input-wrapper">
-																<input id="amount" class="ember-text-field ember-view" title="Target Amount" aria-label="Target Amount" type="text">
-																<button class="user-data currency tabular-nums zero">
-																	<span><bdi>{{ currency() }}</bdi>0.00</span>
+																<input id="target-amount" class="ember-text-field ember-view " title="Target Amount" aria-label="Target Amount" onfocus="this.select()" autofocus=""
+																	type="text" wire:model.lazy="amount" wire:blur="unsetFocused">
+																<button class="user-data currency tabular-nums zero " wire:click="setFocused">
+																	<span><bdi>{{ currency() }}</bdi>{{ format_number($currencyAmount) }}</span>
 																</button>
 															</div>
-															<!---->
 														</div>
+														@if($errors->has('currencyAmount'))
+															<div class="error-message" title="{{ $errors->first('currencyAmount') }}">
+																{{ $errors->first('currencyAmount') }}
+															</div>
+														@endif
 														<!---->
 													</dd>
 												</dl>
@@ -550,7 +555,8 @@
 														</div>
 													</dl>
 													<div class="frequency-repeat">
-														<button class="ynab-switch off " role="checkbox" aria-checked="false" type="button">
+														<button wire:click="switchToggle" class="ynab-switch {{ $isActive ? 'on' : 'off' }} " role="checkbox" aria-checked="{{ $isActive ? 'true' : 'false' }}"
+															type="button">
 															<svg class="switch-toggle" xmlns="http://www.w3.org/2000/svg">
 																<rect></rect>
 																<circle></circle>
@@ -558,27 +564,85 @@
 															Repeat
 														</button>
 													</div>
+													@if($isSwitchRepeat)
+														<dl>
+															<dt>
+																Every
+															</dt>
+															<dd class="ynab-new-inspector-goals-repeats-options user-data">
+																<div class="x-select-container  ">
+																	<select class="js-x-select cadence-frequency-selector" aria-label="Select Interval">
+																		<!---->
+																		<option value="1">
+																			1
+																		</option>
+																		<option value="2">
+																			2
+																		</option>
+																		<option value="3">
+																			3
+																		</option>
+																		<option value="4">
+																			4
+																		</option>
+																		<option value="5">
+																			5
+																		</option>
+																		<option value="6">
+																			6
+																		</option>
+																		<option value="7">
+																			7
+																		</option>
+																		<option value="8">
+																			8
+																		</option>
+																		<option value="9">
+																			9
+																		</option>
+																		<option value="10">
+																			10
+																		</option>
+																		<option value="11">
+																			11
+																		</option>
+																	</select>
+																</div>
+																<div class="x-select-container  ">
+																	<select class="js-x-select cadence-selector" aria-label="Select Unit of Time">
+																		<!---->
+																		<option value="1">
+																			Month
+																		</option>
+																		<option value="2">
+																			Year
+																		</option>
+																	</select>
+																</div>
+															</dd>
+														</dl>
+													@endif
 												@endif
 												@if($selectedFrequency != 'custom')
 													<dl>
 														<dt>{{ $selectedFrequency === 'yearly' ? 'Next year I want to' : 'Next month I want to' }}</dt>
 														<dd>
 															<div class="type-dropdown target-behavior-dropdown">
-																<div class="ynab-new-dropdown js-ynab-new-dropdown " id="ember313">
+																<div class="ynab-new-dropdown js-ynab-new-dropdown is-dropdown-showing" id="ember313">
 																	<button wire:click="showNextMonthModal" class="ynab-new-dropdown-container js-ynab-new-dropdown-container user-data" aria-haspopup="true"
-																		aria-expanded="true"
-																		aria-label="undefined, Popup button uncollapsed, Set aside another <bdi>$</bdi>0.00 selected" type="button">
+																		aria-expanded="false"
+																		aria-label="undefined, Popup button collapsed, Set aside another <bdi>$</bdi>0.00 selected" type="button">
 																		<span>Set aside another <bdi>{{ currency() }}</bdi>0.00{{ $selectedFrequency === 'weekly' ? '/week' : '' }}</span>
 																		<svg class="ynab-new-icon" width="9" height="9">
 																			<!---->
 																			<use href="#icon_sprite_caret_down"></use>
 																		</svg>
 																	</button>
-																	@if($openNextMonthModal)
-																		<div id="ember314" class="modal-overlay active ynab-new-dropdown-modal">
+																	@if($isOpenNextMonthModal)
+																		<div id="ember314" class="modal-overlay active ynab-new-dropdown-modal" wire:click.self="$set('isOpenNextMonthModal', false)">
 																			<div class="modal" role="dialog" aria-modal="true" style="top: 429.6px; left: 1145.2px; height: auto; width: 481.8px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
-																					<button class="type-dropdown-option is-selected" role="option" aria-selected="true" type="button">
+																					<button class="type-dropdown-option " role="option" aria-selected="true" type="button">
 																						<div class="type-dropdown-label">
 																							<div class="type-dropdown-label-title">
 																								<svg class="ynab-new-icon type-dropdown-icon" width="16" height="16">
@@ -643,7 +707,7 @@
 												</button>
 											</div>
 											<div class="actions-right">
-												<button wire:click="hideCreateTarget" class="ghost-button primary type-body-large" type="button">
+												<button wire:click="cancelCreateTarget" class="ghost-button primary type-body-large" type="button">
 													Cancel
 												</button>
 												<button class="ynab-button primary  " arial-label="Save Target, 0.00, Set aside another <bdi>$</bdi>0.00" type="button">
@@ -790,13 +854,14 @@
 @push('scripts')
 	<script>
 
-		document.addEventListener('DOMContentLoaded', function () {
+		$(function () {
 			window.addEventListener('focusInput', function () {
 				setTimeout(function () {
-					document.getElementById('amount').focus();
+					$('#target-amount').focus();
 				}, 10); // Retraso de 10 ms
 			});
 		});
+	
 	
 	</script>
 @endpush

@@ -1,7 +1,7 @@
 <div>
 	{{-- Modal Category Group --}}
 	@if($isOpenCategoryGroupModal)
-		<div id="categoryGroup" class="modal-overlay active ynab-u modal-popup modal-add-master-category" >
+		<div id="categoryGroup" class="modal-overlay active ynab-u modal-popup modal-add-master-category">
 			<div class="modal" role="dialog" aria-modal="true" style="top: 179.5px; left: {{ $modalGroupLeft }};">
 				<div class="modal-content">
 					<div class="fieldset">
@@ -36,7 +36,7 @@
 	@endif
 	{{--Modal Edit Category group--}}
 	@if($isUpdateCategoryGroupModal)
-		<div id="editCategoryGroup" class="modal-overlay active ynab-u modal-popup modalc-budget-edit-category" wire:click.self="$set('isUpdateCategoryGroupModal', false)">
+		<div id="editCategoryGroup" class="modal-overlay active ynab-u modal-popup modal-budget-edit-category" wire:click.self="$set('isUpdateCategoryGroupModal', false)">
 			<div class="modal" role="dialog" aria-modal="true" style="top: {{ $modalTop }}px; left: {{ $modalLeft }}px;">
 				<div class="modal-content">
 					<div class="fieldset">
@@ -51,7 +51,6 @@
 									<li>{{ $errors->first('name') }}</li>
 								</ul>
 							@endif
-							<!---->
 						</div>
 					</div>
 				</div>
