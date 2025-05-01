@@ -29,26 +29,16 @@
 		public $category,$selectedDate,$currentMonth,$currentYear;
 		
 		public function mount(){
-			try{
-				$currentDate        = Carbon::now();
-				$nextMonth          = $currentDate->copy()->addMonth();
-				$this->currentMonth = $nextMonth->month;
-				$this->currentYear  = $nextMonth->year;
-				$this->selectedDate = $nextMonth->startOfMonth()->format('Y-m-d');
-				$this->updateCalendar();
-			} catch(\Exception $e){
-				\Log::error('Error en mount: '.$e->getMessage());
-				$this->selectedDate = Carbon::now()->startOfMonth()->format('Y-m-d');
-				$this->updateCalendar();
-			}
-		}
-		
-		public function currency(){
-			return 'USD'; // O obtener de una configuración
+			$currentDate        = Carbon::now();
+			$nextMonth          = $currentDate->copy()->addMonth();
+			$this->currentMonth = $nextMonth->month;
+			$this->currentYear  = $nextMonth->year;
+			$this->selectedDate = $nextMonth->startOfMonth()->format('Y-m-d');
+			$this->updateCalendar();
 		}
 		
 		public function formatNumber($number){
-			return number_format((float)$number,2,'.','');
+			return format_number($number);
 		}
 		
 		public function showAutoAssignModal(){
@@ -68,6 +58,10 @@
 			$this->selectedFrequency = 'monthly';
 			$this->dispatch('focusInput');
 			$this->selectedDate = Carbon::now()->addMonth()->startOfMonth()->format('Y-m-d');
+			// Actualizar el mes y año del calendario para que coincida con selectedDate
+			$dateObj            = Carbon::parse($this->selectedDate);
+			$this->currentMonth = $dateObj->month;
+			$this->currentYear  = $dateObj->year;
 			$this->updateCalendar();
 			
 			$this->resetErrorBag();
@@ -78,21 +72,19 @@
 			$this->isCreateTarget       = false;
 			$this->isOpenNextMonthModal = false;
 			$this->selectedDate         = Carbon::now()->addMonth()->startOfMonth()->format('Y-m-d');
+			// Actualizar el mes y año del calendario para que coincida con selectedDate
+			$dateObj            = Carbon::parse($this->selectedDate);
+			$this->currentMonth = $dateObj->month;
+			$this->currentYear  = $dateObj->year;
 			$this->updateCalendar();
 		}
 		
 		#[On('showCategoryTarget')]
 		public function showCategoryTarget($categoryId){
-			try{
-				$this->category             = Category::findOrFail($categoryId);
-				$this->isAutoAssign         = false;
-				$this->isCreateTarget       = false;
-				$this->isOpenNextMonthModal = false;
-			} catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e){
-				\Log::error('Categoría no encontrada: '.$categoryId);
-				$this->category = null;
-				$this->dispatch('notify',['message' => 'Categoría no encontrada','type' => 'error']);
-			}
+			$this->category             = Category::findOrFail($categoryId);
+			$this->isAutoAssign         = false;
+			$this->isCreateTarget       = false;
+			$this->isOpenNextMonthModal = false;
 		}
 		
 		#[On('hideCategoryTarget')]
@@ -123,24 +115,9 @@
 		
 		public function unsetFocused(){
 			$this->isFocusedInput = false;
-			try{
-				$num                  = preg_replace('/[^0-9.]/','',$this->amount);
-				$this->currencyAmount = is_numeric($num) ? (float)$num : 0;
-				$this->amount         = $this->currencyAmount ? $this->formatNumber($this->currencyAmount) : '';
-			} catch(\Exception $e){
-				\Log::error('Error en unsetFocused: '.$e->getMessage());
-				$this->currencyAmount = 0;
-				$this->amount         = '';
-			}
-		}
-		
-		public function updatedAmount($value){
-			$this->validate([
-				'amount' => 'nullable|numeric|min:0',
-			],[
-				'amount.numeric' => 'El monto debe ser un número válido.',
-				'amount.min'     => 'El monto no puede ser negativo.',
-			]);
+			$num                  = preg_replace('/[^0-9.]/','',$this->amount);
+			$this->currencyAmount = is_numeric($num) ? (float)$num : 0;
+			$this->amount         = $this->currencyAmount ? $this->formatNumber($this->currencyAmount) : '';
 		}
 		
 		public function toggleCollapse(){
@@ -148,6 +125,11 @@
 		}
 		
 		public function showModalCalendar(){
+			// Sincronizar el calendario con la fecha seleccionada actual
+			$dateObj            = Carbon::parse($this->selectedDate);
+			$this->currentMonth = $dateObj->month;
+			$this->currentYear  = $dateObj->year;
+			$this->updateCalendar();
 			$this->isOpenCalendarModal = true;
 		}
 		
@@ -183,6 +165,21 @@
 		public function switchToggle(){
 			$this->isActive       = !$this->isActive;
 			$this->isSwitchRepeat = $this->isActive;
+		}
+		
+		private function validateCurrencyAmount(){
+			$this->validate([
+				'currencyAmount' => [
+					'required',
+				],
+			],[
+				'currencyAmount.required' => 'Targets require a positive amount.',
+			]);
+		}
+		
+		public function saveTarget(){
+			$this->validateCurrencyAmount();
+			
 		}
 		
 		public function render(){

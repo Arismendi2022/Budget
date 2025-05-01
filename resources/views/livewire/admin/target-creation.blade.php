@@ -710,7 +710,7 @@
 												<button wire:click="cancelCreateTarget" class="ghost-button primary type-body-large" type="button">
 													Cancel
 												</button>
-												<button class="ynab-button primary  " arial-label="Save Target, 0.00, Set aside another <bdi>$</bdi>0.00" type="button">
+												<button wire:click="saveTarget" class="ynab-button primary  " arial-label="Save Target, 0.00, Set aside another <bdi>$</bdi>0.00" type="button">
 													Save Target
 												</button>
 											</div>
