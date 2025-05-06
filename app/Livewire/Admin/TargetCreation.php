@@ -13,7 +13,7 @@
 		public $isAutoAssign           = true;
 		public $isOpenModalAssign      = false;
 		public $isCreateTarget         = false;
-		public $isOpenNextMonthModal   = false;
+		public $isOpenAsideModal       = false;
 		public $isOpenAsideCustomModal = false;
 		public $selectedFrequency      = 'monthly';
 		public $isOpenCalendarModal    = false;
@@ -69,9 +69,9 @@
 		}
 		
 		public function cancelCreateTarget(){
-			$this->isCreateTarget       = false;
-			$this->isOpenNextMonthModal = false;
-			$this->selectedDate         = Carbon::now()->addMonth()->startOfMonth()->format('Y-m-d');
+			$this->isCreateTarget   = false;
+			$this->isOpenAsideModal = false;
+			$this->selectedDate     = Carbon::now()->addMonth()->startOfMonth()->format('Y-m-d');
 			// Actualizar el mes y año del calendario para que coincida con selectedDate
 			$dateObj            = Carbon::parse($this->selectedDate);
 			$this->currentMonth = $dateObj->month;
@@ -81,10 +81,10 @@
 		
 		#[On('showCategoryTarget')]
 		public function showCategoryTarget($categoryId){
-			$this->category             = Category::findOrFail($categoryId);
-			$this->isAutoAssign         = false;
-			$this->isCreateTarget       = false;
-			$this->isOpenNextMonthModal = false;
+			$this->category         = Category::findOrFail($categoryId);
+			$this->isAutoAssign     = false;
+			$this->isCreateTarget   = false;
+			$this->isOpenAsideModal = false;
 		}
 		
 		#[On('hideCategoryTarget')]
@@ -93,19 +93,11 @@
 		}
 		
 		public function showNextMonthModal(){
-			$this->isOpenNextMonthModal = true;
-		}
-		
-		public function hideNextMonthModal(){
-			$this->isOpenNextMonthModal = false;
+			$this->isOpenAsideModal = true;
 		}
 		
 		public function showAsideCustomModal(){
 			$this->isOpenAsideCustomModal = true;
-		}
-		
-		public function hideAsideCustomModal(){
-			$this->isOpenAsideCustomModal = false;
 		}
 		
 		public function setFocused(){

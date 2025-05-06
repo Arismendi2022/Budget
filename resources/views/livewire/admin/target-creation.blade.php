@@ -284,7 +284,7 @@
 																<input id="target-amount" class="ember-text-field ember-view " title="Target Amount" aria-label="Target Amount" onfocus="this.select()" autofocus=""
 																	type="text" wire:model.lazy="amount" wire:blur="unsetFocused">
 																<button class="user-data currency tabular-nums zero " wire:click="setFocused">
-																	<span><bdi>{{ currency() }}</bdi>{{ format_number($currencyAmount) }}</span>
+																	<span><bdi>{{ format_currency($currencyAmount) }}</bdi></span>
 																</button>
 															</div>
 														</div>
@@ -419,17 +419,17 @@
 														<dt>I want to</dt>
 														<dd>
 															<div class="type-dropdown target-behavior-dropdown">
-																<div id="ember160" class="ynab-new-dropdown js-ynab-new-dropdown is-dropdown-showing ">
+																<div id="ember160" class="ynab-new-dropdown js-ynab-new-dropdown {{ $isOpenAsideCustomModal ? 'is-dropdown-showing' : '' }}">
 																	<button wire:click="showAsideCustomModal" class="ynab-new-dropdown-container js-ynab-new-dropdown-container user-data" aria-haspopup="true"
 																		aria-expanded="true" aria-label="I want to, Popup button collapsed, Set aside <bdi>$</bdi>0.00 selected" title="I want to" type="button">
-																		<span>Set aside <bdi>$</bdi>0.00</span>
+																		<span>Set aside <bdi>{{ format_currency($currencyAmount ?? 0) }}</bdi></span>
 																		<svg class="ynab-new-icon" width="9" height="9">
 																			<use href="#icon_sprite_caret_down"></use>
 																		</svg>
 																	</button>
 																	<!---->
 																	@if($isOpenAsideCustomModal)
-																		<div id="ember141" class="modal-overlay active ynab-new-dropdown-modal" wire:click="hideAsideCustomModal">
+																		<div id="asideModal" class="modal-overlay active ynab-new-dropdown-modal" wire:click.self="$set('isOpenAsideCustomModal', false)">
 																			<div class="modal" role="dialog" aria-modal="true" style="top: 264.8px; left: 1145.2px; height: auto; width: 481.8px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
 																					<button class="type-dropdown-option is-selected" role="option" aria-selected="true" type="button">
@@ -478,6 +478,10 @@
 																					</button>
 																					<hr class="dropdown-divider">
 																				</div>
+																				<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none"
+																					style="top: 100%; left: 225.9px; height: 0.9375rem; width: 1.875rem;">
+																					<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform="rotate(180 50 50)"></path>
+																				</svg>
 																			</div>
 																		</div>
 																	@endif
@@ -628,30 +632,36 @@
 														<dt>{{ $selectedFrequency === 'yearly' ? 'Next year I want to' : 'Next month I want to' }}</dt>
 														<dd>
 															<div class="type-dropdown target-behavior-dropdown">
-																<div class="ynab-new-dropdown js-ynab-new-dropdown is-dropdown-showing" id="ember313">
+																<div id="ember313" class="ynab-new-dropdown js-ynab-new-dropdown {{ $isOpenAsideModal ? 'is-dropdown-showing' : '' }}">
 																	<button wire:click="showNextMonthModal" class="ynab-new-dropdown-container js-ynab-new-dropdown-container user-data" aria-haspopup="true"
-																		aria-expanded="false"
+																		aria-expanded="true"
 																		aria-label="undefined, Popup button collapsed, Set aside another <bdi>$</bdi>0.00 selected" type="button">
-																		<span>Set aside another <bdi>{{ currency() }}</bdi>0.00{{ $selectedFrequency === 'weekly' ? '/week' : '' }}</span>
+																		<span>Set aside another <bdi>{{ format_currency($currencyAmount ?? 0) }}{{ $selectedFrequency === 'weekly' ? '/week' : '' }}</bdi></span>
 																		<svg class="ynab-new-icon" width="9" height="9">
 																			<!---->
 																			<use href="#icon_sprite_caret_down"></use>
 																		</svg>
 																	</button>
-																	@if($isOpenNextMonthModal)
-																		<div id="ember314" class="modal-overlay active ynab-new-dropdown-modal" wire:click.self="$set('isOpenNextMonthModal', false)">
+																	@if($isOpenAsideModal)
+																		<div id="dropdownModal" class="modal-overlay active ynab-new-dropdown-modal "
+																			wire:click.self="$set('isOpenAsideModal', false)">
 																			<div class="modal" role="dialog" aria-modal="true" style="top: 429.6px; left: 1145.2px; height: auto; width: 481.8px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
-																					<button class="type-dropdown-option " role="option" aria-selected="true" type="button">
+																					<button class="type-dropdown-option is-selected" role="option" aria-selected="true" type="button">
 																						<div class="type-dropdown-label">
 																							<div class="type-dropdown-label-title">
 																								<svg class="ynab-new-icon type-dropdown-icon" width="16" height="16">
 																									<!---->
-																									<use href="#icon_sprite_check_circle_fill"></use>
+																									<use href="#icon_sprite_check_circle_fill">
+																										<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check_circle_fill" fill="none" viewBox="0 0 24 24">
+																											<path fill="currentColor"
+																												d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24M8.7 17.1l-4.3-4.3a1.2 1.2 0 0 1 0-1.7 1.2 1.2 0 0 1 1.7 0l3.5 3.5 8.3-8.3a1 1 0 0 1 1.6 0 1.2 1.2 0 0 1 0 1.7l-9 9.1a1.2 1.2 0 0 1-1.8 0"></path>
+																										</symbol>
+																									</use>
 																								</svg>
 																								<strong>Set aside another
-																									<bdi>$</bdi>
-																									0.00</strong>
+																									<bdi>{{ format_currency($currencyAmount) }}</bdi>
+																								</strong>
 																							</div>
 																							<em>Use for: bills, subscriptions, saving over time</em>
 																							<div class="type-dropdown-label-tagline callout">
@@ -665,16 +675,15 @@
 																							<div class="type-dropdown-label-title">
 																								<!---->
 																								<strong>Refill up to
-																									<bdi>$</bdi>
-																									0.00</strong>
+																									<bdi>{{ format_currency($currencyAmount) }}</bdi>
+																								</strong>
 																							</div>
 																							<em>Use for: gasoline, fun money, dining out</em>
 																							<div class="type-dropdown-label-tagline ">
 																								Sets a Target to have
-																								<bdi>$</bdi>
-																								0.00 on hand each month. Whatever you don't spend will get applied toward next month's
-																								<bdi>$</bdi>
-																								0.00.
+																								<bdi>{{ format_currency($currencyAmount) }}</bdi>
+																								on hand each month. Whatever you don't spend will get applied toward next month's
+																								<bdi>{{ format_currency($currencyAmount) }}</bdi>
 																							</div>
 																						</div>
 																					</button>
@@ -861,7 +870,40 @@
 				}, 10); // Retraso de 10 ms
 			});
 		});
-	
+
+		/**
+		 * Ajusta modales según el estado de la barra lateral
+		 */
+		const updateModals = () => {
+			const collapsed = document.getElementById("sidebar")?.classList.contains("sidebar-resized-collapsed");
+
+			// Actualiza el modal principal
+			const modalOverlay = document.querySelector(".ynab-new-dropdown-modal");
+			if (modalOverlay) {
+				const modal = modalOverlay.querySelector(".modal");
+				const arrow = modalOverlay.querySelector(".modal-arrow");
+
+				if (modal) {
+					modal.style.left = collapsed ? "1281.88px" : "1145.2px";
+					modal.style.width = collapsed ? "549.117px" : "481.8px";
+				}
+				if (arrow) arrow.style.left = collapsed ? "259.559px" : "225.9px";
+			}
+
+			// Actualiza asideModal
+			const asideModalContent = document.getElementById("asideModal")?.querySelector(".modal");
+			if (asideModalContent) asideModalContent.style.top = collapsed ? "281.1px" : "264.8px";
+		};
+
+		// Observer y eventos
+		new MutationObserver(() => {
+			if (document.querySelector(".ynab-new-dropdown-modal") || document.getElementById("asideModal")) {
+				updateModals();
+			}
+		}).observe(document.body, {childList: true, subtree: true});
+
+		document.addEventListener("livewire:load", updateModals);
+		window.addEventListener("livewire:update", updateModals);
 	
 	</script>
 @endpush

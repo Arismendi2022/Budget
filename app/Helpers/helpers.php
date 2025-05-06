@@ -35,26 +35,6 @@
 		}
 	}
 	
-	if(!function_exists('format_currency')){
-		/**
-		 * Formatea un número como una cantidad monetaria, incluyendo el símbolo de la moneda.
-		 *
-		 * @param float|null $amount La cantidad a formatear.
-		 * @return string La cantidad formateada con el símbolo de la moneda.
-		 * format_currency($budgetTotal) devuelve €1,500.75.
-		 */
-		function format_currency(float|null $amount):string{
-			// Obtener el símbolo de la moneda
-			$symbol = currency();
-			
-			// Formatear el número
-			$formattedNumber = format_number($amount);
-			
-			// Combinar el símbolo y el número formateado
-			return $symbol.$formattedNumber;
-		}
-	}
-	
 	// Registrar la función global
 	if(!function_exists('generateDayOptions')){
 		/**
@@ -68,5 +48,17 @@
 		}
 	}
 	
+	if(!function_exists('format_currency')){
+		/**
+		 * Formatea un número como una cantidad monetaria, incluyendo el símbolo de la moneda y su posición.
+		 *
+		 * @param float|null $amount La cantidad a formatear.
+		 * @return string La cantidad formateada con el símbolo de la moneda.
+		 * format_currency($budgetTotal) devuelve €1,500.75.
+		 */
+		function format_currency(float|null $amount):string{
+			return \App\Helpers\FormatCurrencyHelper::formatCurrency($amount);
+		}
+	}
 
 	

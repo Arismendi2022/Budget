@@ -1054,7 +1054,7 @@
 					</div>
 					<div class="budget-table-cell-budgeted budget-table-row-li" role="cell" aria-colindex="4">
 						<button aria-disabled="true" class="user-data currency tabular-nums zero">
-							<span><bdi>{{ currency() }}</bdi>{{ format_number($group->total_assigned) }}</span>
+							<span><bdi>{{ format_currency($group->total_assigned) }}</bdi></span>
 						</button>
 					</div>
 					<div class="budget-table-cell-activity budget-table-cell-flexed budget-table-row-li" role="cell"
@@ -1076,21 +1076,21 @@
 							</div>
 						</button>
 						<button id="ember443" class="budget-number user-data"
-							title="(${{ format_number($group->total_activity) }}) View this category's monthly activity. Splendid."
+							title="({{ format_currency($group->total_activity) }}) View this category's monthly activity. Splendid."
 							tabindex="0"
 							aria-disabled="true"
 							type="button">
-							<span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>{{ format_number($group->total_activity) }}</span>
+							<span class="user-data currency tabular-nums zero"><bdi>{{ format_currency($group->total_activity) }}</bdi></span>
 						</button>
 					</div>
 					<div class="budget-table-cell-available budget-table-row-li" role="cell" aria-colindex="6">
 						<!---->
 						<button class="ynab-new-budget-available-number js-budget-available-number user-data"
-							title="${{ format_number($group->total_available) }} Available to plan your spending—or click to move it to another category!"
+							title="{{ format_currency($group->total_available) }} Available to plan your spending—or click to move it to another category!"
 							aria-disabled="true" disabled=""
 							type="button">
 							<!---->
-							<span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>{{ format_number($group->total_available) }}</span>
+							<span class="user-data currency tabular-nums zero"><bdi>{{ format_currency($group->total_available) }}</bdi></span>
 						</button>
 					</div>
 					<div class="budget-table-cell-margin-right budget-table-row-li" aria-hidden="true">&nbsp;</div>
@@ -1171,7 +1171,7 @@
 								<div class="input-wrapper">
 									<input id="dataCurrency-{{ $category->id }}" class="ember-text-field ember-view" type="text" value="0.00" onfocus="this.select()">
 									<button class="user-data currency tabular-nums zero">
-										<span><bdi>{{ currency() }}</bdi>{{ format_number($category->assigned) }}</span>
+										<span><bdi>{{ format_currency($category->assigned) }}</bdi></span>
 									</button>
 								</div>
 								<!---->
@@ -1196,11 +1196,11 @@
 								</div>
 							</button>
 							<button id="ember164" class="budget-number user-data"
-								title="({{ format_number($category->activity) }}) View this category's monthly activity. Splendid."
+								title="({{ format_currency($category->activity) }}) View this category's monthly activity. Splendid."
 								tabindex="0"
 								aria-disabled="true"
 								type="button">
-								<span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>{{ format_number($category->activity) }}</span>
+								<span class="user-data currency tabular-nums zero"><bdi>{{ format_currency($category->activity) }}</bdi></span>
 							</button>
 						</div>
 						<div class="budget-table-cell-available budget-table-row-li" role="cell" aria-colindex="6">
@@ -1208,7 +1208,7 @@
 							<button class="ynab-new-budget-available-number js-budget-available-number user-data zero" title=""
 								aria-disabled="true" disabled="" type="button">
 								<!---->
-								<span class="user-data currency tabular-nums zero "><bdi>{{ currency() }}</bdi>{{ format_number($category->available) }}</span>
+								<span class="user-data currency tabular-nums zero "><bdi>{{ format_currency($category->available) }}</bdi></span>
 							</button>
 						</div>
 						<div class="budget-table-cell-margin-right budget-table-row-li" aria-hidden="true">&nbsp;</div>

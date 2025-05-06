@@ -1,5 +1,5 @@
 <div>
-    {{-- If your happiness depends on money, you will never be happy with yourself. --}}
+	{{-- If your happiness depends on money, you will never be happy with yourself. --}}
 	<div class="nav-accounts">
 		@if(!$budgetAccounts->isEmpty())
 			@foreach($accountGroups as $group)
@@ -26,7 +26,7 @@
 						</button>
 						<div class="nav-account-value nav-account-block-value user-data">
               <span class="user-data currency tabular-nums {{ $group->total_balance >= 0 ? 'positive' : 'negative' }}">
-                {{ $group->total_balance < 0 ? '−' : '' }}<bdi>{{ currency() }}</bdi>{{ format_number(abs($group->total_balance)) }}
+                {{ $group->total_balance < 0 ? '−' : '' }}<bdi>{{ format_currency(abs($group->total_balance)) }}</bdi>
               </span>
 						</div>
 						<div class="nav-account-icons nav-account-icons-right"></div>
@@ -54,7 +54,7 @@
 									</div>
 									<div class="nav-account-value user-data">
                     <span class="user-data currency tabular-nums {{ $account->balance >= 0 ? 'positive' : 'negative' }}">
-                        {{ $account->balance < 0 ? '−' : '' }}<bdi>{{ currency() }}</bdi>{{ format_number(abs($account->balance)) }}
+											{{ $account->balance < 0 ? '−' : '' }}<bdi>{{ format_currency(abs($account->balance)) }}</bdi>
                     </span>
 									</div>
 									<span id="ember{{ $account->id + 1 }}" class="direct-status-import-icon nav-account-icons nav-account-icons-right">

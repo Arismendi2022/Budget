@@ -44,7 +44,7 @@
 		public function setDefaultFormats(){
 			$this->name               = null;
 			$this->currency           = 'USD';
-			$this->currency_placement = 'Symbol First';
+			$this->currency_placement = 'before';
 			$this->number_format      = '123,456.78';
 			$this->date_format        = 'MM/DD/YYYY';
 		}

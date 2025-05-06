@@ -262,7 +262,6 @@
 			updateMasterIcon();
 
 		});
-	
-	
+		
 	</script>
 @endpush

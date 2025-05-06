@@ -6872,7 +6872,7 @@ table.data-table tbody {
 }
 .ynab-new-dropdown-modal.modal-overlay {
 	background-color: transparent;
-	pointer-events: none
+	pointer-events: auto
 }
 .ynab-new-dropdown-modal .modal {
 	padding: 1rem
