@@ -326,9 +326,9 @@
 	--calloutWarningProminentBackground: #fbe48e;
 	--calloutWarningProminentBackgroundEmphasis: #daac00;
 	--calloutWarningProminentBackgroundLabel: #362c05;
-	--calloutWarningSubtleBackground: #fef9ed;
-	--calloutWarningSubtleBackgroundEmphasis: #fbe48e;
-	--calloutWarningSubtleBackgroundLabel: #362c05;
+	--calloutWarningSubtleBackground: rgba(246, 201, 29, 0.239);
+	--calloutWarningSubtleBackgroundEmphasis: #f8d655;
+	--calloutWarningSubtleBackgroundLabel: #000;
 	--categoryBalanceAlternateBorder: #000;
 	--categoryBalanceAlternateNegativeBackground: #c72c1e;
 	--categoryBalanceAlternateNegativeBackgroundActive: #962116;
@@ -16159,6 +16159,9 @@ text.bb-chart-arcs-gauge-title {
 	display: flex;
 	width: 260px;
 	z-index: 102
+}
+.sidebar {
+	transition: width 0.3s ease-in-out; /* Cambia a width */
 }
 .sidebar .sidebar-nav {
 	display: flex;

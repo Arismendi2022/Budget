@@ -44,15 +44,29 @@
 		
 		public function toggleGroup($groupId){
 			$group = CategoryGroup::with('categories')->find($groupId);
-			if(!$group) return;
+			if(!$group || $group->categories->isEmpty()) return;
 			
-			if($this->checkedGroupId === $groupId){
+			$categoryIds     = $group->categories->pluck('id')->toArray();
+			$isFullySelected = empty(array_diff($categoryIds,$this->selectedCategories));
+			
+			// 1. Si el grupo YA estaba completamente seleccionado
+			if($isFullySelected){
+				// Solo desmarcamos (sin cerrar modal)
 				$this->clearSelections();
-			}else{
+			}// 2. Si había selección parcial (1+ categorías pero no todas)
+			else if($this->checkedGroupId === $groupId){
+				// Desmarcamos Y cerramos el modal con el ID de la primera categoría
+				$categoryId = $group->categories->first()->id;
+				$this->clearSelections();
+				$this->dispatch('hideCategoryTarget',$categoryId); // ← Ahora con $categoryId
+			}// 3. Si el grupo NO estaba seleccionado
+			else{
+				// Marcamos todas las categorías (sin abrir modal)
 				$this->checkedGroupId     = $groupId;
-				$this->selectedCategories = $group->categories->pluck('id')->toArray();
+				$this->selectedCategories = $categoryIds;
 				$this->isPartial          = false;
 			}
+			
 			$this->updateMasterPartialState();
 		}
 		
@@ -80,7 +94,6 @@
 		public function toggleCategory($categoryId,$groupId){
 			if(in_array($categoryId,$this->selectedCategories)){
 				$this->selectedCategories = array_diff($this->selectedCategories,[$categoryId]);
-				
 				if(empty($this->selectedCategories)){
 					$this->clearSelections();
 				}else{
@@ -88,6 +101,7 @@
 					$this->isPartial      = true;
 					
 					if($this->editingCategoryId === $categoryId){
+						$this->dispatch('showCategoryTarget',$categoryId);
 						$this->resetEditingState();
 					}
 				}
@@ -98,9 +112,32 @@
 				$this->startEditing($categoryId);
 				$this->dispatch('focusInput',inputId:'dataCurrency-'.$categoryId);
 			}
-			
 			$this->updateMasterPartialState();
 			$this->dispatch('hideCategoryTarget',$categoryId);
+		}
+		
+		public function toggleCheckboxTarget($categoryId,$groupId){
+			// Verificamos si la categoría ya está seleccionada
+			$isAlreadySelected = in_array($categoryId,$this->selectedCategories);
+			
+			if($isAlreadySelected){
+				// Si ya está seleccionada, solo usamos toggleCategory que ya cierra el modal
+				$this->toggleCategory($categoryId,$groupId);
+			}else{
+				// Si no está seleccionada, primero la seleccionamos y luego activamos el modal
+				// Añadimos la categoría al array de seleccionadas
+				$this->selectedCategories[] = $categoryId;
+				$this->checkedGroupId       = $groupId;
+				$this->isPartial            = true;
+				$this->startEditing($categoryId);
+				
+				// Enfocamos el input y mostramos el modal
+				$this->dispatch('focusInput',inputId:'dataCurrency-'.$categoryId);
+				$this->dispatch('showCategoryTarget',$categoryId);
+				
+				// Actualizamos el estado
+				$this->updateMasterPartialState();
+			}
 		}
 		
 		public function startEditing($categoryId){
@@ -133,10 +170,20 @@
 		}
 		
 		public function toggleAllCategories(){
+			// Caso 1: Hay selección parcial o categorías seleccionadas
 			if($this->isMasterPartial || !empty($this->selectedCategories)){
+				// Obtener el ID de la primera categoría seleccionada (si existe)
+				$categoryId = !empty($this->selectedCategories) ? $this->selectedCategories[0] : null;
+				
 				$this->clearSelections();
 				$this->isMasterPartial = false;
-			}else{
+				
+				// Cerrar el modal solo si había selección parcial o una categoría activa
+				if($categoryId){
+					$this->dispatch('hideCategoryTarget',$categoryId);
+				}
+			}// Caso 2: No hay nada seleccionado
+			else{
 				$this->selectedCategories = Category::pluck('id')->toArray();
 				$this->checkedGroupId     = null;
 				$this->isPartial          = false;

@@ -215,26 +215,38 @@
 						<div id="ember131" class="ynab-new-inspector-goals">
 							<button wire:click="toggleCollapse" class="card-roll-up" aria-expanded="{{ $isCollapsed ? 'false' : 'true' }}" aria-controls="controls-ember132" type="button">
 								<h2>
+									@if($isTargetSuccess)
+										<svg width="16" height="16" viewBox="-1 -1 2 2" class="icon-circle-progress zero" xmlns="http://www.w3.org/2000/svg">
+											<defs>
+												<clipPath id="icon-circle-progress-clip-ember158">
+													<path d="M 1 0 A 1 1 0 0 1 0.9048270524660195 0.4257792915650727 L 0 0"></path>
+												</clipPath>
+											</defs>
+											<circle r=".9" cx="0" cy="0" stroke-width=".2" class="outer"></circle>
+											<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-ember158)"></circle>
+										</svg>
+									@endif
 									Target
 									<svg class="ynab-new-icon card-chevron" width="12" height="12">
-										<!---->
 										<use href="{{ $isCollapsed ? '#icon_sprite_chevron_right' : '#icon_sprite_chevron_down' }}"></use>
 									</svg>
 								</h2>
 							</button>
-							<div class="card-body" style="{{ $isCollapsed ? 'display: none;' : '' }}" aria-hidden="{{ $isCollapsed ? 'true' : 'false' }}" id="controls-ember132">
-								<div class="target-inspector">
-									<div class="view-target-empty-state">
-										<strong>How much do you need for {{ $category->name }}?</strong>
-										<p>
-											When you create a target, we’ll let you know how much money to set aside to stay on track over time.
-										</p>
-										<button wire:click="showCreateTarget" class="ynab-button secondary   budget-inspector-goals-create" type="button">
-											Create Target
-										</button>
+							@if(!$isTargetSuccess)
+								<div class="card-body" style="{{ $isCollapsed ? 'display: none;' : '' }}" aria-hidden="{{ $isCollapsed ? 'true' : 'false' }}" id="controls-ember132">
+									<div class="target-inspector">
+										<div class="view-target-empty-state">
+											<strong>How much do you need for {{ $category->name }}?</strong>
+											<p>
+												When you create a target, we’ll let you know how much money to set aside to stay on track over time.
+											</p>
+											<button wire:click="showCreateTarget" class="ynab-button secondary   budget-inspector-goals-create" type="button">
+												Create Target
+											</button>
+										</div>
 									</div>
 								</div>
-							</div>
+							@endif
 						</div>
 					@else
 						<div id="ember308" class="ynab-new-inspector-goals">
@@ -726,6 +738,79 @@
 										</div>
 									</div>
 								</div>
+							</div>
+						</div>
+					@endif
+					<!-- Mostrar éxito después de guardar -->
+					@if($isTargetSuccess)
+						<div class="card-body" aria-hidden="false" id="controls-ember108">
+							<div class="target-inspector">
+								<div class="target-inspector-header">
+									<!---->
+									<div class="header-bottom">
+										<h2 class="target-behavior">Set Aside Another $90.00 Each Month</h2>
+										<div class="target-by-date">By the 10th of the Month</div>
+									</div>
+								</div>
+								<hr>
+								<div class="donut-container">
+									<div class="donut-wrapper">
+                    <span class="label">
+                        <span class="percent">0</span><span>%</span>
+                    </span>
+										<div class="donut" style="clip: rect(0px, 1em, 1em, 0.5em);">
+											<div class="left half-circle passive" style="transform: rotate(7deg);"></div>
+											<div class="right half-circle passive" style="transform: rotate(0deg);"></div>
+										</div>
+										<div class="shadow"></div>
+									</div>
+								</div>
+								<div class="impact-message warning">
+									Assign
+									<span class="highlighted">$90.00</span>
+									to meet your target
+								</div>
+								<div class="target-breakdown">
+									<div class="target-breakdown-item">
+										<div class="target-breakdown-item-label">Amount to Assign This Month</div>
+										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums positive"><bdi>$</bdi>90.00</span></div>
+									</div>
+									<div class="target-breakdown-item">
+										<div class="target-breakdown-item-label">Assigned So Far</div>
+										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></div>
+									</div>
+									<hr>
+									<div class="target-breakdown-item">
+										<div class="target-breakdown-item-label">To Go</div>
+										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums positive"><bdi>$</bdi>90.00</span></div>
+									</div>
+								</div>
+								<button class="ynab-button secondary  " type="button">
+									Edit Target
+								</button>
+								<div class="goal-snooze">
+									<button class="ynab-switch off " role="checkbox" aria-checked="false" type="button">
+										<svg class="switch-toggle" xmlns="http://www.w3.org/2000/svg">
+											<rect></rect>
+											<circle></circle>
+										</svg>
+										Snooze target for this month
+										<span class="info-icon-tooltip" aria-describedby="ember159">
+										<a href="#">
+											<svg class="ynab-new-icon" width="16" height="16">
+												<!---->
+												<use href="#icon_sprite_question_mark_circle">
+													<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_question_mark_circle" fill="none" viewBox="0 0 24 24"><path fill="currentColor"
+															fill-rule="evenodd"
+															d="M12 24a12 12 0 1 1 0-24 12 12 0 0 1 0 24m0-22a10 10 0 1 0 0 20 10 10 0 0 0 0-20m1.1 12-.5.5h-1.1L11 14c0-3.3 2.8-3 2.8-5.5 0-.8-1-1.5-1.9-1.5-1 0-2 .7-2 1.5l.2.8a.5.5 0 0 1-.5.7h-1l-.5-.4L8 8.5C8 6.5 9.8 5 12 5s4 1.6 4 3.5c0 3.2-2.9 3-2.9 5.5M12 16a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 12 16"
+															clip-rule="evenodd"></path></symbol>
+												</use>
+											</svg>
+          					</a>
+        					</span>
+									</button>
+								</div>
+								<!---->
 							</div>
 						</div>
 					@endif

@@ -1,5 +1,5 @@
 {{-- Main Sidebar Container --}}
-<nav id="sidebar" class="ynab-u sidebar logged-in" style="width:260px;" role="navigation">
+<nav id="sidebar" class="ynab-u sidebar logged-in " style="width:260px;" role="navigation">
 	<div class="sidebar-left">
 		<div class="sidebar-contents">
 			<div class="sidebar-nav">

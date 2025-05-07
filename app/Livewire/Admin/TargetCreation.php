@@ -20,6 +20,7 @@
 		public $isActive               = false;
 		public $isSwitchRepeat         = false;
 		public $isFocusedInput         = false;
+		public $isTargetSuccess        = false;
 		
 		public $currencyAmount;
 		public $amount = '';
@@ -85,6 +86,7 @@
 			$this->isAutoAssign     = false;
 			$this->isCreateTarget   = false;
 			$this->isOpenAsideModal = false;
+			$this->isTargetSuccess  = false;
 		}
 		
 		#[On('hideCategoryTarget')]
@@ -171,7 +173,8 @@
 		
 		public function saveTarget(){
 			$this->validateCurrencyAmount();
-			
+			$this->isCreateTarget  = false;
+			$this->isTargetSuccess = true;
 		}
 		
 		public function render(){

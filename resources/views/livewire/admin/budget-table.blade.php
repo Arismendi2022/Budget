@@ -1107,11 +1107,11 @@
 						<div class="budget-table-cell-collapse budget-table-row-li" role="cell" aria-colindex="2">&nbsp;
 						</div>
 						<!-- Checkbox de la categoría -->
-						<div class="budget-table-cell-checkbox budget-table-row-li " role="cell" aria-colindex="1">
-							<button wire:click.stop="toggleCategory({{ $category->id }}, {{ $group->id }})"
+						<div class="budget-table-cell-checkbox budget-table-row-li " role="cell" aria-colindex="1" >
+							<button wire:click.stop="toggleCheckboxTarget({{ $category->id }}, {{ $group->id }})"
 								class="ynab-checkbox ynab-checkbox-button {{ in_array($category->id, $selectedCategories) ? 'is-checked' : '' }}" role="checkbox" aria-checked="true"
-								aria-label="{{ $category->name }}" type="button">
-								<svg class="ynab-new-icon ynab-checkbox-button-square {{ in_array($category->id, $selectedCategories) ? 'is-checked' : '' }}" width="13" height="13">
+								aria-label="{{ $category->name }}" type="button" >
+								<svg class="ynab-new-icon ynab-checkbox-button-square {{ in_array($category->id, $selectedCategories) ? 'is-checked' : '' }}" width="13" height="13" >
 									<!---->
 									<use href="#icon_sprite_check">
 										<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check" fill="none" viewBox="0 0 24 24">
@@ -1158,7 +1158,6 @@
 							</div>
 						@endif
 						<!---->
-						
 						<div class="budget-table-cell-budgeted budget-table-row-li" role="cell" aria-colindex="4">
 							<div id="ember23" class="ynab-new-currency-input {{ $editingCategoryId === $category->id ? 'is-focused is-editing' : '' }}">
 								<button tabindex="-1" class="button-calculator" aria-hidden="true" type="button">
