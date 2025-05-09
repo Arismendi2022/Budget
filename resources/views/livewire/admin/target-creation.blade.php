@@ -1007,6 +1007,22 @@
 
 		document.addEventListener("livewire:load", updateModals);
 		window.addEventListener("livewire:update", updateModals);
+
+		// Script para solucionar el problema de enfoque del input de divisa al hacer clic en otros elementos
+		document.addEventListener('click', function (event) {
+			// Solo ejecutar cuando el elemento está enfocado
+			if (!document.querySelector('.is-focused.is-editing')) return;
+
+			// Si el clic no fue en el componente de divisa
+			if (!event.target.closest('#new-currency')) {
+				// Obtener el elemento de input
+				const input = document.getElementById('target-amount');
+				if (input) {
+					// Disparar evento blur manualmente
+					input.dispatchEvent(new Event('blur'));
+				}
+			}
+		});
 	
 	</script>
 @endpush
