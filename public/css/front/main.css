@@ -6870,10 +6870,6 @@ table.data-table tbody {
 	font-size: 1.1rem;
 	margin-right: .5rem
 }
-.ynab-new-dropdown-modal.modal-overlay {
-	background-color: transparent;
-	pointer-events: auto
-}
 .ynab-new-dropdown-modal .modal {
 	padding: 1rem
 }
@@ -16160,9 +16156,6 @@ text.bb-chart-arcs-gauge-title {
 	width: 260px;
 	z-index: 102
 }
-.sidebar {
-	transition: width 0.3s ease-in-out; /* Cambia a width */
-}
 .sidebar .sidebar-nav {
 	display: flex;
 	flex-direction: column;
@@ -24628,9 +24621,17 @@ bdi {
 }
 
 /** CSS Personalizados */
+.sidebar {
+	transition: width 0.3s ease-in-out; /* Cambia a width */
+}
+.ynab-new-dropdown-modal.modal-overlay {
+	background-color: transparent;
+	pointer-events: auto
+}
 .is-centered {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
+
 

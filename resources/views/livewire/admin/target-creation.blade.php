@@ -5,7 +5,7 @@
 		</div>
 	</div>
 	<div class="budget-inspector-content">
-		@if($isAutoAssign)
+		@if($state['isAutoAssign'])
 			<div class="budget-breakdown ">
 				<section class="card budget-breakdown-auto-assign is-collapsed">
 					<button class="card-roll-up" aria-expanded="true" aria-controls="controls-ember95" type="button">
@@ -211,11 +211,12 @@
 				</section>
 				<!---->
 				<section class="card target-inspector-card ">
-					@if(!$isCreateTarget)
+					@if(!$state['isCreateTarget'])
 						<div id="ember131" class="ynab-new-inspector-goals">
-							<button wire:click="toggleCollapse" class="card-roll-up" aria-expanded="{{ $isCollapsed ? 'false' : 'true' }}" aria-controls="controls-ember132" type="button">
+							<button wire:click="toggleCollapse" class="card-roll-up" aria-expanded="{{ $state['isCollapsed'] ? 'false' : 'true' }}" aria-controls="controls-ember132"
+								type="button">
 								<h2>
-									@if($isTargetSuccess)
+									@if($state['isTargetSuccess'])
 										<svg width="16" height="16" viewBox="-1 -1 2 2" class="icon-circle-progress zero" xmlns="http://www.w3.org/2000/svg">
 											<defs>
 												<clipPath id="icon-circle-progress-clip-ember158">
@@ -228,12 +229,13 @@
 									@endif
 									Target
 									<svg class="ynab-new-icon card-chevron" width="12" height="12">
-										<use href="{{ $isCollapsed ? '#icon_sprite_chevron_right' : '#icon_sprite_chevron_down' }}"></use>
+										<use href="{{ $state['isCollapsed'] ? '#icon_sprite_chevron_right' : '#icon_sprite_chevron_down' }}"></use>
 									</svg>
 								</h2>
 							</button>
-							@if(!$isTargetSuccess)
-								<div class="card-body" style="{{ $isCollapsed ? 'display: none;' : '' }}" aria-hidden="{{ $isCollapsed ? 'true' : 'false' }}" id="controls-ember132">
+							@if(!$state['isTargetSuccess'])
+								<div class="card-body" style="{{ $state['isCollapsed'] ? 'display: none;' : '' }}" aria-hidden="{{ $state['isCollapsed'] ? 'true' : 'false' }}"
+									id="controls-ember132">
 									<div class="target-inspector">
 										<div class="view-target-empty-state">
 											<strong>How much do you need for {{ $category->name }}?</strong>
@@ -284,7 +286,7 @@
 												<dl>
 													<dt>{{ $selectedFrequency == 'custom' ? 'Amount' : 'I need' }}</dt>
 													<dd class="user-data">
-														<div id="new-currency" class="ynab-new-currency-input {{ $isFocusedInput ? 'is-focused is-editing' : '' }} mod-left-aligned text-input">
+														<div id="new-currency" class="ynab-new-currency-input {{ $state['isFocusedInput'] ? 'is-focused is-editing' : '' }} mod-left-aligned text-input">
 															<button tabindex="-1" class="button-calculator" aria-hidden="true" type="button">
 																<svg class="icon-calculator" viewBox="0 0 16 16">
 																	<desc>Clicking this button will open the calculator</desc>
@@ -362,13 +364,13 @@
 														</dt>
 														<dd class="input-container-with-arrow " wire:click="showModalCalendar">
 															<input id="ember488" class="ember-text-field ember-view ynab-new-inspector-goals-calendar-select js-ynab-new-inspector-goals-calendar-select"
-																readonly="readonly" type="text" value="{{ $formattedDate }}">
+																readonly="readonly" title="Date" placeholder="DD/MM/YYYY" type="text" value="{{ $formattedDate }}">
 														</dd>
 														<!---->
 														<div class="ynab-new-inspector-goals-calendar">
-															@if($isOpenCalendarModal)
+															@if($state['isOpenCalendarModal'])
 																<div id="ember168" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
-																	wire:click.self="$set('isOpenCalendarModal', false)">
+																	wire:click.self="$set('state.isOpenCalendarModal', false)">
 																	<div class="modal" role="dialog" aria-modal="true" style="top: 647.8px; left: 1271.1px;">
 																		<div class="accounts-calendar">
 																			<ul class="accounts-calendar-date">
@@ -431,56 +433,59 @@
 														<dt>I want to</dt>
 														<dd>
 															<div class="type-dropdown target-behavior-dropdown">
-																<div id="ember160" class="ynab-new-dropdown js-ynab-new-dropdown {{ $isOpenAsideCustomModal ? 'is-dropdown-showing' : '' }}">
+																<div id="ember160" class="ynab-new-dropdown js-ynab-new-dropdown {{ $state['isOpenAsideCustomModal'] ? 'is-dropdown-showing' : '' }}">
 																	<button wire:click="showAsideCustomModal" class="ynab-new-dropdown-container js-ynab-new-dropdown-container user-data" aria-haspopup="true"
 																		aria-expanded="true" aria-label="I want to, Popup button collapsed, Set aside <bdi>$</bdi>0.00 selected" title="I want to" type="button">
-																		<span>Set aside <bdi>{{ format_currency($currencyAmount ?? 0) }}</bdi></span>
+																		<span>{{ $selectedTextCustom }} <bdi>{{ format_currency($currencyAmount) }}</bdi></span>
 																		<svg class="ynab-new-icon" width="9" height="9">
 																			<use href="#icon_sprite_caret_down"></use>
 																		</svg>
 																	</button>
 																	<!---->
-																	@if($isOpenAsideCustomModal)
-																		<div id="asideModal" class="modal-overlay active ynab-new-dropdown-modal" wire:click.self="$set('isOpenAsideCustomModal', false)">
+																	@if($state['isOpenAsideCustomModal'])
+																		<div id="asideModal" class="modal-overlay active ynab-new-dropdown-modal" wire:click.self="$set('state.isOpenAsideCustomModal', false)">
 																			<div class="modal" role="dialog" aria-modal="true" style="top: 264.8px; left: 1145.2px; height: auto; width: 481.8px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
-																					<button class="type-dropdown-option is-selected" role="option" aria-selected="true" type="button">
+																					<button wire:click="updateSelectedTextCustom('Set aside')" class="type-dropdown-option is-selected" role="option" aria-selected="true"
+																						type="button">
 																						<div class="type-dropdown-label">
 																							<div class="type-dropdown-label-title">
 																								<svg class="ynab-new-icon type-dropdown-icon" width="16" height="16">
 																									<use href="#icon_sprite_check_circle_fill"></use>
 																								</svg>
 																								<strong>Set aside
-																									<span><bdi>{{ currency() }}</bdi>0.00</span>
+																									<span><bdi>{{ format_currency($currencyAmount) }}</bdi></span>
 																								</strong>
 																							</div>
 																							<em>Use for: bills, subscriptions, saving over time</em>
 																							<div class="type-dropdown-label-tagline ">
 																								Add
-																								<span><bdi>{{ currency() }}</bdi>0.00</span> to this category, regardless of its current balance.
+																								<span><bdi>{{ format_currency($currencyAmount) }}</bdi></span> to this category, regardless of its current balance.
 																							</div>
 																						</div>
 																					</button>
 																					<hr class="dropdown-divider">
-																					<button class="type-dropdown-option " role="option" aria-selected="false" type="button">
+																					<button wire:click="updateSelectedTextCustom('Fill up to')" class="type-dropdown-option " role="option" aria-selected="false"
+																						type="button">
 																						<div class="type-dropdown-label">
 																							<div class="type-dropdown-label-title">
 																								<strong>Fill up to
-																									<span><bdi>{{ currency() }}</bdi>0.00</span></strong>
+																									<span><bdi>{{ format_currency($currencyAmount) }}</bdi></span></strong>
 																							</div>
 																							<em>Use for: gasoline, fun money, dining out</em>
 																							<div class="type-dropdown-label-tagline ">
 																								Use what is already in this category and fill it up to
-																								<span><bdi>{{ currency() }}</bdi>0.00.</span>
+																								<span><bdi>{{ format_currency($currencyAmount) }}</bdi></span>
 																							</div>
 																						</div>
 																					</button>
 																					<hr class="dropdown-divider">
-																					<button class="type-dropdown-option " role="option" aria-selected="false" type="button">
+																					<button wire:click="updateSelectedTextCustom('Have a balance of')" class="type-dropdown-option " role="option" aria-selected="false"
+																						type="button">
 																						<div class="type-dropdown-label">
 																							<div class="type-dropdown-label-title">
 																								<strong>Have a balance of
-																									<span><bdi>{{ currency() }}</bdi>0.00</span></strong>
+																									<span><bdi>{{ format_currency($currencyAmount) }}</bdi></span></strong>
 																							</div>
 																							<em>Use for: long-term savings</em>
 																							<div class="type-dropdown-label-tagline ">
@@ -507,13 +512,13 @@
 														</dt>
 														<dd class="input-container-with-arrow " wire:click="showModalCalendar">
 															<input id="ember488" class="ember-text-field ember-view ynab-new-inspector-goals-calendar-select js-ynab-new-inspector-goals-calendar-select"
-																readonly="readonly" type="text" value="{{ $formattedDate }}">
+																readonly="readonly" title="Date" placeholder="DD/MM/YYYY" type="text" value="{{ $formattedDate }}">
 														</dd>
 														<!---->
 														<div class="ynab-new-inspector-goals-calendar">
-															@if($isOpenCalendarModal)
-																<div id="ember168" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
-																	wire:click.self="$set('isOpenCalendarModal', false)">
+															@if($state['isOpenCalendarModal'])
+																<div id="modalCalendar" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
+																	wire:click.self="$set('state.isOpenCalendarModal', false)">
 																	<div class="modal" role="dialog" aria-modal="true" style="top: 400.4px; left: 1271.1px;">
 																		<div class="accounts-calendar">
 																			<ul class="accounts-calendar-date">
@@ -571,7 +576,8 @@
 														</div>
 													</dl>
 													<div class="frequency-repeat">
-														<button wire:click="switchToggle" class="ynab-switch {{ $isActive ? 'on' : 'off' }} " role="checkbox" aria-checked="{{ $isActive ? 'true' : 'false' }}"
+														<button wire:click="switchToggle" class="ynab-switch {{ $state['isActiveSwitch'] ? 'on' : 'off' }} " role="checkbox" aria-checked="{{ $state['isActiveSwitch'] ?
+														'true' :'false' }}"
 															type="button">
 															<svg class="switch-toggle" xmlns="http://www.w3.org/2000/svg">
 																<rect></rect>
@@ -580,7 +586,7 @@
 															Repeat
 														</button>
 													</div>
-													@if($isSwitchRepeat)
+													@if($state['isSwitchRepeat'])
 														<dl>
 															<dt>
 																Every
@@ -644,22 +650,23 @@
 														<dt>{{ $selectedFrequency === 'yearly' ? 'Next year I want to' : 'Next month I want to' }}</dt>
 														<dd>
 															<div class="type-dropdown target-behavior-dropdown">
-																<div id="ember313" class="ynab-new-dropdown js-ynab-new-dropdown {{ $isOpenAsideModal ? 'is-dropdown-showing' : '' }}">
+																<div id="ember313" class="ynab-new-dropdown js-ynab-new-dropdown {{ $state['isOpenAsideModal'] ? 'is-dropdown-showing' : '' }}">
 																	<button wire:click="showNextMonthModal" class="ynab-new-dropdown-container js-ynab-new-dropdown-container user-data" aria-haspopup="true"
 																		aria-expanded="true"
 																		aria-label="undefined, Popup button collapsed, Set aside another <bdi>$</bdi>0.00 selected" type="button">
-																		<span>Set aside another <bdi>{{ format_currency($currencyAmount ?? 0) }}{{ $selectedFrequency === 'weekly' ? '/week' : '' }}</bdi></span>
+																		<span>{{ $selectedText }} <bdi>{{ format_currency($currencyAmount) }} {{ $selectedFrequency === 'weekly' ? '/week' : '' }}</bdi></span>
 																		<svg class="ynab-new-icon" width="9" height="9">
 																			<!---->
 																			<use href="#icon_sprite_caret_down"></use>
 																		</svg>
 																	</button>
-																	@if($isOpenAsideModal)
+																	@if($state['isOpenAsideModal'])
 																		<div id="dropdownModal" class="modal-overlay active ynab-new-dropdown-modal "
-																			wire:click.self="$set('isOpenAsideModal', false)">
+																			wire:click.self="$set('state.isOpenAsideModal', false)">
 																			<div class="modal" role="dialog" aria-modal="true" style="top: 429.6px; left: 1145.2px; height: auto; width: 481.8px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
-																					<button class="type-dropdown-option is-selected" role="option" aria-selected="true" type="button">
+																					<button wire:click="updateSelectedText('Set aside another')" class="type-dropdown-option is-selected" role="option" aria-selected="true"
+																						type="button">
 																						<div class="type-dropdown-label">
 																							<div class="type-dropdown-label-title">
 																								<svg class="ynab-new-icon type-dropdown-icon" width="16" height="16">
@@ -682,7 +689,7 @@
 																						</div>
 																					</button>
 																					<hr class="dropdown-divider">
-																					<button class="type-dropdown-option " role="option" aria-selected="false" type="button">
+																					<button wire:click="updateSelectedText('Refill up to')" class="type-dropdown-option " role="option" aria-selected="false" type="button">
 																						<div class="type-dropdown-label">
 																							<div class="type-dropdown-label-title">
 																								<!---->
@@ -742,7 +749,7 @@
 						</div>
 					@endif
 					<!-- Mostrar éxito después de guardar -->
-					@if($isTargetSuccess)
+					@if($state['isTargetSuccess'])
 						<div class="card-body" aria-hidden="false" id="controls-ember108">
 							<div class="target-inspector">
 								<div class="target-inspector-header">
@@ -882,7 +889,7 @@
 		@endif
 	</div>
 	{{-- modal --}}
-	@if($isOpenModalAssign)
+	@if($state['isOpenModalAssign'])
 		<div class="auto-assign-confirmation">
 			<div id="auto_assign" class="modal-overlay active modal-fresh mod-skinny auto-assign-preview is-centered">
 				<div class="modal" role="dialog" aria-modal="true">
@@ -978,11 +985,22 @@
 			// Actualiza asideModal
 			const asideModalContent = document.getElementById("asideModal")?.querySelector(".modal");
 			if (asideModalContent) asideModalContent.style.top = collapsed ? "281.1px" : "264.8px";
+
+			// Actualiza el modal del calendario
+			const calendarModal = document.querySelector(".js-ynab-new-calendar-overlay");
+			if (calendarModal) {
+				const calendarModalContent = calendarModal.querySelector(".modal");
+				if (calendarModalContent) {
+					calendarModalContent.style.left = collapsed ? "1428.45px" : "1271.1px";
+				}
+			}
 		};
 
 		// Observer y eventos
 		new MutationObserver(() => {
-			if (document.querySelector(".ynab-new-dropdown-modal") || document.getElementById("asideModal")) {
+			if (document.querySelector(".ynab-new-dropdown-modal") ||
+				document.getElementById("asideModal") ||
+				document.querySelector(".js-ynab-new-calendar-overlay")) {
 				updateModals();
 			}
 		}).observe(document.body, {childList: true, subtree: true});

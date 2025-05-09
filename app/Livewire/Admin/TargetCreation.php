@@ -9,156 +9,153 @@
 	
 	class TargetCreation extends Component
 	{
-		public $isCollapsed            = false;
-		public $isAutoAssign           = true;
-		public $isOpenModalAssign      = false;
-		public $isCreateTarget         = false;
-		public $isOpenAsideModal       = false;
-		public $isOpenAsideCustomModal = false;
-		public $selectedFrequency      = 'monthly';
-		public $isOpenCalendarModal    = false;
-		public $isActive               = false;
-		public $isSwitchRepeat         = false;
-		public $isFocusedInput         = false;
-		public $isTargetSuccess        = false;
+		// Estados agrupados para mejor organización
+		public array $state = [
+			'isCollapsed'            => false,
+			'isAutoAssign'           => true,
+			'isOpenModalAssign'      => false,
+			'isCreateTarget'         => false,
+			'isOpenAsideModal'       => false,
+			'isOpenAsideCustomModal' => false,
+			'isOpenCalendarModal'    => false,
+			'isActiveSwitch'         => false,
+			'isSwitchRepeat'         => false,
+			'isFocusedInput'         => false,
+			'isTargetSuccess'        => false,
+		];
+		
+		public string $selectedFrequency  = 'monthly';
+		public string $selectedText       = 'Set aside another';
+		public string $selectedTextCustom = 'Set aside';
 		
 		public $currencyAmount;
-		public $amount = '';
+		public $amount;
 		
-		public $daysInMonth = [];
-		public $firstDayOfMonth;
-		public $category,$selectedDate,$currentMonth,$currentYear;
+		public array  $daysInMonth = [];
+		public        $firstDayOfMonth;
+		public        $category;
+		public string $selectedDate;
+		public int    $currentMonth;
+		public int    $currentYear;
 		
-		public function mount(){
-			$currentDate        = Carbon::now();
-			$nextMonth          = $currentDate->copy()->addMonth();
-			$this->currentMonth = $nextMonth->month;
-			$this->currentYear  = $nextMonth->year;
-			$this->selectedDate = $nextMonth->startOfMonth()->format('Y-m-d');
-			$this->updateCalendar();
+		// Frecuencias permitidas como constante
+		private const VALID_FREQUENCIES = ['weekly','monthly','yearly','custom'];
+		
+		public function mount():void{
+			$this->initializeDate(Carbon::now()->addMonth());
 		}
 		
-		public function formatNumber($number){
-			return format_number($number);
+		public function updatedAmount():void{
+			$num                  = preg_replace('/[^0-9.]/','',$this->amount);
+			$this->currencyAmount = is_numeric($num) ? (float)$num : 0;
+			$this->amount         = $this->currencyAmount ? format_number($this->currencyAmount) : '';
 		}
 		
-		public function showAutoAssignModal(){
-			$this->isOpenModalAssign = true;
+		public function showAutoAssignModal():void{
+			$this->state['isOpenModalAssign'] = true;
 		}
 		
-		public function hidenAutoAssignModal(){
-			$this->isOpenModalAssign = false;
+		public function setFrequency(string $frequency):void{
+			if(in_array($frequency,self::VALID_FREQUENCIES)){
+				$this->selectedFrequency = $frequency;
+			}
 		}
 		
-		public function setFrequency($frequency){
-			$this->selectedFrequency = $frequency;
+		private function resetTargetForm():void{
+			$this->initializeDate(Carbon::now()->addMonth());
+			$this->state['isActiveSwitch'] = false;
+			$this->reset(['amount','currencyAmount','selectedText','selectedTextCustom']);
 		}
 		
-		public function showCreateTarget(){
-			$this->isCreateTarget    = true;
-			$this->selectedFrequency = 'monthly';
-			$this->dispatch('focusInput');
-			$this->selectedDate = Carbon::now()->addMonth()->startOfMonth()->format('Y-m-d');
-			// Actualizar el mes y año del calendario para que coincida con selectedDate
-			$dateObj            = Carbon::parse($this->selectedDate);
-			$this->currentMonth = $dateObj->month;
-			$this->currentYear  = $dateObj->year;
-			$this->updateCalendar();
-			
+		public function showCreateTarget():void{
+			$this->state['isCreateTarget'] = true;
+			$this->selectedFrequency       = 'monthly';
+			$this->resetTargetForm();
 			$this->resetErrorBag();
-			$this->reset('amount','currencyAmount');
+			$this->dispatch('focusInput');
 		}
 		
-		public function cancelCreateTarget(){
-			$this->isCreateTarget   = false;
-			$this->isOpenAsideModal = false;
-			$this->selectedDate     = Carbon::now()->addMonth()->startOfMonth()->format('Y-m-d');
-			// Actualizar el mes y año del calendario para que coincida con selectedDate
-			$dateObj            = Carbon::parse($this->selectedDate);
-			$this->currentMonth = $dateObj->month;
-			$this->currentYear  = $dateObj->year;
-			$this->updateCalendar();
+		public function cancelCreateTarget():void{
+			$this->state['isCreateTarget']   = false;
+			$this->state['isOpenAsideModal'] = false;
+			$this->resetTargetForm();
 		}
 		
 		#[On('showCategoryTarget')]
-		public function showCategoryTarget($categoryId){
-			$this->category         = Category::findOrFail($categoryId);
-			$this->isAutoAssign     = false;
-			$this->isCreateTarget   = false;
-			$this->isOpenAsideModal = false;
-			$this->isTargetSuccess  = false;
+		public function showCategoryTarget(int $categoryId):void{
+			try{
+				$this->category                  = Category::findOrFail($categoryId);
+				$this->state['isAutoAssign']     = false;
+				$this->state['isCreateTarget']   = false;
+				$this->state['isOpenAsideModal'] = false;
+				$this->state['isTargetSuccess']  = false;
+			} catch(\Exception $e){
+				$this->addError('category','Category not found.');
+			}
 		}
 		
 		#[On('hideCategoryTarget')]
-		public function hideCategoryTarget($categoryId){
-			$this->isAutoAssign = true;
+		public function hideCategoryTarget():void{
+			$this->state['isAutoAssign'] = true;
 		}
 		
-		public function showNextMonthModal(){
-			$this->isOpenAsideModal = true;
+		public function showNextMonthModal():void{
+			$this->state['isOpenAsideModal'] = true;
 		}
 		
-		public function showAsideCustomModal(){
-			$this->isOpenAsideCustomModal = true;
+		public function showAsideCustomModal():void{
+			$this->state['isOpenAsideCustomModal'] = true;
 		}
 		
-		public function setFocused(){
-			$this->isFocusedInput = true;
+		public function setFocused():void{
+			$this->state['isFocusedInput'] = true;
 			$this->dispatch('focusInput');
 		}
 		
-		public function unsetFocused(){
-			$this->isFocusedInput = false;
-			$num                  = preg_replace('/[^0-9.]/','',$this->amount);
-			$this->currencyAmount = is_numeric($num) ? (float)$num : 0;
-			$this->amount         = $this->currencyAmount ? $this->formatNumber($this->currencyAmount) : '';
+		public function unsetFocused():void{
+			$this->state['isFocusedInput'] = false;
+			$this->updatedAmount();
 		}
 		
-		public function toggleCollapse(){
-			$this->isCollapsed = !$this->isCollapsed;
+		public function toggleCollapse():void{
+			$this->state['isCollapsed'] = !$this->state['isCollapsed'];
 		}
 		
-		public function showModalCalendar(){
-			// Sincronizar el calendario con la fecha seleccionada actual
-			$dateObj            = Carbon::parse($this->selectedDate);
-			$this->currentMonth = $dateObj->month;
-			$this->currentYear  = $dateObj->year;
-			$this->updateCalendar();
-			$this->isOpenCalendarModal = true;
+		public function showModalCalendar():void{
+			$this->initializeDate(Carbon::parse($this->selectedDate));
+			$this->state['isOpenCalendarModal'] = true;
 		}
 		
-		public function updateCalendar(){
-			$date                  = Carbon::create($this->currentYear,$this->currentMonth,1);
-			$this->firstDayOfMonth = $date->dayOfWeek;
-			$this->daysInMonth     = range(1,$date->daysInMonth);
+		public function previousMonth():void{
+			$this->initializeDate(Carbon::create($this->currentYear,$this->currentMonth,1)->subMonth());
 		}
 		
-		public function previousMonth(){
-			$date               = Carbon::create($this->currentYear,$this->currentMonth,1)->subMonth();
-			$this->currentMonth = $date->month;
-			$this->currentYear  = $date->year;
-			$this->updateCalendar();
+		public function nextMonth():void{
+			$this->initializeDate(Carbon::create($this->currentYear,$this->currentMonth,1)->addMonth());
 		}
 		
-		public function nextMonth(){
-			$date               = Carbon::create($this->currentYear,$this->currentMonth,1)->addMonth();
-			$this->currentMonth = $date->month;
-			$this->currentYear  = $date->year;
-			$this->updateCalendar();
+		public function selectDate(int $day):void{
+			$this->selectedDate                 = Carbon::create($this->currentYear,$this->currentMonth,$day)->format('Y-m-d');
+			$this->state['isOpenCalendarModal'] = false;
 		}
 		
-		public function selectDate($day){
-			$this->selectedDate        = Carbon::create($this->currentYear,$this->currentMonth,$day)->format('Y-m-d');
-			$this->isOpenCalendarModal = false;
-		}
-		
-		public function getFormattedDateProperty(){
+		public function getFormattedDateProperty():string{
 			return Carbon::parse($this->selectedDate)->format('M j, Y');
 		}
 		
-		public function switchToggle(){
-			$this->isActive       = !$this->isActive;
-			$this->isSwitchRepeat = $this->isActive;
+		public function switchToggle():void{
+			$this->state['isActiveSwitch'] = !$this->state['isActiveSwitch'];
+			$this->state['isSwitchRepeat'] = $this->state['isActiveSwitch'];
+		}
+		
+		public function updateSelectedText(string $text):void{
+			$this->selectedText              = $text;
+			$this->state['isOpenAsideModal'] = false;
+		}
+		
+		public function updateSelectedTextCustom(string $text):void{
+			$this->selectedTextCustom              = $text;
+			$this->state['isOpenAsideCustomModal'] = false;
 		}
 		
 		private function validateCurrencyAmount(){
@@ -171,10 +168,18 @@
 			]);
 		}
 		
-		public function saveTarget(){
+		public function saveTarget():void{
 			$this->validateCurrencyAmount();
-			$this->isCreateTarget  = false;
-			$this->isTargetSuccess = true;
+			$this->state['isCreateTarget']  = false;
+			$this->state['isTargetSuccess'] = true;
+		}
+		
+		private function initializeDate(Carbon $date):void{
+			$this->currentMonth    = $date->month;
+			$this->currentYear     = $date->year;
+			$this->selectedDate    = $date->startOfMonth()->format('Y-m-d');
+			$this->firstDayOfMonth = $date->dayOfWeek;
+			$this->daysInMonth     = range(1,$date->daysInMonth);
 		}
 		
 		public function render(){
@@ -183,4 +188,5 @@
 				'formattedDate' => $this->formattedDate,
 			]);
 		}
+		
 	}

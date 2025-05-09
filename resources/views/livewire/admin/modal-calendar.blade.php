@@ -1,7 +1,7 @@
 <div>
 	{{-- Modal Calendar--}}
 	@if($isOpenCalendarModal)
-		<div id="ember148" class=" modal-overlay active ynab-u modal-calendar " wire:click="closeCalendarModal">
+		<div id="modalCalendarHeader" class=" modal-overlay active ynab-u modal-calendar " wire:click="closeCalendarModal">
 			<div class="modal" role="dialog" aria-modal="true" style="top: 57.4667px; left: 258.15px; " wire:click.stop>
 				<div class="ynab-calendar">
 					<div class="month-picker">
@@ -56,3 +56,32 @@
 		</div>
 	@endif
 </div>
+@push('scripts')
+	<script>
+		/**
+		 * Ajusta el modal del calendario según el estado de la barra lateral
+		 */
+		const updateCalendarHeaderModal = () => {
+			const collapsed = document.getElementById("sidebar")?.classList.contains("sidebar-resized-collapsed");
+
+			// Actualiza específicamente el modalCalendarHeader usando su ID
+			const calendarHeaderModal = document.getElementById("modalCalendarHeader");
+			if (calendarHeaderModal) {
+				const calendarHeaderModalContent = calendarHeaderModal.querySelector(".modal");
+				if (calendarHeaderModalContent) {
+					calendarHeaderModalContent.style.left = collapsed ? "56.0663px" : "258.15px";
+				}
+			}
+		};
+
+		// Observer y eventos
+		new MutationObserver(() => {
+			if (document.getElementById("modalCalendarHeader")) {
+				updateCalendarHeaderModal();
+			}
+		}).observe(document.body, {childList: true, subtree: true});
+
+		document.addEventListener("livewire:load", updateCalendarHeaderModal);
+		window.addEventListener("livewire:update", updateCalendarHeaderModal);
+	</script>
+@endpush
