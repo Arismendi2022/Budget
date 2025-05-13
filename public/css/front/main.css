@@ -23,6 +23,7 @@
 	--alphaSPBlurple50013: rgba(84, 91, 254, 0.129);
 	--alphaSPBlurple50020: rgba(84, 91, 254, 0.2);
 	--alphaSPBlurple50024: rgba(84, 91, 254, 0.239);
+	--alphaSPBlurple5009: rgba(84, 91, 254, 0.09);
 	--alphaSPBlurple80016: rgba(41, 44, 108, 0.161);
 	--alphaSPBlurple8006: rgba(41, 44, 108, 0.059);
 	--alphaSPCoolGrey40012: rgba(114, 116, 132, 0.122);
@@ -96,7 +97,7 @@
 	--brandSPBlurple300: #a3acff;
 	--brandSPBlurple400: #7583ff;
 	--brandSPBlurple500: #545bfe;
-	--brandSPBlurple550: #4b5dfa;
+	--brandSPBlurple550: #475afa;
 	--brandSPBlurple600: #464cd1;
 	--brandSPBlurple700: #383ca3;
 	--brandSPBlurple800: #292c6c;
@@ -228,848 +229,6 @@
 	--utilityWhite80: rgba(255, 255, 255, 0.8);
 	--utilityWhite8: rgba(255, 255, 255, 0.078);
 	--accountwidgetMxWidgetBackground: #f8f9fb;
-	--actionPrimary: #3b5eda;
-	--actionPrimaryActive: #374d9b;
-	--actionPrimaryDisabled: #acbdfb;
-	--actionSecondary: #405163;
-	--actionSecondaryActive: #223243;
-	--actionSecondaryBorder: #d2d8de;
-	--actionSecondaryDisabled: #a5adb6;
-	--actionTertiary: #374d9b;
-	--actionTertiaryActive: #2c396a;
-	--actionbarBackground: #19223c;
-	--actionbarButtonBackground: #19223c;
-	--backgroundDarkPrimary: #1a2837;
-	--backgroundDarkSecondary: rgba(255, 255, 255, 0.149);
-	--backgroundDarkTertiary: rgba(255, 255, 255, 0.2);
-	--backgroundGroupedPrimary: #edf1f5;
-	--backgroundGroupedSecondary: #fff;
-	--backgroundGroupedTertiary: #edf1f5;
-	--backgroundNavigationBar: #3b5eda;
-	--backgroundPrimary: #fff;
-	--backgroundPrimaryElevated: #fff;
-	--backgroundSecondary: #edf1f5;
-	--backgroundSecondaryElevated: #edf1f5;
-	--backgroundTableHeader: #edf1f5;
-	--backgroundTableRow: #fff;
-	--backgroundTableRowSelected: #d8e0fd;
-	--backgroundTertiary: #d2d8de;
-	--backgroundTertiaryElevated: #d2d8de;
-	--backgroundVideoControls: #000;
-	--budgetBarBackground: #edf1f5;
-	--budgetBarBackgroundOnNonWhite: #fff;
-	--budgetBarBorder: #d2d8de;
-	--budgetBarEmpty: #fff;
-	--budgetBarFunded: #67c122;
-	--budgetBarFundedSpending: #a2e66e;
-	--budgetBarFundedSpendingStripe: #f1fbe9;
-	--budgetBarOverspending: #c72c1e;
-	--budgetBarOverspendingStripe: #fdd7d3;
-	--budgetBarPreviouslyAssigned: #6e7a88;
-	--budgetBarUnderfunded: #f6c91d;
-	--budgetBarUnderfundedSpending: #fbe48e;
-	--budgetBarUnderfundedSpendingStripe: #fef9ed;
-	--buttonDestructiveBackground: #feedeb;
-	--buttonDestructiveBackgroundActive: #c72c1e;
-	--buttonDestructiveLabel: #c72c1e;
-	--buttonEmphasizedBackground: #4d9119;
-	--buttonEmphasizedBackgroundActive: #67c122;
-	--buttonEmphasizedBackgroundDisabled: #d2d8de;
-	--buttonPrimaryBackground: #3b5eda;
-	--buttonPrimaryBackgroundActive: #374d9b;
-	--buttonPrimaryBackgroundDisabled: #d2d8de;
-	--buttonSecondaryBackground: rgba(59, 94, 218, 0.129);
-	--buttonSecondaryBackgroundActive: rgba(59, 94, 218, 0.2);
-	--buttonSecondaryLabel: #3b5eda;
-	--buttonTertiaryBackground: #edf1f5;
-	--buttonTertiaryBackgroundActive: #d2d8de;
-	--calloutNegativeAccent: #c72c1e;
-	--calloutNegativeButtonBackground: #c72c1e;
-	--calloutNegativeButtonBackgroundActive: #962116;
-	--calloutNegativeButtonForeground: #feedeb;
-	--calloutNegativeLabel: #3c0d09;
-	--calloutNegativeProminentBackground: #faada5;
-	--calloutNegativeProminentBackgroundEmphasis: #f77f73;
-	--calloutNegativeSubtleBackground: #feedeb;
-	--calloutNegativeSubtleBackgroundEmphasis: #faada5;
-	--calloutPositiveAccent: #67c122;
-	--calloutPositiveButtonBackground: #4d9119;
-	--calloutPositiveButtonBackgroundActive: #346011;
-	--calloutPositiveButtonForeground: #f1fbe9;
-	--calloutPositiveLabel: #1d300d;
-	--calloutPositiveProminentBackground: #c1ee9f;
-	--calloutPositiveProminentBackgroundEmphasis: #84dd3e;
-	--calloutPositiveSubtleBackground: #f1fbe9;
-	--calloutPositiveSubtleBackgroundEmphasis: #c1ee9f;
-	--calloutPrimaryAccent: #3b5eda;
-	--calloutPrimaryButtonBackground: #3b5eda;
-	--calloutPrimaryButtonBackgroundActive: #374d9b;
-	--calloutPrimaryButtonForeground: #ecf0fe;
-	--calloutPrimaryLabel: #19223c;
-	--calloutPrimaryProminentBackground: #d8e0fd;
-	--calloutPrimaryProminentBackgroundEmphasis: #829cf8;
-	--calloutPrimarySubtleBackground: rgba(59, 94, 218, 0.129);
-	--calloutPrimarySubtleBackgroundEmphasis: #acbdfb;
-	--calloutSecondaryAccent: #6e7a88;
-	--calloutSecondaryButtonBackground: #405163;
-	--calloutSecondaryButtonBackgroundActive: #223243;
-	--calloutSecondaryButtonForeground: #fff;
-	--calloutSecondaryLabel: #0c1722;
-	--calloutSecondaryProminentBackground: #d2d8de;
-	--calloutSecondaryProminentBackgroundEmphasis: #a5adb6;
-	--calloutSecondarySubtleBackground: rgba(110, 122, 136, 0.122);
-	--calloutSecondarySubtleBackgroundEmphasis: #d2d8de;
-	--calloutWarningAccent: #daac00;
-	--calloutWarningButtonBackground: #f6c91d;
-	--calloutWarningButtonBackgroundActive: #daac00;
-	--calloutWarningButtonForeground: #362c05;
-	--calloutWarningProminentBackground: #fbe48e;
-	--calloutWarningProminentBackgroundEmphasis: #daac00;
-	--calloutWarningProminentBackgroundLabel: #362c05;
-	--calloutWarningSubtleBackground: rgba(246, 201, 29, 0.239);
-	--calloutWarningSubtleBackgroundEmphasis: #f8d655;
-	--calloutWarningSubtleBackgroundLabel: #000;
-	--categoryBalanceAlternateBorder: #000;
-	--categoryBalanceAlternateNegativeBackground: #c72c1e;
-	--categoryBalanceAlternateNegativeBackgroundActive: #962116;
-	--categoryBalanceAlternateNegativeLabel: #feedeb;
-	--categoryBalanceAlternateWarningBackground: #f6c91d;
-	--categoryBalanceAlternateWarningBackgroundActive: #daac00;
-	--categoryBalanceNegativeBackground: #faada5;
-	--categoryBalanceNegativeBackgroundActive: #f77f73;
-	--categoryBalanceNegativeLabel: #3c0d09;
-	--categoryBalancePositiveBackground: #c1ee9f;
-	--categoryBalancePositiveBackgroundActive: #a2e66e;
-	--categoryBalancePositiveLabel: #1d300d;
-	--categoryBalanceWarningBackground: #f8d655;
-	--categoryBalanceWarningBackgroundActive: #f6c91d;
-	--categoryBalanceWarningLabel: #362c05;
-	--categoryBalanceZeroBackground: #edf1f5;
-	--categoryBalanceZeroLabel: #6e7a88;
-	--checkboxBackground: #fff;
-	--checkboxBackgroundDisabled: #d2d8de;
-	--checkboxBackgroundSelected: #3b5eda;
-	--checkboxBorder: #6e7a88;
-	--checkboxBorderSelected: #3b5eda;
-	--checkboxForegroundSelected: #fff;
-	--debtChartsFive: #84dd3e;
-	--debtChartsFour: #f1fbe9;
-	--debtChartsOne: #ecf0fe;
-	--debtChartsSeven: #6d5600;
-	--debtChartsSix: #fef9ed;
-	--debtChartsThree: #587bf6;
-	--debtChartsTwo: #d8e0fd;
-	--fillHover: rgba(0, 0, 0, 0.102);
-	--fillPrimary: rgba(110, 122, 136, 0.2);
-	--fillQuarternary: rgba(110, 122, 136, 0.078);
-	--fillSecondary: rgba(110, 122, 136, 0.161);
-	--fillTertiary: rgba(110, 122, 136, 0.122);
-	--filterBackground: #fff;
-	--filterBackgroundActive: rgba(59, 94, 218, 0.129);
-	--filterLabel: #3b5eda;
-	--filterLabelDisabled: #acbdfb;
-	--flagBlue: #5ac8fa;
-	--flagGreen: #34c759;
-	--flagOrange: #ff9500;
-	--flagPurple: #af52de;
-	--flagRed: #ff3b30;
-	--flagYellow: #fc0;
-	--headerBackground: #fff;
-	--iconFillPrimary: #6e7a88;
-	--iconFillSecondary: #a5adb6;
-	--iconFillTertiary: #d2d8de;
-	--iconTwotoneDark: #223243;
-	--iconTwotoneLight: #6e7a88;
-	--illustrationBackgroundBlurple200: #d8e0fd;
-	--illustrationBackgroundBlurple300: #acbdfb;
-	--illustrationBackgroundBlurple400: #829cf8;
-	--illustrationBackgroundBlurple500: #587bf6;
-	--illustrationBackgroundBlurple: #3b5eda;
-	--illustrationBackgroundButtermilk: #fef9ed;
-	--illustrationBackgroundDandelion: #f6c91d;
-	--illustrationBackgroundSlime: #67c122;
-	--inputBackground: #fff;
-	--inputBackgroundDisabled: #edf1f5;
-	--inputBorder: #d2d8de;
-	--inputBorderActive: #3b5eda;
-	--labelAction: #3b5eda;
-	--labelActionActive: #374d9b;
-	--labelActionDisabled: #acbdfb;
-	--labelDarkBackgroundPrimary: #fff;
-	--labelDarkBackgroundSecondary: #edf1f5;
-	--labelHeading: #19223c;
-	--labelNegative: #c72c1e;
-	--labelNegativeActive: #962116;
-	--labelNegativeDisabled: #fdd7d3;
-	--labelPositive: #4d9119;
-	--labelPositiveActive: #346011;
-	--labelPrimary: #19223c;
-	--labelQuaternary: #a5adb6;
-	--labelSecondary: #405163;
-	--labelTertiary: #6e7a88;
-	--labelWarning: #6d5600;
-	--loadingActionActive: #fff;
-	--loadingBackground: #2c396a;
-	--loadingShimmerBackground: #fff;
-	--loadingShimmerBackgroundFaded: rgba(255, 255, 255, 0.8);
-	--loanChartsPositive: #84dd3e;
-	--loanChartsPrimary: #3b5eda;
-	--loanChartsSecondary: #acbdfb;
-	--loanChartsTertiary: #d2d8de;
-	--loanChartsWarning: #f6c91d;
-	--modalBackgroundAccent: #2c396a;
-	--movesSelectedBackground: #3b5eda;
-	--movesStandardBackground: #d8e0fd;
-	--pillBackground: rgba(59, 94, 218, 0.129);
-	--pillLabel: #3b5eda;
-	--registerSecondaryButtonLabel: #3b5eda;
-	--registerSecondaryButtonLabelActive: #374d9b;
-	--reportsChartTrendAOMSelected: #4d9119;
-	--reportsChartTrendLine: #1b1d48;
-	--reportsChartTrendPoint: #1b1d48;
-	--reportsChartTrendPointShadow: rgba(0, 0, 0, 0.102);
-	--reportsEight: #fbe48e;
-	--reportsEleven: #d2d8de;
-	--reportsFive: #84dd3e;
-	--reportsFour: #829cf8;
-	--reportsNetworthAssetsBackground: #587bf6;
-	--reportsNetworthDebtsBackground: #fc6350;
-	--reportsNine: #fc6350;
-	--reportsOne: #587bf6;
-	--reportsSeven: #f6c91d;
-	--reportsSix: #c1ee9f;
-	--reportsSpendingBreakdownTop10: #c1ee9f;
-	--reportsSpendingBreakdownTop1: #3b5eda;
-	--reportsSpendingBreakdownTop2: #84dd3e;
-	--reportsSpendingBreakdownTop3: #f6c91d;
-	--reportsSpendingBreakdownTop4: #fc6350;
-	--reportsSpendingBreakdownTop5: #829cf8;
-	--reportsSpendingBreakdownTop6: #a2e66e;
-	--reportsSpendingBreakdownTop7: #f8d655;
-	--reportsSpendingBreakdownTop8: #f77f73;
-	--reportsSpendingBreakdownTop9: #acbdfb;
-	--reportsSpendingBreakdownTopOther: #d8e0fd;
-	--reportsTen: #faada5;
-	--reportsThree: #374d9b;
-	--reportsTwo: #acbdfb;
-	--scrimDefault: rgba(0, 0, 0, 0.102);
-	--scrimInvisible: rgba(0, 0, 0, 0);
-	--scrimStrong: rgba(0, 0, 0, 0.659);
-	--separatorStandard: #d2d8de;
-	--separatorStrong: #405163;
-	--separatorSubdued: rgba(0, 0, 0, 0.102);
-	--settingsHeaderBackground: #fff;
-	--sidebarAccountNegativeBalanceBackground: #fff;
-	--sidebarBackground: #2c396a;
-	--sidebarButtonBackgroundActive: #374d9b;
-	--sidebarButtonBackgroundSelected: #374d9b;
-	--sidebarButtonSecondaryBackground: rgba(255, 255, 255, 0.102);
-	--sidebarButtonSecondaryBackgroundActive: #374d9b;
-	--sidebarButtonSecondaryBackgroundPressed: rgba(0, 0, 0, 0.149);
-	--sidebarButtonTertiaryBackground: rgba(255, 255, 255, 0.149);
-	--sidebarButtonTertiaryBackgroundActive: rgba(255, 255, 255, 0.302);
-	--sidebarButtonTertiaryBackgroundPressed: rgba(255, 255, 255, 0.349);
-	--sidebarIconFillDefault: #fff;
-	--sidebarLabelPrimary: #fff;
-	--sidebarLabelSecondary: rgba(255, 255, 255, 0.8);
-	--statusNegative: #c72c1e;
-	--statusPositive: #67c122;
-	--statusWarning: #f6c91d;
-	--swoopBottom: #84dd3e;
-	--viewsErrorBackground: #faada5;
-	--viewsErrorBackgroundHover: #f77f73;
-	--viewsErrorBackgroundSelected: #feedeb;
-	--viewsErrorBackgroundSelectedHover: #fdd7d3;
-	--viewsErrorLabel: #3c0d09;
-	--viewsErrorLabelSelected: #3c0d09;
-	--viewsErrorSelectedAccent: #fc6350;
-	--viewsNeutralBackground: #edf1f5;
-	--viewsNeutralBackgroundHover: #d2d8de;
-	--viewsNeutralBackgroundSelected: #d8e0fd;
-	--viewsNeutralBackgroundSelectedHover: #acbdfb;
-	--viewsNeutralSelectedAccent: #3b5eda;
-	--viewsWarningBackground: #fbe48e;
-	--viewsWarningBackgroundHover: #f8d655;
-	--viewsWarningBackgroundSelected: #fdf1c6;
-	--viewsWarningBackgroundSelectedHover: #fbe48e;
-	--viewsWarningLabel: #362c05;
-	--viewsWarningLabelSelected: #362c05;
-	--viewsWarningSelectedAccent: #daac00;
-	color-scheme: light only
-}
-[data-ynab-device=android], [data-ynab-device=ios] {
-	color-scheme: light dark
-}
-body.theme-dark {
-	scrollbar-color: var(--actionSecondary) transparent;
-	--accountwidgetMxWidgetBackground: #121417;
-	--actionPrimary: #829cf8;
-	--actionPrimaryActive: #587bf6;
-	--actionPrimaryDisabled: #374d9b;
-	--actionSecondary: #405163;
-	--actionSecondaryActive: #6e7a88;
-	--actionSecondaryBorder: #405163;
-	--actionSecondaryDisabled: #14212f;
-	--actionTertiary: #acbdfb;
-	--actionTertiaryActive: #3b5eda;
-	--actionbarBackground: #374d9b;
-	--actionbarButtonBackground: #374d9b;
-	--backgroundDarkPrimary: #405163;
-	--backgroundDarkSecondary: rgba(255, 255, 255, 0.149);
-	--backgroundDarkTertiary: rgba(255, 255, 255, 0.2);
-	--backgroundGroupedPrimary: #0c1722;
-	--backgroundGroupedSecondary: #14212f;
-	--backgroundGroupedTertiary: #223243;
-	--backgroundNavigationBar: #2c396a;
-	--backgroundPrimary: #0c1722;
-	--backgroundPrimaryElevated: #1a2837;
-	--backgroundSecondary: #14212f;
-	--backgroundSecondaryElevated: #223243;
-	--backgroundTableHeader: #14212f;
-	--backgroundTableRow: #0c1722;
-	--backgroundTableRowSelected: #2c396a;
-	--backgroundTertiary: #223243;
-	--backgroundTertiaryElevated: #405163;
-	--backgroundVideoControls: #000;
-	--budgetBarBackground: #223243;
-	--budgetBarBackgroundOnNonWhite: #223243;
-	--budgetBarBorder: #405163;
-	--budgetBarEmpty: #223243;
-	--budgetBarFunded: #67c122;
-	--budgetBarFundedSpending: #346011;
-	--budgetBarFundedSpendingStripe: #1d300d;
-	--budgetBarOverspending: #962116;
-	--budgetBarOverspendingStripe: #3c0d09;
-	--budgetBarPreviouslyAssigned: #6e7a88;
-	--budgetBarUnderfunded: #daac00;
-	--budgetBarUnderfundedSpending: #6d5600;
-	--budgetBarUnderfundedSpendingStripe: #362c05;
-	--buttonDestructiveBackground: #68170f;
-	--buttonDestructiveBackgroundActive: #962116;
-	--buttonDestructiveLabel: #feedeb;
-	--buttonEmphasizedBackground: #4d9119;
-	--buttonEmphasizedBackgroundActive: #67c122;
-	--buttonEmphasizedBackgroundDisabled: #223243;
-	--buttonPrimaryBackground: #3b5eda;
-	--buttonPrimaryBackgroundActive: #587bf6;
-	--buttonPrimaryBackgroundDisabled: #223243;
-	--buttonSecondaryBackground: rgba(130, 156, 248, 0.2);
-	--buttonSecondaryBackgroundActive: rgba(130, 156, 248, 0.271);
-	--buttonSecondaryLabel: #ecf0fe;
-	--buttonTertiaryBackground: #223243;
-	--buttonTertiaryBackgroundActive: #405163;
-	--calloutNegativeAccent: #c72c1e;
-	--calloutNegativeButtonBackground: #c72c1e;
-	--calloutNegativeButtonBackgroundActive: #fc6350;
-	--calloutNegativeButtonForeground: #feedeb;
-	--calloutNegativeLabel: #feedeb;
-	--calloutNegativeProminentBackground: #68170f;
-	--calloutNegativeProminentBackgroundEmphasis: #c72c1e;
-	--calloutNegativeSubtleBackground: #3c0d09;
-	--calloutNegativeSubtleBackgroundEmphasis: #962116;
-	--calloutPositiveAccent: #84dd3e;
-	--calloutPositiveButtonBackground: #4d9119;
-	--calloutPositiveButtonBackgroundActive: #67c122;
-	--calloutPositiveButtonForeground: #f1fbe9;
-	--calloutPositiveLabel: #f1fbe9;
-	--calloutPositiveProminentBackground: #346011;
-	--calloutPositiveProminentBackgroundEmphasis: #67c122;
-	--calloutPositiveSubtleBackground: #1d300d;
-	--calloutPositiveSubtleBackgroundEmphasis: #346011;
-	--calloutPrimaryAccent: #3b5eda;
-	--calloutPrimaryButtonBackground: #3b5eda;
-	--calloutPrimaryButtonBackgroundActive: #587bf6;
-	--calloutPrimaryButtonForeground: #ecf0fe;
-	--calloutPrimaryLabel: #ecf0fe;
-	--calloutPrimaryProminentBackground: #2c396a;
-	--calloutPrimaryProminentBackgroundEmphasis: #3b5eda;
-	--calloutPrimarySubtleBackground: rgba(130, 156, 248, 0.2);
-	--calloutPrimarySubtleBackgroundEmphasis: #374d9b;
-	--calloutSecondaryAccent: #6e7a88;
-	--calloutSecondaryButtonBackground: #405163;
-	--calloutSecondaryButtonBackgroundActive: #6e7a88;
-	--calloutSecondaryButtonForeground: #fff;
-	--calloutSecondaryLabel: #fff;
-	--calloutSecondaryProminentBackground: #223243;
-	--calloutSecondaryProminentBackgroundEmphasis: #405163;
-	--calloutSecondarySubtleBackground: rgba(34, 50, 67, 0.6);
-	--calloutSecondarySubtleBackgroundEmphasis: #405163;
-	--calloutWarningAccent: #fbe48e;
-	--calloutWarningButtonBackground: #f8d655;
-	--calloutWarningButtonBackgroundActive: #fbe48e;
-	--calloutWarningButtonForeground: #362c05;
-	--calloutWarningProminentBackground: #daac00;
-	--calloutWarningProminentBackgroundEmphasis: #f8d655;
-	--calloutWarningProminentBackgroundLabel: #362c05;
-	--calloutWarningSubtleBackground: #362c05;
-	--calloutWarningSubtleBackgroundEmphasis: #a38100;
-	--calloutWarningSubtleBackgroundLabel: #fef9ed;
-	--categoryBalanceAlternateBorder: #fff;
-	--categoryBalanceAlternateNegativeBackground: #962116;
-	--categoryBalanceAlternateNegativeBackgroundActive: #68170f;
-	--categoryBalanceAlternateNegativeLabel: #feedeb;
-	--categoryBalanceAlternateWarningBackground: #fbe48e;
-	--categoryBalanceAlternateWarningBackgroundActive: #f8d655;
-	--categoryBalanceNegativeBackground: #c72c1e;
-	--categoryBalanceNegativeBackgroundActive: #962116;
-	--categoryBalanceNegativeLabel: #feedeb;
-	--categoryBalancePositiveBackground: #67c122;
-	--categoryBalancePositiveBackgroundActive: #4d9119;
-	--categoryBalancePositiveLabel: #1d300d;
-	--categoryBalanceWarningBackground: #f6c91d;
-	--categoryBalanceWarningBackgroundActive: #daac00;
-	--categoryBalanceWarningLabel: #362c05;
-	--categoryBalanceZeroBackground: #223243;
-	--categoryBalanceZeroLabel: #a5adb6;
-	--checkboxBackground: rgba(0, 0, 0, 0);
-	--checkboxBackgroundDisabled: #405163;
-	--checkboxBackgroundSelected: #3b5eda;
-	--checkboxBorder: #6e7a88;
-	--checkboxBorderSelected: #3b5eda;
-	--checkboxForegroundSelected: #fff;
-	--debtChartsFive: #4d9119;
-	--debtChartsFour: #346011;
-	--debtChartsOne: #374d9b;
-	--debtChartsSeven: #a38100;
-	--debtChartsSix: #a38100;
-	--debtChartsThree: #3b5eda;
-	--debtChartsTwo: #587bf6;
-	--fillHover: rgba(255, 255, 255, 0.102);
-	--fillPrimary: rgba(110, 122, 136, 0.302);
-	--fillQuarternary: rgba(110, 122, 136, 0.18);
-	--fillSecondary: rgba(110, 122, 136, 0.322);
-	--fillTertiary: rgba(110, 122, 136, 0.239);
-	--filterBackground: #1a2837;
-	--filterBackgroundActive: rgba(130, 156, 248, 0.271);
-	--filterLabel: #ecf0fe;
-	--filterLabelDisabled: #6e7a88;
-	--flagBlue: #64d2ff;
-	--flagGreen: #32d74b;
-	--flagOrange: #ff9f0a;
-	--flagPurple: #bf5af2;
-	--flagRed: #ff453a;
-	--flagYellow: #ffd60a;
-	--headerBackground: #0c1722;
-	--iconFillPrimary: #a5adb6;
-	--iconFillSecondary: #6e7a88;
-	--iconFillTertiary: #405163;
-	--iconTwotoneDark: #6e7a88;
-	--iconTwotoneLight: #a5adb6;
-	--illustrationBackgroundBlurple200: #d8e0fd;
-	--illustrationBackgroundBlurple300: #acbdfb;
-	--illustrationBackgroundBlurple400: #829cf8;
-	--illustrationBackgroundBlurple500: #587bf6;
-	--illustrationBackgroundBlurple: #3b5eda;
-	--illustrationBackgroundButtermilk: #fef9ed;
-	--illustrationBackgroundDandelion: #f6c91d;
-	--illustrationBackgroundSlime: #67c122;
-	--inputBackground: #223243;
-	--inputBackgroundDisabled: #405163;
-	--inputBorder: #6e7a88;
-	--inputBorderActive: #3b5eda;
-	--labelAction: #829cf8;
-	--labelActionActive: #587bf6;
-	--labelActionDisabled: #374d9b;
-	--labelDarkBackgroundPrimary: #fff;
-	--labelDarkBackgroundSecondary: #edf1f5;
-	--labelHeading: #ecf0fe;
-	--labelNegative: #fc6350;
-	--labelNegativeActive: #f77f73;
-	--labelNegativeDisabled: #68170f;
-	--labelPositive: #67c122;
-	--labelPositiveActive: #84dd3e;
-	--labelPrimary: #fff;
-	--labelQuaternary: #405163;
-	--labelSecondary: #a5adb6;
-	--labelTertiary: #6e7a88;
-	--labelWarning: #daac00;
-	--loadingActionActive: #405163;
-	--loadingBackground: #0c1722;
-	--loadingShimmerBackground: #fff;
-	--loadingShimmerBackgroundFaded: rgba(255, 255, 255, 0.8);
-	--loanChartsPositive: #4d9119;
-	--loanChartsPrimary: #3b5eda;
-	--loanChartsSecondary: #2c396a;
-	--loanChartsTertiary: #405163;
-	--loanChartsWarning: #a38100;
-	--modalBackgroundAccent: #19223c;
-	--movesSelectedBackground: #3b5eda;
-	--movesStandardBackground: #2c396a;
-	--pillBackground: rgba(130, 156, 248, 0.2);
-	--pillLabel: #d8e0fd;
-	--registerSecondaryButtonLabel: #fff;
-	--registerSecondaryButtonLabelActive: rgba(255, 255, 255, 0.8);
-	--reportsChartTrendAOMSelected: #84dd3e;
-	--reportsChartTrendLine: #f1f1ff;
-	--reportsChartTrendPoint: #f1f1ff;
-	--reportsChartTrendPointShadow: rgba(255, 255, 255, 0.149);
-	--reportsEight: #f6c91d;
-	--reportsEleven: #405163;
-	--reportsFive: #4d9119;
-	--reportsFour: #2c396a;
-	--reportsNetworthAssetsBackground: #374d9b;
-	--reportsNetworthDebtsBackground: #c72c1e;
-	--reportsNine: #962116;
-	--reportsOne: #374d9b;
-	--reportsSeven: #daac00;
-	--reportsSix: #84dd3e;
-	--reportsSpendingBreakdownTop10: #c1ee9f;
-	--reportsSpendingBreakdownTop1: #3b5eda;
-	--reportsSpendingBreakdownTop2: #67c122;
-	--reportsSpendingBreakdownTop3: #daac00;
-	--reportsSpendingBreakdownTop4: #c72c1e;
-	--reportsSpendingBreakdownTop5: #587bf6;
-	--reportsSpendingBreakdownTop6: #a2e66e;
-	--reportsSpendingBreakdownTop7: #f8d655;
-	--reportsSpendingBreakdownTop8: #f77f73;
-	--reportsSpendingBreakdownTop9: #829cf8;
-	--reportsSpendingBreakdownTopOther: #acbdfb;
-	--reportsTen: #fc6350;
-	--reportsThree: #3b5eda;
-	--reportsTwo: #587bf6;
-	--scrimDefault: rgba(0, 0, 0, 0.329);
-	--scrimInvisible: rgba(0, 0, 0, 0);
-	--scrimStrong: rgba(60, 60, 67, 0.6);
-	--separatorStandard: rgba(255, 255, 255, 0.102);
-	--separatorStrong: #6e7a88;
-	--separatorSubdued: rgba(255, 255, 255, 0.078);
-	--settingsHeaderBackground: #1a2837;
-	--sidebarAccountNegativeBalanceBackground: rgba(0, 0, 0, 0);
-	--sidebarBackground: #14212f;
-	--sidebarButtonBackgroundActive: #223243;
-	--sidebarButtonBackgroundSelected: #2c396a;
-	--sidebarButtonSecondaryBackground: #223243;
-	--sidebarButtonSecondaryBackgroundActive: #405163;
-	--sidebarButtonSecondaryBackgroundPressed: #405163;
-	--sidebarButtonTertiaryBackground: rgba(255, 255, 255, 0.149);
-	--sidebarButtonTertiaryBackgroundActive: rgba(255, 255, 255, 0.302);
-	--sidebarButtonTertiaryBackgroundPressed: rgba(255, 255, 255, 0.349);
-	--sidebarIconFillDefault: #fff;
-	--sidebarLabelPrimary: #fff;
-	--sidebarLabelSecondary: rgba(255, 255, 255, 0.698);
-	--statusNegative: #c72c1e;
-	--statusPositive: #67c122;
-	--statusWarning: #daac00;
-	--swoopBottom: #4d9119;
-	--viewsErrorBackground: #c72c1e;
-	--viewsErrorBackgroundHover: #962116;
-	--viewsErrorBackgroundSelected: #3c0d09;
-	--viewsErrorBackgroundSelectedHover: #68170f;
-	--viewsErrorLabel: #feedeb;
-	--viewsErrorLabelSelected: #feedeb;
-	--viewsErrorSelectedAccent: #c72c1e;
-	--viewsNeutralBackground: #223243;
-	--viewsNeutralBackgroundHover: #405163;
-	--viewsNeutralBackgroundSelected: #2c396a;
-	--viewsNeutralBackgroundSelectedHover: #374d9b;
-	--viewsNeutralSelectedAccent: #587bf6;
-	--viewsWarningBackground: #f6c91d;
-	--viewsWarningBackgroundHover: #daac00;
-	--viewsWarningBackgroundSelected: #362c05;
-	--viewsWarningBackgroundSelectedHover: #6d5600;
-	--viewsWarningLabel: #362c05;
-	--viewsWarningLabelSelected: #daac00;
-	--viewsWarningSelectedAccent: #daac00;
-	color-scheme: dark only
-}
-body.theme-dark ::-webkit-scrollbar {
-	background: 0 0;
-	width: .875rem
-}
-body.theme-dark ::-webkit-scrollbar-thumb {
-	background: var(--actionSecondary);
-	background-clip: padding-box;
-	border: .1875rem solid transparent;
-	border-radius: 10rem
-}
-@media (prefers-color-scheme: dark) {
-	[data-ynab-device=android], [data-ynab-device=ios] {
-		scrollbar-color: var(--actionSecondary) transparent;
-		--accountwidgetMxWidgetBackground: #121417;
-		--actionPrimary: #829cf8;
-		--actionPrimaryActive: #587bf6;
-		--actionPrimaryDisabled: #374d9b;
-		--actionSecondary: #405163;
-		--actionSecondaryActive: #6e7a88;
-		--actionSecondaryBorder: #405163;
-		--actionSecondaryDisabled: #14212f;
-		--actionTertiary: #acbdfb;
-		--actionTertiaryActive: #3b5eda;
-		--actionbarBackground: #374d9b;
-		--actionbarButtonBackground: #374d9b;
-		--backgroundDarkPrimary: #405163;
-		--backgroundDarkSecondary: rgba(255, 255, 255, 0.149);
-		--backgroundDarkTertiary: rgba(255, 255, 255, 0.2);
-		--backgroundGroupedPrimary: #0c1722;
-		--backgroundGroupedSecondary: #14212f;
-		--backgroundGroupedTertiary: #223243;
-		--backgroundNavigationBar: #2c396a;
-		--backgroundPrimary: #0c1722;
-		--backgroundPrimaryElevated: #1a2837;
-		--backgroundSecondary: #14212f;
-		--backgroundSecondaryElevated: #223243;
-		--backgroundTableHeader: #14212f;
-		--backgroundTableRow: #0c1722;
-		--backgroundTableRowSelected: #2c396a;
-		--backgroundTertiary: #223243;
-		--backgroundTertiaryElevated: #405163;
-		--backgroundVideoControls: #000;
-		--budgetBarBackground: #223243;
-		--budgetBarBackgroundOnNonWhite: #223243;
-		--budgetBarBorder: #405163;
-		--budgetBarEmpty: #223243;
-		--budgetBarFunded: #67c122;
-		--budgetBarFundedSpending: #346011;
-		--budgetBarFundedSpendingStripe: #1d300d;
-		--budgetBarOverspending: #962116;
-		--budgetBarOverspendingStripe: #3c0d09;
-		--budgetBarPreviouslyAssigned: #6e7a88;
-		--budgetBarUnderfunded: #daac00;
-		--budgetBarUnderfundedSpending: #6d5600;
-		--budgetBarUnderfundedSpendingStripe: #362c05;
-		--buttonDestructiveBackground: #68170f;
-		--buttonDestructiveBackgroundActive: #962116;
-		--buttonDestructiveLabel: #feedeb;
-		--buttonEmphasizedBackground: #4d9119;
-		--buttonEmphasizedBackgroundActive: #67c122;
-		--buttonEmphasizedBackgroundDisabled: #223243;
-		--buttonPrimaryBackground: #3b5eda;
-		--buttonPrimaryBackgroundActive: #587bf6;
-		--buttonPrimaryBackgroundDisabled: #223243;
-		--buttonSecondaryBackground: rgba(130, 156, 248, 0.2);
-		--buttonSecondaryBackgroundActive: rgba(130, 156, 248, 0.271);
-		--buttonSecondaryLabel: #ecf0fe;
-		--buttonTertiaryBackground: #223243;
-		--buttonTertiaryBackgroundActive: #405163;
-		--calloutNegativeAccent: #c72c1e;
-		--calloutNegativeButtonBackground: #c72c1e;
-		--calloutNegativeButtonBackgroundActive: #fc6350;
-		--calloutNegativeButtonForeground: #feedeb;
-		--calloutNegativeLabel: #feedeb;
-		--calloutNegativeProminentBackground: #68170f;
-		--calloutNegativeProminentBackgroundEmphasis: #c72c1e;
-		--calloutNegativeSubtleBackground: #3c0d09;
-		--calloutNegativeSubtleBackgroundEmphasis: #962116;
-		--calloutPositiveAccent: #84dd3e;
-		--calloutPositiveButtonBackground: #4d9119;
-		--calloutPositiveButtonBackgroundActive: #67c122;
-		--calloutPositiveButtonForeground: #f1fbe9;
-		--calloutPositiveLabel: #f1fbe9;
-		--calloutPositiveProminentBackground: #346011;
-		--calloutPositiveProminentBackgroundEmphasis: #67c122;
-		--calloutPositiveSubtleBackground: #1d300d;
-		--calloutPositiveSubtleBackgroundEmphasis: #346011;
-		--calloutPrimaryAccent: #3b5eda;
-		--calloutPrimaryButtonBackground: #3b5eda;
-		--calloutPrimaryButtonBackgroundActive: #587bf6;
-		--calloutPrimaryButtonForeground: #ecf0fe;
-		--calloutPrimaryLabel: #ecf0fe;
-		--calloutPrimaryProminentBackground: #2c396a;
-		--calloutPrimaryProminentBackgroundEmphasis: #3b5eda;
-		--calloutPrimarySubtleBackground: rgba(130, 156, 248, 0.2);
-		--calloutPrimarySubtleBackgroundEmphasis: #374d9b;
-		--calloutSecondaryAccent: #6e7a88;
-		--calloutSecondaryButtonBackground: #405163;
-		--calloutSecondaryButtonBackgroundActive: #6e7a88;
-		--calloutSecondaryButtonForeground: #fff;
-		--calloutSecondaryLabel: #fff;
-		--calloutSecondaryProminentBackground: #223243;
-		--calloutSecondaryProminentBackgroundEmphasis: #405163;
-		--calloutSecondarySubtleBackground: rgba(34, 50, 67, 0.6);
-		--calloutSecondarySubtleBackgroundEmphasis: #405163;
-		--calloutWarningAccent: #fbe48e;
-		--calloutWarningButtonBackground: #f8d655;
-		--calloutWarningButtonBackgroundActive: #fbe48e;
-		--calloutWarningButtonForeground: #362c05;
-		--calloutWarningProminentBackground: #daac00;
-		--calloutWarningProminentBackgroundEmphasis: #f8d655;
-		--calloutWarningProminentBackgroundLabel: #362c05;
-		--calloutWarningSubtleBackground: #362c05;
-		--calloutWarningSubtleBackgroundEmphasis: #a38100;
-		--calloutWarningSubtleBackgroundLabel: #fef9ed;
-		--categoryBalanceAlternateBorder: #fff;
-		--categoryBalanceAlternateNegativeBackground: #962116;
-		--categoryBalanceAlternateNegativeBackgroundActive: #68170f;
-		--categoryBalanceAlternateNegativeLabel: #feedeb;
-		--categoryBalanceAlternateWarningBackground: #fbe48e;
-		--categoryBalanceAlternateWarningBackgroundActive: #f8d655;
-		--categoryBalanceNegativeBackground: #c72c1e;
-		--categoryBalanceNegativeBackgroundActive: #962116;
-		--categoryBalanceNegativeLabel: #feedeb;
-		--categoryBalancePositiveBackground: #67c122;
-		--categoryBalancePositiveBackgroundActive: #4d9119;
-		--categoryBalancePositiveLabel: #1d300d;
-		--categoryBalanceWarningBackground: #f6c91d;
-		--categoryBalanceWarningBackgroundActive: #daac00;
-		--categoryBalanceWarningLabel: #362c05;
-		--categoryBalanceZeroBackground: #223243;
-		--categoryBalanceZeroLabel: #a5adb6;
-		--checkboxBackground: rgba(0, 0, 0, 0);
-		--checkboxBackgroundDisabled: #405163;
-		--checkboxBackgroundSelected: #3b5eda;
-		--checkboxBorder: #6e7a88;
-		--checkboxBorderSelected: #3b5eda;
-		--checkboxForegroundSelected: #fff;
-		--debtChartsFive: #4d9119;
-		--debtChartsFour: #346011;
-		--debtChartsOne: #374d9b;
-		--debtChartsSeven: #a38100;
-		--debtChartsSix: #a38100;
-		--debtChartsThree: #3b5eda;
-		--debtChartsTwo: #587bf6;
-		--fillHover: rgba(255, 255, 255, 0.102);
-		--fillPrimary: rgba(110, 122, 136, 0.302);
-		--fillQuarternary: rgba(110, 122, 136, 0.18);
-		--fillSecondary: rgba(110, 122, 136, 0.322);
-		--fillTertiary: rgba(110, 122, 136, 0.239);
-		--filterBackground: #1a2837;
-		--filterBackgroundActive: rgba(130, 156, 248, 0.271);
-		--filterLabel: #ecf0fe;
-		--filterLabelDisabled: #6e7a88;
-		--flagBlue: #64d2ff;
-		--flagGreen: #32d74b;
-		--flagOrange: #ff9f0a;
-		--flagPurple: #bf5af2;
-		--flagRed: #ff453a;
-		--flagYellow: #ffd60a;
-		--headerBackground: #0c1722;
-		--iconFillPrimary: #a5adb6;
-		--iconFillSecondary: #6e7a88;
-		--iconFillTertiary: #405163;
-		--iconTwotoneDark: #6e7a88;
-		--iconTwotoneLight: #a5adb6;
-		--illustrationBackgroundBlurple200: #d8e0fd;
-		--illustrationBackgroundBlurple300: #acbdfb;
-		--illustrationBackgroundBlurple400: #829cf8;
-		--illustrationBackgroundBlurple500: #587bf6;
-		--illustrationBackgroundBlurple: #3b5eda;
-		--illustrationBackgroundButtermilk: #fef9ed;
-		--illustrationBackgroundDandelion: #f6c91d;
-		--illustrationBackgroundSlime: #67c122;
-		--inputBackground: #223243;
-		--inputBackgroundDisabled: #405163;
-		--inputBorder: #6e7a88;
-		--inputBorderActive: #3b5eda;
-		--labelAction: #829cf8;
-		--labelActionActive: #587bf6;
-		--labelActionDisabled: #374d9b;
-		--labelDarkBackgroundPrimary: #fff;
-		--labelDarkBackgroundSecondary: #edf1f5;
-		--labelHeading: #ecf0fe;
-		--labelNegative: #fc6350;
-		--labelNegativeActive: #f77f73;
-		--labelNegativeDisabled: #68170f;
-		--labelPositive: #67c122;
-		--labelPositiveActive: #84dd3e;
-		--labelPrimary: #fff;
-		--labelQuaternary: #405163;
-		--labelSecondary: #a5adb6;
-		--labelTertiary: #6e7a88;
-		--labelWarning: #daac00;
-		--loadingActionActive: #405163;
-		--loadingBackground: #0c1722;
-		--loadingShimmerBackground: #fff;
-		--loadingShimmerBackgroundFaded: rgba(255, 255, 255, 0.8);
-		--loanChartsPositive: #4d9119;
-		--loanChartsPrimary: #3b5eda;
-		--loanChartsSecondary: #2c396a;
-		--loanChartsTertiary: #405163;
-		--loanChartsWarning: #a38100;
-		--modalBackgroundAccent: #19223c;
-		--movesSelectedBackground: #3b5eda;
-		--movesStandardBackground: #2c396a;
-		--pillBackground: rgba(130, 156, 248, 0.2);
-		--pillLabel: #d8e0fd;
-		--registerSecondaryButtonLabel: #fff;
-		--registerSecondaryButtonLabelActive: rgba(255, 255, 255, 0.8);
-		--reportsChartTrendAOMSelected: #84dd3e;
-		--reportsChartTrendLine: #f1f1ff;
-		--reportsChartTrendPoint: #f1f1ff;
-		--reportsChartTrendPointShadow: rgba(255, 255, 255, 0.149);
-		--reportsEight: #f6c91d;
-		--reportsEleven: #405163;
-		--reportsFive: #4d9119;
-		--reportsFour: #2c396a;
-		--reportsNetworthAssetsBackground: #374d9b;
-		--reportsNetworthDebtsBackground: #c72c1e;
-		--reportsNine: #962116;
-		--reportsOne: #374d9b;
-		--reportsSeven: #daac00;
-		--reportsSix: #84dd3e;
-		--reportsSpendingBreakdownTop10: #c1ee9f;
-		--reportsSpendingBreakdownTop1: #3b5eda;
-		--reportsSpendingBreakdownTop2: #67c122;
-		--reportsSpendingBreakdownTop3: #daac00;
-		--reportsSpendingBreakdownTop4: #c72c1e;
-		--reportsSpendingBreakdownTop5: #587bf6;
-		--reportsSpendingBreakdownTop6: #a2e66e;
-		--reportsSpendingBreakdownTop7: #f8d655;
-		--reportsSpendingBreakdownTop8: #f77f73;
-		--reportsSpendingBreakdownTop9: #829cf8;
-		--reportsSpendingBreakdownTopOther: #acbdfb;
-		--reportsTen: #fc6350;
-		--reportsThree: #3b5eda;
-		--reportsTwo: #587bf6;
-		--scrimDefault: rgba(0, 0, 0, 0.329);
-		--scrimInvisible: rgba(0, 0, 0, 0);
-		--scrimStrong: rgba(60, 60, 67, 0.6);
-		--separatorStandard: rgba(255, 255, 255, 0.102);
-		--separatorStrong: #6e7a88;
-		--separatorSubdued: rgba(255, 255, 255, 0.078);
-		--settingsHeaderBackground: #1a2837;
-		--sidebarAccountNegativeBalanceBackground: rgba(0, 0, 0, 0);
-		--sidebarBackground: #14212f;
-		--sidebarButtonBackgroundActive: #223243;
-		--sidebarButtonBackgroundSelected: #2c396a;
-		--sidebarButtonSecondaryBackground: #223243;
-		--sidebarButtonSecondaryBackgroundActive: #405163;
-		--sidebarButtonSecondaryBackgroundPressed: #405163;
-		--sidebarButtonTertiaryBackground: rgba(255, 255, 255, 0.149);
-		--sidebarButtonTertiaryBackgroundActive: rgba(255, 255, 255, 0.302);
-		--sidebarButtonTertiaryBackgroundPressed: rgba(255, 255, 255, 0.349);
-		--sidebarIconFillDefault: #fff;
-		--sidebarLabelPrimary: #fff;
-		--sidebarLabelSecondary: rgba(255, 255, 255, 0.698);
-		--statusNegative: #c72c1e;
-		--statusPositive: #67c122;
-		--statusWarning: #daac00;
-		--swoopBottom: #4d9119;
-		--viewsErrorBackground: #c72c1e;
-		--viewsErrorBackgroundHover: #962116;
-		--viewsErrorBackgroundSelected: #3c0d09;
-		--viewsErrorBackgroundSelectedHover: #68170f;
-		--viewsErrorLabel: #feedeb;
-		--viewsErrorLabelSelected: #feedeb;
-		--viewsErrorSelectedAccent: #c72c1e;
-		--viewsNeutralBackground: #223243;
-		--viewsNeutralBackgroundHover: #405163;
-		--viewsNeutralBackgroundSelected: #2c396a;
-		--viewsNeutralBackgroundSelectedHover: #374d9b;
-		--viewsNeutralSelectedAccent: #587bf6;
-		--viewsWarningBackground: #f6c91d;
-		--viewsWarningBackgroundHover: #daac00;
-		--viewsWarningBackgroundSelected: #362c05;
-		--viewsWarningBackgroundSelectedHover: #6d5600;
-		--viewsWarningLabel: #362c05;
-		--viewsWarningLabelSelected: #daac00;
-		--viewsWarningSelectedAccent: #daac00
-	}
-	
-	[data-ynab-device=android] ::-webkit-scrollbar, [data-ynab-device=ios] ::-webkit-scrollbar {
-		background: 0 0;
-		width: .875rem
-	}
-	
-	[data-ynab-device=android] ::-webkit-scrollbar-thumb, [data-ynab-device=ios] ::-webkit-scrollbar-thumb {
-		background: var(--actionSecondary);
-		background-clip: padding-box;
-		border: .1875rem solid transparent;
-		border-radius: 10rem
-	}
-}
-body.theme-var-light {
-	scrollbar-color: var(--actionSecondary) var(--backgroundPrimary);
-	--accountwidgetMxWidgetBackground: #f8f9fb;
 	--actionPrimary: #545bfe;
 	--actionPrimaryActive: #464cd1;
 	--actionPrimaryDisabled: #a3acff;
@@ -1120,16 +279,16 @@ body.theme-var-light {
 	--buttonPrimaryBackground: #545bfe;
 	--buttonPrimaryBackgroundActive: #464cd1;
 	--buttonPrimaryBackgroundDisabled: #dbd7cc;
-	--buttonSecondaryBackground: rgba(84, 91, 254, 0.129);
-	--buttonSecondaryBackgroundActive: rgba(84, 91, 254, 0.2);
-	--buttonSecondaryLabel: #545bfe;
+	--buttonSecondaryBackground: rgba(84, 91, 254, 0.09);
+	--buttonSecondaryBackgroundActive: rgba(84, 91, 254, 0.129);
+	--buttonSecondaryLabel: #475afa;
 	--buttonTertiaryBackground: rgba(199, 196, 189, 0.2);
 	--buttonTertiaryBackgroundActive: rgba(199, 196, 189, 0.302);
 	--calloutNegativeAccent: #bf2e3b;
 	--calloutNegativeButtonBackground: #bf2e3b;
 	--calloutNegativeButtonBackgroundActive: #912333;
 	--calloutNegativeButtonForeground: #fff;
-	--calloutNegativeLabel: #4c0814;
+	--calloutNegativeLabel: #000;
 	--calloutNegativeProminentBackground: #faada5;
 	--calloutNegativeProminentBackgroundEmphasis: #e48585;
 	--calloutNegativeSubtleBackground: rgba(191, 46, 59, 0.141);
@@ -1138,7 +297,7 @@ body.theme-var-light {
 	--calloutPositiveButtonBackground: #508316;
 	--calloutPositiveButtonBackgroundActive: #346011;
 	--calloutPositiveButtonForeground: #fff;
-	--calloutPositiveLabel: #1d300d;
+	--calloutPositiveLabel: #000;
 	--calloutPositiveProminentBackground: #c2f680;
 	--calloutPositiveProminentBackgroundEmphasis: #93d53e;
 	--calloutPositiveSubtleBackground: rgba(147, 213, 62, 0.239);
@@ -1147,7 +306,7 @@ body.theme-var-light {
 	--calloutPrimaryButtonBackground: #545bfe;
 	--calloutPrimaryButtonBackgroundActive: #464cd1;
 	--calloutPrimaryButtonForeground: #fff;
-	--calloutPrimaryLabel: #1b1d48;
+	--calloutPrimaryLabel: #000;
 	--calloutPrimaryProminentBackground: #d4d5ff;
 	--calloutPrimaryProminentBackgroundEmphasis: #7583ff;
 	--calloutPrimarySubtleBackground: rgba(84, 91, 254, 0.129);
@@ -1159,8 +318,8 @@ body.theme-var-light {
 	--calloutSecondaryLabel: #3c3b39;
 	--calloutSecondaryProminentBackground: #dbd7cc;
 	--calloutSecondaryProminentBackgroundEmphasis: #c7c4bd;
-	--calloutSecondarySubtleBackground: rgba(136, 134, 129, 0.231);
-	--calloutSecondarySubtleBackgroundEmphasis: #ece7da;
+	--calloutSecondarySubtleBackground: rgba(199, 196, 189, 0.302);
+	--calloutSecondarySubtleBackgroundEmphasis: #c7c4bd;
 	--calloutWarningAccent: #daac00;
 	--calloutWarningButtonBackground: #f6c91d;
 	--calloutWarningButtonBackgroundActive: #daac00;
@@ -1170,7 +329,7 @@ body.theme-var-light {
 	--calloutWarningProminentBackgroundLabel: #362c05;
 	--calloutWarningSubtleBackground: rgba(246, 201, 29, 0.239);
 	--calloutWarningSubtleBackgroundEmphasis: #f8d655;
-	--calloutWarningSubtleBackgroundLabel: #362c05;
+	--calloutWarningSubtleBackgroundLabel: #000;
 	--categoryBalanceAlternateBorder: #000;
 	--categoryBalanceAlternateNegativeBackground: #bf2e3b;
 	--categoryBalanceAlternateNegativeBackgroundActive: #912333;
@@ -1229,12 +388,17 @@ body.theme-var-light {
 	--illustrationBackgroundBlurple: #464cd1;
 	--illustrationBackgroundButtermilk: #fef9ed;
 	--illustrationBackgroundDandelion: #f6c91d;
+	--illustrationBackgroundFirefly300: #c2f680;
+	--illustrationBackgroundFirefly400: #aee865;
+	--illustrationBackgroundMeadow300: #6be9b8;
+	--illustrationBackgroundMeadow400: #41d298;
+	--illustrationBackgroundNeutral: #fef9ed;
 	--illustrationBackgroundSlime: #77ba21;
 	--inputBackground: #fff;
 	--inputBackgroundDisabled: #f3eee2;
 	--inputBorder: #dbd7cc;
 	--inputBorderActive: #545bfe;
-	--labelAction: #4b5dfa;
+	--labelAction: #475afa;
 	--labelActionActive: #464cd1;
 	--labelActionDisabled: #acbdfb;
 	--labelDarkBackgroundPrimary: #fff;
@@ -1302,9 +466,9 @@ body.theme-var-light {
 	--separatorSubdued: rgba(0, 0, 0, 0.102);
 	--settingsHeaderBackground: #fff;
 	--sidebarAccountNegativeBalanceBackground: #fff;
-	--sidebarBackground: #1c1f58;
+	--sidebarBackground: #2c396a;
 	--sidebarButtonBackgroundActive: #292c6c;
-	--sidebarButtonBackgroundSelected: #383ca3;
+	--sidebarButtonBackgroundSelected: #374d9b;
 	--sidebarButtonSecondaryBackground: rgba(255, 255, 255, 0.102);
 	--sidebarButtonSecondaryBackgroundActive: #292c6c;
 	--sidebarButtonSecondaryBackgroundPressed: rgba(0, 0, 0, 0.149);
@@ -1339,18 +503,11 @@ body.theme-var-light {
 	--viewsWarningSelectedAccent: #daac00;
 	color-scheme: light only
 }
-body.theme-var-light ::-webkit-scrollbar {
-	background: var(--backgroundPrimary);
-	width: .875rem
+[data-ynab-device=android], [data-ynab-device=ios] {
+	color-scheme: light dark
 }
-body.theme-var-light ::-webkit-scrollbar-thumb {
-	background: var(--actionSecondary);
-	background-clip: padding-box;
-	border: .1875rem solid transparent;
-	border-radius: 10rem
-}
-body.theme-var-dark {
-	scrollbar-color: var(--actionSecondary) var(--backgroundPrimary);
+body.theme-dark {
+	scrollbar-color: var(--actionSecondary) transparent;
 	--accountwidgetMxWidgetBackground: #121417;
 	--actionPrimary: #7583ff;
 	--actionPrimaryActive: #a3acff;
@@ -1411,7 +568,7 @@ body.theme-var-dark {
 	--calloutNegativeButtonBackground: #bf2e3b;
 	--calloutNegativeButtonBackgroundActive: #ce5e66;
 	--calloutNegativeButtonForeground: #fff;
-	--calloutNegativeLabel: #feedeb;
+	--calloutNegativeLabel: #fff;
 	--calloutNegativeProminentBackground: #6a1020;
 	--calloutNegativeProminentBackgroundEmphasis: #bf2e3b;
 	--calloutNegativeSubtleBackground: #4c0814;
@@ -1420,7 +577,7 @@ body.theme-var-dark {
 	--calloutPositiveButtonBackground: #508316;
 	--calloutPositiveButtonBackgroundActive: #77ba21;
 	--calloutPositiveButtonForeground: #fff;
-	--calloutPositiveLabel: #f1fbe9;
+	--calloutPositiveLabel: #fff;
 	--calloutPositiveProminentBackground: #346011;
 	--calloutPositiveProminentBackgroundEmphasis: #77ba21;
 	--calloutPositiveSubtleBackground: #1d300d;
@@ -1429,7 +586,7 @@ body.theme-var-dark {
 	--calloutPrimaryButtonBackground: #545bfe;
 	--calloutPrimaryButtonBackgroundActive: #7583ff;
 	--calloutPrimaryButtonForeground: #fff;
-	--calloutPrimaryLabel: #f1f1ff;
+	--calloutPrimaryLabel: #fff;
 	--calloutPrimaryProminentBackground: #292c6c;
 	--calloutPrimaryProminentBackgroundEmphasis: #545bfe;
 	--calloutPrimarySubtleBackground: rgba(117, 131, 255, 0.2);
@@ -1452,7 +609,7 @@ body.theme-var-dark {
 	--calloutWarningProminentBackgroundLabel: #362c05;
 	--calloutWarningSubtleBackground: #362c05;
 	--calloutWarningSubtleBackgroundEmphasis: #a38100;
-	--calloutWarningSubtleBackgroundLabel: #fef9ed;
+	--calloutWarningSubtleBackgroundLabel: #fff;
 	--categoryBalanceAlternateBorder: #fff;
 	--categoryBalanceAlternateNegativeBackground: #912333;
 	--categoryBalanceAlternateNegativeBackgroundActive: #6a1020;
@@ -1511,6 +668,11 @@ body.theme-var-dark {
 	--illustrationBackgroundBlurple: #464cd1;
 	--illustrationBackgroundButtermilk: #fef9ed;
 	--illustrationBackgroundDandelion: #f6c91d;
+	--illustrationBackgroundFirefly300: #c2f680;
+	--illustrationBackgroundFirefly400: #aee865;
+	--illustrationBackgroundMeadow300: #6be9b8;
+	--illustrationBackgroundMeadow400: #41d298;
+	--illustrationBackgroundNeutral: #06060f;
 	--illustrationBackgroundSlime: #77ba21;
 	--inputBackground: #3c3e53;
 	--inputBackgroundDisabled: #56596c;
@@ -1621,15 +783,305 @@ body.theme-var-dark {
 	--viewsWarningSelectedAccent: #daac00;
 	color-scheme: dark only
 }
-body.theme-var-dark ::-webkit-scrollbar {
-	background: var(--backgroundPrimary);
+body.theme-dark ::-webkit-scrollbar {
+	background: 0 0;
 	width: .875rem
 }
-body.theme-var-dark ::-webkit-scrollbar-thumb {
+body.theme-dark ::-webkit-scrollbar-thumb {
 	background: var(--actionSecondary);
 	background-clip: padding-box;
 	border: .1875rem solid transparent;
 	border-radius: 10rem
+}
+@media (prefers-color-scheme: dark) {
+	[data-ynab-device=android], [data-ynab-device=ios] {
+		scrollbar-color: var(--actionSecondary) transparent;
+		--accountwidgetMxWidgetBackground: #121417;
+		--actionPrimary: #7583ff;
+		--actionPrimaryActive: #a3acff;
+		--actionPrimaryDisabled: #383ca3;
+		--actionSecondary: #3c3e53;
+		--actionSecondaryActive: #727484;
+		--actionSecondaryBorder: #56596c;
+		--actionSecondaryDisabled: #292b3d;
+		--actionTertiary: #a3acff;
+		--actionTertiaryActive: #545bfe;
+		--actionbarBackground: #383ca3;
+		--actionbarButtonBackground: #383ca3;
+		--backgroundDarkPrimary: #3c3e53;
+		--backgroundDarkSecondary: rgba(255, 255, 255, 0.149);
+		--backgroundDarkTertiary: rgba(255, 255, 255, 0.2);
+		--backgroundGroupedPrimary: #0c0d22;
+		--backgroundGroupedSecondary: #15172d;
+		--backgroundGroupedTertiary: #1f2038;
+		--backgroundNavigationBar: #292c6c;
+		--backgroundPrimary: #0c0d22;
+		--backgroundPrimaryElevated: #1f2038;
+		--backgroundSecondary: #15172d;
+		--backgroundSecondaryElevated: #292b3d;
+		--backgroundTableHeader: #15172d;
+		--backgroundTableRow: #0c0d22;
+		--backgroundTableRowSelected: #1b1d48;
+		--backgroundTertiary: #1f2038;
+		--backgroundTertiaryElevated: #3c3e53;
+		--backgroundVideoControls: #000;
+		--budgetBarBackground: #3c3e53;
+		--budgetBarBackgroundOnNonWhite: #292b3d;
+		--budgetBarBorder: #3c3e53;
+		--budgetBarEmpty: #292b3d;
+		--budgetBarFunded: #77ba21;
+		--budgetBarFundedSpending: #346011;
+		--budgetBarFundedSpendingStripe: #1d300d;
+		--budgetBarOverspending: #912333;
+		--budgetBarOverspendingStripe: #4c0814;
+		--budgetBarPreviouslyAssigned: #56596c;
+		--budgetBarUnderfunded: #f6c91d;
+		--budgetBarUnderfundedSpending: #6d5600;
+		--budgetBarUnderfundedSpendingStripe: #362c05;
+		--buttonDestructiveBackground: #6a1020;
+		--buttonDestructiveBackgroundActive: #912333;
+		--buttonDestructiveLabel: #feedeb;
+		--buttonEmphasizedBackground: #508316;
+		--buttonEmphasizedBackgroundActive: #77ba21;
+		--buttonEmphasizedBackgroundDisabled: #3c3e53;
+		--buttonPrimaryBackground: #545bfe;
+		--buttonPrimaryBackgroundActive: #7583ff;
+		--buttonPrimaryBackgroundDisabled: #292b3d;
+		--buttonSecondaryBackground: rgba(117, 131, 255, 0.2);
+		--buttonSecondaryBackgroundActive: rgba(117, 131, 255, 0.271);
+		--buttonSecondaryLabel: #f1f1ff;
+		--buttonTertiaryBackground: rgba(60, 62, 83, 0.6);
+		--buttonTertiaryBackgroundActive: rgba(60, 62, 83, 0.8);
+		--calloutNegativeAccent: #bf2e3b;
+		--calloutNegativeButtonBackground: #bf2e3b;
+		--calloutNegativeButtonBackgroundActive: #ce5e66;
+		--calloutNegativeButtonForeground: #fff;
+		--calloutNegativeLabel: #fff;
+		--calloutNegativeProminentBackground: #6a1020;
+		--calloutNegativeProminentBackgroundEmphasis: #bf2e3b;
+		--calloutNegativeSubtleBackground: #4c0814;
+		--calloutNegativeSubtleBackgroundEmphasis: #912333;
+		--calloutPositiveAccent: #93d53e;
+		--calloutPositiveButtonBackground: #508316;
+		--calloutPositiveButtonBackgroundActive: #77ba21;
+		--calloutPositiveButtonForeground: #fff;
+		--calloutPositiveLabel: #fff;
+		--calloutPositiveProminentBackground: #346011;
+		--calloutPositiveProminentBackgroundEmphasis: #77ba21;
+		--calloutPositiveSubtleBackground: #1d300d;
+		--calloutPositiveSubtleBackgroundEmphasis: #346011;
+		--calloutPrimaryAccent: #545bfe;
+		--calloutPrimaryButtonBackground: #545bfe;
+		--calloutPrimaryButtonBackgroundActive: #7583ff;
+		--calloutPrimaryButtonForeground: #fff;
+		--calloutPrimaryLabel: #fff;
+		--calloutPrimaryProminentBackground: #292c6c;
+		--calloutPrimaryProminentBackgroundEmphasis: #545bfe;
+		--calloutPrimarySubtleBackground: rgba(117, 131, 255, 0.2);
+		--calloutPrimarySubtleBackgroundEmphasis: #383ca3;
+		--calloutSecondaryAccent: #727484;
+		--calloutSecondaryButtonBackground: #56596c;
+		--calloutSecondaryButtonBackgroundActive: #727484;
+		--calloutSecondaryButtonForeground: #fff;
+		--calloutSecondaryLabel: #fff;
+		--calloutSecondaryProminentBackground: #3c3e53;
+		--calloutSecondaryProminentBackgroundEmphasis: #56596c;
+		--calloutSecondarySubtleBackground: rgba(60, 62, 83, 0.6);
+		--calloutSecondarySubtleBackgroundEmphasis: #56596c;
+		--calloutWarningAccent: #fbe48e;
+		--calloutWarningButtonBackground: #f8d655;
+		--calloutWarningButtonBackgroundActive: #fbe48e;
+		--calloutWarningButtonForeground: #362c05;
+		--calloutWarningProminentBackground: #daac00;
+		--calloutWarningProminentBackgroundEmphasis: #f8d655;
+		--calloutWarningProminentBackgroundLabel: #362c05;
+		--calloutWarningSubtleBackground: #362c05;
+		--calloutWarningSubtleBackgroundEmphasis: #a38100;
+		--calloutWarningSubtleBackgroundLabel: #fff;
+		--categoryBalanceAlternateBorder: #fff;
+		--categoryBalanceAlternateNegativeBackground: #912333;
+		--categoryBalanceAlternateNegativeBackgroundActive: #6a1020;
+		--categoryBalanceAlternateNegativeLabel: #fff;
+		--categoryBalanceAlternateWarningBackground: #fbe48e;
+		--categoryBalanceAlternateWarningBackgroundActive: #f8d655;
+		--categoryBalanceNegativeBackground: #bf2e3b;
+		--categoryBalanceNegativeBackgroundActive: #912333;
+		--categoryBalanceNegativeLabel: #fff;
+		--categoryBalancePositiveBackground: #77ba21;
+		--categoryBalancePositiveBackgroundActive: #508316;
+		--categoryBalancePositiveLabel: #0c0d22;
+		--categoryBalanceWarningBackground: #f6c91d;
+		--categoryBalanceWarningBackgroundActive: #daac00;
+		--categoryBalanceWarningLabel: #0c0d22;
+		--categoryBalanceZeroBackground: #3c3e53;
+		--categoryBalanceZeroLabel: #9b9caa;
+		--checkboxBackground: rgba(0, 0, 0, 0);
+		--checkboxBackgroundDisabled: #56596c;
+		--checkboxBackgroundSelected: #545bfe;
+		--checkboxBorder: #727484;
+		--checkboxBorderSelected: #545bfe;
+		--checkboxForegroundSelected: #fff;
+		--debtChartsFive: #4d9119;
+		--debtChartsFour: #346011;
+		--debtChartsOne: #374d9b;
+		--debtChartsSeven: #a38100;
+		--debtChartsSix: #a38100;
+		--debtChartsThree: #464cd1;
+		--debtChartsTwo: #7583ff;
+		--fillHover: rgba(255, 255, 255, 0.102);
+		--fillPrimary: rgba(114, 116, 132, 0.2);
+		--fillQuarternary: rgba(114, 116, 132, 0.18);
+		--fillSecondary: rgba(114, 116, 132, 0.322);
+		--fillTertiary: rgba(114, 116, 132, 0.239);
+		--filterBackground: #292b3d;
+		--filterBackgroundActive: rgba(117, 131, 255, 0.271);
+		--filterLabel: #f1f1ff;
+		--filterLabelDisabled: #727484;
+		--flagBlue: #64d2ff;
+		--flagGreen: #32d74b;
+		--flagOrange: #ff9f0a;
+		--flagPurple: #bf5af2;
+		--flagRed: #ff453a;
+		--flagYellow: #ffd60a;
+		--headerBackground: #15172d;
+		--iconFillPrimary: #9b9caa;
+		--iconFillSecondary: #727484;
+		--iconFillTertiary: #56596c;
+		--iconTwotoneDark: #727484;
+		--iconTwotoneLight: #9b9caa;
+		--illustrationBackgroundBlurple200: #d4d5ff;
+		--illustrationBackgroundBlurple300: #a3acff;
+		--illustrationBackgroundBlurple400: #7583ff;
+		--illustrationBackgroundBlurple500: #545bfe;
+		--illustrationBackgroundBlurple: #464cd1;
+		--illustrationBackgroundButtermilk: #fef9ed;
+		--illustrationBackgroundDandelion: #f6c91d;
+		--illustrationBackgroundFirefly300: #c2f680;
+		--illustrationBackgroundFirefly400: #aee865;
+		--illustrationBackgroundMeadow300: #6be9b8;
+		--illustrationBackgroundMeadow400: #41d298;
+		--illustrationBackgroundNeutral: #06060f;
+		--illustrationBackgroundSlime: #77ba21;
+		--inputBackground: #3c3e53;
+		--inputBackgroundDisabled: #56596c;
+		--inputBorder: #727484;
+		--inputBorderActive: #545bfe;
+		--labelAction: #a3acff;
+		--labelActionActive: #d4d5ff;
+		--labelActionDisabled: #383ca3;
+		--labelDarkBackgroundPrimary: #fff;
+		--labelDarkBackgroundSecondary: #ededf5;
+		--labelHeading: #f1f1ff;
+		--labelNegative: #ee5867;
+		--labelNegativeActive: #ce5e66;
+		--labelNegativeDisabled: #6a1020;
+		--labelPositive: #77ba21;
+		--labelPositiveActive: #93d53e;
+		--labelPrimary: #fff;
+		--labelQuaternary: #727484;
+		--labelSecondary: #c4c5cf;
+		--labelTertiary: #9b9caa;
+		--labelWarning: #daac00;
+		--loadingActionActive: #56596c;
+		--loadingBackground: #1b1d48;
+		--loadingShimmerBackground: #fff;
+		--loadingShimmerBackgroundFaded: rgba(255, 255, 255, 0.8);
+		--loanChartsPositive: #508316;
+		--loanChartsPrimary: #545bfe;
+		--loanChartsSecondary: #292c6c;
+		--loanChartsTertiary: #56596c;
+		--loanChartsWarning: #a38100;
+		--modalBackgroundAccent: #1c1f58;
+		--movesSelectedBackground: #545bfe;
+		--movesStandardBackground: #292c6c;
+		--pillBackground: rgba(117, 131, 255, 0.2);
+		--pillLabel: #d4d5ff;
+		--registerSecondaryButtonLabel: #fff;
+		--registerSecondaryButtonLabelActive: rgba(255, 255, 255, 0.8);
+		--reportsChartTrendAOMSelected: #93d53e;
+		--reportsChartTrendLine: #f1f1ff;
+		--reportsChartTrendPoint: #f1f1ff;
+		--reportsChartTrendPointShadow: rgba(255, 255, 255, 0.149);
+		--reportsEight: #f6c91d;
+		--reportsEleven: #56596c;
+		--reportsFive: #508316;
+		--reportsFour: #292c6c;
+		--reportsNetworthAssetsBackground: #383ca3;
+		--reportsNetworthDebtsBackground: #bf2e3b;
+		--reportsNine: #912333;
+		--reportsOne: #383ca3;
+		--reportsSeven: #daac00;
+		--reportsSix: #93d53e;
+		--reportsSpendingBreakdownTop10: #aee865;
+		--reportsSpendingBreakdownTop1: #545bfe;
+		--reportsSpendingBreakdownTop2: #77ba21;
+		--reportsSpendingBreakdownTop3: #daac00;
+		--reportsSpendingBreakdownTop4: #bf2e3b;
+		--reportsSpendingBreakdownTop5: #7583ff;
+		--reportsSpendingBreakdownTop6: #93d53e;
+		--reportsSpendingBreakdownTop7: #f6c91d;
+		--reportsSpendingBreakdownTop8: #ce5e66;
+		--reportsSpendingBreakdownTop9: #a3acff;
+		--reportsSpendingBreakdownTopOther: #d4d5ff;
+		--reportsTen: #ce5e66;
+		--reportsThree: #545bfe;
+		--reportsTwo: #464cd1;
+		--scrimDefault: rgba(0, 0, 0, 0.329);
+		--scrimInvisible: rgba(0, 0, 0, 0);
+		--scrimStrong: rgba(60, 60, 67, 0.6);
+		--separatorStandard: rgba(255, 255, 255, 0.102);
+		--separatorStrong: #727484;
+		--separatorSubdued: rgba(255, 255, 255, 0.078);
+		--settingsHeaderBackground: #292b3d;
+		--sidebarAccountNegativeBalanceBackground: rgba(0, 0, 0, 0);
+		--sidebarBackground: #121330;
+		--sidebarButtonBackgroundActive: #1b1d48;
+		--sidebarButtonBackgroundSelected: #1c1f58;
+		--sidebarButtonSecondaryBackground: #3c3e53;
+		--sidebarButtonSecondaryBackgroundActive: #56596c;
+		--sidebarButtonSecondaryBackgroundPressed: #56596c;
+		--sidebarButtonTertiaryBackground: rgba(255, 255, 255, 0.149);
+		--sidebarButtonTertiaryBackgroundActive: rgba(255, 255, 255, 0.302);
+		--sidebarButtonTertiaryBackgroundPressed: rgba(255, 255, 255, 0.349);
+		--sidebarIconFillDefault: #fff;
+		--sidebarLabelPrimary: #fff;
+		--sidebarLabelSecondary: rgba(255, 255, 255, 0.698);
+		--statusNegative: #bf2e3b;
+		--statusPositive: #77ba21;
+		--statusWarning: #daac00;
+		--swoopBottom: #508316;
+		--viewsErrorBackground: #bf2e3b;
+		--viewsErrorBackgroundHover: #912333;
+		--viewsErrorBackgroundSelected: #4c0814;
+		--viewsErrorBackgroundSelectedHover: #6a1020;
+		--viewsErrorLabel: #feedeb;
+		--viewsErrorLabelSelected: #feedeb;
+		--viewsErrorSelectedAccent: #bf2e3b;
+		--viewsNeutralBackground: #3c3e53;
+		--viewsNeutralBackgroundHover: #56596c;
+		--viewsNeutralBackgroundSelected: #292c6c;
+		--viewsNeutralBackgroundSelectedHover: #383ca3;
+		--viewsNeutralSelectedAccent: #7583ff;
+		--viewsWarningBackground: #f6c91d;
+		--viewsWarningBackgroundHover: #daac00;
+		--viewsWarningBackgroundSelected: #362c05;
+		--viewsWarningBackgroundSelectedHover: #6d5600;
+		--viewsWarningLabel: #362c05;
+		--viewsWarningLabelSelected: #daac00;
+		--viewsWarningSelectedAccent: #daac00
+	}
+	
+	[data-ynab-device=android] ::-webkit-scrollbar, [data-ynab-device=ios] ::-webkit-scrollbar {
+		background: 0 0;
+		width: .875rem
+	}
+	
+	[data-ynab-device=android] ::-webkit-scrollbar-thumb, [data-ynab-device=ios] ::-webkit-scrollbar-thumb {
+		background: var(--actionSecondary);
+		background-clip: padding-box;
+		border: .1875rem solid transparent;
+		border-radius: 10rem
+	}
 }
 /*! normalize.css v1.1.2 | MIT License | git.io/normalize */
 @-moz-keyframes ftue-onboarding-pulse {
@@ -3125,36 +2577,36 @@ table {
 	font-size: 1.3125rem;
 	font-weight: 700
 }
-.account-widget .account-widget-success-screen .account-widget-add-account-success-screen .account-widget-success-screen-num-accounts h1, .budget-breakdown-multiple h2, .budget-header-calendar .budget-header-calendar-date-button, .budget-inspector-default h1, .budget-inspector-multiple h1, .cleared-balances .cleared-balances-h1, .ftue-onboarding-outro-modal .modal-fresh .modal-header, .ftue-onboarding-title, .inspector-category-name .user-entered-text h1, .loan-account .loan-account-activity-section-header .loan-account-activity-section-title, .modal-account-reconcile .modal-account-reconcile-current .modal-account-reconcile-cleared-balance .modal-account-reconcile-cleared-balance-amount, .plan-header-pricing__term, .reports-inspector h1, .reports-inspector-timeframe-title, .subscribe-invite__title, .to-be-budgeted .to-be-budgeted-amount, .type-title-s {
+.account-widget .account-widget-success-screen .account-widget-add-account-success-screen .account-widget-success-screen-num-accounts h1, .account-widget .account-widget-success-screen .account-widget-link-account-success-screen .account-widget-success-screen-num-accounts h1, .budget-breakdown-multiple h2, .budget-header-calendar .budget-header-calendar-date-button, .budget-inspector-default h1, .budget-inspector-multiple h1, .cleared-balances .cleared-balances-h1, .ftue-onboarding-outro-modal .modal-header, .ftue-onboarding-title, .inspector-category-name .user-entered-text h1, .loan-account .loan-account-activity-section-header .loan-account-activity-section-title, .modal-account-reconcile .modal-account-reconcile-current .modal-account-reconcile-cleared-balance .modal-account-reconcile-cleared-balance-amount, .plan-header-pricing__term, .reports-inspector h1, .reports-inspector-timeframe-title, .subscribe-invite__title, .to-be-budgeted .to-be-budgeted-amount, .type-title-s {
 	font-size: 1.3125rem;
 	font-weight: 700;
 	line-height: 1.2
 }
-.account-widget .account-list .account-widget-body h2, .account-widget .account-widget-apple-handoff .account-widget-body h3, .account-widget .account-widget-error-screen .account-widget-body h3, .account-widget .account-widget-error-screen-retry .account-widget-body h3, .account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-text .select-linked-unlinked-box-title, .account-widget .account-widget-step .account-widget-header .account-widget-header-title h1, .account-widget .account-widget-success-screen .account-widget-add-account-success-screen .account-widget-success-screen-accounts-added .account-widget-success-screen-accounts-added-header, .account-widget .account-widget-success-screen .account-widget-body h3, .accounts-header .accounts-header-balances, .budget-inspector h1, .dialog .dialog-header, .group-container .sidebar__link, .group-subpage-header .group-subpage-header__navlist li, .income-expense-expense .income-expense-h1, .income-expense-expense .income-expense-h1 button, .income-expense-income .income-expense-h1, .income-expense-income .income-expense-h1 button, .income-expense-net-income .income-expense-column:first-child, .income-expense-net-income .income-expense-h1, .income-expense-net-income .income-expense-h1 button, .loan-account h3, .loan-account header.loan-account-header, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-balance .loan-account-header-balance-amount, .loan-account-account-header, .loan-account-account-header .loan-account-header-element .loan-account-header-element-amount, .loan-account-payoff-simulator-banner .banner-text .banner-heading, .loan-progress-container .loan-progress-intro .loan-progress-balance-remaining .loan-progress-balance-remaining-percent, .modal .activity-header, .modal .category-moves-header, .modal-account-reconcile .modal-account-reconcile-difference .modal-account-reconcile-difference-header .modal-account-reconcile-cleared-balance-amount, .modal-budget-hidden-categories .modal-header, .modal-fresh .modal-fresh-header, .modal-generic .modal-header, .modal-popup.account-modal .modal-header, .modal-popup.unpair-confirm-modal .modal-header, .reflect-age-of-money .chart-card .empty-state-content h4, .reflect-age-of-money-tooltip .age-of-money-value, .reports-header button, .reports-inspector h1, .sidebar-nav-menu .sidebar-nav-budget-email .sidebar-nav-budget-email-budget, .type-title-xs {
+.account-widget .account-list .account-widget-body h2, .account-widget .account-widget-apple-handoff .account-widget-body h3, .account-widget .account-widget-error-screen .account-widget-body h3, .account-widget .account-widget-error-screen-retry .account-widget-body h3, .account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-text .select-linked-unlinked-box-title, .account-widget .account-widget-step .account-widget-header .account-widget-header-title h1, .account-widget .account-widget-step.potential-duplicate-accounts .potential-duplicate-accounts__title, .account-widget .account-widget-success-screen .account-widget-add-account-success-screen .account-widget-success-screen-accounts-added .account-widget-success-screen-accounts-added-header, .account-widget .account-widget-success-screen .account-widget-body h3, .accounts-header .accounts-header-balances, .budget-inspector h1, .dialog .dialog-header, .group-container .sidebar__link, .group-subpage-header .group-subpage-header__navlist li, .income-expense-expense .income-expense-h1, .income-expense-expense .income-expense-h1 button, .income-expense-income .income-expense-h1, .income-expense-income .income-expense-h1 button, .income-expense-net-income .income-expense-column:first-child, .income-expense-net-income .income-expense-h1, .income-expense-net-income .income-expense-h1 button, .loan-account h3, .loan-account header.loan-account-header, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-balance .loan-account-header-balance-amount, .loan-account-account-header, .loan-account-account-header .loan-account-header-element .loan-account-header-element-amount, .loan-account-payoff-simulator-banner .banner-text .banner-heading, .loan-progress-container .loan-progress-intro .loan-progress-balance-remaining .loan-progress-balance-remaining-percent, .modal .activity-header, .modal .category-moves-header, .modal-account-reconcile .modal-account-reconcile-difference .modal-account-reconcile-difference-header .modal-account-reconcile-cleared-balance-amount, .modal-budget-hidden-categories .modal-header, .modal-fresh .modal-fresh-header, .modal-generic .modal-header, .modal-payees .modal-payees-header-text h1, .modal-popup.account-modal .modal-header, .modal-popup.unpair-confirm-modal .modal-header, .reflect-age-of-money .chart-card .empty-state-content h4, .reflect-age-of-money-tooltip .age-of-money-value, .reports-header button, .reports-inspector h1, .sidebar-nav-menu .sidebar-nav-budget-email .sidebar-nav-budget-email-budget, .type-title-xs {
 	font-size: 1.125rem;
 	font-weight: 600;
 	line-height: 1.2
 }
-.account-widget .account-type-select .account-type-select-group h3, .account-widget .account-widget-connections .account-widget-connections-empty h3, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-name, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-right-amount, .account-widget .account-widget-item-list button.account-widget-institution-button .institution-details .institution-name, .account-widget .account-widget-success-screen .account-widget-add-account-success-screen .account-widget-success-screen-accounts-added .account-widget-success-screen-added-account, .accounts-calendar-selected-date, .budget-table-row.is-master-category .budget-table-cell-name .budget-table-cell-edit-category, .category-merge-wizard .category-merge-reassignment-list, .dropdown-container .dropdown-modal .dropdown-modal-header, .group-card-invite-members .invite-members-canceled-title, .group-card-invite-members .invite-members-current, .group-card-invite-members .invite-members-share-title, .group-card-upload-csv .content-card__content h3, .group-container .content-card__header h4, .group-container .ynab-button, .income-expense-net-income .income-expense-column, .insight-accent, .join-container .group-join-form-inputs h2, .join-container .group-join-privacy h2, .link-copier-input-copy, .loan-account-dropdown .loan-dropdown .loan-dropdown-modal > .modal .loan-account-modal-header, .loan-account-inspector-progress-header, .loan-account-inspector-record-payment-panel .loan-account-inspector-record-payment-available-amount .currency, .loan-account-pair-category-banner .banner-text .banner-heading, .loan-invalid-initial-balance-banner .banner-text .banner-heading, .loan-modal.loan-account-reconciliation .modal .loan-modal-header-with-close.modal-header, .modal-account-dropdown .modal-action-header, .modal-account-dropdown .modal-header, .modal-account-view-options .modal-header, .modal-keyboard-shortcuts .dialog-body h3, .modal-payees-selected-header input.modal-payees-selected-input, .modal-popup.account-modal .modal-callout h3, .modal-reports-dropdown .modal-header, .modal-reports-timeframe .modal-header, .recent-moves .recent-moves-header h2, .reflect-net-worth-summary .networth-summary-value, .reflect-spending-breakdown .spending-breakdown__metrics .spending-breakdown__metric .spending-metric-value, .reflect-spending-trends .spending-trends__total-spending .total-spending-value, .resource-article-title, .standard-info-card-large .standard-info-card__body .standard-info-card__text h3, .standard-info-card-small .standard-info-card__body .standard-info-card__text h3, .subscription-management .subscription-management__heading, .type-body-large-bold, .users-budgets .budgets > div.create-new-budget button, .users-budgets .select-budget, .ynab-breakdown .budget-breakdown-to-be-budgeted-total-tbb, .ynab-new-inspector-goals .target-behavior-dropdown .type-dropdown-label .type-dropdown-label-title strong {
+.account-widget .account-type-select .account-type-select-group h3, .account-widget .account-widget-connections .account-widget-connections-empty h3, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-name, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-right-amount, .account-widget .account-widget-item-list button.account-widget-institution-button .institution-details .institution-name, .account-widget .account-widget-success-screen .account-widget-add-account-success-screen .account-widget-success-screen-accounts-added .account-widget-success-screen-added-account, .accounts-calendar-selected-date, .budget-table-row.is-master-category .budget-table-cell-name .budget-table-cell-edit-category, .calendar-selected-date, .category-merge-wizard .category-merge-reassignment-list, .dropdown-container .dropdown-modal .dropdown-modal-header, .group-card-invite-members .invite-members-canceled-title, .group-card-invite-members .invite-members-current, .group-card-invite-members .invite-members-share-title, .group-card-upload-csv .content-card__content h3, .group-container .content-card__header h4, .group-container .ynab-button, .income-expense-net-income .income-expense-column, .insight-accent, .join-container .group-join-form-inputs h2, .join-container .group-join-privacy h2, .link-copier-input-copy, .loan-account-dropdown .loan-dropdown .loan-dropdown-modal > .modal .loan-account-modal-header, .loan-account-inspector-progress-header, .loan-account-inspector-record-payment-panel .loan-account-inspector-record-payment-available-amount .currency, .loan-account-pair-category-banner .banner-text .banner-heading, .loan-invalid-initial-balance-banner .banner-text .banner-heading, .loan-modal.loan-account-reconciliation .modal .loan-modal-header-with-close.modal-header, .modal-account-dropdown .modal-action-header, .modal-account-dropdown .modal-header, .modal-account-view-options .modal-header, .modal-keyboard-shortcuts .dialog-body h3, .modal-payees-selected-header input.modal-payees-selected-input, .modal-popup.account-modal .modal-callout h3, .modal-reports-dropdown .modal-header, .modal-reports-timeframe .modal-header, .recent-moves .recent-moves-header h2, .reflect-net-worth-summary .networth-summary-value, .reflect-spending-breakdown .spending-breakdown__metrics .spending-breakdown__metric .spending-metric-value, .reflect-spending-trends .spending-trends__total-spending .total-spending-value, .resource-article-title, .standard-info-card-large .standard-info-card__body .standard-info-card__text h3, .standard-info-card-small .standard-info-card__body .standard-info-card__text h3, .subscription-management .subscription-management__heading, .type-body-large-bold, .users-budgets .budgets > div.create-new-budget button, .users-budgets .select-budget, .ynab-breakdown .budget-breakdown-to-be-budgeted-total-tbb, .ynab-new-inspector-goals .target-behavior-dropdown .type-dropdown-label .type-dropdown-label-title strong {
 	font-size: 1rem;
 	font-weight: 600;
 	line-height: 1.2
 }
-.budget-breakdown-assign-money-controls, .budget-breakdown-tbb-card .ynab-breakdown, .budget-breakdown-tbb-card .ynab-breakdown button, .budget-breakdown-to-be-budgeted .modal-header, .budget-breakdown-to-be-budgeted-negative, .budget-breakdown-to-be-budgeted-positive, .budget-breakdown-view-to-be-budgeted-breakdown, .ftue-onboarding-step, .to-be-budgeted-button, .type-body-large, .ynab-button, .ynab-new-inspector-goals .button-link, .ynab-new-inspector-goals .pair-with-loan-button .pair-with-loan-button-title, .ynab-new-inspector-goals .type-dropdown .type-dropdown-option {
+.budget-breakdown-assign-money-controls, .budget-breakdown-tbb-card .ynab-breakdown, .budget-breakdown-tbb-card .ynab-breakdown button, .budget-breakdown-to-be-budgeted .modal-header, .budget-breakdown-to-be-budgeted-negative, .budget-breakdown-to-be-budgeted-positive, .budget-breakdown-view-to-be-budgeted-breakdown, .ftue-onboarding-step, .type-body-large, .ynab-button, .ynab-new-inspector-goals .button-link, .ynab-new-inspector-goals .pair-with-loan-button .pair-with-loan-button-title, .ynab-new-inspector-goals .type-dropdown .type-dropdown-option {
 	font-size: 1rem;
 	font-weight: 500;
 	line-height: 1.2
 }
-.ftue-onboarding-extended .ftue-onboarding-description, .ftue-onboarding-outro-modal .modal-fresh .modal-fresh-body {
+.ftue-onboarding-extended .ftue-onboarding-description, .ftue-onboarding-outro-modal .modal-body {
 	font-size: 1rem;
 	font-weight: 500
 }
-.account-widget .account-type-select .account-type-select-group button, .account-widget .account-widget-account-list-item .account-widget-account-list-item-name-and-amount, .account-widget .account-widget-account-list-item .account-widget-list-select-all, .account-widget .account-widget-item-list button.account-widget-institution-button, .account-widget .separator-text, .accounts-header .accounts-header-actions .button, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category button, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category.button, .button, .button-cancel, .button-disabled, .button-primary, .button-red, .button-secondary, .category-set-wizard-flow, .category-set-wizard-text-form .text-input, .field-with-error.has-errors.base-error ul.errors li, .ftue-add-accounts .navlink, .group-subscription-credit-card-form .group-subscription-credit-card-no-charge, .insight-item, .join-container, .join-container .highlighted-error, .link-copier-input, .loan-account .loan-account-container .loan-account-details h3, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-update-balance-button, .loan-account-account-header .loan-account-header-actions .loan-account-header-button, .loan-account-activity-entry .modal input[type=text], .loan-account-lpv2 .loan-account-account-header .add-activity-dropdown, .modal-account-payees .modal-account-payees-expand .modal-account-payees-expand-inner .modal-account-payees-expand-inner-body .modal-account-payees-expand-inner-body-section a, .modal-payee-list-item .ynab-new-icon.gear, .modal-payees .modal-payees-toolbar button, .nav-accounts-empty-state h5, .nav-main .navlink, .petition-container, .reflect-net-worth .tick, .reflect-net-worth-tooltip strong, .reflect-spending-tooltip strong, .reflect-spending-trends .tick, .reports-net-worth .reports-net-worth-tooltip strong, .reports-net-worth .tick, .reports-spending .bb-chart-arcs-title, .reports-spending-trends .tick, .rollout-header__subtitle, .setup-subscription .setup-list li, .subscription-header__subtitle {
+.account-widget .account-type-select .account-type-select-group button, .account-widget .account-widget-account-list-item .account-widget-account-list-item-name-and-amount, .account-widget .account-widget-account-list-item .account-widget-list-select-all, .account-widget .account-widget-item-list button.account-widget-institution-button, .account-widget .account-widget-success-screen .account-widget-link-account-success-screen .account-widget-success-screen-num-accounts p, .account-widget .separator-text, .accounts-header .accounts-header-actions .button, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category button, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category.button, .button, .button-cancel, .button-disabled, .button-primary, .button-red, .button-secondary, .category-set-wizard-flow, .category-set-wizard-text-form .text-input, .field-with-error.has-errors.base-error ul.errors li, .ftue-add-accounts .navlink, .group-subscription-credit-card-form .group-subscription-credit-card-no-charge, .insight-item, .join-container, .join-container .highlighted-error, .link-copier-input, .loan-account .loan-account-container .loan-account-details h3, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-update-balance-button, .loan-account-account-header .loan-account-header-actions .loan-account-header-button, .loan-account-activity-entry .modal input[type=text], .loan-account-lpv2 .loan-account-account-header .add-activity-dropdown, .modal-account-payees .modal-account-payees-expand .modal-account-payees-expand-inner .modal-account-payees-expand-inner-body .modal-account-payees-expand-inner-body-section a, .modal-payee-list-item .ynab-new-icon.gear, .modal-payees .modal-payees-toolbar button, .nav-accounts-empty-state h5, .nav-main .navlink, .petition-container, .reflect-net-worth .tick, .reflect-net-worth-tooltip strong, .reflect-spending-tooltip strong, .reflect-spending-trends .tick, .reports-net-worth .reports-net-worth-tooltip strong, .reports-net-worth .tick, .reports-spending .bb-chart-arcs-title, .reports-spending-trends .tick, .rollout-header__subtitle, .setup-subscription .setup-list li, .subscription-header__subtitle, .to-be-budgeted-button {
 	font-size: 1rem;
 	font-weight: 500;
 	line-height: 1.2
 }
-.account-widget .account-list .account-widget-body .account-list-authorization-section .account-list-authorization-section-header, .account-widget .account-widget-loan-category .account-widget-radio-button-list label .account-widget-loan-category-radio-description .account-widget-loan-category-radio-description-title, .account-widget .account-widget-search-institutions .account-widget-search-input label, .account-widget .account-widget-search-institutions .divider span, .accounts-calendar-weekdays li, .add-activity-dropdown-options-item-title, .budget-inspector h3, .budget-inspector-button strong, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category-label .budget-table-cell-goal-status span.highlighted-message-part, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category-label button span.highlighted-message-part, .card h2, .category-merge-wizard .merge-wizard-select-category, .cost-to-be-me-summary .edit-income-description, .cost-to-be-me-summary .label .amount, .dashboard-link-protection-modal .dashboard-link-protection-modal-add-domain p, .dashboard-link-protection-modal .dashboard-link-protection-modal-domains p, .family-body .budgets-shared-with-you .budgets-shared-with-you-header, .ftue-onboarding-extended .ftue-onboarding-number, .ftue-onboarding-lead-title, .ftue-onboarding-number, .group-subscription-credit-card-form label, .income-expense-level1 .income-expense-column:first-child, .loan-account .loan-account-activity-history-month .loan-account-history-month-header .loan-account-history-balance-amount, .loan-account .loan-account-activity-history-month .loan-account-history-month-header .loan-account-history-month-title, .loan-account .loan-account-activity-monthly-item .activity-amount, .loan-account .loan-account-activity-monthly-item .activity-progress-and-description .activity-description .activity-title, .loan-account .loan-account-activity-monthly-item .activity-progress-and-description .activity-description button.button-link, .loan-account .loan-account-container .loan-account-details-button-link, .loan-account-inspector-progress-analysis-data, .loan-account-inspector-progress-message-highlighted, .loan-account-inspector-progress-overview-group-amount, .loan-account-lpv2 button.navigate-tracking-account, .loan-account-payoff-simulator .payoff-simulator-inputs-reset.button-link, .loan-account-payoff-simulator .payoff-simulator-inputs-section-label, .loan-paired-category-card .card-body .paired-category-card-section .paired-category-card-section-value, .loan-progress-container .loan-progress-intro .open-payoff-simulator-link, .manage-payees .modal-payees-list .modal-payee-list-button, .modal-account-flags .modal .button, .modal-account-payees .modal-account-payees-expand .modal-account-payees-expand-inner .modal-account-payees-expand-inner-body .modal-account-payees-expand-inner-body-header, .modal-account-reconcile .modal-account-reconcile-enter-balance h3, .modal-account-reconcile .modal-account-reconcile-reconciled p.reconciled-message-title, .modal-account-view-options .date-range-from-to, .modal-budget-fresh-start .fieldset label, .modal-budget-fresh-start .fresh-start-details, .modal-generic label, .modal-popup dt, .modal-popup label, .modal-reports-dropdown .modal-list li span.main-category, .modal-reports-timeframe .date-range-from-to, .month-picker-months .month-picker-months-item, .recent-moves-day-section .recent-moves-date-wrapper, .reflect-month-picker-option-container label, .reflect-networth-monthly-table .networth-table-second-section > span.amount, .reports-inspector h3, .reports-inspector-table th, .settings-page .page-header .back-links a, .spending-breakdown-bar-chart-section > span, .spending-breakdown-donut-chart__bb .bb-chart-arc text tspan:first-child, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_amount, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_total, .transaction-search .transaction-search-recommendations .category-group-recommendation, .type-body-bold, .ynab-breakdown > div div:last-child, .ynab-grid-body-row.needs-approved:not(.is-pending), .ynab-grid-collapsible-transactions-toggle.ynab-grid-body-row, .ynab-new-inspector-goals .goal-progress-label-container .figure, .ynab-new-inspector-goals .ynab-new-inspector-goals-payment-payoff .ynab-new-inspector-goals-payment-payoff-field-name, .ynab-new-inspector-goals .ynab-new-inspector-goals-view-goal .goal-dates, .ynab-new-theme-switcher .ynab-new-theme-switcher-option h3, .ynab-table-4-col .ynab-table-col .category-moves-active-category {
+.account-widget .account-list .account-widget-body .account-list-authorization-section .account-list-authorization-section-header, .account-widget .account-widget-loan-category .account-widget-radio-button-list label .account-widget-loan-category-radio-description .account-widget-loan-category-radio-description-title, .account-widget .account-widget-search-institutions .account-widget-search-input label, .account-widget .account-widget-search-institutions .divider span, .accounts-calendar-weekdays li, .add-activity-dropdown-options-item-title, .budget-inspector h3, .budget-inspector-button strong, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category-label .budget-table-cell-goal-status span.highlighted-message-part, .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category-label button span.highlighted-message-part, .calendar-weekdays li, .card h2, .category-merge-wizard .merge-wizard-select-category, .cost-to-be-me-summary .edit-income-description, .cost-to-be-me-summary .label .amount, .dashboard-link-protection-modal .dashboard-link-protection-modal-add-domain p, .dashboard-link-protection-modal .dashboard-link-protection-modal-domains p, .family-body .budgets-shared-with-you .budgets-shared-with-you-header, .ftue-onboarding-extended .ftue-onboarding-number, .ftue-onboarding-lead-title, .ftue-onboarding-number, .group-subscription-credit-card-form label, .income-expense-level1 .income-expense-column:first-child, .loan-account .loan-account-activity-history-month .loan-account-history-month-header .loan-account-history-balance-amount, .loan-account .loan-account-activity-history-month .loan-account-history-month-header .loan-account-history-month-title, .loan-account .loan-account-activity-monthly-item .activity-amount, .loan-account .loan-account-activity-monthly-item .activity-progress-and-description .activity-description .activity-title, .loan-account .loan-account-activity-monthly-item .activity-progress-and-description .activity-description button.button-link, .loan-account .loan-account-container .loan-account-details-button-link, .loan-account-inspector-progress-analysis-data, .loan-account-inspector-progress-message-highlighted, .loan-account-inspector-progress-overview-group-amount, .loan-account-lpv2 button.navigate-tracking-account, .loan-account-payoff-simulator .payoff-simulator-inputs-reset.button-link, .loan-account-payoff-simulator .payoff-simulator-inputs-section-label, .loan-paired-category-card .card-body .paired-category-card-section .paired-category-card-section-value, .loan-progress-container .loan-progress-intro .open-payoff-simulator-link, .manage-payees .modal-payees-list .modal-payee-list-button, .modal-account-flags .modal .button, .modal-account-payees .modal-account-payees-expand .modal-account-payees-expand-inner .modal-account-payees-expand-inner-body .modal-account-payees-expand-inner-body-header, .modal-account-reconcile .modal-account-reconcile-enter-balance h3, .modal-account-reconcile .modal-account-reconcile-reconciled p.reconciled-message-title, .modal-account-view-options .date-range-from-to, .modal-budget-fresh-start .fieldset label, .modal-budget-fresh-start .fresh-start-details, .modal-generic label, .modal-popup dt, .modal-popup label, .modal-reports-dropdown .modal-list li span.main-category, .modal-reports-timeframe .date-range-from-to, .month-picker-months .month-picker-months-item, .recent-moves-day-section .recent-moves-date-wrapper, .reflect-month-picker-option-container label, .reflect-networth-monthly-table .networth-table-second-section > span.amount, .reports-inspector h3, .reports-inspector-table th, .settings-page .page-header .back-links a, .spending-breakdown-bar-chart-section > span, .spending-breakdown-donut-chart__bb .bb-chart-arc text tspan:first-child, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_amount, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_total, .transaction-search .transaction-search-recommendations .category-group-recommendation, .type-body-bold, .ynab-breakdown > div div:last-child, .ynab-grid-body-row.needs-approved:not(.is-pending), .ynab-grid-collapsible-transactions-toggle.ynab-grid-body-row, .ynab-new-inspector-goals .goal-progress-label-container .figure, .ynab-new-inspector-goals .ynab-new-inspector-goals-payment-payoff .ynab-new-inspector-goals-payment-payoff-field-name, .ynab-new-inspector-goals .ynab-new-inspector-goals-view-goal .goal-dates, .ynab-new-theme-switcher .ynab-new-theme-switcher-option h3, .ynab-table-4-col .ynab-table-col .category-moves-active-category {
 	font-size: .875rem;
 	font-weight: 600;
 	line-height: 1.2
@@ -3181,7 +2633,7 @@ table {
 	font-weight: 500;
 	line-height: 1.2
 }
-.category-input-export-copy input[type=text], .category-input-export-export-as-template, .dialog .scroll-content .dialog-body .type-body, .ftue-onboarding-message, .ftue-onboarding-needs, .modal-account-calendar .modal, .ynab-new-currency-input .input-wrapper .currency, .ynab-new-dropdown-container span, .ynab-new-inspector-goals, .ynab-new-inspector-goals .actions .actions-left .button-link, .ynab-new-inspector-goals .actions .actions-right .button-link, .ynab-new-inspector-goals .actions .goal-actions-delete-cancel .button-link, .ynab-new-inspector-goals .goal-message, .ynab-new-inspector-goals .target-behavior-dropdown, .ynab-new-inspector-goals .target-behavior-dropdown .type-dropdown-label, .ynab-new-inspector-goals .ynab-new-inspector-goals-calendar-select {
+.category-input-export-copy input[type=text], .category-input-export-export-as-template, .dialog .scroll-content .dialog-body .type-body, .ftue-onboarding-message, .ftue-onboarding-needs, .modal-account-calendar .modal, .ynab-new-currency-input .input-wrapper .currency, .ynab-new-dropdown-container span, .ynab-new-inspector-goals, .ynab-new-inspector-goals .actions .actions-left .button-link, .ynab-new-inspector-goals .actions .actions-right .button-link, .ynab-new-inspector-goals .actions .goal-actions-delete-cancel .button-link, .ynab-new-inspector-goals .goal-message, .ynab-new-inspector-goals .target-behavior-dropdown, .ynab-new-inspector-goals .target-behavior-dropdown .type-dropdown-label, .ynab-new-inspector-goals .ynab-new-inspector-goals-calendar-select input {
 	font-size: .875rem;
 	font-weight: 500;
 	line-height: 1.2
@@ -3199,12 +2651,12 @@ table {
 	font-size: .875rem;
 	font-weight: 500
 }
-.account-flash-notification, .account-header-balances-tooltip.modal-overlay .modal .modal-content, .account-widget, .account-widget .account-widget-account-list-item .account-widget-account-list-item-type-and-mask, .account-widget .account-widget-add-unlinked-account .negative-asset-warning .warnings, .account-widget .account-widget-apple-handoff .account-widget-body p, .account-widget .account-widget-connections .account-widget-already-connected .already-connected-row-wrapper .needs-attention-banner, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-amount-and-type, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-bank-name, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-linked-status, .account-widget .account-widget-error-screen .account-widget-body p, .account-widget .account-widget-error-screen-retry .account-widget-body p, .account-widget .account-widget-item-list button.account-widget-institution-button .account-widget-url-or-country, .account-widget .account-widget-loan-pair-with-loan .loan-pair-with-loan-existing-list .ynab-button .loan-pair-with-loan-existing-list-balance, .account-widget .account-widget-search-institutions .account-widget-search-input, .account-widget .account-widget-search-institutions .account-widget-search-input input, .account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-text .select-linked-unlinked-box-message, .account-widget .account-widget-success-screen .account-widget-body p, .account-widget .x-select-container select, .account-widget h3, .accounts-header .header-currency-label span.currency, .all-set-banner-description, .budget-header-calendar .budget-header-calendar-note, .budget-header-days .budget-header-days-label, .budget-inspector, .budget-inspector .budget-inspector-paring-account-splash p, .budget-inspector-button, .budget-table-container .budget-table-header .budget-table-cell-name, .budget-table-container .budget-table-row-li button, .budget-table-container .budget-table-row-ul, .budget-table-container.is-expanded .budget-table-cell-goal-status, .budget-table-container.is-expanded .budget-table-cell-goal-status-details, .budget-table-header-labels .budget-table-cell-activity, .budget-table-header-labels .budget-table-cell-activity span.currency, .budget-table-header-labels .budget-table-cell-available, .budget-table-header-labels .budget-table-cell-available span.currency, .budget-table-header-labels .budget-table-cell-budgeted, .budget-table-header-labels .budget-table-cell-budgeted span.currency, .budget-table-row .budget-table-cell-activity, .budget-table-row .budget-table-cell-activity span.currency, .budget-table-row .budget-table-cell-available, .budget-table-row .budget-table-cell-available span.currency, .budget-table-row .budget-table-cell-budgeted, .budget-table-row .budget-table-cell-budgeted span.currency, .budget-table-row.is-dragging, .budget-table-row.is-dragging .budget-table-row-li button, .budget-table-row.is-master-category .budget-table-cell-activity, .budget-table-row.is-master-category .budget-table-cell-activity .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-available, .budget-table-row.is-master-category .budget-table-cell-available .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-budgeted, .budget-table-row.is-master-category .budget-table-cell-budgeted .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-budgeted button.currency, .budget-toolbar .button, .button-cancel-small, .button-link, .button-list, .button-primary-small, .clear-budget-filter, .create-new-payee-button, .dashboard .dashboard-group, .dashboard-link-protection, .dropdown-container .dropdown-list-button, .employees-page .membership-search-field input, .enter-emails .feedback, .enter-emails .replace-list-checkbox, .enter-emails textarea, .family .info-box, .family a, .family-content .member-budgets, .file-incoming, .flash-message-body, .group-card-invite-members .create-new-invite-link, .group-card-upload-csv .group-upload-csv-upload-col .uploaded-filename, .group-container .public-beta__action, .group-container .public-beta__message, .group-container p, .group-subscription-credit-card-form .terms-agreement span, .group-subscription-credit-card-form input[type=text], .group-subscription-credit-card-form select, .inspector-category-note, .inspector-message, .join-container .group-join-form-inputs input, .join-container .group-join-why-share-info, .loan-account .loan-account-container .loan-account-details-goal-description, .loan-account .loan-account-container .loan-account-details-items, .loan-account-inspector-record-payment-panel .loan-account-inspector-record-payment-message.inspector-message, .loan-account-pair-category-banner .banner-text .banner-subheading, .loan-invalid-initial-balance-banner .banner-text .banner-subheading, .loan-modal.loan-account-reconciliation .modal .modal-content, .loan-paydown-chart .chart-tooltip-container, .loan-progress-container .loan-progress-intro .loan-progress-balance-remaining .loan-progress-balance-remaining-subheading, .loan-progress-container .minimized-loan-progress .loan-progress-barchart-text, .manage-payees .button, .manage-payees h3, .modal-account-categories .modal-actions .button, .modal-account-dropdown .modal, .modal-account-dropdown .modal-action-header .button, .modal-account-dropdown ul.modal-list li.section-item .section-item-empty-state, .modal-account-edit-transaction-list ul.action-bar-menu li, .modal-account-edit-transaction-list ul.modal-list li, .modal-account-edit-transaction-list ul.submenu li, .modal-account-flags .modal, .modal-account-payees .modal-account-payees-main-footer .button, .modal-account-reconcile .modal, .modal-account-reconcile .modal a, .modal-account-register-action-bar ul.action-bar-menu li, .modal-account-register-action-bar ul.modal-list li, .modal-account-register-action-bar ul.submenu li, .modal-account-view-options .date-range-dates button, .modal-account-view-options .date-range-dates li, .modal-budget-hidden-categories .modal, .modal-budget-move-money .modal, .modal-budget-note textarea, .modal-budget-overspending .modal, .modal-direct-import-status.modal-popup .modal-content, .modal-direct-import-status.modal-popup .modal-header, .modal-generic .modal-content, .modal-generic input, .modal-generic select, .modal-generic textarea, .modal-payees .modal, .modal-popup input, .modal-popup textarea, .modal-popup ul.modal-list li, .modal-popup ul.submenu li, .modal-popup.account-modal .modal-callout p, .modal-reports-dropdown .modal-overflow-area, .modal-reports-timeframe .date-range-dates button, .modal-reports-timeframe .date-range-dates li, .nav-account-row .nav-account-name, .nav-accounts-empty-state p, .open-create-category-modal-button, .page-membership-candidates .manage-candidates-card .membership-totals, .petition-container .group-petition-form-inputs input, .plan-subtitle, .privacy-policy-require-agreement .privacy-policy-require-agreement-p, .recent-moves .recent-moves-filter-options .recent-moves-filter-option, .recent-moves-row-wrapper, .reflect-age-of-money .chart-card .current-age-of-money .current-age-of-money-title, .reflect-age-of-money .chart-card .empty-state-content p, .reflect-age-of-money-tooltip .age-of-money-month, .reflect-month-picker-option-container .month-picker-select-button span, .reflect-net-worth .net-worth-title, .reflect-net-worth-summary .negative-net-worth, .reflect-net-worth-summary .positive-net-worth, .reflect-net-worth-summary .static-net-worth, .reflect-net-worth-summary .summary-titles, .reflect-networth-monthly-table .networth-table-body.card-body .negative-net-worth, .reflect-networth-monthly-table .networth-table-body.card-body .positive-net-worth, .reflect-networth-monthly-table .networth-table-body.card-body .reflect-net-worth-empty-table-state > span, .reflect-networth-monthly-table .networth-table-body.card-body .static-net-worth, .reflect-networth-monthly-table .networth-table-first-section > span, .reflect-networth-monthly-table .networth-table-second-section > span, .reflect-networth-monthly-table .networth-table-third-section > span, .reflect-spending-breakdown .spending-breakdown__metrics .spending-breakdown__metric .spending-metric-subtitle, .reflect-spending-breakdown .spending-breakdown__metrics .spending-breakdown__metric .spending-metric-title, .reflect-spending-breakdown .spending-breakdown__total-spending .total-spending-title, .reflect-spending-empty-table-state > span, .reflect-spending-tooltip em, .reflect-spending-tooltip h4, .reflect-spending-trends .spending-trends__average-monthly-spending .average-monthly-spending-title, .reflect-spending-trends .spending-trends__total-spending .total-spending-title, .reflect-timeframe-dropdown .timeframe-preset-options button, .register-action-bar-container .register-action-bar-inner, .register-action-bar-container .register-action-bar-inner button, .reports-controls .button, .reports-income-expense, .reports-inspector, .reports-inspector .budget-inspector-paring-account-splash p, .reports-inspector .reports-inspector-description, .reports-inspector h4, .reports-inspector-timeframe-selection, .resource-article-description, .rollout-card__description, .sidebar .button-sidebar, .spending-breakdown-bar-chart-header > span, .spending-breakdown-donut-chart__bb .bb-chart-arc text, .spending-breakdown-inflow-warning-modal .modal-fresh-footer a, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_name, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_title, .spending-trends-table-third-section, .subscription-management .subscription-management-section p, .subscription-management .subscription-management__body, .subscription-management .subscription-management__body p, .subscription-management .subscription-management__loading, .transaction-search .transaction-search-input, .transaction-search .transaction-search-recommendations button span, .upload-file .chosen-file-name, .upload-file .feedback, .upload-file .replace-list-checkbox, .users-budgets .last-modified, .view-debt-payoff em, .wellness-dashboard-settings-menu ul.modal-list a, .wellness-dashboard-settings-menu ul.modal-list button, .x-select-container select, .ynab-grid-body-row, .ynab-grid-body-row-bottom, .ynab-grid-body-row-top, .ynab-grid-footer .ynab-grid-footer-action, .ynab-grid-footer .ynab-grid-footer-message, .ynab-table, .ynab-table-col, .ynab-tooltip:hover:after, div.accounts-toolbar, select {
+.account-flash-notification, .account-header-balances-tooltip.modal-overlay .modal .modal-content, .account-widget, .account-widget .account-widget-account-list-item .account-widget-account-list-item-type-and-mask, .account-widget .account-widget-add-unlinked-account .negative-asset-warning .warnings, .account-widget .account-widget-apple-handoff .account-widget-body p, .account-widget .account-widget-connections .account-widget-already-connected .already-connected-row-wrapper .needs-attention-banner, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-amount-and-type, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-bank-name, .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-linked-status, .account-widget .account-widget-error-screen .account-widget-body p, .account-widget .account-widget-error-screen-retry .account-widget-body p, .account-widget .account-widget-item-list button.account-widget-institution-button .account-widget-url-or-country, .account-widget .account-widget-loan-pair-with-loan .loan-pair-with-loan-existing-list .ynab-button .loan-pair-with-loan-existing-list-balance, .account-widget .account-widget-search-institutions .account-widget-search-input, .account-widget .account-widget-search-institutions .account-widget-search-input input, .account-widget .account-widget-select-linked-unlinked .select-linked-unlinked-box .select-linked-unlinked-box-text .select-linked-unlinked-box-message, .account-widget .account-widget-step.potential-duplicate-accounts .potential-duplicate_accounts__sub-title, .account-widget .account-widget-success-screen .account-widget-body p, .account-widget .x-select-container select, .account-widget h3, .accounts-header .header-currency-label span.currency, .all-set-banner-description, .budget-header-calendar .budget-header-calendar-note, .budget-header-days .budget-header-days-label, .budget-inspector, .budget-inspector .budget-inspector-paring-account-splash p, .budget-inspector-button, .budget-table-container .budget-table-header .budget-table-cell-name, .budget-table-container .budget-table-row-li button, .budget-table-container .budget-table-row-ul, .budget-table-container.is-expanded .budget-table-cell-goal-status, .budget-table-container.is-expanded .budget-table-cell-goal-status-details, .budget-table-header-labels .budget-table-cell-activity, .budget-table-header-labels .budget-table-cell-activity span.currency, .budget-table-header-labels .budget-table-cell-available, .budget-table-header-labels .budget-table-cell-available span.currency, .budget-table-header-labels .budget-table-cell-budgeted, .budget-table-header-labels .budget-table-cell-budgeted span.currency, .budget-table-row .budget-table-cell-activity, .budget-table-row .budget-table-cell-activity span.currency, .budget-table-row .budget-table-cell-available, .budget-table-row .budget-table-cell-available span.currency, .budget-table-row .budget-table-cell-budgeted, .budget-table-row .budget-table-cell-budgeted span.currency, .budget-table-row.is-dragging, .budget-table-row.is-dragging .budget-table-row-li button, .budget-table-row.is-master-category .budget-table-cell-activity, .budget-table-row.is-master-category .budget-table-cell-activity .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-available, .budget-table-row.is-master-category .budget-table-cell-available .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-budgeted, .budget-table-row.is-master-category .budget-table-cell-budgeted .ynab-new-budget-available-number, .budget-table-row.is-master-category .budget-table-cell-budgeted button.currency, .budget-toolbar .button, .button-cancel-small, .button-link, .button-list, .button-primary-small, .clear-budget-filter, .create-new-payee-button, .dashboard .dashboard-group, .dashboard-link-protection, .dropdown-container .dropdown-list-button, .employees-page .membership-search-field input, .enter-emails .feedback, .enter-emails .replace-list-checkbox, .enter-emails textarea, .family .info-box, .family a, .family-content .member-budgets, .file-incoming, .flash-message-body, .group-card-invite-members .create-new-invite-link, .group-card-upload-csv .group-upload-csv-upload-col .uploaded-filename, .group-container .public-beta__action, .group-container .public-beta__message, .group-container p, .group-subscription-credit-card-form .terms-agreement span, .group-subscription-credit-card-form input[type=text], .group-subscription-credit-card-form select, .inspector-category-note, .inspector-message, .join-container .group-join-form-inputs input, .join-container .group-join-why-share-info, .loan-account .loan-account-container .loan-account-details-goal-description, .loan-account .loan-account-container .loan-account-details-items, .loan-account-inspector-record-payment-panel .loan-account-inspector-record-payment-message.inspector-message, .loan-account-pair-category-banner .banner-text .banner-subheading, .loan-invalid-initial-balance-banner .banner-text .banner-subheading, .loan-modal.loan-account-reconciliation .modal .modal-content, .loan-paydown-chart .chart-tooltip-container, .loan-progress-container .loan-progress-intro .loan-progress-balance-remaining .loan-progress-balance-remaining-subheading, .loan-progress-container .minimized-loan-progress .loan-progress-barchart-text, .manage-payees .button, .manage-payees h3, .modal-account-categories .modal-actions .button, .modal-account-dropdown .modal, .modal-account-dropdown .modal-action-header .button, .modal-account-dropdown ul.modal-list li.section-item .section-item-empty-state, .modal-account-edit-transaction-list ul.action-bar-menu li, .modal-account-edit-transaction-list ul.modal-list li, .modal-account-edit-transaction-list ul.submenu li, .modal-account-flags .modal, .modal-account-payees .modal-account-payees-main-footer .button, .modal-account-reconcile .modal, .modal-account-reconcile .modal a, .modal-account-register-action-bar ul.action-bar-menu li, .modal-account-register-action-bar ul.modal-list li, .modal-account-register-action-bar ul.submenu li, .modal-account-view-options .date-range-dates button, .modal-account-view-options .date-range-dates li, .modal-budget-hidden-categories .modal, .modal-budget-move-money .modal, .modal-budget-note textarea, .modal-budget-overspending .modal, .modal-direct-import-status.modal-popup .modal-content, .modal-direct-import-status.modal-popup .modal-header, .modal-generic .modal-content, .modal-generic input, .modal-generic select, .modal-generic textarea, .modal-payees .modal, .modal-popup input, .modal-popup textarea, .modal-popup ul.modal-list li, .modal-popup ul.submenu li, .modal-popup.account-modal .modal-callout p, .modal-reports-dropdown .modal-overflow-area, .modal-reports-timeframe .date-range-dates button, .modal-reports-timeframe .date-range-dates li, .nav-account-row .nav-account-name, .nav-accounts-empty-state p, .open-create-category-modal-button, .page-membership-candidates .manage-candidates-card .membership-totals, .petition-container .group-petition-form-inputs input, .plan-subtitle, .privacy-policy-require-agreement .privacy-policy-require-agreement-p, .recent-moves .recent-moves-filter-options .recent-moves-filter-option, .recent-moves-row-wrapper, .reflect-age-of-money .chart-card .current-age-of-money .current-age-of-money-title, .reflect-age-of-money .chart-card .empty-state-content p, .reflect-age-of-money-tooltip .age-of-money-month, .reflect-month-picker-option-container .month-picker-select-button span, .reflect-net-worth .net-worth-title, .reflect-net-worth-summary .negative-net-worth, .reflect-net-worth-summary .positive-net-worth, .reflect-net-worth-summary .static-net-worth, .reflect-net-worth-summary .summary-titles, .reflect-networth-monthly-table .networth-table-body.card-body .negative-net-worth, .reflect-networth-monthly-table .networth-table-body.card-body .positive-net-worth, .reflect-networth-monthly-table .networth-table-body.card-body .reflect-net-worth-empty-table-state > span, .reflect-networth-monthly-table .networth-table-body.card-body .static-net-worth, .reflect-networth-monthly-table .networth-table-first-section > span, .reflect-networth-monthly-table .networth-table-second-section > span, .reflect-networth-monthly-table .networth-table-third-section > span, .reflect-spending-breakdown .spending-breakdown__metrics .spending-breakdown__metric .spending-metric-subtitle, .reflect-spending-breakdown .spending-breakdown__metrics .spending-breakdown__metric .spending-metric-title, .reflect-spending-breakdown .spending-breakdown__total-spending .total-spending-title, .reflect-spending-empty-table-state > span, .reflect-spending-tooltip em, .reflect-spending-tooltip h4, .reflect-spending-trends .spending-trends__average-monthly-spending .average-monthly-spending-title, .reflect-spending-trends .spending-trends__total-spending .total-spending-title, .reflect-timeframe-dropdown .timeframe-preset-options button, .register-action-bar-container .register-action-bar-inner, .register-action-bar-container .register-action-bar-inner button, .reports-controls .button, .reports-income-expense, .reports-inspector, .reports-inspector .budget-inspector-paring-account-splash p, .reports-inspector .reports-inspector-description, .reports-inspector h4, .reports-inspector-timeframe-selection, .resource-article-description, .rollout-card__description, .sidebar .button-sidebar, .spending-breakdown-bar-chart-header > span, .spending-breakdown-donut-chart__bb .bb-chart-arc text, .spending-breakdown-inflow-warning-modal .modal-fresh-footer a, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_name, .spending-breakdown__positive-inflows .spending-breakdown__positive-inflows_title, .spending-trends-table-third-section, .subscription-management .subscription-management-section p, .subscription-management .subscription-management__body, .subscription-management .subscription-management__body p, .subscription-management .subscription-management__loading, .transaction-search .transaction-search-input, .transaction-search .transaction-search-recommendations button span, .upload-file .chosen-file-name, .upload-file .feedback, .upload-file .replace-list-checkbox, .users-budgets .last-modified, .view-debt-payoff em, .wellness-dashboard-settings-menu ul.modal-list a, .wellness-dashboard-settings-menu ul.modal-list button, .x-select-container select, .ynab-grid-body-row, .ynab-grid-body-row-bottom, .ynab-grid-body-row-top, .ynab-grid-footer .ynab-grid-footer-action, .ynab-grid-footer .ynab-grid-footer-message, .ynab-table, .ynab-table-col, .ynab-tooltip:hover:after, div.accounts-toolbar, select {
 	font-size: .875rem;
 	font-weight: 500;
 	line-height: 1.2
 }
-.account-info-small-text-container small, .account-widget .account-widget-connections .account-widget-already-connected .already-connected-row-wrapper .already-connected-row .already-connected-select .already-connected-select-id, .account-widget .account-widget-connections .account-widget-security-policy-footer > a, .account-widget .account-widget-info-matrix .account-widget-info-matrix-note, .account-widget .account-widget-info-matrix .info-matrix-table tbody tr td.info-matrix-text-value, .account-widget .account-widget-info-matrix .info-matrix-table thead tr, .account-widget .account-widget-loan-category .account-widget-radio-button-list label .account-widget-loan-category-radio-description .account-widget-loan-category-radio-description-subtitle, .account-widget .account-widget-step .account-widget-header .account-widget-header-title h2, .account-widget .y-form-note, .accounts-header .accounts-header-label, .age-of-money-chart .chart .bb-axis .tick tspan, .budget-table-row.is-master-category .budget-table-cell-name button.ftue-add-category-button, .budget-view-row ul.budget-view-buttons li, .cleared-balances .cleared-balances-h2, .cleared-balances .cleared-balances-h3, .dashboard h4, .dashboard-link-protection-modal .dashboard-link-protection-modal-status, .dialog .dialog-title em, .enter-emails .help-note, .family-body .budgets-shared-with-you li .budget-owner, .family-body .manage-member .owner-budgets li, .family.family-body .budgets-list li a .budget-sharing-status, .group-subscription-credit-card-form .expiration-cvv-row .cvv .cvv-row .cvv-caption, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-balance .loan-account-header-balance-label, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-update-balance-date, .loan-account-account-header .loan-account-header-account-details .loan-account-header-account-info, .loan-account-account-header .loan-account-header-element .loan-account-header-element-label, .loan-account-activity-entry .modal .loan-account-activity-entry-fieldset-group-note, .loan-account-payoff-simulator .paydown-analysis-min-payment-section .paydown-analysis-min-payment-note, .loan-account-payoff-simulator .paydown-analysis-note, .loan-paydown-chart .loan-paydown-chart-body text, .loan-paydown-chart .loan-paydown-chart-legend, .manage-payees em, .menu .menu-item-subtext div:last-child, .modal-account-payees .modal-account-payees-expand .modal-account-payees-expand-inner .modal-account-payees-expand-inner-body .modal-account-payees-expand-inner-body-section .section-caption, .modal-budget-fresh-start em, .modal-budget-settings .ynab4-migration .button, .modal-budget-views-manage .modal-budget-views-manage-limit-reached, .modal-budget-views-menu .budget-views-menu-item.budget-views-menu-item-limit-reached, .modal-fresh .modal-fresh-title em, .nav-account-block .nav-account-name, .nav-account-notification, .nav-account-value, .petition-container .group-petition-form-error, .petition-container .group-petition-form-inputs a, .petition-container .group-petition-form-notice, .plan-chart-header__boundary, .plan-chart-row, .plan-description, .plan-header-pricing__subtitle, .plan-header__subtitle, .recent-moves-row-wrapper .money-movement-group .money-movement-details, .recent-moves-row-wrapper .recent-moves-row-subheader, .reflect-net-worth-tooltip em, .reflect-net-worth-tooltip h4, .reports-net-worth .reports-net-worth-tooltip em, .reports-net-worth .reports-net-worth-tooltip h4, .setup-subscription .setup-subscription-video .video-footnote, .sidebar-nav-menu .sidebar-nav-budget-email .sidebar-nav-budget-email-email, .subscribe-invite__subtitle, .type-footnote, .ynab-new-inspector-goals .goal-progress-label-container .label, .ynab-new-inspector-goals .target-behavior-dropdown .type-dropdown-label .type-dropdown-label-tagline.callout, .ynab-table-head .ynab-table-col {
+.account-info-small-text-container small, .account-widget .account-list .account-widget-body .account-list-authorization-section .account-list-authorization-section-header-attention-needed, .account-widget .account-widget-connections .account-widget-already-connected .already-connected-row-wrapper .already-connected-row .already-connected-select .already-connected-select-id, .account-widget .account-widget-connections .account-widget-security-policy-footer > a, .account-widget .account-widget-info-matrix .account-widget-info-matrix-note, .account-widget .account-widget-info-matrix .info-matrix-table tbody tr td.info-matrix-text-value, .account-widget .account-widget-info-matrix .info-matrix-table thead tr, .account-widget .account-widget-loan-category .account-widget-radio-button-list label .account-widget-loan-category-radio-description .account-widget-loan-category-radio-description-subtitle, .account-widget .account-widget-step .account-widget-header .account-widget-header-title h2, .account-widget .y-form-note, .accounts-header .accounts-header-label, .age-of-money-chart .chart .bb-axis .tick tspan, .budget-table-row.is-master-category .budget-table-cell-name button.ftue-add-category-button, .budget-view-row ul.budget-view-buttons li, .cleared-balances .cleared-balances-h2, .cleared-balances .cleared-balances-h3, .dashboard h4, .dashboard-link-protection-modal .dashboard-link-protection-modal-status, .dialog .dialog-title em, .enter-emails .help-note, .family-body .budgets-shared-with-you li .budget-owner, .family-body .manage-member .owner-budgets li, .family.family-body .budgets-list li a .budget-sharing-status, .group-subscription-credit-card-form .expiration-cvv-row .cvv .cvv-row .cvv-caption, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-balance .loan-account-header-balance-label, .loan-account header.loan-account-header .loan-account-header-container .loan-account-header-update-balance-date, .loan-account-account-header .loan-account-header-account-details .loan-account-header-account-info, .loan-account-account-header .loan-account-header-element .loan-account-header-element-label, .loan-account-activity-entry .modal .loan-account-activity-entry-fieldset-group-note, .loan-account-payoff-simulator .paydown-analysis-min-payment-section .paydown-analysis-min-payment-note, .loan-account-payoff-simulator .paydown-analysis-note, .loan-paydown-chart .loan-paydown-chart-body text, .loan-paydown-chart .loan-paydown-chart-legend, .manage-payees em, .menu .menu-item-subtext div:last-child, .modal-account-payees .modal-account-payees-expand .modal-account-payees-expand-inner .modal-account-payees-expand-inner-body .modal-account-payees-expand-inner-body-section .section-caption, .modal-budget-fresh-start em, .modal-budget-settings .ynab4-migration .button, .modal-budget-views-manage .modal-budget-views-manage-limit-reached, .modal-budget-views-menu .budget-views-menu-item.budget-views-menu-item-limit-reached, .modal-fresh .modal-fresh-title em, .nav-account-block .nav-account-name, .nav-account-notification, .nav-account-value, .petition-container .group-petition-form-error, .petition-container .group-petition-form-inputs a, .petition-container .group-petition-form-notice, .plan-chart-header__boundary, .plan-chart-row, .plan-description, .plan-header-pricing__subtitle, .plan-header__subtitle, .recent-moves-row-wrapper .money-movement-group .money-movement-details, .recent-moves-row-wrapper .recent-moves-row-subheader, .reflect-net-worth-tooltip em, .reflect-net-worth-tooltip h4, .reports-net-worth .reports-net-worth-tooltip em, .reports-net-worth .reports-net-worth-tooltip h4, .setup-subscription .setup-subscription-video .video-footnote, .sidebar-nav-menu .sidebar-nav-budget-email .sidebar-nav-budget-email-email, .subscribe-invite__subtitle, .type-footnote, .ynab-new-inspector-goals .goal-progress-label-container .label, .ynab-new-inspector-goals .target-behavior-dropdown .type-dropdown-label .type-dropdown-label-tagline.callout, .ynab-table-3-col .ynab-table-col .movement-refresh-move-annotation, .ynab-table-head .ynab-table-col {
 	font-size: .75rem;
 	font-weight: 500;
 	line-height: 1.2
@@ -3301,855 +2753,6 @@ table {
 body.theme-dark {
 	scrollbar-color: var(--actionSecondary) transparent;
 	--accountwidgetMxWidgetBackground: #121417;
-	--actionPrimary: #829cf8;
-	--actionPrimaryActive: #587bf6;
-	--actionPrimaryDisabled: #374d9b;
-	--actionSecondary: #405163;
-	--actionSecondaryActive: #6e7a88;
-	--actionSecondaryBorder: #405163;
-	--actionSecondaryDisabled: #14212f;
-	--actionTertiary: #acbdfb;
-	--actionTertiaryActive: #3b5eda;
-	--actionbarBackground: #374d9b;
-	--actionbarButtonBackground: #374d9b;
-	--backgroundDarkPrimary: #405163;
-	--backgroundDarkSecondary: rgba(255, 255, 255, 0.149);
-	--backgroundDarkTertiary: rgba(255, 255, 255, 0.2);
-	--backgroundGroupedPrimary: #0c1722;
-	--backgroundGroupedSecondary: #14212f;
-	--backgroundGroupedTertiary: #223243;
-	--backgroundNavigationBar: #2c396a;
-	--backgroundPrimary: #0c1722;
-	--backgroundPrimaryElevated: #1a2837;
-	--backgroundSecondary: #14212f;
-	--backgroundSecondaryElevated: #223243;
-	--backgroundTableHeader: #14212f;
-	--backgroundTableRow: #0c1722;
-	--backgroundTableRowSelected: #2c396a;
-	--backgroundTertiary: #223243;
-	--backgroundTertiaryElevated: #405163;
-	--backgroundVideoControls: #000;
-	--budgetBarBackground: #223243;
-	--budgetBarBackgroundOnNonWhite: #223243;
-	--budgetBarBorder: #405163;
-	--budgetBarEmpty: #223243;
-	--budgetBarFunded: #67c122;
-	--budgetBarFundedSpending: #346011;
-	--budgetBarFundedSpendingStripe: #1d300d;
-	--budgetBarOverspending: #962116;
-	--budgetBarOverspendingStripe: #3c0d09;
-	--budgetBarPreviouslyAssigned: #6e7a88;
-	--budgetBarUnderfunded: #daac00;
-	--budgetBarUnderfundedSpending: #6d5600;
-	--budgetBarUnderfundedSpendingStripe: #362c05;
-	--buttonDestructiveBackground: #68170f;
-	--buttonDestructiveBackgroundActive: #962116;
-	--buttonDestructiveLabel: #feedeb;
-	--buttonEmphasizedBackground: #4d9119;
-	--buttonEmphasizedBackgroundActive: #67c122;
-	--buttonEmphasizedBackgroundDisabled: #223243;
-	--buttonPrimaryBackground: #3b5eda;
-	--buttonPrimaryBackgroundActive: #587bf6;
-	--buttonPrimaryBackgroundDisabled: #223243;
-	--buttonSecondaryBackground: rgba(130, 156, 248, 0.2);
-	--buttonSecondaryBackgroundActive: rgba(130, 156, 248, 0.271);
-	--buttonSecondaryLabel: #ecf0fe;
-	--buttonTertiaryBackground: #223243;
-	--buttonTertiaryBackgroundActive: #405163;
-	--calloutNegativeAccent: #c72c1e;
-	--calloutNegativeButtonBackground: #c72c1e;
-	--calloutNegativeButtonBackgroundActive: #fc6350;
-	--calloutNegativeButtonForeground: #feedeb;
-	--calloutNegativeLabel: #feedeb;
-	--calloutNegativeProminentBackground: #68170f;
-	--calloutNegativeProminentBackgroundEmphasis: #c72c1e;
-	--calloutNegativeSubtleBackground: #3c0d09;
-	--calloutNegativeSubtleBackgroundEmphasis: #962116;
-	--calloutPositiveAccent: #84dd3e;
-	--calloutPositiveButtonBackground: #4d9119;
-	--calloutPositiveButtonBackgroundActive: #67c122;
-	--calloutPositiveButtonForeground: #f1fbe9;
-	--calloutPositiveLabel: #f1fbe9;
-	--calloutPositiveProminentBackground: #346011;
-	--calloutPositiveProminentBackgroundEmphasis: #67c122;
-	--calloutPositiveSubtleBackground: #1d300d;
-	--calloutPositiveSubtleBackgroundEmphasis: #346011;
-	--calloutPrimaryAccent: #3b5eda;
-	--calloutPrimaryButtonBackground: #3b5eda;
-	--calloutPrimaryButtonBackgroundActive: #587bf6;
-	--calloutPrimaryButtonForeground: #ecf0fe;
-	--calloutPrimaryLabel: #ecf0fe;
-	--calloutPrimaryProminentBackground: #2c396a;
-	--calloutPrimaryProminentBackgroundEmphasis: #3b5eda;
-	--calloutPrimarySubtleBackground: rgba(130, 156, 248, 0.2);
-	--calloutPrimarySubtleBackgroundEmphasis: #374d9b;
-	--calloutSecondaryAccent: #6e7a88;
-	--calloutSecondaryButtonBackground: #405163;
-	--calloutSecondaryButtonBackgroundActive: #6e7a88;
-	--calloutSecondaryButtonForeground: #fff;
-	--calloutSecondaryLabel: #fff;
-	--calloutSecondaryProminentBackground: #223243;
-	--calloutSecondaryProminentBackgroundEmphasis: #405163;
-	--calloutSecondarySubtleBackground: rgba(34, 50, 67, 0.6);
-	--calloutSecondarySubtleBackgroundEmphasis: #405163;
-	--calloutWarningAccent: #fbe48e;
-	--calloutWarningButtonBackground: #f8d655;
-	--calloutWarningButtonBackgroundActive: #fbe48e;
-	--calloutWarningButtonForeground: #362c05;
-	--calloutWarningProminentBackground: #daac00;
-	--calloutWarningProminentBackgroundEmphasis: #f8d655;
-	--calloutWarningProminentBackgroundLabel: #362c05;
-	--calloutWarningSubtleBackground: #362c05;
-	--calloutWarningSubtleBackgroundEmphasis: #a38100;
-	--calloutWarningSubtleBackgroundLabel: #fef9ed;
-	--categoryBalanceAlternateBorder: #fff;
-	--categoryBalanceAlternateNegativeBackground: #962116;
-	--categoryBalanceAlternateNegativeBackgroundActive: #68170f;
-	--categoryBalanceAlternateNegativeLabel: #feedeb;
-	--categoryBalanceAlternateWarningBackground: #fbe48e;
-	--categoryBalanceAlternateWarningBackgroundActive: #f8d655;
-	--categoryBalanceNegativeBackground: #c72c1e;
-	--categoryBalanceNegativeBackgroundActive: #962116;
-	--categoryBalanceNegativeLabel: #feedeb;
-	--categoryBalancePositiveBackground: #67c122;
-	--categoryBalancePositiveBackgroundActive: #4d9119;
-	--categoryBalancePositiveLabel: #1d300d;
-	--categoryBalanceWarningBackground: #f6c91d;
-	--categoryBalanceWarningBackgroundActive: #daac00;
-	--categoryBalanceWarningLabel: #362c05;
-	--categoryBalanceZeroBackground: #223243;
-	--categoryBalanceZeroLabel: #a5adb6;
-	--checkboxBackground: rgba(0, 0, 0, 0);
-	--checkboxBackgroundDisabled: #405163;
-	--checkboxBackgroundSelected: #3b5eda;
-	--checkboxBorder: #6e7a88;
-	--checkboxBorderSelected: #3b5eda;
-	--checkboxForegroundSelected: #fff;
-	--debtChartsFive: #4d9119;
-	--debtChartsFour: #346011;
-	--debtChartsOne: #374d9b;
-	--debtChartsSeven: #a38100;
-	--debtChartsSix: #a38100;
-	--debtChartsThree: #3b5eda;
-	--debtChartsTwo: #587bf6;
-	--fillHover: rgba(255, 255, 255, 0.102);
-	--fillPrimary: rgba(110, 122, 136, 0.302);
-	--fillQuarternary: rgba(110, 122, 136, 0.18);
-	--fillSecondary: rgba(110, 122, 136, 0.322);
-	--fillTertiary: rgba(110, 122, 136, 0.239);
-	--filterBackground: #1a2837;
-	--filterBackgroundActive: rgba(130, 156, 248, 0.271);
-	--filterLabel: #ecf0fe;
-	--filterLabelDisabled: #6e7a88;
-	--flagBlue: #64d2ff;
-	--flagGreen: #32d74b;
-	--flagOrange: #ff9f0a;
-	--flagPurple: #bf5af2;
-	--flagRed: #ff453a;
-	--flagYellow: #ffd60a;
-	--headerBackground: #0c1722;
-	--iconFillPrimary: #a5adb6;
-	--iconFillSecondary: #6e7a88;
-	--iconFillTertiary: #405163;
-	--iconTwotoneDark: #6e7a88;
-	--iconTwotoneLight: #a5adb6;
-	--illustrationBackgroundBlurple200: #d8e0fd;
-	--illustrationBackgroundBlurple300: #acbdfb;
-	--illustrationBackgroundBlurple400: #829cf8;
-	--illustrationBackgroundBlurple500: #587bf6;
-	--illustrationBackgroundBlurple: #3b5eda;
-	--illustrationBackgroundButtermilk: #fef9ed;
-	--illustrationBackgroundDandelion: #f6c91d;
-	--illustrationBackgroundSlime: #67c122;
-	--inputBackground: #223243;
-	--inputBackgroundDisabled: #405163;
-	--inputBorder: #6e7a88;
-	--inputBorderActive: #3b5eda;
-	--labelAction: #829cf8;
-	--labelActionActive: #587bf6;
-	--labelActionDisabled: #374d9b;
-	--labelDarkBackgroundPrimary: #fff;
-	--labelDarkBackgroundSecondary: #edf1f5;
-	--labelHeading: #ecf0fe;
-	--labelNegative: #fc6350;
-	--labelNegativeActive: #f77f73;
-	--labelNegativeDisabled: #68170f;
-	--labelPositive: #67c122;
-	--labelPositiveActive: #84dd3e;
-	--labelPrimary: #fff;
-	--labelQuaternary: #405163;
-	--labelSecondary: #a5adb6;
-	--labelTertiary: #6e7a88;
-	--labelWarning: #daac00;
-	--loadingActionActive: #405163;
-	--loadingBackground: #0c1722;
-	--loadingShimmerBackground: #fff;
-	--loadingShimmerBackgroundFaded: rgba(255, 255, 255, 0.8);
-	--loanChartsPositive: #4d9119;
-	--loanChartsPrimary: #3b5eda;
-	--loanChartsSecondary: #2c396a;
-	--loanChartsTertiary: #405163;
-	--loanChartsWarning: #a38100;
-	--modalBackgroundAccent: #19223c;
-	--movesSelectedBackground: #3b5eda;
-	--movesStandardBackground: #2c396a;
-	--pillBackground: rgba(130, 156, 248, 0.2);
-	--pillLabel: #d8e0fd;
-	--registerSecondaryButtonLabel: #fff;
-	--registerSecondaryButtonLabelActive: rgba(255, 255, 255, 0.8);
-	--reportsChartTrendAOMSelected: #84dd3e;
-	--reportsChartTrendLine: #f1f1ff;
-	--reportsChartTrendPoint: #f1f1ff;
-	--reportsChartTrendPointShadow: rgba(255, 255, 255, 0.149);
-	--reportsEight: #f6c91d;
-	--reportsEleven: #405163;
-	--reportsFive: #4d9119;
-	--reportsFour: #2c396a;
-	--reportsNetworthAssetsBackground: #374d9b;
-	--reportsNetworthDebtsBackground: #c72c1e;
-	--reportsNine: #962116;
-	--reportsOne: #374d9b;
-	--reportsSeven: #daac00;
-	--reportsSix: #84dd3e;
-	--reportsSpendingBreakdownTop10: #c1ee9f;
-	--reportsSpendingBreakdownTop1: #3b5eda;
-	--reportsSpendingBreakdownTop2: #67c122;
-	--reportsSpendingBreakdownTop3: #daac00;
-	--reportsSpendingBreakdownTop4: #c72c1e;
-	--reportsSpendingBreakdownTop5: #587bf6;
-	--reportsSpendingBreakdownTop6: #a2e66e;
-	--reportsSpendingBreakdownTop7: #f8d655;
-	--reportsSpendingBreakdownTop8: #f77f73;
-	--reportsSpendingBreakdownTop9: #829cf8;
-	--reportsSpendingBreakdownTopOther: #acbdfb;
-	--reportsTen: #fc6350;
-	--reportsThree: #3b5eda;
-	--reportsTwo: #587bf6;
-	--scrimDefault: rgba(0, 0, 0, 0.329);
-	--scrimInvisible: rgba(0, 0, 0, 0);
-	--scrimStrong: rgba(60, 60, 67, 0.6);
-	--separatorStandard: rgba(255, 255, 255, 0.102);
-	--separatorStrong: #6e7a88;
-	--separatorSubdued: rgba(255, 255, 255, 0.078);
-	--settingsHeaderBackground: #1a2837;
-	--sidebarAccountNegativeBalanceBackground: rgba(0, 0, 0, 0);
-	--sidebarBackground: #14212f;
-	--sidebarButtonBackgroundActive: #223243;
-	--sidebarButtonBackgroundSelected: #2c396a;
-	--sidebarButtonSecondaryBackground: #223243;
-	--sidebarButtonSecondaryBackgroundActive: #405163;
-	--sidebarButtonSecondaryBackgroundPressed: #405163;
-	--sidebarButtonTertiaryBackground: rgba(255, 255, 255, 0.149);
-	--sidebarButtonTertiaryBackgroundActive: rgba(255, 255, 255, 0.302);
-	--sidebarButtonTertiaryBackgroundPressed: rgba(255, 255, 255, 0.349);
-	--sidebarIconFillDefault: #fff;
-	--sidebarLabelPrimary: #fff;
-	--sidebarLabelSecondary: rgba(255, 255, 255, 0.698);
-	--statusNegative: #c72c1e;
-	--statusPositive: #67c122;
-	--statusWarning: #daac00;
-	--swoopBottom: #4d9119;
-	--viewsErrorBackground: #c72c1e;
-	--viewsErrorBackgroundHover: #962116;
-	--viewsErrorBackgroundSelected: #3c0d09;
-	--viewsErrorBackgroundSelectedHover: #68170f;
-	--viewsErrorLabel: #feedeb;
-	--viewsErrorLabelSelected: #feedeb;
-	--viewsErrorSelectedAccent: #c72c1e;
-	--viewsNeutralBackground: #223243;
-	--viewsNeutralBackgroundHover: #405163;
-	--viewsNeutralBackgroundSelected: #2c396a;
-	--viewsNeutralBackgroundSelectedHover: #374d9b;
-	--viewsNeutralSelectedAccent: #587bf6;
-	--viewsWarningBackground: #f6c91d;
-	--viewsWarningBackgroundHover: #daac00;
-	--viewsWarningBackgroundSelected: #362c05;
-	--viewsWarningBackgroundSelectedHover: #6d5600;
-	--viewsWarningLabel: #362c05;
-	--viewsWarningLabelSelected: #daac00;
-	--viewsWarningSelectedAccent: #daac00;
-	color-scheme: dark only
-}
-body.theme-dark ::-webkit-scrollbar {
-	background: 0 0;
-	width: .875rem
-}
-body.theme-dark ::-webkit-scrollbar-thumb {
-	background: var(--actionSecondary);
-	background-clip: padding-box;
-	border: .1875rem solid transparent;
-	border-radius: 10rem
-}
-@media (prefers-color-scheme: dark) {
-	[data-ynab-device=android], [data-ynab-device=ios] {
-		scrollbar-color: var(--actionSecondary) transparent;
-		--accountwidgetMxWidgetBackground: #121417;
-		--actionPrimary: #829cf8;
-		--actionPrimaryActive: #587bf6;
-		--actionPrimaryDisabled: #374d9b;
-		--actionSecondary: #405163;
-		--actionSecondaryActive: #6e7a88;
-		--actionSecondaryBorder: #405163;
-		--actionSecondaryDisabled: #14212f;
-		--actionTertiary: #acbdfb;
-		--actionTertiaryActive: #3b5eda;
-		--actionbarBackground: #374d9b;
-		--actionbarButtonBackground: #374d9b;
-		--backgroundDarkPrimary: #405163;
-		--backgroundDarkSecondary: rgba(255, 255, 255, 0.149);
-		--backgroundDarkTertiary: rgba(255, 255, 255, 0.2);
-		--backgroundGroupedPrimary: #0c1722;
-		--backgroundGroupedSecondary: #14212f;
-		--backgroundGroupedTertiary: #223243;
-		--backgroundNavigationBar: #2c396a;
-		--backgroundPrimary: #0c1722;
-		--backgroundPrimaryElevated: #1a2837;
-		--backgroundSecondary: #14212f;
-		--backgroundSecondaryElevated: #223243;
-		--backgroundTableHeader: #14212f;
-		--backgroundTableRow: #0c1722;
-		--backgroundTableRowSelected: #2c396a;
-		--backgroundTertiary: #223243;
-		--backgroundTertiaryElevated: #405163;
-		--backgroundVideoControls: #000;
-		--budgetBarBackground: #223243;
-		--budgetBarBackgroundOnNonWhite: #223243;
-		--budgetBarBorder: #405163;
-		--budgetBarEmpty: #223243;
-		--budgetBarFunded: #67c122;
-		--budgetBarFundedSpending: #346011;
-		--budgetBarFundedSpendingStripe: #1d300d;
-		--budgetBarOverspending: #962116;
-		--budgetBarOverspendingStripe: #3c0d09;
-		--budgetBarPreviouslyAssigned: #6e7a88;
-		--budgetBarUnderfunded: #daac00;
-		--budgetBarUnderfundedSpending: #6d5600;
-		--budgetBarUnderfundedSpendingStripe: #362c05;
-		--buttonDestructiveBackground: #68170f;
-		--buttonDestructiveBackgroundActive: #962116;
-		--buttonDestructiveLabel: #feedeb;
-		--buttonEmphasizedBackground: #4d9119;
-		--buttonEmphasizedBackgroundActive: #67c122;
-		--buttonEmphasizedBackgroundDisabled: #223243;
-		--buttonPrimaryBackground: #3b5eda;
-		--buttonPrimaryBackgroundActive: #587bf6;
-		--buttonPrimaryBackgroundDisabled: #223243;
-		--buttonSecondaryBackground: rgba(130, 156, 248, 0.2);
-		--buttonSecondaryBackgroundActive: rgba(130, 156, 248, 0.271);
-		--buttonSecondaryLabel: #ecf0fe;
-		--buttonTertiaryBackground: #223243;
-		--buttonTertiaryBackgroundActive: #405163;
-		--calloutNegativeAccent: #c72c1e;
-		--calloutNegativeButtonBackground: #c72c1e;
-		--calloutNegativeButtonBackgroundActive: #fc6350;
-		--calloutNegativeButtonForeground: #feedeb;
-		--calloutNegativeLabel: #feedeb;
-		--calloutNegativeProminentBackground: #68170f;
-		--calloutNegativeProminentBackgroundEmphasis: #c72c1e;
-		--calloutNegativeSubtleBackground: #3c0d09;
-		--calloutNegativeSubtleBackgroundEmphasis: #962116;
-		--calloutPositiveAccent: #84dd3e;
-		--calloutPositiveButtonBackground: #4d9119;
-		--calloutPositiveButtonBackgroundActive: #67c122;
-		--calloutPositiveButtonForeground: #f1fbe9;
-		--calloutPositiveLabel: #f1fbe9;
-		--calloutPositiveProminentBackground: #346011;
-		--calloutPositiveProminentBackgroundEmphasis: #67c122;
-		--calloutPositiveSubtleBackground: #1d300d;
-		--calloutPositiveSubtleBackgroundEmphasis: #346011;
-		--calloutPrimaryAccent: #3b5eda;
-		--calloutPrimaryButtonBackground: #3b5eda;
-		--calloutPrimaryButtonBackgroundActive: #587bf6;
-		--calloutPrimaryButtonForeground: #ecf0fe;
-		--calloutPrimaryLabel: #ecf0fe;
-		--calloutPrimaryProminentBackground: #2c396a;
-		--calloutPrimaryProminentBackgroundEmphasis: #3b5eda;
-		--calloutPrimarySubtleBackground: rgba(130, 156, 248, 0.2);
-		--calloutPrimarySubtleBackgroundEmphasis: #374d9b;
-		--calloutSecondaryAccent: #6e7a88;
-		--calloutSecondaryButtonBackground: #405163;
-		--calloutSecondaryButtonBackgroundActive: #6e7a88;
-		--calloutSecondaryButtonForeground: #fff;
-		--calloutSecondaryLabel: #fff;
-		--calloutSecondaryProminentBackground: #223243;
-		--calloutSecondaryProminentBackgroundEmphasis: #405163;
-		--calloutSecondarySubtleBackground: rgba(34, 50, 67, 0.6);
-		--calloutSecondarySubtleBackgroundEmphasis: #405163;
-		--calloutWarningAccent: #fbe48e;
-		--calloutWarningButtonBackground: #f8d655;
-		--calloutWarningButtonBackgroundActive: #fbe48e;
-		--calloutWarningButtonForeground: #362c05;
-		--calloutWarningProminentBackground: #daac00;
-		--calloutWarningProminentBackgroundEmphasis: #f8d655;
-		--calloutWarningProminentBackgroundLabel: #362c05;
-		--calloutWarningSubtleBackground: #362c05;
-		--calloutWarningSubtleBackgroundEmphasis: #a38100;
-		--calloutWarningSubtleBackgroundLabel: #fef9ed;
-		--categoryBalanceAlternateBorder: #fff;
-		--categoryBalanceAlternateNegativeBackground: #962116;
-		--categoryBalanceAlternateNegativeBackgroundActive: #68170f;
-		--categoryBalanceAlternateNegativeLabel: #feedeb;
-		--categoryBalanceAlternateWarningBackground: #fbe48e;
-		--categoryBalanceAlternateWarningBackgroundActive: #f8d655;
-		--categoryBalanceNegativeBackground: #c72c1e;
-		--categoryBalanceNegativeBackgroundActive: #962116;
-		--categoryBalanceNegativeLabel: #feedeb;
-		--categoryBalancePositiveBackground: #67c122;
-		--categoryBalancePositiveBackgroundActive: #4d9119;
-		--categoryBalancePositiveLabel: #1d300d;
-		--categoryBalanceWarningBackground: #f6c91d;
-		--categoryBalanceWarningBackgroundActive: #daac00;
-		--categoryBalanceWarningLabel: #362c05;
-		--categoryBalanceZeroBackground: #223243;
-		--categoryBalanceZeroLabel: #a5adb6;
-		--checkboxBackground: rgba(0, 0, 0, 0);
-		--checkboxBackgroundDisabled: #405163;
-		--checkboxBackgroundSelected: #3b5eda;
-		--checkboxBorder: #6e7a88;
-		--checkboxBorderSelected: #3b5eda;
-		--checkboxForegroundSelected: #fff;
-		--debtChartsFive: #4d9119;
-		--debtChartsFour: #346011;
-		--debtChartsOne: #374d9b;
-		--debtChartsSeven: #a38100;
-		--debtChartsSix: #a38100;
-		--debtChartsThree: #3b5eda;
-		--debtChartsTwo: #587bf6;
-		--fillHover: rgba(255, 255, 255, 0.102);
-		--fillPrimary: rgba(110, 122, 136, 0.302);
-		--fillQuarternary: rgba(110, 122, 136, 0.18);
-		--fillSecondary: rgba(110, 122, 136, 0.322);
-		--fillTertiary: rgba(110, 122, 136, 0.239);
-		--filterBackground: #1a2837;
-		--filterBackgroundActive: rgba(130, 156, 248, 0.271);
-		--filterLabel: #ecf0fe;
-		--filterLabelDisabled: #6e7a88;
-		--flagBlue: #64d2ff;
-		--flagGreen: #32d74b;
-		--flagOrange: #ff9f0a;
-		--flagPurple: #bf5af2;
-		--flagRed: #ff453a;
-		--flagYellow: #ffd60a;
-		--headerBackground: #0c1722;
-		--iconFillPrimary: #a5adb6;
-		--iconFillSecondary: #6e7a88;
-		--iconFillTertiary: #405163;
-		--iconTwotoneDark: #6e7a88;
-		--iconTwotoneLight: #a5adb6;
-		--illustrationBackgroundBlurple200: #d8e0fd;
-		--illustrationBackgroundBlurple300: #acbdfb;
-		--illustrationBackgroundBlurple400: #829cf8;
-		--illustrationBackgroundBlurple500: #587bf6;
-		--illustrationBackgroundBlurple: #3b5eda;
-		--illustrationBackgroundButtermilk: #fef9ed;
-		--illustrationBackgroundDandelion: #f6c91d;
-		--illustrationBackgroundSlime: #67c122;
-		--inputBackground: #223243;
-		--inputBackgroundDisabled: #405163;
-		--inputBorder: #6e7a88;
-		--inputBorderActive: #3b5eda;
-		--labelAction: #829cf8;
-		--labelActionActive: #587bf6;
-		--labelActionDisabled: #374d9b;
-		--labelDarkBackgroundPrimary: #fff;
-		--labelDarkBackgroundSecondary: #edf1f5;
-		--labelHeading: #ecf0fe;
-		--labelNegative: #fc6350;
-		--labelNegativeActive: #f77f73;
-		--labelNegativeDisabled: #68170f;
-		--labelPositive: #67c122;
-		--labelPositiveActive: #84dd3e;
-		--labelPrimary: #fff;
-		--labelQuaternary: #405163;
-		--labelSecondary: #a5adb6;
-		--labelTertiary: #6e7a88;
-		--labelWarning: #daac00;
-		--loadingActionActive: #405163;
-		--loadingBackground: #0c1722;
-		--loadingShimmerBackground: #fff;
-		--loadingShimmerBackgroundFaded: rgba(255, 255, 255, 0.8);
-		--loanChartsPositive: #4d9119;
-		--loanChartsPrimary: #3b5eda;
-		--loanChartsSecondary: #2c396a;
-		--loanChartsTertiary: #405163;
-		--loanChartsWarning: #a38100;
-		--modalBackgroundAccent: #19223c;
-		--movesSelectedBackground: #3b5eda;
-		--movesStandardBackground: #2c396a;
-		--pillBackground: rgba(130, 156, 248, 0.2);
-		--pillLabel: #d8e0fd;
-		--registerSecondaryButtonLabel: #fff;
-		--registerSecondaryButtonLabelActive: rgba(255, 255, 255, 0.8);
-		--reportsChartTrendAOMSelected: #84dd3e;
-		--reportsChartTrendLine: #f1f1ff;
-		--reportsChartTrendPoint: #f1f1ff;
-		--reportsChartTrendPointShadow: rgba(255, 255, 255, 0.149);
-		--reportsEight: #f6c91d;
-		--reportsEleven: #405163;
-		--reportsFive: #4d9119;
-		--reportsFour: #2c396a;
-		--reportsNetworthAssetsBackground: #374d9b;
-		--reportsNetworthDebtsBackground: #c72c1e;
-		--reportsNine: #962116;
-		--reportsOne: #374d9b;
-		--reportsSeven: #daac00;
-		--reportsSix: #84dd3e;
-		--reportsSpendingBreakdownTop10: #c1ee9f;
-		--reportsSpendingBreakdownTop1: #3b5eda;
-		--reportsSpendingBreakdownTop2: #67c122;
-		--reportsSpendingBreakdownTop3: #daac00;
-		--reportsSpendingBreakdownTop4: #c72c1e;
-		--reportsSpendingBreakdownTop5: #587bf6;
-		--reportsSpendingBreakdownTop6: #a2e66e;
-		--reportsSpendingBreakdownTop7: #f8d655;
-		--reportsSpendingBreakdownTop8: #f77f73;
-		--reportsSpendingBreakdownTop9: #829cf8;
-		--reportsSpendingBreakdownTopOther: #acbdfb;
-		--reportsTen: #fc6350;
-		--reportsThree: #3b5eda;
-		--reportsTwo: #587bf6;
-		--scrimDefault: rgba(0, 0, 0, 0.329);
-		--scrimInvisible: rgba(0, 0, 0, 0);
-		--scrimStrong: rgba(60, 60, 67, 0.6);
-		--separatorStandard: rgba(255, 255, 255, 0.102);
-		--separatorStrong: #6e7a88;
-		--separatorSubdued: rgba(255, 255, 255, 0.078);
-		--settingsHeaderBackground: #1a2837;
-		--sidebarAccountNegativeBalanceBackground: rgba(0, 0, 0, 0);
-		--sidebarBackground: #14212f;
-		--sidebarButtonBackgroundActive: #223243;
-		--sidebarButtonBackgroundSelected: #2c396a;
-		--sidebarButtonSecondaryBackground: #223243;
-		--sidebarButtonSecondaryBackgroundActive: #405163;
-		--sidebarButtonSecondaryBackgroundPressed: #405163;
-		--sidebarButtonTertiaryBackground: rgba(255, 255, 255, 0.149);
-		--sidebarButtonTertiaryBackgroundActive: rgba(255, 255, 255, 0.302);
-		--sidebarButtonTertiaryBackgroundPressed: rgba(255, 255, 255, 0.349);
-		--sidebarIconFillDefault: #fff;
-		--sidebarLabelPrimary: #fff;
-		--sidebarLabelSecondary: rgba(255, 255, 255, 0.698);
-		--statusNegative: #c72c1e;
-		--statusPositive: #67c122;
-		--statusWarning: #daac00;
-		--swoopBottom: #4d9119;
-		--viewsErrorBackground: #c72c1e;
-		--viewsErrorBackgroundHover: #962116;
-		--viewsErrorBackgroundSelected: #3c0d09;
-		--viewsErrorBackgroundSelectedHover: #68170f;
-		--viewsErrorLabel: #feedeb;
-		--viewsErrorLabelSelected: #feedeb;
-		--viewsErrorSelectedAccent: #c72c1e;
-		--viewsNeutralBackground: #223243;
-		--viewsNeutralBackgroundHover: #405163;
-		--viewsNeutralBackgroundSelected: #2c396a;
-		--viewsNeutralBackgroundSelectedHover: #374d9b;
-		--viewsNeutralSelectedAccent: #587bf6;
-		--viewsWarningBackground: #f6c91d;
-		--viewsWarningBackgroundHover: #daac00;
-		--viewsWarningBackgroundSelected: #362c05;
-		--viewsWarningBackgroundSelectedHover: #6d5600;
-		--viewsWarningLabel: #362c05;
-		--viewsWarningLabelSelected: #daac00;
-		--viewsWarningSelectedAccent: #daac00
-	}
-	
-	[data-ynab-device=android] ::-webkit-scrollbar, [data-ynab-device=ios] ::-webkit-scrollbar {
-		background: 0 0;
-		width: .875rem
-	}
-	
-	[data-ynab-device=android] ::-webkit-scrollbar-thumb, [data-ynab-device=ios] ::-webkit-scrollbar-thumb {
-		background: var(--actionSecondary);
-		background-clip: padding-box;
-		border: .1875rem solid transparent;
-		border-radius: 10rem
-	}
-}
-body.theme-var-light {
-	scrollbar-color: var(--actionSecondary) var(--backgroundPrimary);
-	--accountwidgetMxWidgetBackground: #f8f9fb;
-	--actionPrimary: #545bfe;
-	--actionPrimaryActive: #464cd1;
-	--actionPrimaryDisabled: #a3acff;
-	--actionSecondary: #888681;
-	--actionSecondaryActive: #696763;
-	--actionSecondaryBorder: #dbd7cc;
-	--actionSecondaryDisabled: #c7c4bd;
-	--actionTertiary: #383ca3;
-	--actionTertiaryActive: #292c6c;
-	--actionbarBackground: #1b1d48;
-	--actionbarButtonBackground: #19223c;
-	--backgroundDarkPrimary: #51504d;
-	--backgroundDarkSecondary: rgba(255, 255, 255, 0.149);
-	--backgroundDarkTertiary: rgba(255, 255, 255, 0.2);
-	--backgroundGroupedPrimary: #f8f6f2;
-	--backgroundGroupedSecondary: #fff;
-	--backgroundGroupedTertiary: #f8f6f2;
-	--backgroundNavigationBar: #545bfe;
-	--backgroundPrimary: #fff;
-	--backgroundPrimaryElevated: #fff;
-	--backgroundSecondary: #f8f6f2;
-	--backgroundSecondaryElevated: #f8f6f2;
-	--backgroundTableHeader: #f8f6f2;
-	--backgroundTableRow: #fff;
-	--backgroundTableRowSelected: #e2e3ff;
-	--backgroundTertiary: #f3eee2;
-	--backgroundTertiaryElevated: #f3eee2;
-	--backgroundVideoControls: #000;
-	--budgetBarBackground: #f3eee2;
-	--budgetBarBackgroundOnNonWhite: #fff;
-	--budgetBarBorder: #ece7da;
-	--budgetBarEmpty: #fff;
-	--budgetBarFunded: #77ba21;
-	--budgetBarFundedSpending: #aee865;
-	--budgetBarFundedSpendingStripe: #f1fbe9;
-	--budgetBarOverspending: #bf2e3b;
-	--budgetBarOverspendingStripe: #fdd7d3;
-	--budgetBarPreviouslyAssigned: #727484;
-	--budgetBarUnderfunded: #f6c91d;
-	--budgetBarUnderfundedSpending: #fbe48e;
-	--budgetBarUnderfundedSpendingStripe: #fef9ed;
-	--buttonDestructiveBackground: #feedeb;
-	--buttonDestructiveBackgroundActive: #bf2e3b;
-	--buttonDestructiveLabel: #c72c1e;
-	--buttonEmphasizedBackground: #508316;
-	--buttonEmphasizedBackgroundActive: #77ba21;
-	--buttonEmphasizedBackgroundDisabled: #c4c5cf;
-	--buttonPrimaryBackground: #545bfe;
-	--buttonPrimaryBackgroundActive: #464cd1;
-	--buttonPrimaryBackgroundDisabled: #dbd7cc;
-	--buttonSecondaryBackground: rgba(84, 91, 254, 0.129);
-	--buttonSecondaryBackgroundActive: rgba(84, 91, 254, 0.2);
-	--buttonSecondaryLabel: #545bfe;
-	--buttonTertiaryBackground: rgba(199, 196, 189, 0.2);
-	--buttonTertiaryBackgroundActive: rgba(199, 196, 189, 0.302);
-	--calloutNegativeAccent: #bf2e3b;
-	--calloutNegativeButtonBackground: #bf2e3b;
-	--calloutNegativeButtonBackgroundActive: #912333;
-	--calloutNegativeButtonForeground: #fff;
-	--calloutNegativeLabel: #4c0814;
-	--calloutNegativeProminentBackground: #faada5;
-	--calloutNegativeProminentBackgroundEmphasis: #e48585;
-	--calloutNegativeSubtleBackground: rgba(191, 46, 59, 0.141);
-	--calloutNegativeSubtleBackgroundEmphasis: #faada5;
-	--calloutPositiveAccent: #77ba21;
-	--calloutPositiveButtonBackground: #508316;
-	--calloutPositiveButtonBackgroundActive: #346011;
-	--calloutPositiveButtonForeground: #fff;
-	--calloutPositiveLabel: #1d300d;
-	--calloutPositiveProminentBackground: #c2f680;
-	--calloutPositiveProminentBackgroundEmphasis: #93d53e;
-	--calloutPositiveSubtleBackground: rgba(147, 213, 62, 0.239);
-	--calloutPositiveSubtleBackgroundEmphasis: #aee865;
-	--calloutPrimaryAccent: #545bfe;
-	--calloutPrimaryButtonBackground: #545bfe;
-	--calloutPrimaryButtonBackgroundActive: #464cd1;
-	--calloutPrimaryButtonForeground: #fff;
-	--calloutPrimaryLabel: #1b1d48;
-	--calloutPrimaryProminentBackground: #d4d5ff;
-	--calloutPrimaryProminentBackgroundEmphasis: #7583ff;
-	--calloutPrimarySubtleBackground: rgba(84, 91, 254, 0.129);
-	--calloutPrimarySubtleBackgroundEmphasis: #a3acff;
-	--calloutSecondaryAccent: #acaaa5;
-	--calloutSecondaryButtonBackground: #888681;
-	--calloutSecondaryButtonBackgroundActive: #696763;
-	--calloutSecondaryButtonForeground: #fff;
-	--calloutSecondaryLabel: #3c3b39;
-	--calloutSecondaryProminentBackground: #dbd7cc;
-	--calloutSecondaryProminentBackgroundEmphasis: #c7c4bd;
-	--calloutSecondarySubtleBackground: rgba(136, 134, 129, 0.231);
-	--calloutSecondarySubtleBackgroundEmphasis: #ece7da;
-	--calloutWarningAccent: #daac00;
-	--calloutWarningButtonBackground: #f6c91d;
-	--calloutWarningButtonBackgroundActive: #daac00;
-	--calloutWarningButtonForeground: #362c05;
-	--calloutWarningProminentBackground: #fbe48e;
-	--calloutWarningProminentBackgroundEmphasis: #daac00;
-	--calloutWarningProminentBackgroundLabel: #362c05;
-	--calloutWarningSubtleBackground: rgba(246, 201, 29, 0.239);
-	--calloutWarningSubtleBackgroundEmphasis: #f8d655;
-	--calloutWarningSubtleBackgroundLabel: #362c05;
-	--categoryBalanceAlternateBorder: #000;
-	--categoryBalanceAlternateNegativeBackground: #bf2e3b;
-	--categoryBalanceAlternateNegativeBackgroundActive: #912333;
-	--categoryBalanceAlternateNegativeLabel: #fff;
-	--categoryBalanceAlternateWarningBackground: #f6c91d;
-	--categoryBalanceAlternateWarningBackgroundActive: #daac00;
-	--categoryBalanceNegativeBackground: #faada5;
-	--categoryBalanceNegativeBackgroundActive: #e48585;
-	--categoryBalanceNegativeLabel: #191818;
-	--categoryBalancePositiveBackground: #aee865;
-	--categoryBalancePositiveBackgroundActive: #aee865;
-	--categoryBalancePositiveLabel: #191818;
-	--categoryBalanceWarningBackground: #f8d655;
-	--categoryBalanceWarningBackgroundActive: #f6c91d;
-	--categoryBalanceWarningLabel: #191818;
-	--categoryBalanceZeroBackground: #f3eee2;
-	--categoryBalanceZeroLabel: #696763;
-	--checkboxBackground: #fff;
-	--checkboxBackgroundDisabled: #dbd7cc;
-	--checkboxBackgroundSelected: #545bfe;
-	--checkboxBorder: #acaaa5;
-	--checkboxBorderSelected: #545bfe;
-	--checkboxForegroundSelected: #fff;
-	--debtChartsFive: #93d53e;
-	--debtChartsFour: #f1fbe9;
-	--debtChartsOne: #f1f1ff;
-	--debtChartsSeven: #6d5600;
-	--debtChartsSix: #fef9ed;
-	--debtChartsThree: #545bfe;
-	--debtChartsTwo: #d4d5ff;
-	--fillHover: rgba(0, 0, 0, 0.102);
-	--fillPrimary: rgba(136, 134, 129, 0.231);
-	--fillQuarternary: rgba(136, 134, 129, 0.102);
-	--fillSecondary: rgba(136, 134, 129, 0.169);
-	--fillTertiary: rgba(136, 134, 129, 0.141);
-	--filterBackground: #fff;
-	--filterBackgroundActive: rgba(84, 91, 254, 0.129);
-	--filterLabel: #545bfe;
-	--filterLabelDisabled: #a3acff;
-	--flagBlue: #5ac8fa;
-	--flagGreen: #34c759;
-	--flagOrange: #ff9500;
-	--flagPurple: #af52de;
-	--flagRed: #ff3b30;
-	--flagYellow: #fc0;
-	--headerBackground: #fff;
-	--iconFillPrimary: #696763;
-	--iconFillSecondary: #acaaa5;
-	--iconFillTertiary: #c7c4bd;
-	--iconTwotoneDark: #696763;
-	--iconTwotoneLight: #888681;
-	--illustrationBackgroundBlurple200: #d4d5ff;
-	--illustrationBackgroundBlurple300: #a3acff;
-	--illustrationBackgroundBlurple400: #7583ff;
-	--illustrationBackgroundBlurple500: #545bfe;
-	--illustrationBackgroundBlurple: #464cd1;
-	--illustrationBackgroundButtermilk: #fef9ed;
-	--illustrationBackgroundDandelion: #f6c91d;
-	--illustrationBackgroundSlime: #77ba21;
-	--inputBackground: #fff;
-	--inputBackgroundDisabled: #f3eee2;
-	--inputBorder: #dbd7cc;
-	--inputBorderActive: #545bfe;
-	--labelAction: #4b5dfa;
-	--labelActionActive: #464cd1;
-	--labelActionDisabled: #acbdfb;
-	--labelDarkBackgroundPrimary: #fff;
-	--labelDarkBackgroundSecondary: #ece7da;
-	--labelHeading: #191818;
-	--labelNegative: #bf2e3b;
-	--labelNegativeActive: #912333;
-	--labelNegativeDisabled: #fdd7d3;
-	--labelPositive: #508316;
-	--labelPositiveActive: #346011;
-	--labelPrimary: #191818;
-	--labelQuaternary: #888681;
-	--labelSecondary: #51504d;
-	--labelTertiary: #696763;
-	--labelWarning: #6d5600;
-	--loadingActionActive: #fff;
-	--loadingBackground: #1c1f58;
-	--loadingShimmerBackground: #fff;
-	--loadingShimmerBackgroundFaded: rgba(255, 255, 255, 0.8);
-	--loanChartsPositive: #93d53e;
-	--loanChartsPrimary: #545bfe;
-	--loanChartsSecondary: #a3acff;
-	--loanChartsTertiary: #c4c5cf;
-	--loanChartsWarning: #f6c91d;
-	--modalBackgroundAccent: #292c6c;
-	--movesSelectedBackground: #545bfe;
-	--movesStandardBackground: #d4d5ff;
-	--pillBackground: rgba(84, 91, 254, 0.129);
-	--pillLabel: #545bfe;
-	--registerSecondaryButtonLabel: #545bfe;
-	--registerSecondaryButtonLabelActive: #383ca3;
-	--reportsChartTrendAOMSelected: #508316;
-	--reportsChartTrendLine: #1b1d48;
-	--reportsChartTrendPoint: #1b1d48;
-	--reportsChartTrendPointShadow: rgba(0, 0, 0, 0.102);
-	--reportsEight: #fbe48e;
-	--reportsEleven: #c4c5cf;
-	--reportsFive: #93d53e;
-	--reportsFour: #464cd1;
-	--reportsNetworthAssetsBackground: #545bfe;
-	--reportsNetworthDebtsBackground: #ce5e66;
-	--reportsNine: #ce5e66;
-	--reportsOne: #7583ff;
-	--reportsSeven: #f6c91d;
-	--reportsSix: #c2f680;
-	--reportsSpendingBreakdownTop10: #c2f680;
-	--reportsSpendingBreakdownTop1: #545bfe;
-	--reportsSpendingBreakdownTop2: #93d53e;
-	--reportsSpendingBreakdownTop3: #f6c91d;
-	--reportsSpendingBreakdownTop4: #ce5e66;
-	--reportsSpendingBreakdownTop5: #7583ff;
-	--reportsSpendingBreakdownTop6: #aee865;
-	--reportsSpendingBreakdownTop7: #f8d655;
-	--reportsSpendingBreakdownTop8: #e48585;
-	--reportsSpendingBreakdownTop9: #a3acff;
-	--reportsSpendingBreakdownTopOther: #d4d5ff;
-	--reportsTen: #faada5;
-	--reportsThree: #383ca3;
-	--reportsTwo: #a3acff;
-	--scrimDefault: rgba(0, 0, 0, 0.102);
-	--scrimInvisible: rgba(0, 0, 0, 0);
-	--scrimStrong: rgba(0, 0, 0, 0.659);
-	--separatorStandard: #dbd7cc;
-	--separatorStrong: #acaaa5;
-	--separatorSubdued: rgba(0, 0, 0, 0.102);
-	--settingsHeaderBackground: #fff;
-	--sidebarAccountNegativeBalanceBackground: #fff;
-	--sidebarBackground: #1c1f58;
-	--sidebarButtonBackgroundActive: #292c6c;
-	--sidebarButtonBackgroundSelected: #383ca3;
-	--sidebarButtonSecondaryBackground: rgba(255, 255, 255, 0.102);
-	--sidebarButtonSecondaryBackgroundActive: #292c6c;
-	--sidebarButtonSecondaryBackgroundPressed: rgba(0, 0, 0, 0.149);
-	--sidebarButtonTertiaryBackground: rgba(255, 255, 255, 0.149);
-	--sidebarButtonTertiaryBackgroundActive: rgba(255, 255, 255, 0.302);
-	--sidebarButtonTertiaryBackgroundPressed: rgba(255, 255, 255, 0.349);
-	--sidebarIconFillDefault: #fff;
-	--sidebarLabelPrimary: #fff;
-	--sidebarLabelSecondary: rgba(255, 255, 255, 0.8);
-	--statusNegative: #bf2e3b;
-	--statusPositive: #77ba21;
-	--statusWarning: #f6c91d;
-	--swoopBottom: #aee865;
-	--viewsErrorBackground: #faada5;
-	--viewsErrorBackgroundHover: #e48585;
-	--viewsErrorBackgroundSelected: #feedeb;
-	--viewsErrorBackgroundSelectedHover: #fdd7d3;
-	--viewsErrorLabel: #4c0814;
-	--viewsErrorLabelSelected: #4c0814;
-	--viewsErrorSelectedAccent: #ce5e66;
-	--viewsNeutralBackground: rgba(199, 196, 189, 0.239);
-	--viewsNeutralBackgroundHover: rgba(199, 196, 189, 0.361);
-	--viewsNeutralBackgroundSelected: #d4d5ff;
-	--viewsNeutralBackgroundSelectedHover: #a3acff;
-	--viewsNeutralSelectedAccent: #545bfe;
-	--viewsWarningBackground: #fbe48e;
-	--viewsWarningBackgroundHover: #f8d655;
-	--viewsWarningBackgroundSelected: #fdf1c6;
-	--viewsWarningBackgroundSelectedHover: #fbe48e;
-	--viewsWarningLabel: #362c05;
-	--viewsWarningLabelSelected: #362c05;
-	--viewsWarningSelectedAccent: #daac00;
-	color-scheme: light only
-}
-body.theme-var-light ::-webkit-scrollbar {
-	background: var(--backgroundPrimary);
-	width: .875rem
-}
-body.theme-var-light ::-webkit-scrollbar-thumb {
-	background: var(--actionSecondary);
-	background-clip: padding-box;
-	border: .1875rem solid transparent;
-	border-radius: 10rem
-}
-body.theme-var-dark {
-	scrollbar-color: var(--actionSecondary) var(--backgroundPrimary);
-	--accountwidgetMxWidgetBackground: #121417;
 	--actionPrimary: #7583ff;
 	--actionPrimaryActive: #a3acff;
 	--actionPrimaryDisabled: #383ca3;
@@ -4209,7 +2812,7 @@ body.theme-var-dark {
 	--calloutNegativeButtonBackground: #bf2e3b;
 	--calloutNegativeButtonBackgroundActive: #ce5e66;
 	--calloutNegativeButtonForeground: #fff;
-	--calloutNegativeLabel: #feedeb;
+	--calloutNegativeLabel: #fff;
 	--calloutNegativeProminentBackground: #6a1020;
 	--calloutNegativeProminentBackgroundEmphasis: #bf2e3b;
 	--calloutNegativeSubtleBackground: #4c0814;
@@ -4218,7 +2821,7 @@ body.theme-var-dark {
 	--calloutPositiveButtonBackground: #508316;
 	--calloutPositiveButtonBackgroundActive: #77ba21;
 	--calloutPositiveButtonForeground: #fff;
-	--calloutPositiveLabel: #f1fbe9;
+	--calloutPositiveLabel: #fff;
 	--calloutPositiveProminentBackground: #346011;
 	--calloutPositiveProminentBackgroundEmphasis: #77ba21;
 	--calloutPositiveSubtleBackground: #1d300d;
@@ -4227,7 +2830,7 @@ body.theme-var-dark {
 	--calloutPrimaryButtonBackground: #545bfe;
 	--calloutPrimaryButtonBackgroundActive: #7583ff;
 	--calloutPrimaryButtonForeground: #fff;
-	--calloutPrimaryLabel: #f1f1ff;
+	--calloutPrimaryLabel: #fff;
 	--calloutPrimaryProminentBackground: #292c6c;
 	--calloutPrimaryProminentBackgroundEmphasis: #545bfe;
 	--calloutPrimarySubtleBackground: rgba(117, 131, 255, 0.2);
@@ -4250,7 +2853,7 @@ body.theme-var-dark {
 	--calloutWarningProminentBackgroundLabel: #362c05;
 	--calloutWarningSubtleBackground: #362c05;
 	--calloutWarningSubtleBackgroundEmphasis: #a38100;
-	--calloutWarningSubtleBackgroundLabel: #fef9ed;
+	--calloutWarningSubtleBackgroundLabel: #fff;
 	--categoryBalanceAlternateBorder: #fff;
 	--categoryBalanceAlternateNegativeBackground: #912333;
 	--categoryBalanceAlternateNegativeBackgroundActive: #6a1020;
@@ -4309,6 +2912,11 @@ body.theme-var-dark {
 	--illustrationBackgroundBlurple: #464cd1;
 	--illustrationBackgroundButtermilk: #fef9ed;
 	--illustrationBackgroundDandelion: #f6c91d;
+	--illustrationBackgroundFirefly300: #c2f680;
+	--illustrationBackgroundFirefly400: #aee865;
+	--illustrationBackgroundMeadow300: #6be9b8;
+	--illustrationBackgroundMeadow400: #41d298;
+	--illustrationBackgroundNeutral: #06060f;
 	--illustrationBackgroundSlime: #77ba21;
 	--inputBackground: #3c3e53;
 	--inputBackgroundDisabled: #56596c;
@@ -4419,15 +3027,305 @@ body.theme-var-dark {
 	--viewsWarningSelectedAccent: #daac00;
 	color-scheme: dark only
 }
-body.theme-var-dark ::-webkit-scrollbar {
-	background: var(--backgroundPrimary);
+body.theme-dark ::-webkit-scrollbar {
+	background: 0 0;
 	width: .875rem
 }
-body.theme-var-dark ::-webkit-scrollbar-thumb {
+body.theme-dark ::-webkit-scrollbar-thumb {
 	background: var(--actionSecondary);
 	background-clip: padding-box;
 	border: .1875rem solid transparent;
 	border-radius: 10rem
+}
+@media (prefers-color-scheme: dark) {
+	[data-ynab-device=android], [data-ynab-device=ios] {
+		scrollbar-color: var(--actionSecondary) transparent;
+		--accountwidgetMxWidgetBackground: #121417;
+		--actionPrimary: #7583ff;
+		--actionPrimaryActive: #a3acff;
+		--actionPrimaryDisabled: #383ca3;
+		--actionSecondary: #3c3e53;
+		--actionSecondaryActive: #727484;
+		--actionSecondaryBorder: #56596c;
+		--actionSecondaryDisabled: #292b3d;
+		--actionTertiary: #a3acff;
+		--actionTertiaryActive: #545bfe;
+		--actionbarBackground: #383ca3;
+		--actionbarButtonBackground: #383ca3;
+		--backgroundDarkPrimary: #3c3e53;
+		--backgroundDarkSecondary: rgba(255, 255, 255, 0.149);
+		--backgroundDarkTertiary: rgba(255, 255, 255, 0.2);
+		--backgroundGroupedPrimary: #0c0d22;
+		--backgroundGroupedSecondary: #15172d;
+		--backgroundGroupedTertiary: #1f2038;
+		--backgroundNavigationBar: #292c6c;
+		--backgroundPrimary: #0c0d22;
+		--backgroundPrimaryElevated: #1f2038;
+		--backgroundSecondary: #15172d;
+		--backgroundSecondaryElevated: #292b3d;
+		--backgroundTableHeader: #15172d;
+		--backgroundTableRow: #0c0d22;
+		--backgroundTableRowSelected: #1b1d48;
+		--backgroundTertiary: #1f2038;
+		--backgroundTertiaryElevated: #3c3e53;
+		--backgroundVideoControls: #000;
+		--budgetBarBackground: #3c3e53;
+		--budgetBarBackgroundOnNonWhite: #292b3d;
+		--budgetBarBorder: #3c3e53;
+		--budgetBarEmpty: #292b3d;
+		--budgetBarFunded: #77ba21;
+		--budgetBarFundedSpending: #346011;
+		--budgetBarFundedSpendingStripe: #1d300d;
+		--budgetBarOverspending: #912333;
+		--budgetBarOverspendingStripe: #4c0814;
+		--budgetBarPreviouslyAssigned: #56596c;
+		--budgetBarUnderfunded: #f6c91d;
+		--budgetBarUnderfundedSpending: #6d5600;
+		--budgetBarUnderfundedSpendingStripe: #362c05;
+		--buttonDestructiveBackground: #6a1020;
+		--buttonDestructiveBackgroundActive: #912333;
+		--buttonDestructiveLabel: #feedeb;
+		--buttonEmphasizedBackground: #508316;
+		--buttonEmphasizedBackgroundActive: #77ba21;
+		--buttonEmphasizedBackgroundDisabled: #3c3e53;
+		--buttonPrimaryBackground: #545bfe;
+		--buttonPrimaryBackgroundActive: #7583ff;
+		--buttonPrimaryBackgroundDisabled: #292b3d;
+		--buttonSecondaryBackground: rgba(117, 131, 255, 0.2);
+		--buttonSecondaryBackgroundActive: rgba(117, 131, 255, 0.271);
+		--buttonSecondaryLabel: #f1f1ff;
+		--buttonTertiaryBackground: rgba(60, 62, 83, 0.6);
+		--buttonTertiaryBackgroundActive: rgba(60, 62, 83, 0.8);
+		--calloutNegativeAccent: #bf2e3b;
+		--calloutNegativeButtonBackground: #bf2e3b;
+		--calloutNegativeButtonBackgroundActive: #ce5e66;
+		--calloutNegativeButtonForeground: #fff;
+		--calloutNegativeLabel: #fff;
+		--calloutNegativeProminentBackground: #6a1020;
+		--calloutNegativeProminentBackgroundEmphasis: #bf2e3b;
+		--calloutNegativeSubtleBackground: #4c0814;
+		--calloutNegativeSubtleBackgroundEmphasis: #912333;
+		--calloutPositiveAccent: #93d53e;
+		--calloutPositiveButtonBackground: #508316;
+		--calloutPositiveButtonBackgroundActive: #77ba21;
+		--calloutPositiveButtonForeground: #fff;
+		--calloutPositiveLabel: #fff;
+		--calloutPositiveProminentBackground: #346011;
+		--calloutPositiveProminentBackgroundEmphasis: #77ba21;
+		--calloutPositiveSubtleBackground: #1d300d;
+		--calloutPositiveSubtleBackgroundEmphasis: #346011;
+		--calloutPrimaryAccent: #545bfe;
+		--calloutPrimaryButtonBackground: #545bfe;
+		--calloutPrimaryButtonBackgroundActive: #7583ff;
+		--calloutPrimaryButtonForeground: #fff;
+		--calloutPrimaryLabel: #fff;
+		--calloutPrimaryProminentBackground: #292c6c;
+		--calloutPrimaryProminentBackgroundEmphasis: #545bfe;
+		--calloutPrimarySubtleBackground: rgba(117, 131, 255, 0.2);
+		--calloutPrimarySubtleBackgroundEmphasis: #383ca3;
+		--calloutSecondaryAccent: #727484;
+		--calloutSecondaryButtonBackground: #56596c;
+		--calloutSecondaryButtonBackgroundActive: #727484;
+		--calloutSecondaryButtonForeground: #fff;
+		--calloutSecondaryLabel: #fff;
+		--calloutSecondaryProminentBackground: #3c3e53;
+		--calloutSecondaryProminentBackgroundEmphasis: #56596c;
+		--calloutSecondarySubtleBackground: rgba(60, 62, 83, 0.6);
+		--calloutSecondarySubtleBackgroundEmphasis: #56596c;
+		--calloutWarningAccent: #fbe48e;
+		--calloutWarningButtonBackground: #f8d655;
+		--calloutWarningButtonBackgroundActive: #fbe48e;
+		--calloutWarningButtonForeground: #362c05;
+		--calloutWarningProminentBackground: #daac00;
+		--calloutWarningProminentBackgroundEmphasis: #f8d655;
+		--calloutWarningProminentBackgroundLabel: #362c05;
+		--calloutWarningSubtleBackground: #362c05;
+		--calloutWarningSubtleBackgroundEmphasis: #a38100;
+		--calloutWarningSubtleBackgroundLabel: #fff;
+		--categoryBalanceAlternateBorder: #fff;
+		--categoryBalanceAlternateNegativeBackground: #912333;
+		--categoryBalanceAlternateNegativeBackgroundActive: #6a1020;
+		--categoryBalanceAlternateNegativeLabel: #fff;
+		--categoryBalanceAlternateWarningBackground: #fbe48e;
+		--categoryBalanceAlternateWarningBackgroundActive: #f8d655;
+		--categoryBalanceNegativeBackground: #bf2e3b;
+		--categoryBalanceNegativeBackgroundActive: #912333;
+		--categoryBalanceNegativeLabel: #fff;
+		--categoryBalancePositiveBackground: #77ba21;
+		--categoryBalancePositiveBackgroundActive: #508316;
+		--categoryBalancePositiveLabel: #0c0d22;
+		--categoryBalanceWarningBackground: #f6c91d;
+		--categoryBalanceWarningBackgroundActive: #daac00;
+		--categoryBalanceWarningLabel: #0c0d22;
+		--categoryBalanceZeroBackground: #3c3e53;
+		--categoryBalanceZeroLabel: #9b9caa;
+		--checkboxBackground: rgba(0, 0, 0, 0);
+		--checkboxBackgroundDisabled: #56596c;
+		--checkboxBackgroundSelected: #545bfe;
+		--checkboxBorder: #727484;
+		--checkboxBorderSelected: #545bfe;
+		--checkboxForegroundSelected: #fff;
+		--debtChartsFive: #4d9119;
+		--debtChartsFour: #346011;
+		--debtChartsOne: #374d9b;
+		--debtChartsSeven: #a38100;
+		--debtChartsSix: #a38100;
+		--debtChartsThree: #464cd1;
+		--debtChartsTwo: #7583ff;
+		--fillHover: rgba(255, 255, 255, 0.102);
+		--fillPrimary: rgba(114, 116, 132, 0.2);
+		--fillQuarternary: rgba(114, 116, 132, 0.18);
+		--fillSecondary: rgba(114, 116, 132, 0.322);
+		--fillTertiary: rgba(114, 116, 132, 0.239);
+		--filterBackground: #292b3d;
+		--filterBackgroundActive: rgba(117, 131, 255, 0.271);
+		--filterLabel: #f1f1ff;
+		--filterLabelDisabled: #727484;
+		--flagBlue: #64d2ff;
+		--flagGreen: #32d74b;
+		--flagOrange: #ff9f0a;
+		--flagPurple: #bf5af2;
+		--flagRed: #ff453a;
+		--flagYellow: #ffd60a;
+		--headerBackground: #15172d;
+		--iconFillPrimary: #9b9caa;
+		--iconFillSecondary: #727484;
+		--iconFillTertiary: #56596c;
+		--iconTwotoneDark: #727484;
+		--iconTwotoneLight: #9b9caa;
+		--illustrationBackgroundBlurple200: #d4d5ff;
+		--illustrationBackgroundBlurple300: #a3acff;
+		--illustrationBackgroundBlurple400: #7583ff;
+		--illustrationBackgroundBlurple500: #545bfe;
+		--illustrationBackgroundBlurple: #464cd1;
+		--illustrationBackgroundButtermilk: #fef9ed;
+		--illustrationBackgroundDandelion: #f6c91d;
+		--illustrationBackgroundFirefly300: #c2f680;
+		--illustrationBackgroundFirefly400: #aee865;
+		--illustrationBackgroundMeadow300: #6be9b8;
+		--illustrationBackgroundMeadow400: #41d298;
+		--illustrationBackgroundNeutral: #06060f;
+		--illustrationBackgroundSlime: #77ba21;
+		--inputBackground: #3c3e53;
+		--inputBackgroundDisabled: #56596c;
+		--inputBorder: #727484;
+		--inputBorderActive: #545bfe;
+		--labelAction: #a3acff;
+		--labelActionActive: #d4d5ff;
+		--labelActionDisabled: #383ca3;
+		--labelDarkBackgroundPrimary: #fff;
+		--labelDarkBackgroundSecondary: #ededf5;
+		--labelHeading: #f1f1ff;
+		--labelNegative: #ee5867;
+		--labelNegativeActive: #ce5e66;
+		--labelNegativeDisabled: #6a1020;
+		--labelPositive: #77ba21;
+		--labelPositiveActive: #93d53e;
+		--labelPrimary: #fff;
+		--labelQuaternary: #727484;
+		--labelSecondary: #c4c5cf;
+		--labelTertiary: #9b9caa;
+		--labelWarning: #daac00;
+		--loadingActionActive: #56596c;
+		--loadingBackground: #1b1d48;
+		--loadingShimmerBackground: #fff;
+		--loadingShimmerBackgroundFaded: rgba(255, 255, 255, 0.8);
+		--loanChartsPositive: #508316;
+		--loanChartsPrimary: #545bfe;
+		--loanChartsSecondary: #292c6c;
+		--loanChartsTertiary: #56596c;
+		--loanChartsWarning: #a38100;
+		--modalBackgroundAccent: #1c1f58;
+		--movesSelectedBackground: #545bfe;
+		--movesStandardBackground: #292c6c;
+		--pillBackground: rgba(117, 131, 255, 0.2);
+		--pillLabel: #d4d5ff;
+		--registerSecondaryButtonLabel: #fff;
+		--registerSecondaryButtonLabelActive: rgba(255, 255, 255, 0.8);
+		--reportsChartTrendAOMSelected: #93d53e;
+		--reportsChartTrendLine: #f1f1ff;
+		--reportsChartTrendPoint: #f1f1ff;
+		--reportsChartTrendPointShadow: rgba(255, 255, 255, 0.149);
+		--reportsEight: #f6c91d;
+		--reportsEleven: #56596c;
+		--reportsFive: #508316;
+		--reportsFour: #292c6c;
+		--reportsNetworthAssetsBackground: #383ca3;
+		--reportsNetworthDebtsBackground: #bf2e3b;
+		--reportsNine: #912333;
+		--reportsOne: #383ca3;
+		--reportsSeven: #daac00;
+		--reportsSix: #93d53e;
+		--reportsSpendingBreakdownTop10: #aee865;
+		--reportsSpendingBreakdownTop1: #545bfe;
+		--reportsSpendingBreakdownTop2: #77ba21;
+		--reportsSpendingBreakdownTop3: #daac00;
+		--reportsSpendingBreakdownTop4: #bf2e3b;
+		--reportsSpendingBreakdownTop5: #7583ff;
+		--reportsSpendingBreakdownTop6: #93d53e;
+		--reportsSpendingBreakdownTop7: #f6c91d;
+		--reportsSpendingBreakdownTop8: #ce5e66;
+		--reportsSpendingBreakdownTop9: #a3acff;
+		--reportsSpendingBreakdownTopOther: #d4d5ff;
+		--reportsTen: #ce5e66;
+		--reportsThree: #545bfe;
+		--reportsTwo: #464cd1;
+		--scrimDefault: rgba(0, 0, 0, 0.329);
+		--scrimInvisible: rgba(0, 0, 0, 0);
+		--scrimStrong: rgba(60, 60, 67, 0.6);
+		--separatorStandard: rgba(255, 255, 255, 0.102);
+		--separatorStrong: #727484;
+		--separatorSubdued: rgba(255, 255, 255, 0.078);
+		--settingsHeaderBackground: #292b3d;
+		--sidebarAccountNegativeBalanceBackground: rgba(0, 0, 0, 0);
+		--sidebarBackground: #121330;
+		--sidebarButtonBackgroundActive: #1b1d48;
+		--sidebarButtonBackgroundSelected: #1c1f58;
+		--sidebarButtonSecondaryBackground: #3c3e53;
+		--sidebarButtonSecondaryBackgroundActive: #56596c;
+		--sidebarButtonSecondaryBackgroundPressed: #56596c;
+		--sidebarButtonTertiaryBackground: rgba(255, 255, 255, 0.149);
+		--sidebarButtonTertiaryBackgroundActive: rgba(255, 255, 255, 0.302);
+		--sidebarButtonTertiaryBackgroundPressed: rgba(255, 255, 255, 0.349);
+		--sidebarIconFillDefault: #fff;
+		--sidebarLabelPrimary: #fff;
+		--sidebarLabelSecondary: rgba(255, 255, 255, 0.698);
+		--statusNegative: #bf2e3b;
+		--statusPositive: #77ba21;
+		--statusWarning: #daac00;
+		--swoopBottom: #508316;
+		--viewsErrorBackground: #bf2e3b;
+		--viewsErrorBackgroundHover: #912333;
+		--viewsErrorBackgroundSelected: #4c0814;
+		--viewsErrorBackgroundSelectedHover: #6a1020;
+		--viewsErrorLabel: #feedeb;
+		--viewsErrorLabelSelected: #feedeb;
+		--viewsErrorSelectedAccent: #bf2e3b;
+		--viewsNeutralBackground: #3c3e53;
+		--viewsNeutralBackgroundHover: #56596c;
+		--viewsNeutralBackgroundSelected: #292c6c;
+		--viewsNeutralBackgroundSelectedHover: #383ca3;
+		--viewsNeutralSelectedAccent: #7583ff;
+		--viewsWarningBackground: #f6c91d;
+		--viewsWarningBackgroundHover: #daac00;
+		--viewsWarningBackgroundSelected: #362c05;
+		--viewsWarningBackgroundSelectedHover: #6d5600;
+		--viewsWarningLabel: #362c05;
+		--viewsWarningLabelSelected: #daac00;
+		--viewsWarningSelectedAccent: #daac00
+	}
+	
+	[data-ynab-device=android] ::-webkit-scrollbar, [data-ynab-device=ios] ::-webkit-scrollbar {
+		background: 0 0;
+		width: .875rem
+	}
+	
+	[data-ynab-device=android] ::-webkit-scrollbar-thumb, [data-ynab-device=ios] ::-webkit-scrollbar-thumb {
+		background: var(--actionSecondary);
+		background-clip: padding-box;
+		border: .1875rem solid transparent;
+		border-radius: 10rem
+	}
 }
 .tooltip-relative-container {
 	position: relative
@@ -4573,7 +3471,7 @@ body.theme-var-dark ::-webkit-scrollbar-thumb {
 .auto-assign-preview.modal-fresh .auto-assign-preview-funding-banner.mod-hidden {
 	display: none
 }
-.accounts-calendar-next svg.ynab-new-icon, .accounts-calendar-prev svg.ynab-new-icon, .auto-assign-preview.modal-fresh .auto-assign-preview-funding-banner p, .ynab-new-inspector-goals .ynab-new-inspector-goals-edit-goal dd.ynab-new-inspector-goals-day-of-month, .ynab-new-inspector-goals .ynab-new-inspector-goals-edit-goal dd.ynab-new-inspector-goals-repeats-options {
+.accounts-calendar-next svg.ynab-new-icon, .accounts-calendar-prev svg.ynab-new-icon, .auto-assign-preview.modal-fresh .auto-assign-preview-funding-banner p, .calendar-next svg.ynab-new-icon, .calendar-prev svg.ynab-new-icon, .ynab-new-inspector-goals .ynab-new-inspector-goals-edit-goal dd.ynab-new-inspector-goals-day-of-month, .ynab-new-inspector-goals .ynab-new-inspector-goals-edit-goal dd.ynab-new-inspector-goals-repeats-options {
 	margin: 0
 }
 .auto-assign-preview.modal-fresh .auto-assign-preview-category-list {
@@ -5111,8 +4009,8 @@ body.theme-var-dark ::-webkit-scrollbar-thumb {
 	display: flex
 }
 .cost-to-be-me-summary .income-progress-wrapper .edit-income-icon {
-	cursor: pointer;
-	margin-left: .5rem
+	margin-left: .5rem;
+	color: var(--iconFillPrimary)
 }
 .cost-to-be-me-summary .income-progress-wrapper.hide {
 	height: 0;
@@ -5245,7 +4143,7 @@ body.theme-var-dark ::-webkit-scrollbar-thumb {
 	margin: 1rem;
 	text-align: center
 }
-.accounts-calendar .modal-actions label, .accounts-calendar .modal-actions select, .budget-breakdown .budget-inspector-next-payment .container .container-body {
+.budget-breakdown .budget-inspector-next-payment .container .container-body {
 	width: 100%
 }
 .budget-breakdown .budget-inspector-next-payment .container .container-body .ynab-new-budget-bar-v2-section {
@@ -5579,7 +4477,7 @@ body.theme-var-dark ::-webkit-scrollbar-thumb {
 .budget-views-empty-state .budget-views-empty-state-content .no-targets-link:hover {
 	color: var(--labelActionActive)
 }
-.budget-views-empty-state .budget-views-empty-state-content .body-views-empty-state-actions, .card .card-roll-up > div {
+.budget-views-empty-state .budget-views-empty-state-content .body-views-empty-state-actions {
 	display: flex
 }
 .budget-views-empty-state .budget-views-empty-state-content .body-views-empty-state-actions .secondary {
@@ -6137,15 +5035,18 @@ a.ynab-button {
 .modal .button-hide, .modal .button-hide .ynab-new-icon {
 	color: var(--buttonSecondaryLabel)
 }
-.modal .activity-header, .modal .activity-subheader, .modal .category-moves-header, .modal .category-moves-subheader {
-	color: var(--labelSecondary);
+.modal .activity-header, .modal .category-moves-header {
+	color: var(--labelPrimary);
 	overflow-wrap: break-word;
 	word-wrap: break-word
 }
 .modal .activity-subheader, .modal .category-moves-subheader {
+	color: var(--labelSecondary);
 	font-size: .8rem;
 	margin-bottom: .25rem;
-	margin-top: .3125rem
+	margin-top: .3125rem;
+	overflow-wrap: break-word;
+	word-wrap: break-word
 }
 .modal-arrow {
 	fill: var(--backgroundPrimaryElevated);
@@ -6253,7 +5154,7 @@ a.ynab-button {
 	justify-content: flex-end;
 	margin-left: auto
 }
-.modal-fresh .modal-fresh-title {
+.date-picker, .modal-fresh .modal-fresh-title {
 	display: flex;
 	flex-direction: column
 }
@@ -6269,10 +5170,10 @@ a.ynab-button {
 .dialog .scroll-content .dialog-body p, .modal-fresh .modal-fresh-body p {
 	line-height: 1.5
 }
-.dialog .scroll-content .dialog-body > :first-child, .modal-fresh .modal-fresh-body > :first-child {
+.modal-fresh .modal-fresh-body > :first-child {
 	margin-top: 0
 }
-.dialog .scroll-content .dialog-body > :last-child, .modal-fresh .modal-fresh-body > :last-child {
+.modal-fresh .modal-fresh-body > :last-child {
 	margin-bottom: 0
 }
 .modal-fresh .modal-fresh-body.scrollable {
@@ -6312,6 +5213,159 @@ a.ynab-button {
 	gap: .5rem;
 	justify-content: flex-end;
 	white-space: nowrap
+}
+.date-picker.calendar-visible .date-picker-input .date-picker-input-field, .date-picker.calendar-visible .date-picker-input .date-picker-input-field:active, .date-picker.calendar-visible .date-picker-input .date-picker-input-field:focus {
+	border: .0625rem solid var(--inputBorderActive);
+	cursor: pointer
+}
+.date-picker.calendar-visible .date-picker-input .date-picker-input-icon-button .date-picker-input-icon {
+	color: var(--labelAction)
+}
+.card .card-roll-up > div, .date-picker .date-picker-input {
+	display: flex
+}
+.date-picker .date-picker-input input.date-picker-input-field {
+	align-items: center;
+	border-radius: .25rem;
+	height: 2rem;
+	padding-left: .5rem;
+	text-align: left;
+	width: 100%;
+	border: .0625rem solid var(--inputBorder)
+}
+.date-picker .date-picker-input input.date-picker-input-field.user-data {
+	margin-right: -2rem
+}
+.date-picker .date-picker-input .date-picker-input-icon-button {
+	padding: 0 .5rem;
+	position: relative;
+	right: -.25rem
+}
+.date-picker .date-picker-input .date-picker-input-icon-button .date-picker-input-icon {
+	color: var(--iconFillPrimary)
+}
+.date-picker-calendar li {
+	float: left;
+	list-style: none
+}
+.calendar-modal {
+	background-color: var(--scrimInvisible)
+}
+.calendar-modal .modal {
+	padding: 1rem;
+	width: 16rem
+}
+.calendar-date {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	margin: .2rem 0;
+	padding: 0;
+	width: 100%
+}
+.calendar-next, .calendar-prev, .calendar-selected-date {
+	text-align: center
+}
+.calendar-next .button, .calendar-prev .button {
+	border: 0;
+	margin: 0;
+	padding: 0
+}
+.calendar-next .button:hover, .calendar-prev .button:hover {
+	background-color: transparent
+}
+.calendar-next .button:hover .ynab-new-icon, .calendar-prev .button:hover .ynab-new-icon {
+	color: var(--actionPrimaryActive)
+}
+.calendar-weekdays {
+	border-bottom: 1px solid var(--separatorSubdued);
+	border-top: 1px solid var(--separatorSubdued);
+	color: var(--labelSecondary);
+	margin: 0;
+	padding: 0;
+	zoom: 1
+}
+.calendar-weekdays:after, .calendar-weekdays:before {
+	content: "";
+	display: table
+}
+.calendar-weekdays:after {
+	clear: both
+}
+.calendar-weekdays li {
+	padding: .25rem;
+	text-align: center;
+	width: 14%
+}
+.calendar-grid {
+	margin: 0 0 .4rem;
+	padding: .25rem 0;
+	zoom: 1
+}
+.calendar-grid:after, .calendar-grid:before {
+	content: "";
+	display: table
+}
+.calendar-grid:after {
+	clear: both
+}
+.calendar-grid:focus-visible {
+	outline: 0
+}
+.calendar-grid .calendar-day, .calendar-grid .calendar-empty {
+	align-items: center;
+	aspect-ratio: 1/1;
+	display: flex;
+	justify-content: center;
+	line-height: normal;
+	padding: .4rem;
+	text-align: center;
+	width: 14%
+}
+.calendar-grid .calendar-day {
+	border-radius: 100%;
+	cursor: pointer
+}
+.calendar-grid .calendar-day:hover {
+	background-color: var(--backgroundSecondaryElevated)
+}
+.calendar-grid .calendar-day.disabled {
+	color: var(--labelDarkBackgroundPrimary);
+	cursor: default
+}
+.calendar-grid .calendar-day.disabled:hover {
+	background-color: inherit
+}
+.calendar-grid .calendar-day-today {
+	color: var(--actionPrimary)
+}
+.calendar-grid .calendar-day-today, .calendar-grid .calendar-day-today:hover {
+	background-color: var(--backgroundSecondaryElevated)
+}
+.calendar-grid .calendar-day-today.disabled {
+	background: inherit;
+	color: var(--labelSecondary)
+}
+.calendar-grid .calendar-day-selected {
+	background-color: var(--buttonPrimaryBackground);
+	color: var(--labelDarkBackgroundPrimary)
+}
+.calendar-grid .calendar-day-selected:hover {
+	background-color: var(--buttonPrimaryBackgroundActive)
+}
+.calendar-grid .calendar-other-month {
+	color: var(--labelTertiary)
+}
+.calendar-actions {
+	display: flex;
+	flex-wrap: wrap
+}
+.accounts-calendar .modal-actions button.secondary, .accounts-calendar .modal-actions label, .accounts-calendar .modal-actions select, .calendar-actions button.secondary, .calendar-actions label, .calendar-actions select, table.data-table {
+	width: 100%
+}
+.calendar-actions .x-select-container {
+	margin-top: .4rem;
+	width: 100%
 }
 .dialog-overlay {
 	background-color: var(--scrimDefault);
@@ -6410,6 +5464,12 @@ a.ynab-button {
 	padding: 1rem;
 	padding-bottom: 0
 }
+.dialog .scroll-content .dialog-body > :first-child {
+	margin-top: 0
+}
+.dialog .scroll-content .dialog-body > :last-child {
+	margin-bottom: 0
+}
 .card h2, .dialog .dialog-footer {
 	align-items: center;
 	display: flex;
@@ -6441,9 +5501,6 @@ a.ynab-button {
 }
 .accounts-calendar .modal-actions .x-select-container {
 	margin-top: .4rem;
-	width: 100%
-}
-.accounts-calendar .modal-actions button.secondary, table.data-table {
 	width: 100%
 }
 .accounts-calendar-date {
@@ -6870,6 +5927,10 @@ table.data-table tbody {
 	font-size: 1.1rem;
 	margin-right: .5rem
 }
+/*.ynab-new-dropdown-modal.modal-overlay {
+	background-color: transparent;
+	pointer-events: none
+}*/
 .ynab-new-dropdown-modal .modal {
 	padding: 1rem
 }
@@ -7115,19 +6176,6 @@ table.data-table tbody {
 .ynab-new-inspector-goals .modal-account-calendar.modal-overlay {
 	pointer-events: all;
 	z-index: 10001
-}
-.ynab-new-inspector-goals .ynab-new-inspector-goals-calendar-select {
-	height: 2rem;
-	padding: 0 .5rem;
-	text-align: left;
-	width: 100%;
-	border: .0625rem solid var(--inputBorder);
-	background-color: var(--inputBackground);
-	border-radius: .25rem
-}
-.ynab-new-inspector-goals .ynab-new-inspector-goals-calendar-select:hover {
-	border: .0625rem solid var(--inputBorderActive);
-	cursor: pointer
 }
 .ynab-new-inspector-goals .ynab-new-inspector-goals-month-year, .ynab-new-inspector-goals .ynab-new-inspector-goals-payment-payoff, .ynab-new-inspector-goals .ynab-new-inspector-goals-repeats-options {
 	display: flex;
@@ -7513,10 +6561,10 @@ table.data-table tbody {
 	margin-top: 0
 }
 .ftue-onboarding-account-warning-modal .account-warning-modal-image {
-	height: 13.125rem;
+	flex: 1;
 	width: 100%
 }
-.ftue-onboarding-account-warning-modal .account-warning-modal-image img, .ftue-onboarding-overdraft-modal .overdraft-modal-hero-image img {
+.ftue-onboarding-account-warning-modal .account-warning-modal-image img {
 	display: block;
 	height: auto;
 	width: 100%
@@ -7524,18 +6572,22 @@ table.data-table tbody {
 .ftue-onboarding-extended.ftue-onboarding-outro .ftue-onboarding-step {
 	display: none
 }
-.ftue-onboarding-outro-modal .modal-fresh .modal {
+.ftue-onboarding-outro-modal .dialog {
 	padding: 1.5rem;
 	transition-delay: .3s, .3s;
 	transition-duration: .5s;
 	width: 37.5rem
 }
-.ftue-onboarding-outro-modal .modal-fresh .modal-fresh-hero {
+.ftue-onboarding-outro-modal .dialog-header {
+	height: 0;
+	min-height: 0
+}
+.ftue-onboarding-outro-modal .dialog-hero {
 	height: 17rem;
 	margin-bottom: 1.5rem;
 	width: 100%
 }
-.ftue-onboarding-outro-modal .modal-fresh .modal-fresh-hero .outro-hero {
+.ftue-onboarding-outro-modal .dialog-hero .outro-hero {
 	align-items: center;
 	border-radius: .5rem;
 	height: 100%;
@@ -7544,36 +6596,53 @@ table.data-table tbody {
 	position: relative;
 	width: 100%
 }
-.ftue-onboarding-outro-modal .modal-fresh .modal-fresh-hero img {
+.ftue-onboarding-outro-modal .dialog-hero img {
 	border-radius: .5rem;
 	height: 100%;
 	object-fit: cover;
 	width: 100%
 }
-.ftue-onboarding-outro-modal .modal-fresh .modal-fresh-hero .secondary-image {
+.ftue-onboarding-outro-modal .dialog-hero .secondary-image {
 	height: auto;
 	left: 1rem;
 	position: absolute;
 	top: 1rem;
 	width: calc(100% - 2rem)
 }
-.ftue-onboarding-outro-modal .modal-fresh .modal-header {
+.ftue-onboarding-outro-modal .modal-header {
 	border-bottom: none;
 	color: var(--labelHeading);
 	margin-bottom: .75rem
 }
-.ftue-onboarding-outro-modal .modal-fresh .modal-fresh-body {
+.ftue-onboarding-outro-modal .modal-body {
 	height: 10.6rem;
 	line-height: 1.5;
 	margin-bottom: 1rem;
 	padding: 0
 }
-.ftue-onboarding-outro-modal .modal-fresh .modal-fresh-footer {
+.ftue-onboarding-outro-modal .modal-body .outro-quote {
+	background-image: var(--cdn_url_ftue_outro_opening-quote_svg);
+	background-position: left .5rem;
+	background-repeat: no-repeat;
+	background-size: 28px 24px;
+	margin: 0;
+	padding-left: 1.5rem;
+	padding-top: 2rem
+}
+.ftue-onboarding-outro-modal .modal-body .outro-quote-footer {
+	margin-top: .5rem;
+	text-align: right
+}
+.ftue-onboarding-outro-modal .modal-body .outro-quote-footer cite {
+	font-style: normal
+}
+.ftue-onboarding-outro-modal .dialog-footer {
 	justify-content: space-between;
-	padding: 0
+	padding: 1rem 0 0
 }
 .footer-buttons {
-	display: flex
+	display: flex;
+	flex-direction: row-reverse
 }
 .footer-buttons .ynab-button {
 	margin-left: .5rem;
@@ -7608,7 +6677,12 @@ table.data-table tbody {
 	display: none
 }
 .ftue-onboarding-overdraft-modal .overdraft-modal-hero-image {
-	height: 13.125rem;
+	flex: 1;
+	width: 100%
+}
+.ftue-onboarding-overdraft-modal .overdraft-modal-hero-image img {
+	display: block;
+	height: auto;
 	width: 100%
 }
 .ftue-bg-blue {
@@ -7720,7 +6794,7 @@ table.data-table tbody {
 	text-align: right
 }
 .ftue-onboarding-message, .ftue-onboarding-needs {
-	max-width: 34rem
+	max-width: 44rem
 }
 .ftue-onboarding-progress {
 	align-items: center;
@@ -8380,7 +7454,8 @@ table.data-table tbody {
 	color: var(--labelNegative)
 }
 .ghost-button.destructive:hover:not([disabled]) {
-	background-color: var(--buttonDestructiveBackground)
+	background-color: var(--buttonDestructiveBackground);
+	color: var(--labelNegativeActive)
 }
 .ghost-button.destructive[disabled] {
 	color: var(--labelNegativeDisabled)
@@ -8664,7 +7739,7 @@ table.data-table tbody {
 }
 .modal-category-moves .modal {
 	max-height: 38.375rem;
-	width: 32.125rem
+	width: 34.125rem
 }
 .modal-category-moves .modal .modal-content {
 	max-height: 38.375rem;
@@ -8733,6 +7808,40 @@ table.data-table tbody {
 	width: 9.875rem
 }
 .ynab-table-4-col .ynab-table-col.category-moves-amount-col {
+	text-align: right;
+	width: 5.5625rem
+}
+.ynab-table-3-col .ynab-table-col .category-moves-refresh-cell {
+	align-items: center;
+	display: flex;
+	height: 1.5rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap
+}
+.ynab-table-3-col .ynab-table-col .movement-refresh-move-annotation, .ynab-table-3-col .ynab-table-col .movement-refresh-move-description {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap
+}
+.ynab-table-3-col .ynab-table-col .movement-refresh-move-annotation {
+	padding-left: .25rem;
+	color: var(--labelTertiary)
+}
+.ynab-table-3-col .ynab-table-col .category-moves-refresh-amount-cell {
+	justify-content: flex-end;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 100%
+}
+.ynab-table-3-col .ynab-table-col.category-moves-refresh-date-col {
+	width: 5.5rem
+}
+.ynab-table-3-col .ynab-table-col.category-moves-refresh-move-col {
+	width: 19rem
+}
+.ynab-table-3-col .ynab-table-col.category-moves-refresh-amount-col {
 	text-align: right;
 	width: 5.5625rem
 }
@@ -12358,6 +11467,9 @@ text.bb-chart-arcs-gauge-title {
 .privacy-policy-require-agreement .modal-fresh-body .privacy-policy-require-agreement-key-changes {
 	margin-bottom: 1rem
 }
+.ynab-list-in-time {
+	overflow-anchor: none
+}
 .ember-application > .ember-view {
 	height: 100%
 }
@@ -12824,7 +11936,7 @@ text.bb-chart-arcs-gauge-title {
 .modal-popup.account-modal .modal-content .di-balance {
 	margin-bottom: .5rem
 }
-.modal-popup.account-modal .modal-content .di-balance span.currency {
+.modal-payees .modal-payees-header-text h1, .modal-popup.account-modal .modal-content .di-balance span.currency {
 	margin: 0
 }
 .modal-popup.account-modal .modal-actions {
@@ -13981,11 +13093,11 @@ text.bb-chart-arcs-gauge-title {
 	border-bottom: 1px solid var(--separatorStandard)
 }
 .budget-header .budget-header-flexbox {
+	background-color: var(--headerBackground);
 	display: flex;
 	min-height: 5.5rem
 }
 .budget-header .budget-header-item {
-	background-color: var(--headerBackground);
 	padding: .5rem;
 	text-align: center
 }
@@ -14321,6 +13433,10 @@ text.bb-chart-arcs-gauge-title {
 	justify-content: center;
 	padding: 0;
 	width: 100%
+}
+.budget-table-container.is-expanded .budget-table-row-ul.is-sub-category.budget-table-uncategorized-transactions .budget-table-cell-name-row-label-item {
+	padding-left: .25rem;
+	text-align: left
 }
 .budget-table-container.is-expanded .budget-table-row-ul.is-sub-category .budget-table-cell-edit-category-label button {
 	padding: .125rem .25rem
@@ -15618,7 +14734,7 @@ text.bb-chart-arcs-gauge-title {
 	width: 1.25rem
 }
 .ynab-grid-jump-to-transfer-transaction:hover {
-	background-color: rgba(59, 94, 218, .1);
+	background-color: rgba(84, 91, 254, .1);
 	border-radius: .2rem;
 	fill: var(--actionPrimary);
 	opacity: 1;
@@ -15629,7 +14745,7 @@ text.bb-chart-arcs-gauge-title {
 	fill: var(--labelPrimary)
 }
 .ynab-grid-body-row.is-checked .ynab-grid-jump-to-transfer-transaction:hover {
-	background-color: rgba(59, 94, 218, .2);
+	background-color: rgba(84, 91, 254, .2);
 	fill: var(--actionPrimary)
 }
 .ynab-grid-cell-memo, .ynab-grid-cell-payeeName {
@@ -16704,6 +15820,12 @@ ul.nav-main .sidebar-nav-menu-collapsed {
 	white-space: nowrap;
 	padding: 0 1.5rem 0 0
 }
+.accounts-header .accounts-header-total .ynab-new-icon.accounts-header-favorite-icon {
+	color: var(--iconFillSecondary)
+}
+.accounts-header .accounts-header-total .ynab-new-icon.accounts-header-favorite-icon.is-favorite {
+	color: var(--calloutWarningButtonBackground)
+}
 .accounts-header .accounts-header-label {
 	color: var(--labelSecondary)
 }
@@ -16884,7 +16006,7 @@ ul.nav-main .sidebar-nav-menu-collapsed {
 	animation-iteration-count: 6;
 	animation-name: accounts-header-reconcile-animated
 }
-.account-widget .account-widget-loan-category .account-widget-radio-button-list label, .accounts-header .accounts-header-actions .reconcile-button-and-label .accounts-header-edit-account, .accounts-header .accounts-header-actions .reconcile-button-and-label .accounts-header-reconcile, .settings-page .page-header div, .wellness-dashboard-settings-menu ul.modal-list a span, .wellness-dashboard-settings-menu ul.modal-list button span {
+.accounts-header .accounts-header-actions .reconcile-button-and-label .accounts-header-edit-account, .accounts-header .accounts-header-actions .reconcile-button-and-label .accounts-header-reconcile, .settings-page .page-header div {
 	align-items: center;
 	display: flex
 }
@@ -19151,7 +18273,7 @@ html.ie-11 .budget-table {
 .account-widget .account-list .account-widget-body .account-list-section:last-child {
 	margin-bottom: 1rem
 }
-.account-widget .account-list .account-widget-body .account-list-section-paragraph {
+.account-widget .account-list .account-widget-body .account-list-section-paragraph, .account-widget .account-widget-success-screen .account-widget-link-account-success-screen .account-widget-success-screen-num-accounts h1 {
 	margin: 1.5rem 0 .5rem
 }
 .account-widget .account-list .account-widget-body .account-list-authorization-section {
@@ -19159,7 +18281,38 @@ html.ie-11 .budget-table {
 }
 .account-widget .account-list .account-widget-body .account-list-authorization-section .account-list-authorization-section-header {
 	padding-bottom: .75rem;
-	border-bottom: .0625rem solid var(--separatorSubdued)
+	border-bottom: .0625rem solid var(--separatorSubdued);
+	align-items: center;
+	display: flex;
+	justify-content: space-between
+}
+.account-widget .account-list .account-widget-body .account-list-authorization-section .account-list-authorization-section-header .ynab-new-icon {
+	color: var(--calloutWarningAccent);
+	fill: var(--calloutWarningAccent);
+	margin-right: .5rem
+}
+.account-widget .account-list .account-widget-body .account-list-authorization-section .account-list-authorization-section-header .account-list-authorization-section-header-institution-name, .account-widget .account-widget-loan-category .account-widget-radio-button-list label, .wellness-dashboard-settings-menu ul.modal-list a span, .wellness-dashboard-settings-menu ul.modal-list button span {
+	align-items: center;
+	display: flex
+}
+.account-widget .account-list .account-widget-body .account-list-authorization-section .account-list-authorization-section-header-attention-needed {
+	color: var(--labelTertiary)
+}
+.account-widget .account-list .account-widget-body .account-list-reauthorization-warning {
+	display: flex;
+	background: var(--calloutWarningSubtleBackground);
+	border: .0625rem solid var(--calloutWarningSubtleBackgroundEmphasis);
+	border-radius: .5rem;
+	margin-top: .75rem;
+	padding: 1rem
+}
+.account-widget .account-list .account-widget-body .account-list-reauthorization-warning .ynab-button {
+	margin-top: .75rem
+}
+.account-widget .account-list .account-widget-body .account-list-reauthorization-warning .ynab-new-icon {
+	color: var(--calloutWarningAccent);
+	fill: var(--calloutWarningAccent);
+	margin-right: .75rem
 }
 .account-widget .account-list .account-widget-body h3 {
 	line-height: 1.5;
@@ -19445,6 +18598,12 @@ html.ie-11 .budget-table {
 .account-widget .account-widget-add-account-success-screen-header .account-widget-header .icon-close {
 	color: var(--labelDarkBackgroundPrimary)
 }
+.account-widget .account-widget-success-screen .account-widget-link-account-success-screen {
+	max-width: 100%
+}
+.account-widget .account-widget-success-screen .account-widget-link-account-success-screen .account-widget-success-screen-num-accounts p {
+	margin: 0 0 1.5rem
+}
 .account-widget .account-widget-success-screen .account-widget-add-account-success-screen.account-widget-body {
 	margin: 0;
 	max-width: 100%;
@@ -19724,6 +18883,44 @@ html.ie-11 .budget-table {
 .account-widget .account-widget-edit-linked-account .edit-linked-account-split-row .edit-linked-account-interest-rate {
 	width: 27%
 }
+.account-widget .account-widget-step.potential-duplicate-accounts .potential-duplicate-accounts__title {
+	align-items: center;
+	display: flex;
+	gap: .25rem;
+	margin: 0 0 .5rem;
+	padding: 0
+}
+.account-widget .account-widget-step.potential-duplicate-accounts .potential-duplicate-accounts__title svg.ynab-new-icon {
+	color: var(--calloutWarningAccent)
+}
+.account-widget .account-widget-step.potential-duplicate-accounts .potential-duplicate_accounts__sub-title {
+	color: var(--labelSecondary);
+	margin: 0 0 1.5rem;
+	padding: 0
+}
+.account-widget .account-widget-step.potential-duplicate-accounts .potential-duplicate-account__display-accounts {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem
+}
+.account-widget .account-widget-step.potential-duplicate-accounts .potential-duplicate-account__display-account-header {
+	align-content: center;
+	display: flex;
+	gap: .5rem;
+	margin: 0 0 .5rem
+}
+.account-widget .account-widget-step.potential-duplicate-accounts .potential-duplicate-account__display-account-header svg.ynab-new-icon {
+	color: var(--iconFillPrimary)
+}
+.account-widget .account-widget-step.potential-duplicate-accounts .potential-duplicate-account__display-account-wrapper {
+	border: 1px solid var(--separator-Standard, #dbd7cc);
+	border-radius: 8px;
+	padding: .25rem 1rem
+}
+.account-widget .account-widget-step.potential-duplicate-accounts .account-widget-footer {
+	flex-direction: column;
+	gap: .5rem
+}
 .account-widget .account-widget-display-account-details-row {
 	align-items: center;
 	display: flex;
@@ -19753,7 +18950,7 @@ html.ie-11 .budget-table {
 	flex: 1;
 	flex-direction: column;
 	gap: .25rem;
-	margin: 0 .5rem 0 1rem;
+	margin: 0 0 0 1rem;
 	overflow: hidden
 }
 .account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row-info .account-widget-display-account-details-row-name-and-mask {
@@ -19779,6 +18976,9 @@ html.ie-11 .budget-table {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap
+}
+.account-widget .account-widget-display-account-details-row .account-widget-display-account-details-row__edit-button {
+	margin-left: .5rem
 }
 .account-widget .account-widget-account-list-item {
 	line-height: 1.5rem;
@@ -22761,17 +21961,20 @@ iframe[id^=plaid-link-iframe-] {
 	justify-content: flex-start;
 	margin: 0 auto;
 	max-width: 37rem;
-	padding: 1.9375rem 0;
+	padding: 0 0 1.9375rem;
 	position: unset;
 	text-align: center
 }
 .top-image .category-set-wizard-flow .category-set-wizard-flow-container .category-set-wizard-flow-image {
-	border-radius: .5rem
+	align-self: center;
+	border-radius: .5rem;
+	overflow: hidden
 }
 .top-image .category-set-wizard-flow .category-set-wizard-flow-container .category-set-wizard-flow-image img, .top-image .category-set-wizard-flow .category-set-wizard-flow-container .category-set-wizard-flow-image svg {
-	height: 8.75rem;
-	margin: 0 auto;
-	width: auto;
+	display: block;
+	height: auto;
+	max-height: 12.75rem;
+	width: 100%;
 	fill: var(--illustrationBackgroundBlurple500)
 }
 .top-image .category-set-wizard-flow .category-set-wizard-flow-container .category-set-wizard-flow-image .lottie-animation {
@@ -23031,6 +22234,65 @@ iframe[id^=plaid-link-iframe-] {
 }
 .modal-keyboard-shortcuts .helpbox-enable-shortcuts {
 	margin-left: auto
+}
+.month-dropdown-container {
+	display: inline-block;
+	position: relative
+}
+.month-dropdown-container .month-button-container {
+	display: inline-block
+}
+.month-dropdown-container .month-dropdown {
+	background-color: var(--backgroundPrimaryElevated);
+	border-radius: 4px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+	min-width: 180px;
+	overflow: hidden;
+	position: absolute;
+	z-index: 1000
+}
+.month-dropdown-container .month-dropdown .dropdown-modal-body {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	max-height: 300px;
+	overflow-y: auto;
+	padding: 0
+}
+.month-dropdown-container .month-dropdown .dropdown-modal-body button {
+	align-items: center;
+	background: 0 0;
+	border: 0;
+	cursor: pointer;
+	display: flex;
+	font-size: 14px;
+	justify-content: space-between;
+	margin: 0;
+	padding: 8px 12px;
+	text-align: left;
+	width: 100%
+}
+.month-dropdown-container .month-dropdown .dropdown-modal-body button:hover {
+	background-color: var(--backgroundSecondaryElevated)
+}
+.month-dropdown-container .month-dropdown .dropdown-modal-body button .selected-icon {
+	height: 16px;
+	width: 16px
+}
+.modal-budget-overspending .cover-with-container {
+	align-items: center;
+	display: flex;
+	gap: 10px;
+	margin-bottom: 15px
+}
+.modal-budget-overspending .cover-with-container label {
+	margin-bottom: 0;
+	white-space: nowrap
+}
+.modal-budget-overspending .month-selection-container {
+	margin-bottom: 0;
+	white-space: nowrap;
+	width: auto
 }
 .shortcut-tooltip {
 	align-items: center;
@@ -24633,5 +23895,3 @@ bdi {
 	justify-content: center;
 	align-items: center;
 }
-
-

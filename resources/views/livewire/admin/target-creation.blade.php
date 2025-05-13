@@ -317,7 +317,8 @@
 														</dt>
 														<dd class="ynab-new-inspector-goals-day-of-week goal-options-select user-data">
 															<div class="x-select-container  ">
-																<select class="js-x-select" aria-label="Select Day of Week">
+																<select wire:model="selectedDayOfWeek" class="js-x-select" aria-label="Select Day of Week"
+																	@change="$wire.selectedDayText = $event.target.selectedOptions[0].text">
 																	<!---->
 																	<option value="0">
 																		Sunday
@@ -351,7 +352,8 @@
 														</dt>
 														<dd class="ynab-new-inspector-goals-day-of-month goal-options-select user-data">
 															<div class="x-select-container  ">
-																<select class="js-x-select" aria-label="Select Day of Month">
+																<select wire:model="selectedDay" class="js-x-select" aria-label="Select Day of Month"
+																	@change="$wire.selectedDayText = $event.target.selectedOptions[0].text">
 																	{!! generateDayOptions() !!}
 																</select>
 															</div>
@@ -362,15 +364,31 @@
 														<dt aria-label="By">
 															By
 														</dt>
-														<dd class="input-container-with-arrow " wire:click="showModalCalendar">
-															<input id="ember488" class="ember-text-field ember-view ynab-new-inspector-goals-calendar-select js-ynab-new-inspector-goals-calendar-select"
-																readonly="readonly" title="Date" placeholder="DD/MM/YYYY" type="text" value="{{ $formattedDate }}">
+														<dd class="ynab-new-inspector-goals-calendar-select" wire:click="showModalCalendar">
+															<div id="ember160" class="date-picker {{ $state['isCalendarVisible'] ? 'calendar-visible' : '' }}">
+																<div class="date-picker-input">
+																	<input id="ember161" class="ember-text-field ember-view date-picker-input-field user-data" aria-haspopup="true"
+																		aria-expanded="false" title="Date" placeholder="DD/MM/YYYY" type="text" value="{{ $formattedDate }}">
+																	<button class="date-picker-input-icon-button" tabindex="-1" type="button">
+																		<svg class="ynab-new-icon date-picker-input-icon" width="12" height="12">
+																			<!---->
+																			<use href="#icon_sprite_calendar">
+																				<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_calendar" fill="none" viewBox="0 0 24 24">
+																					<path fill="currentColor" fill-rule="evenodd"
+																						d="M7.6 1v2.1c0 .3 0 .6-.3.8l-.8.3-.7-.3-.3-.9V1c0-.3 0-.6.3-.8l.7-.3c.2 0 .6.1.8.3s.3.5.3.7M24 4.2v17.7q0 .9-.6 1.5c-.6.6-1 .6-1.6.6H2.2c-.6 0-1.2-.2-1.6-.6a2 2 0 0 1-.6-1.5V4.2q0-.9.6-1.5c.6-.6 1-.6 1.6-.6h1.6l.4.1.2.4V3c0 .6.1 1 .5 1.5s.9.6 1.4.7A2 2 0 0 0 8 4.7l.5-.7.2-.9v-.5l.2-.4.4-.1h5.4l.4.1.2.4V3c0 .6.2 1 .5 1.5.4.4.9.6 1.4.7a2 2 0 0 0 1.7-.5 2 2 0 0 0 .7-1.6v-.5l.2-.4.4-.1h1.6c.6 0 1.2.2 1.6.6s.6 1 .6 1.5m-2.7 6.2H2.7l-.4.2-.1.4v10.4l.1.4.4.1h18.6l.4-.1.1-.4V11l-.1-.4zM17.5 0c.2 0 .5.1.7.3s.3.5.3.7v2.1c0 .3 0 .6-.3.8l-.7.3c-.3 0-.6-.1-.8-.3l-.3-.8v-2c0-.3 0-.6.3-.8s.5-.3.8-.3"
+																						clip-rule="evenodd"></path>
+																				</symbol>
+																			</use>
+																		</svg>
+																	</button>
+																</div>
+																<!---->
+															</div>
 														</dd>
-														<!---->
 														<div class="ynab-new-inspector-goals-calendar">
 															@if($state['isOpenCalendarModal'])
 																<div id="ember168" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
-																	wire:click.self="$set('state.isOpenCalendarModal', false)">
+																	wire:click.self="hideModalCalendar">
 																	<div class="modal" role="dialog" aria-modal="true" style="top: 647.8px; left: 1271.1px;">
 																		<div class="accounts-calendar">
 																			<ul class="accounts-calendar-date">
@@ -446,7 +464,8 @@
 																		<div id="asideModal" class="modal-overlay active ynab-new-dropdown-modal" wire:click.self="$set('state.isOpenAsideCustomModal', false)">
 																			<div class="modal" role="dialog" aria-modal="true" style="top: 264.8px; left: 1145.2px; height: auto; width: 481.8px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
-																					<button wire:click="updateSelectedTextCustom('Set aside')" class="type-dropdown-option is-selected" role="option" aria-selected="true"
+																					<button wire:click="updateSelectedTextCustom('Set Aside Another')" class="type-dropdown-option is-selected" role="option"
+																						aria-selected="true"
 																						type="button">
 																						<div class="type-dropdown-label">
 																							<div class="type-dropdown-label-title">
@@ -510,15 +529,32 @@
 														<dt aria-label="Due on">
 															Due on
 														</dt>
-														<dd class="input-container-with-arrow " wire:click="showModalCalendar">
-															<input id="ember488" class="ember-text-field ember-view ynab-new-inspector-goals-calendar-select js-ynab-new-inspector-goals-calendar-select"
-																readonly="readonly" title="Date" placeholder="DD/MM/YYYY" type="text" value="{{ $formattedDate }}">
+														<dd class="ynab-new-inspector-goals-calendar-select" wire:click="showModalCalendar">
+															<div id="ember160" class="date-picker {{ $state['isCalendarVisible'] ? 'calendar-visible' : '' }}">
+																<div class="date-picker-input">
+																	<input id="ember161" class="ember-text-field ember-view date-picker-input-field user-data" aria-haspopup="true"
+																		aria-expanded="false" title="Date" placeholder="DD/MM/YYYY" type="text" value="{{ $formattedDate }}">
+																	<button class="date-picker-input-icon-button" tabindex="-1" type="button">
+																		<svg class="ynab-new-icon date-picker-input-icon" width="12" height="12">
+																			<!---->
+																			<use href="#icon_sprite_calendar">
+																				<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_calendar" fill="none" viewBox="0 0 24 24">
+																					<path fill="currentColor" fill-rule="evenodd"
+																						d="M7.6 1v2.1c0 .3 0 .6-.3.8l-.8.3-.7-.3-.3-.9V1c0-.3 0-.6.3-.8l.7-.3c.2 0 .6.1.8.3s.3.5.3.7M24 4.2v17.7q0 .9-.6 1.5c-.6.6-1 .6-1.6.6H2.2c-.6 0-1.2-.2-1.6-.6a2 2 0 0 1-.6-1.5V4.2q0-.9.6-1.5c.6-.6 1-.6 1.6-.6h1.6l.4.1.2.4V3c0 .6.1 1 .5 1.5s.9.6 1.4.7A2 2 0 0 0 8 4.7l.5-.7.2-.9v-.5l.2-.4.4-.1h5.4l.4.1.2.4V3c0 .6.2 1 .5 1.5.4.4.9.6 1.4.7a2 2 0 0 0 1.7-.5 2 2 0 0 0 .7-1.6v-.5l.2-.4.4-.1h1.6c.6 0 1.2.2 1.6.6s.6 1 .6 1.5m-2.7 6.2H2.7l-.4.2-.1.4v10.4l.1.4.4.1h18.6l.4-.1.1-.4V11l-.1-.4zM17.5 0c.2 0 .5.1.7.3s.3.5.3.7v2.1c0 .3 0 .6-.3.8l-.7.3c-.3 0-.6-.1-.8-.3l-.3-.8v-2c0-.3 0-.6.3-.8s.5-.3.8-.3"
+																						clip-rule="evenodd"></path>
+																				</symbol>
+																			</use>
+																		</svg>
+																	</button>
+																</div>
+																<!---->
+															</div>
 														</dd>
 														<!---->
 														<div class="ynab-new-inspector-goals-calendar">
 															@if($state['isOpenCalendarModal'])
-																<div id="modalCalendar" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
-																	wire:click.self="$set('state.isOpenCalendarModal', false)">
+																<div id="ember168" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
+																	wire:click.self="hideModalCalendar">
 																	<div class="modal" role="dialog" aria-modal="true" style="top: 400.4px; left: 1271.1px;">
 																		<div class="accounts-calendar">
 																			<ul class="accounts-calendar-date">
@@ -755,8 +791,29 @@
 								<div class="target-inspector-header">
 									<!---->
 									<div class="header-bottom">
-										<h2 class="target-behavior">Set Aside Another $90.00 Each Month</h2>
-										<div class="target-by-date">By the 10th of the Month</div>
+										<h2
+											class="target-behavior">{{ $selectedFrequency === 'custom' ? $selectedTextCustom : $selectedText }} {{ format_currency($currencyAmount) }}
+											@if ($selectedFrequency == 'weekly')
+												Each Week
+											@elseif ($selectedFrequency == 'monthly')
+												Each Month
+											@elseif ($selectedFrequency == 'yearly')
+												Each Year
+											@elseif ($selectedFrequency == 'custom')
+												<!-- Nada o texto personalizado para custom -->
+											@endif
+										</h2>
+										<div class="target-by-date">
+											@if ($selectedFrequency == 'weekly')
+												By {{ $selectedDayText }}
+											@elseif ($selectedFrequency == 'monthly')
+												By the {{ $selectedDayText }} of the Month
+											@elseif ($selectedFrequency == 'yearly')
+												By {{ \Carbon\Carbon::createFromFormat('d/m/Y', $formattedDate)->format('M j Y') }}
+											@elseif ($selectedFrequency == 'custom')
+												By {{ \Carbon\Carbon::createFromFormat('d/m/Y', $formattedDate)->format('M j Y') }}
+											@endif
+										</div>
 									</div>
 								</div>
 								<hr>
@@ -774,13 +831,13 @@
 								</div>
 								<div class="impact-message warning">
 									Assign
-									<span class="highlighted">$90.00</span>
+									<span class="highlighted">{{ format_currency($currencyAmount) }}</span>
 									to meet your target
 								</div>
 								<div class="target-breakdown">
 									<div class="target-breakdown-item">
 										<div class="target-breakdown-item-label">Amount to Assign This Month</div>
-										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums positive"><bdi>$</bdi>90.00</span></div>
+										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums positive"><bdi>{{ format_currency($currencyAmount) }}</bdi></span></div>
 									</div>
 									<div class="target-breakdown-item">
 										<div class="target-breakdown-item-label">Assigned So Far</div>
@@ -789,7 +846,7 @@
 									<hr>
 									<div class="target-breakdown-item">
 										<div class="target-breakdown-item-label">To Go</div>
-										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums positive"><bdi>$</bdi>90.00</span></div>
+										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums positive"><bdi>{{ format_currency($currencyAmount) }}</bdi></span></div>
 									</div>
 								</div>
 								<button class="ynab-button secondary  " type="button">

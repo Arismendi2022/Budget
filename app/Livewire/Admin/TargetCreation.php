@@ -22,14 +22,14 @@
 			'isSwitchRepeat'         => false,
 			'isFocusedInput'         => false,
 			'isTargetSuccess'        => false,
+			'isCalendarVisible'      => false,
 		];
 		
 		public string $selectedFrequency  = 'monthly';
 		public string $selectedText       = 'Set aside another';
 		public string $selectedTextCustom = 'Set aside';
 		
-		public $currencyAmount;
-		public $amount;
+		public $currencyAmount,$amount;
 		
 		public array  $daysInMonth = [];
 		public        $firstDayOfMonth;
@@ -37,6 +37,8 @@
 		public string $selectedDate;
 		public int    $currentMonth;
 		public int    $currentYear;
+		
+		public $selectedDay,$selectedDayText,$selectedDayOfWeek;
 		
 		// Frecuencias permitidas como constante
 		private const VALID_FREQUENCIES = ['weekly','monthly','yearly','custom'];
@@ -64,7 +66,7 @@
 		private function resetTargetForm():void{
 			$this->initializeDate(Carbon::now()->addMonth());
 			$this->state['isActiveSwitch'] = false;
-			$this->reset(['amount','currencyAmount','selectedText','selectedTextCustom']);
+			$this->reset(['amount','currencyAmount','selectedText','selectedTextCustom','selectedDay','selectedDayOfWeek']);
 		}
 		
 		public function showCreateTarget():void{
@@ -83,15 +85,11 @@
 		
 		#[On('showCategoryTarget')]
 		public function showCategoryTarget(int $categoryId):void{
-			try{
-				$this->category                  = Category::findOrFail($categoryId);
-				$this->state['isAutoAssign']     = false;
-				$this->state['isCreateTarget']   = false;
-				$this->state['isOpenAsideModal'] = false;
-				$this->state['isTargetSuccess']  = false;
-			} catch(\Exception $e){
-				$this->addError('category','Category not found.');
-			}
+			$this->category                  = Category::findOrFail($categoryId);
+			$this->state['isAutoAssign']     = false;
+			$this->state['isCreateTarget']   = false;
+			$this->state['isOpenAsideModal'] = false;
+			$this->state['isTargetSuccess']  = false;
 		}
 		
 		#[On('hideCategoryTarget')]
@@ -124,6 +122,12 @@
 		public function showModalCalendar():void{
 			$this->initializeDate(Carbon::parse($this->selectedDate));
 			$this->state['isOpenCalendarModal'] = true;
+			$this->state['isCalendarVisible']   = true;
+		}
+		
+		public function hideModalCalendar(){
+			$this->state['isOpenCalendarModal'] = false;
+			$this->state['isCalendarVisible']   = false;
 		}
 		
 		public function previousMonth():void{
@@ -137,10 +141,12 @@
 		public function selectDate(int $day):void{
 			$this->selectedDate                 = Carbon::create($this->currentYear,$this->currentMonth,$day)->format('Y-m-d');
 			$this->state['isOpenCalendarModal'] = false;
+			$this->state['isCalendarVisible']   = false;
 		}
 		
 		public function getFormattedDateProperty():string{
-			return Carbon::parse($this->selectedDate)->format('M j, Y');
+			//return Carbon::parse($this->selectedDate)->format('M j, Y');
+			return format_date(Carbon::parse($this->selectedDate));
 		}
 		
 		public function switchToggle():void{
@@ -181,6 +187,7 @@
 			$this->firstDayOfMonth = $date->dayOfWeek;
 			$this->daysInMonth     = range(1,$date->daysInMonth);
 		}
+		
 		
 		public function render(){
 			return view('livewire.admin.target-creation',[
