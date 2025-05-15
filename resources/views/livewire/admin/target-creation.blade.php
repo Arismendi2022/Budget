@@ -464,7 +464,7 @@
 																		<div id="asideModal" class="modal-overlay active ynab-new-dropdown-modal" wire:click.self="$set('state.isOpenAsideCustomModal', false)">
 																			<div class="modal" role="dialog" aria-modal="true" style="top: 264.8px; left: 1145.2px; height: auto; width: 481.8px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
-																					<button wire:click="updateSelectedTextCustom('Set Aside Another')" class="type-dropdown-option is-selected" role="option"
+																					<button wire:click="updateSelectedTextCustom('Set Aside Another','set-aside')" class="type-dropdown-option is-selected" role="option"
 																						aria-selected="true"
 																						type="button">
 																						<div class="type-dropdown-label">
@@ -484,7 +484,7 @@
 																						</div>
 																					</button>
 																					<hr class="dropdown-divider">
-																					<button wire:click="updateSelectedTextCustom('Fill up to')" class="type-dropdown-option " role="option" aria-selected="false"
+																					<button wire:click="updateSelectedTextCustom('Fill up to','refill')" class="type-dropdown-option " role="option" aria-selected="false"
 																						type="button">
 																						<div class="type-dropdown-label">
 																							<div class="type-dropdown-label-title">
@@ -701,7 +701,8 @@
 																			wire:click.self="$set('state.isOpenAsideModal', false)">
 																			<div class="modal" role="dialog" aria-modal="true" style="top: 429.6px; left: 1145.2px; height: auto; width: 481.8px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
-																					<button wire:click="updateSelectedText('Set aside another')" class="type-dropdown-option is-selected" role="option" aria-selected="true"
+																					<button wire:click="updateSelectedText('Set Aside Another','set-aside')" class="type-dropdown-option is-selected" role="option"
+																						aria-selected="true"
 																						type="button">
 																						<div class="type-dropdown-label">
 																							<div class="type-dropdown-label-title">
@@ -725,7 +726,7 @@
 																						</div>
 																					</button>
 																					<hr class="dropdown-divider">
-																					<button wire:click="updateSelectedText('Refill up to')" class="type-dropdown-option " role="option" aria-selected="false" type="button">
+																					<button wire:click="updateSelectedText('Refill Up to')" class="type-dropdown-option " role="option" aria-selected="false" type="button">
 																						<div class="type-dropdown-label">
 																							<div class="type-dropdown-label-title">
 																								<!---->
@@ -831,22 +832,24 @@
 								</div>
 								<div class="impact-message warning">
 									Assign
-									<span class="highlighted">{{ format_currency($currencyAmount) }}</span>
+									<span class="highlighted">{{ format_currency($selectedFrequency === 'weekly' ? $currencyAmountWeekly : $currencyAmount) }}</span>
 									to meet your target
 								</div>
 								<div class="target-breakdown">
 									<div class="target-breakdown-item">
-										<div class="target-breakdown-item-label">Amount to Assign This Month</div>
-										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums positive"><bdi>{{ format_currency($currencyAmount) }}</bdi></span></div>
+										<div class="target-breakdown-item-label"> {{ $selectedOptionType === 'set-aside' ? 'Amount to Assign This Month' : 'Needed This Month' }} </div>
+										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums positive"><bdi>{{ format_currency($selectedFrequency === 'weekly' ? $currencyAmountWeekly : $currencyAmount) }}</bdi></span>
+										</div>
 									</div>
 									<div class="target-breakdown-item">
-										<div class="target-breakdown-item-label">Assigned So Far</div>
+										<div class="target-breakdown-item-label">{{ $selectedOptionType === 'set-aside' ? 'Assigned So Far' : 'Funded' }}</div>
 										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></div>
 									</div>
 									<hr>
 									<div class="target-breakdown-item">
 										<div class="target-breakdown-item-label">To Go</div>
-										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums positive"><bdi>{{ format_currency($currencyAmount) }}</bdi></span></div>
+										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums positive"><bdi>{{ format_currency($selectedFrequency === 'weekly' ? $currencyAmountWeekly : $currencyAmount) }}</bdi></span>
+										</div>
 									</div>
 								</div>
 								<button class="ynab-button secondary  " type="button">

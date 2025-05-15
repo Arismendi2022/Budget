@@ -29,7 +29,7 @@
 		public string $selectedText       = 'Set aside another';
 		public string $selectedTextCustom = 'Set aside';
 		
-		public $currencyAmount,$amount;
+		public $currencyAmount,$amount,$currencyAmountWeekly;
 		
 		public array  $daysInMonth = [];
 		public        $firstDayOfMonth;
@@ -38,13 +38,17 @@
 		public int    $currentMonth;
 		public int    $currentYear;
 		
-		public $selectedDay,$selectedDayText,$selectedDayOfWeek;
+		public $selectedDay;
+		public $selectedDayOfWeek  = 6;
+		public $selectedDayText    = 'Saturday';
+		public $selectedOptionType = null;
 		
 		// Frecuencias permitidas como constante
 		private const VALID_FREQUENCIES = ['weekly','monthly','yearly','custom'];
 		
 		public function mount():void{
 			$this->initializeDate(Carbon::now()->addMonth());
+			
 		}
 		
 		public function updatedAmount():void{
@@ -66,7 +70,7 @@
 		private function resetTargetForm():void{
 			$this->initializeDate(Carbon::now()->addMonth());
 			$this->state['isActiveSwitch'] = false;
-			$this->reset(['amount','currencyAmount','selectedText','selectedTextCustom','selectedDay','selectedDayOfWeek']);
+			$this->reset(['amount','currencyAmount','currencyAmountWeekly','selectedText','selectedTextCustom','selectedDay','selectedDayOfWeek','selectedDayText']);
 		}
 		
 		public function showCreateTarget():void{
@@ -145,7 +149,6 @@
 		}
 		
 		public function getFormattedDateProperty():string{
-			//return Carbon::parse($this->selectedDate)->format('M j, Y');
 			return format_date(Carbon::parse($this->selectedDate));
 		}
 		
@@ -154,13 +157,16 @@
 			$this->state['isSwitchRepeat'] = $this->state['isActiveSwitch'];
 		}
 		
-		public function updateSelectedText(string $text):void{
+		
+		public function updateSelectedText($text,$optionType = null){
 			$this->selectedText              = $text;
+			$this->selectedOptionType        = $optionType;
 			$this->state['isOpenAsideModal'] = false;
 		}
 		
-		public function updateSelectedTextCustom(string $text):void{
+		public function updateSelectedTextCustom($text,$optionType = null){
 			$this->selectedTextCustom              = $text;
+			$this->selectedOptionType              = $optionType;
 			$this->state['isOpenAsideCustomModal'] = false;
 		}
 		
@@ -176,6 +182,15 @@
 		
 		public function saveTarget():void{
 			$this->validateCurrencyAmount();
+			
+			// Inicializar $currencyAmountWeekly
+			$this->currencyAmountWeekly = $this->currencyAmount;
+			
+			// Calcular el total para 'weekly'
+			if($this->selectedFrequency === 'weekly' && isset($this->selectedDayOfWeek)){
+				$this->calculateWeeklyTotal();
+			}
+			
 			$this->state['isCreateTarget']  = false;
 			$this->state['isTargetSuccess'] = true;
 		}
@@ -186,6 +201,35 @@
 			$this->selectedDate    = $date->startOfMonth()->format('Y-m-d');
 			$this->firstDayOfMonth = $date->dayOfWeek;
 			$this->daysInMonth     = range(1,$date->daysInMonth);
+		}
+		
+		// NUEVO: Validar día de la semana
+		public function updatedSelectedDayOfWeek():void{
+			$this->selectedDayOfWeek = is_numeric($this->selectedDayOfWeek) ? (int)$this->selectedDayOfWeek : null;
+		}
+		
+		
+		private function calculateWeeklyTotal():void{
+			if($this->currencyAmount > 0 && isset($this->selectedDayOfWeek)){
+				$weeklyTotal                = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->selectedDayOfWeek);
+				$this->currencyAmountWeekly = $weeklyTotal; // Guarda el resultado en otra variable
+			}
+		}
+		
+		// NUEVO: Calcular ocurrencias
+		private function getDayOccurrencesInMonth(int $dayOfWeek):int{
+			// Usa el mes actual en lugar de $this->currentMonth
+			$start = Carbon::now()->startOfMonth();
+			$end   = $start->copy()->endOfMonth();
+			$count = 0;
+			
+			while($start->lte($end)){
+				if($start->dayOfWeek === $dayOfWeek){
+					$count++;
+				}
+				$start->addDay();
+			}
+			return $count;
 		}
 		
 		
