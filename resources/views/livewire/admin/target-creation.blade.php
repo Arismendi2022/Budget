@@ -464,7 +464,7 @@
 																		<div id="asideModal" class="modal-overlay active ynab-new-dropdown-modal" wire:click.self="$set('state.isOpenAsideCustomModal', false)">
 																			<div class="modal" role="dialog" aria-modal="true" style="top: 264.8px; left: 1145.2px; height: auto; width: 481.8px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
-																					<button wire:click="updateSelectedTextCustom('Set Aside Another','set-aside')" class="type-dropdown-option is-selected" role="option"
+																					<button wire:click="updateSelectedTextCustom('Set aside','set-aside')" class="type-dropdown-option is-selected" role="option"
 																						aria-selected="true"
 																						type="button">
 																						<div class="type-dropdown-label">
@@ -499,7 +499,8 @@
 																						</div>
 																					</button>
 																					<hr class="dropdown-divider">
-																					<button wire:click="updateSelectedTextCustom('Have a balance of')" class="type-dropdown-option " role="option" aria-selected="false"
+																					<button wire:click="updateSelectedTextCustom('Have a balance of','have')" class="type-dropdown-option " role="option"
+																						aria-selected="false"
 																						type="button">
 																						<div class="type-dropdown-label">
 																							<div class="type-dropdown-label-title">
@@ -526,30 +527,32 @@
 														</dd>
 													</dl>
 													<dl>
-														<dt aria-label="Due on">
-															Due on
-														</dt>
-														<dd class="ynab-new-inspector-goals-calendar-select" wire:click="showModalCalendar">
-															<div id="ember160" class="date-picker {{ $state['isCalendarVisible'] ? 'calendar-visible' : '' }}">
-																<div class="date-picker-input">
-																	<input id="ember161" class="ember-text-field ember-view date-picker-input-field user-data" aria-haspopup="true"
-																		aria-expanded="false" title="Date" placeholder="DD/MM/YYYY" type="text" value="{{ $formattedDate }}">
-																	<button class="date-picker-input-icon-button" tabindex="-1" type="button">
-																		<svg class="ynab-new-icon date-picker-input-icon" width="12" height="12">
-																			<!---->
-																			<use href="#icon_sprite_calendar">
-																				<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_calendar" fill="none" viewBox="0 0 24 24">
-																					<path fill="currentColor" fill-rule="evenodd"
-																						d="M7.6 1v2.1c0 .3 0 .6-.3.8l-.8.3-.7-.3-.3-.9V1c0-.3 0-.6.3-.8l.7-.3c.2 0 .6.1.8.3s.3.5.3.7M24 4.2v17.7q0 .9-.6 1.5c-.6.6-1 .6-1.6.6H2.2c-.6 0-1.2-.2-1.6-.6a2 2 0 0 1-.6-1.5V4.2q0-.9.6-1.5c.6-.6 1-.6 1.6-.6h1.6l.4.1.2.4V3c0 .6.1 1 .5 1.5s.9.6 1.4.7A2 2 0 0 0 8 4.7l.5-.7.2-.9v-.5l.2-.4.4-.1h5.4l.4.1.2.4V3c0 .6.2 1 .5 1.5.4.4.9.6 1.4.7a2 2 0 0 0 1.7-.5 2 2 0 0 0 .7-1.6v-.5l.2-.4.4-.1h1.6c.6 0 1.2.2 1.6.6s.6 1 .6 1.5m-2.7 6.2H2.7l-.4.2-.1.4v10.4l.1.4.4.1h18.6l.4-.1.1-.4V11l-.1-.4zM17.5 0c.2 0 .5.1.7.3s.3.5.3.7v2.1c0 .3 0 .6-.3.8l-.7.3c-.3 0-.6-.1-.8-.3l-.3-.8v-2c0-.3 0-.6.3-.8s.5-.3.8-.3"
-																						clip-rule="evenodd"></path>
-																				</symbol>
-																			</use>
-																		</svg>
-																	</button>
+														@if($selectedOptionType != 'have')
+															<dt aria-label="Due on">
+																Due on
+															</dt>
+															<dd class="ynab-new-inspector-goals-calendar-select" wire:click="showModalCalendar">
+																<div id="ember160" class="date-picker {{ $state['isCalendarVisible'] ? 'calendar-visible' : '' }}">
+																	<div class="date-picker-input">
+																		<input id="ember161" class="ember-text-field ember-view date-picker-input-field user-data" aria-haspopup="true"
+																			aria-expanded="false" title="Date" placeholder="DD/MM/YYYY" type="text" value="{{ $formattedDate }}">
+																		<button class="date-picker-input-icon-button" tabindex="-1" type="button">
+																			<svg class="ynab-new-icon date-picker-input-icon" width="12" height="12">
+																				<!---->
+																				<use href="#icon_sprite_calendar">
+																					<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_calendar" fill="none" viewBox="0 0 24 24">
+																						<path fill="currentColor" fill-rule="evenodd"
+																							d="M7.6 1v2.1c0 .3 0 .6-.3.8l-.8.3-.7-.3-.3-.9V1c0-.3 0-.6.3-.8l.7-.3c.2 0 .6.1.8.3s.3.5.3.7M24 4.2v17.7q0 .9-.6 1.5c-.6.6-1 .6-1.6.6H2.2c-.6 0-1.2-.2-1.6-.6a2 2 0 0 1-.6-1.5V4.2q0-.9.6-1.5c.6-.6 1-.6 1.6-.6h1.6l.4.1.2.4V3c0 .6.1 1 .5 1.5s.9.6 1.4.7A2 2 0 0 0 8 4.7l.5-.7.2-.9v-.5l.2-.4.4-.1h5.4l.4.1.2.4V3c0 .6.2 1 .5 1.5.4.4.9.6 1.4.7a2 2 0 0 0 1.7-.5 2 2 0 0 0 .7-1.6v-.5l.2-.4.4-.1h1.6c.6 0 1.2.2 1.6.6s.6 1 .6 1.5m-2.7 6.2H2.7l-.4.2-.1.4v10.4l.1.4.4.1h18.6l.4-.1.1-.4V11l-.1-.4zM17.5 0c.2 0 .5.1.7.3s.3.5.3.7v2.1c0 .3 0 .6-.3.8l-.7.3c-.3 0-.6-.1-.8-.3l-.3-.8v-2c0-.3 0-.6.3-.8s.5-.3.8-.3"
+																							clip-rule="evenodd"></path>
+																					</symbol>
+																				</use>
+																			</svg>
+																		</button>
+																	</div>
+																	<!---->
 																</div>
-																<!---->
-															</div>
-														</dd>
+															</dd>
+														@endif
 														<!---->
 														<div class="ynab-new-inspector-goals-calendar">
 															@if($state['isOpenCalendarModal'])
@@ -611,74 +614,88 @@
 															@endif
 														</div>
 													</dl>
-													<div class="frequency-repeat">
-														<button wire:click="switchToggle" class="ynab-switch {{ $state['isActiveSwitch'] ? 'on' : 'off' }} " role="checkbox" aria-checked="{{ $state['isActiveSwitch'] ?
+													@if($selectedOptionType != 'have')
+														<div class="frequency-repeat">
+															<button wire:click="switchToggle" class="ynab-switch {{ $state['isActiveSwitch'] ? 'on' : 'off' }} " role="checkbox" aria-checked="{{ $state['isActiveSwitch'] ?
 														'true' :'false' }}"
-															type="button">
-															<svg class="switch-toggle" xmlns="http://www.w3.org/2000/svg">
-																<rect></rect>
-																<circle></circle>
-															</svg>
-															Repeat
-														</button>
-													</div>
-													@if($state['isSwitchRepeat'])
-														<dl>
-															<dt>
-																Every
-															</dt>
-															<dd class="ynab-new-inspector-goals-repeats-options user-data">
-																<div class="x-select-container  ">
-																	<select class="js-x-select cadence-frequency-selector" aria-label="Select Interval">
-																		<!---->
-																		<option value="1">
-																			1
-																		</option>
-																		<option value="2">
-																			2
-																		</option>
-																		<option value="3">
-																			3
-																		</option>
-																		<option value="4">
-																			4
-																		</option>
-																		<option value="5">
-																			5
-																		</option>
-																		<option value="6">
-																			6
-																		</option>
-																		<option value="7">
-																			7
-																		</option>
-																		<option value="8">
-																			8
-																		</option>
-																		<option value="9">
-																			9
-																		</option>
-																		<option value="10">
-																			10
-																		</option>
-																		<option value="11">
-																			11
-																		</option>
-																	</select>
-																</div>
-																<div class="x-select-container  ">
-																	<select class="js-x-select cadence-selector" aria-label="Select Unit of Time">
-																		<!---->
-																		<option value="1">
-																			Month
-																		</option>
-																		<option value="2">
-																			Year
-																		</option>
-																	</select>
-																</div>
-															</dd>
-														</dl>
+																type="button">
+																<svg class="switch-toggle" xmlns="http://www.w3.org/2000/svg">
+																	<rect></rect>
+																	<circle></circle>
+																</svg>
+																Repeat
+															</button>
+														</div>
+														@if($state['isSwitchRepeat'])
+															<dl>
+																<dt>
+																	Every
+																</dt>
+																<dd class="ynab-new-inspector-goals-repeats-options user-data">
+																	<div class="x-select-container  ">
+																		<select class="js-x-select cadence-frequency-selector" aria-label="Select Interval">
+																			<!---->
+																			<option value="1">
+																				1
+																			</option>
+																			<option value="2">
+																				2
+																			</option>
+																			<option value="3">
+																				3
+																			</option>
+																			<option value="4">
+																				4
+																			</option>
+																			<option value="5">
+																				5
+																			</option>
+																			<option value="6">
+																				6
+																			</option>
+																			<option value="7">
+																				7
+																			</option>
+																			<option value="8">
+																				8
+																			</option>
+																			<option value="9">
+																				9
+																			</option>
+																			<option value="10">
+																				10
+																			</option>
+																			<option value="11">
+																				11
+																			</option>
+																		</select>
+																	</div>
+																	<div class="x-select-container  ">
+																		<select class="js-x-select cadence-selector" aria-label="Select Unit of Time">
+																			<!---->
+																			<option value="1">
+																				Month
+																			</option>
+																			<option value="2">
+																				Year
+																			</option>
+																		</select>
+																	</div>
+																</dd>
+															</dl>
+														@endif
+													@elseif($selectedOptionType === 'have')
+														<div class="goal-due-by-date-switch">
+															<button wire:click="switchToggleDue" class="ynab-switch {{ $state['isActiveSwitchDue'] ? 'on' : 'off' }} " role="checkbox" aria-checked="{{
+															$state['isActiveSwitchDue'] ?
+														'true' :'false' }}" type="button">
+																<svg class="switch-toggle" xmlns="http://www.w3.org/2000/svg">
+																	<rect></rect>
+																	<circle></circle>
+																</svg>
+																Due by date
+															</button>
+														</div>
 													@endif
 												@endif
 												@if($selectedFrequency != 'custom')
@@ -701,7 +718,7 @@
 																			wire:click.self="$set('state.isOpenAsideModal', false)">
 																			<div class="modal" role="dialog" aria-modal="true" style="top: 429.6px; left: 1145.2px; height: auto; width: 481.8px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
-																					<button wire:click="updateSelectedText('Set Aside Another','set-aside')" class="type-dropdown-option is-selected" role="option"
+																					<button wire:click="updateSelectedText('Set aside another','set-aside')" class="type-dropdown-option is-selected" role="option"
 																						aria-selected="true"
 																						type="button">
 																						<div class="type-dropdown-label">
@@ -726,7 +743,7 @@
 																						</div>
 																					</button>
 																					<hr class="dropdown-divider">
-																					<button wire:click="updateSelectedText('Refill Up to')" class="type-dropdown-option " role="option" aria-selected="false" type="button">
+																					<button wire:click="updateSelectedText('Refill up to')" class="type-dropdown-option " role="option" aria-selected="false" type="button">
 																						<div class="type-dropdown-label">
 																							<div class="type-dropdown-label-title">
 																								<!---->
@@ -758,6 +775,63 @@
 													</dl>
 												@endif
 											</dd>
+											@if($state['isSwitchDue'])
+												<dt aria-label="Due on">
+													Due on
+												</dt>
+												<dd>
+													<div class="ynab-new-inspector-goals-month-year">
+														<div class="x-select-container goal-target-month ">
+															<select wire:model="selectedMonth" class="js-x-select" aria-label="Select Month">
+																<!---->
+																<option value="0">
+																	January
+																</option>
+																<option value="1">
+																	February
+																</option>
+																<option value="2">
+																	March
+																</option>
+																<option value="3">
+																	April
+																</option>
+																<option value="4">
+																	May
+																</option>
+																<option value="5">
+																	June
+																</option>
+																<option value="6">
+																	July
+																</option>
+																<option value="7">
+																	August
+																</option>
+																<option value="8">
+																	September
+																</option>
+																<option value="9">
+																	October
+																</option>
+																<option value="10">
+																	November
+																</option>
+																<option value="11">
+																	December
+																</option>
+															</select>
+														</div>
+														<div class="x-select-container goal-target-year ">
+															<select wire:model="selectedYear" name="target_year" class="js-x-select" aria-label="Select Year">
+																@foreach(years_range() as $year => $yearValue)
+																	<option value="{{ $year }}">{{ $yearValue }}</option>
+																@endforeach
+															</select>
+														</div>
+													</div>
+												</dd>
+											@endif
 										</dl>
 									</div>
 									<div class="goal-actions">
@@ -793,7 +867,7 @@
 									<!---->
 									<div class="header-bottom">
 										<h2
-											class="target-behavior">{{ $selectedFrequency === 'custom' ? $selectedTextCustom : $selectedText }} {{ format_currency($currencyAmount) }}
+											class="target-behavior">{{ $selectedOptionType === 'set-aside' ? 'Set Aside Another' : ($selectedOptionType === 'have' ? 'Have a Balance of' : 'Refill Up to') }} {{ format_currency($currencyAmount) }}
 											@if ($selectedFrequency == 'weekly')
 												Each Week
 											@elseif ($selectedFrequency == 'monthly')
@@ -812,7 +886,11 @@
 											@elseif ($selectedFrequency == 'yearly')
 												By {{ \Carbon\Carbon::createFromFormat('d/m/Y', $formattedDate)->format('M j Y') }}
 											@elseif ($selectedFrequency == 'custom')
-												By {{ \Carbon\Carbon::createFromFormat('d/m/Y', $formattedDate)->format('M j Y') }}
+												@if($state['isSwitchDue'])
+													By
+												@else
+													{{ $selectedOptionType === 'have' ? 'Eventually' : 'By ' . \Carbon\Carbon::createFromFormat('d/m/Y', $formattedDate)->format('M j Y') }}
+												@endif
 											@endif
 										</div>
 									</div>
@@ -830,19 +908,53 @@
 										<div class="shadow"></div>
 									</div>
 								</div>
-								<div class="impact-message warning">
-									Assign
-									<span class="highlighted">{{ format_currency($selectedFrequency === 'weekly' ? $currencyAmountWeekly : $currencyAmount) }}</span>
-									to meet your target
-								</div>
+								@if(!($selectedOptionType === 'have' && !$state['isActiveSwitchDue']))
+									<div class="impact-message warning">
+										Assign
+										<span class="highlighted">
+										@if($selectedFrequency === 'weekly')
+												{{ format_currency($currencyAmountWeekly) }}
+											@elseif($selectedFrequency === 'yearly')
+												{{ format_currency($monthlySavingsAmount) }}
+											@elseif($selectedFrequency === 'custom')
+												{{ format_currency($monthlySavingsAmount) }}
+											@else
+												{{ format_currency($currencyAmount) }}
+											@endif
+									</span>
+										@if(in_array($selectedFrequency, ['weekly', 'monthly']))
+											to meet your target
+										@elseif(in_array($selectedFrequency, ['yearly', 'custom']))
+											this month to stay on track
+										@endif
+									</div>
+								@endif
 								<div class="target-breakdown">
 									<div class="target-breakdown-item">
-										<div class="target-breakdown-item-label"> {{ $selectedOptionType === 'set-aside' ? 'Amount to Assign This Month' : 'Needed This Month' }} </div>
+										<div class="target-breakdown-item-label">
+											@if ($selectedFrequency === 'yearly')
+												{{ $selectedOptionType === 'set-aside' ? 'Total to Assign by' : 'Needed by' }}
+												{{ \Carbon\Carbon::createFromFormat('d/m/Y', $formattedDate)->format('M j Y') }}
+											@elseif($selectedFrequency === 'custom')
+												@if ($selectedOptionType === 'have' && !$state['isActiveSwitchDue'])
+													Balance Needed
+												@elseif($selectedOptionType === 'have' && $state['isActiveSwitchDue'])
+													Balance Needed by
+													{{ \Carbon\Carbon::createFromDate($selectedYear, $selectedMonth + 1, 1)->format('M Y') }}
+												@else
+													{{ $selectedOptionType === 'set-aside' ? 'Total to Assign by' : 'Needed by' }}
+													{{ \Carbon\Carbon::createFromFormat('d/m/Y', $formattedDate)->format('M j Y') }}
+												@endif
+											@else
+												{{ $selectedOptionType === 'set-aside' ? 'Amount to Assign This Month' : 'Needed This Month' }}
+											@endif
+										</div>
 										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums positive"><bdi>{{ format_currency($selectedFrequency === 'weekly' ? $currencyAmountWeekly : $currencyAmount) }}</bdi></span>
 										</div>
 									</div>
 									<div class="target-breakdown-item">
-										<div class="target-breakdown-item-label">{{ $selectedOptionType === 'set-aside' ? 'Assigned So Far' : 'Funded' }}</div>
+										<div class="target-breakdown-item-label">{{ $selectedOptionType === 'set-aside' ? 'Assigned So Far' : ($selectedOptionType === 'have' ? 'Current Balance' :
+										'Funded') }}</div>
 										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></div>
 									</div>
 									<hr>

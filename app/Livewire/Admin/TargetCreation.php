@@ -9,7 +9,7 @@
 	
 	class TargetCreation extends Component
 	{
-		// Estados agrupados para mejor organización
+		// Estados agrupados con valores por defecto
 		public array $state = [
 			'isCollapsed'            => false,
 			'isAutoAssign'           => true,
@@ -19,7 +19,9 @@
 			'isOpenAsideCustomModal' => false,
 			'isOpenCalendarModal'    => false,
 			'isActiveSwitch'         => false,
+			'isActiveSwitchDue'      => false,
 			'isSwitchRepeat'         => false,
+			'isSwitchDue'            => false,
 			'isFocusedInput'         => false,
 			'isTargetSuccess'        => false,
 			'isCalendarVisible'      => false,
@@ -29,21 +31,25 @@
 		public string $selectedText       = 'Set aside another';
 		public string $selectedTextCustom = 'Set aside';
 		
-		public $currencyAmount,$amount,$currencyAmountWeekly;
-		
-		public array  $daysInMonth = [];
-		public        $firstDayOfMonth;
-		public        $category;
+		public string $amount      = '';
+		public int    $currentYear;
 		public string $selectedDate;
 		public int    $currentMonth;
-		public int    $currentYear;
+		public float  $currencyAmount;
+		public int    $firstDayOfMonth;
+		public float  $currencyAmountWeekly;
+		public float  $monthlySavingsAmount;
+		public array  $daysInMonth = [];
 		
-		public $selectedDay;
-		public $selectedDayOfWeek  = 6;
-		public $selectedDayText    = 'Saturday';
-		public $selectedOptionType = null;
+		public         $category           = null;
+		public ?int    $selectedDay        = null;
+		public ?string $selectedOptionType = null;
 		
-		// Frecuencias permitidas como constante
+		public int    $selectedDayOfWeek = 6;
+		public string $selectedDayText   = 'Saturday';
+		
+		public $selectedMonth,$selectedYear;
+		
 		private const VALID_FREQUENCIES = ['weekly','monthly','yearly','custom'];
 		
 		public function mount():void{
@@ -53,7 +59,7 @@
 		
 		public function updatedAmount():void{
 			$num                  = preg_replace('/[^0-9.]/','',$this->amount);
-			$this->currencyAmount = is_numeric($num) ? (float)$num : 0;
+			$this->currencyAmount = is_numeric($num) ? (float)$num : 0.0;
 			$this->amount         = $this->currencyAmount ? format_number($this->currencyAmount) : '';
 		}
 		
@@ -67,38 +73,34 @@
 			}
 		}
 		
-		private function resetTargetForm():void{
-			$this->initializeDate(Carbon::now()->addMonth());
-			$this->state['isActiveSwitch'] = false;
-			$this->reset(['amount','currencyAmount','currencyAmountWeekly','selectedText','selectedTextCustom','selectedDay','selectedDayOfWeek','selectedDayText']);
-		}
-		
 		public function showCreateTarget():void{
 			$this->state['isCreateTarget'] = true;
 			$this->selectedFrequency       = 'monthly';
-			$this->resetTargetForm();
-			$this->resetErrorBag();
+			$this->resetForm();
 			$this->dispatch('focusInput');
 		}
 		
 		public function cancelCreateTarget():void{
 			$this->state['isCreateTarget']   = false;
 			$this->state['isOpenAsideModal'] = false;
-			$this->resetTargetForm();
+			$this->resetForm();
 		}
 		
 		#[On('showCategoryTarget')]
 		public function showCategoryTarget(int $categoryId):void{
-			$this->category                  = Category::findOrFail($categoryId);
-			$this->state['isAutoAssign']     = false;
-			$this->state['isCreateTarget']   = false;
-			$this->state['isOpenAsideModal'] = false;
-			$this->state['isTargetSuccess']  = false;
+			$this->category = Category::findOrFail($categoryId);
+			$this->state    = array_merge($this->state,[
+				'isAutoAssign'     => false,
+				'isCreateTarget'   => false,
+				'isOpenAsideModal' => false,
+				'isTargetSuccess'  => false,
+			]);
 		}
 		
 		#[On('hideCategoryTarget')]
 		public function hideCategoryTarget():void{
 			$this->state['isAutoAssign'] = true;
+			$this->category              = null;
 		}
 		
 		public function showNextMonthModal():void{
@@ -129,7 +131,7 @@
 			$this->state['isCalendarVisible']   = true;
 		}
 		
-		public function hideModalCalendar(){
+		public function hideModalCalendar():void{
 			$this->state['isOpenCalendarModal'] = false;
 			$this->state['isCalendarVisible']   = false;
 		}
@@ -143,9 +145,8 @@
 		}
 		
 		public function selectDate(int $day):void{
-			$this->selectedDate                 = Carbon::create($this->currentYear,$this->currentMonth,$day)->format('Y-m-d');
-			$this->state['isOpenCalendarModal'] = false;
-			$this->state['isCalendarVisible']   = false;
+			$this->selectedDate = Carbon::create($this->currentYear,$this->currentMonth,$day)->format('Y-m-d');
+			$this->hideModalCalendar();
 		}
 		
 		public function getFormattedDateProperty():string{
@@ -157,38 +158,43 @@
 			$this->state['isSwitchRepeat'] = $this->state['isActiveSwitch'];
 		}
 		
+		public function switchToggleDue():void{
+			$this->state['isActiveSwitchDue'] = !$this->state['isActiveSwitchDue'];
+			$this->state['isSwitchDue']       = $this->state['isActiveSwitchDue'];
+		}
 		
-		public function updateSelectedText($text,$optionType = null){
+		public function updateSelectedText(string $text,?string $optionType = null):void{
 			$this->selectedText              = $text;
 			$this->selectedOptionType        = $optionType;
 			$this->state['isOpenAsideModal'] = false;
 		}
 		
-		public function updateSelectedTextCustom($text,$optionType = null){
+		public function updateSelectedTextCustom(string $text,?string $optionType = null):void{
 			$this->selectedTextCustom              = $text;
 			$this->selectedOptionType              = $optionType;
 			$this->state['isOpenAsideCustomModal'] = false;
 		}
 		
-		private function validateCurrencyAmount(){
+		public function saveTarget():void{
 			$this->validate([
-				'currencyAmount' => [
-					'required',
-				],
+				'currencyAmount' => ['required','numeric','min:0.01'],
 			],[
 				'currencyAmount.required' => 'Targets require a positive amount.',
+				'currencyAmount.min'      => 'Targets require a positive amount.',
 			]);
-		}
-		
-		public function saveTarget():void{
-			$this->validateCurrencyAmount();
 			
-			// Inicializar $currencyAmountWeekly
 			$this->currencyAmountWeekly = $this->currencyAmount;
 			
-			// Calcular el total para 'weekly'
-			if($this->selectedFrequency === 'weekly' && isset($this->selectedDayOfWeek)){
-				$this->calculateWeeklyTotal();
+			if($this->selectedFrequency === 'weekly' && $this->selectedDayOfWeek !== null){
+				$this->currencyAmountWeekly = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->selectedDayOfWeek);
+			}
+			
+			if($this->selectedFrequency === 'yearly' || $this->selectedFrequency === 'custom'){
+				$this->monthlySavingsAmount = $this->calculateMonthlySavings();
+			}
+			
+			if($this->selectedFrequency === 'custom' && $this->state['isActiveSwitchDue']){
+				$this->monthlySavingsAmount = $this->calculateMonthlyGoal();
 			}
 			
 			$this->state['isCreateTarget']  = false;
@@ -201,24 +207,15 @@
 			$this->selectedDate    = $date->startOfMonth()->format('Y-m-d');
 			$this->firstDayOfMonth = $date->dayOfWeek;
 			$this->daysInMonth     = range(1,$date->daysInMonth);
+			$this->selectedMonth   = $date->month - 1;
 		}
 		
-		// NUEVO: Validar día de la semana
 		public function updatedSelectedDayOfWeek():void{
-			$this->selectedDayOfWeek = is_numeric($this->selectedDayOfWeek) ? (int)$this->selectedDayOfWeek : null;
+			$this->selectedDayOfWeek = is_numeric($this->selectedDayOfWeek) ? (int)$this->selectedDayOfWeek : 6;
+			$this->selectedDayText   = Carbon::create()->dayOfWeek($this->selectedDayOfWeek)->format('l');
 		}
 		
-		
-		private function calculateWeeklyTotal():void{
-			if($this->currencyAmount > 0 && isset($this->selectedDayOfWeek)){
-				$weeklyTotal                = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->selectedDayOfWeek);
-				$this->currencyAmountWeekly = $weeklyTotal; // Guarda el resultado en otra variable
-			}
-		}
-		
-		// NUEVO: Calcular ocurrencias
 		private function getDayOccurrencesInMonth(int $dayOfWeek):int{
-			// Usa el mes actual en lugar de $this->currentMonth
 			$start = Carbon::now()->startOfMonth();
 			$end   = $start->copy()->endOfMonth();
 			$count = 0;
@@ -229,9 +226,51 @@
 				}
 				$start->addDay();
 			}
+			
 			return $count;
 		}
 		
+		private function calculateMonthlySavings():float{
+			$currentDate = Carbon::now()->startOfMonth();
+			
+			$endDate          = Carbon::parse($this->selectedDate)->endOfMonth();
+			$monthsDifference = max(1,$currentDate->diffInMonths($endDate));
+			
+			return $this->currencyAmount / $monthsDifference;
+		}
+		
+		private function calculateMonthlyGoal():float{
+			$currentDate = Carbon::now()->startOfMonth();
+			
+			$endDate = Carbon::create($this->selectedYear,$this->selectedMonth + 1,1)->endOfMonth();
+			if($endDate->lt($currentDate)){
+				return 0;
+			}
+			
+			$monthsDifference = max(1,$currentDate->diffInMonths($endDate));
+			
+			return $this->currencyAmount / $monthsDifference;
+		}
+		
+		private function resetForm():void{
+			$this->initializeDate(Carbon::now()->addMonth());
+			$this->reset([
+				'amount',
+				'currencyAmount',
+				'currencyAmountWeekly',
+				'monthlySavingsAmount',
+				'selectedText',
+				'selectedTextCustom',
+				'selectedDay',
+				'selectedDayOfWeek',
+				'selectedDayText',
+			]);
+			$this->state['isActiveSwitch']    = false;
+			$this->state['isSwitchRepeat']    = false;
+			$this->state['isSwitchDue']       = false;
+			$this->state['isActiveSwitchDue'] = false;
+			$this->resetErrorBag();
+		}
 		
 		public function render(){
 			return view('livewire.admin.target-creation',[
@@ -239,5 +278,4 @@
 				'formattedDate' => $this->formattedDate,
 			]);
 		}
-		
 	}

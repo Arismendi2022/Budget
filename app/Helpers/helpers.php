@@ -60,5 +60,19 @@
 			return \App\Helpers\FormatCurrencyHelper::formatCurrency($amount);
 		}
 	}
+	
+	if(!function_exists('years_range')){
+		/**
+		 * Genera un array de años para usar en selects.
+		 *
+		 * @param int $startYear Año inicial
+		 * @param int $endYear Año final
+		 * @return array Array asociativo con los años como clave y valor
+		 */
+		function years_range($startYear = 2025,$endYear = 2074){
+			return \App\Helpers\YearsHelper::getYearsRange($startYear,$endYear);
+		}
+	}
+	
 
 	
