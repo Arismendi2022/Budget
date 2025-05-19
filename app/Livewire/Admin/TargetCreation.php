@@ -14,6 +14,10 @@
 		private const DEFAULT_FREQUENCY   = 'monthly';
 		private const DEFAULT_DAY_OF_WEEK = 6;
 		
+		// Constantes para unidades
+		private const UNIT_MONTH = 1;
+		private const UNIT_YEAR  = 2;
+		
 		// Estados unificados con valores por defecto
 		public array $state = [
 			// Estados de visibilidad de componentes UI
@@ -61,10 +65,10 @@
 		public string  $selectedTextCustom = 'Set aside';
 		public ?string $selectedOptionType = null;
 		
-		// 1. Añadir estas propiedades
-		public $cadenceFrequency = '1';
-		public $cadenceUnit      = '1'; // 1 = Month, 2 = Year
-		public $frequencyOptions = [];
+		// Añadir estas propiedades
+		public int   $cadenceFrequency = 1;
+		public int   $cadenceUnit      = self::UNIT_MONTH;
+		public array $frequencyOptions = [];
 		
 		// Categoría seleccionada
 		public $category = null;
@@ -320,33 +324,37 @@
 			}
 			
 			$monthsDifference = max(1,$currentDate->diffInMonths($endDate));
-			
 			// Formatea la fecha como "Jun 2026"
 			$this->formattedMonthYear = Carbon::create($this->selectedYear,$this->selectedMonth + 1,1)->format('M Y');
 			
 			return $this->currencyAmount / $monthsDifference;
 		}
 		
-		// Añadir este método al componente TargetCreation
+		/**
+		 * Actualiza las opciones de frecuencia cuando cambia la unidad de tiempo
+		 */
 		public function updatedCadenceUnit(){
+			// Actualizar opciones de frecuencia
 			$this->updateFrequencyOptions();
 			
-			// Si se selecciona Year y la frecuencia actual es mayor que las opciones disponibles,
-			// resetea a 1
-			if($this->cadenceUnit == '2' && $this->cadenceFrequency > '2'){
-				$this->cadenceFrequency = '1';
+			// Resetear frecuencia si excede el máximo permitido para Year
+			$maxFrequency = $this->cadenceUnit === self::UNIT_YEAR ? 2 : 11;
+			if($this->cadenceFrequency > $maxFrequency){
+				$this->cadenceFrequency = 1;
 			}
 		}
 		
-		// Añadir este método privado
+		/**
+		 * Actualiza las opciones de frecuencia según la unidad seleccionada
+		 */
 		private function updateFrequencyOptions(){
-			if($this->cadenceUnit == '1'){ // Month
-				// Para Month, mostrar opciones 1-11
-				$this->frequencyOptions = range(1,11);
-			}else{ // Year
-				// Para Year, mostrar solo opciones 1-2
-				$this->frequencyOptions = range(1,2);
-			}
+			// Mapa de opciones por unidad
+			$optionsMap = [
+				self::UNIT_MONTH => range(1,11),
+				self::UNIT_YEAR  => range(1,2),
+			];
+			
+			$this->frequencyOptions = $optionsMap[$this->cadenceUnit] ?? range(1,11);
 		}
 		
 		/**
@@ -373,6 +381,8 @@
 			
 			$this->setState('isRepeatEnabled',false);
 			$this->setState('isDateFilterEnabled',false);
+			
+			$this->updateFrequencyOptions();
 			$this->resetErrorBag();
 		}
 		
