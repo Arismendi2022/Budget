@@ -18,10 +18,8 @@
 			'isOpenAsideModal'       => false,
 			'isOpenAsideCustomModal' => false,
 			'isOpenCalendarModal'    => false,
-			'isActiveSwitch'         => false,
-			'isActiveSwitchDue'      => false,
-			'isSwitchRepeat'         => false,
-			'isSwitchDue'            => false,
+			'isRepeatEnabled'        => false,
+			'isDateFilterEnabled'    => false,
 			'isFocusedInput'         => false,
 			'isTargetSuccess'        => false,
 			'isCalendarVisible'      => false,
@@ -45,10 +43,9 @@
 		public ?int    $selectedDay        = null;
 		public ?string $selectedOptionType = null;
 		
-		public int    $selectedDayOfWeek = 6;
-		public string $selectedDayText   = 'Saturday';
-		
-		public $selectedMonth,$selectedYear;
+		public $selectedDayOfWeek = 6;
+		public $selectedDayText   = 'Saturday';
+		public $selectedMonth,$selectedYear,$formattedMonthYear,$formattedEndDate;
 		
 		private const VALID_FREQUENCIES = ['weekly','monthly','yearly','custom'];
 		
@@ -153,14 +150,12 @@
 			return format_date(Carbon::parse($this->selectedDate));
 		}
 		
-		public function switchToggle():void{
-			$this->state['isActiveSwitch'] = !$this->state['isActiveSwitch'];
-			$this->state['isSwitchRepeat'] = $this->state['isActiveSwitch'];
+		public function toggleRepeat(){
+			$this->state['isRepeatEnabled'] = !$this->state['isRepeatEnabled'];
 		}
 		
-		public function switchToggleDue():void{
-			$this->state['isActiveSwitchDue'] = !$this->state['isActiveSwitchDue'];
-			$this->state['isSwitchDue']       = $this->state['isActiveSwitchDue'];
+		public function toggleDateFilter(){
+			$this->state['isDateFilterEnabled'] = !$this->state['isDateFilterEnabled'];
 		}
 		
 		public function updateSelectedText(string $text,?string $optionType = null):void{
@@ -193,7 +188,7 @@
 				$this->monthlySavingsAmount = $this->calculateMonthlySavings();
 			}
 			
-			if($this->selectedFrequency === 'custom' && $this->state['isActiveSwitchDue']){
+			if($this->selectedFrequency === 'custom' && $this->state['isDateFilterEnabled']){
 				$this->monthlySavingsAmount = $this->calculateMonthlyGoal();
 			}
 			
@@ -236,6 +231,9 @@
 			$endDate          = Carbon::parse($this->selectedDate)->endOfMonth();
 			$monthsDifference = max(1,$currentDate->diffInMonths($endDate));
 			
+			// Formatea la fecha final como "Dec 30 2025"
+			$this->formattedEndDate = Carbon::parse($this->selectedDate)->format('M j Y');
+			
 			return $this->currencyAmount / $monthsDifference;
 		}
 		
@@ -248,6 +246,9 @@
 			}
 			
 			$monthsDifference = max(1,$currentDate->diffInMonths($endDate));
+			
+			// Añade esta línea para crear la variable formateada Jun 2026
+			$this->formattedMonthYear = Carbon::create($this->selectedYear,$this->selectedMonth + 1,1)->format('M Y');
 			
 			return $this->currencyAmount / $monthsDifference;
 		}
@@ -264,11 +265,11 @@
 				'selectedDay',
 				'selectedDayOfWeek',
 				'selectedDayText',
+				'formattedMonthYear',
+				'formattedEndDate',
 			]);
-			$this->state['isActiveSwitch']    = false;
-			$this->state['isSwitchRepeat']    = false;
-			$this->state['isSwitchDue']       = false;
-			$this->state['isActiveSwitchDue'] = false;
+			$this->state['isRepeatEnabled']     = false;
+			$this->state['isDateFilterEnabled'] = false;
 			$this->resetErrorBag();
 		}
 		

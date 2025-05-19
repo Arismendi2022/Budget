@@ -616,7 +616,7 @@
 													</dl>
 													@if($selectedOptionType != 'have')
 														<div class="frequency-repeat">
-															<button wire:click="switchToggle" class="ynab-switch {{ $state['isActiveSwitch'] ? 'on' : 'off' }} " role="checkbox" aria-checked="{{ $state['isActiveSwitch'] ?
+															<button wire:click="toggleRepeat" class="ynab-switch {{ $state['isRepeatEnabled'] ? 'on' : 'off' }} " role="checkbox" aria-checked="{{ $state['isRepeatEnabled'] ?
 														'true' :'false' }}"
 																type="button">
 																<svg class="switch-toggle" xmlns="http://www.w3.org/2000/svg">
@@ -626,7 +626,7 @@
 																Repeat
 															</button>
 														</div>
-														@if($state['isSwitchRepeat'])
+														@if($state['isRepeatEnabled'])
 															<dl>
 																<dt>
 																	Every
@@ -686,8 +686,8 @@
 														@endif
 													@elseif($selectedOptionType === 'have')
 														<div class="goal-due-by-date-switch">
-															<button wire:click="switchToggleDue" class="ynab-switch {{ $state['isActiveSwitchDue'] ? 'on' : 'off' }} " role="checkbox" aria-checked="{{
-															$state['isActiveSwitchDue'] ?
+															<button wire:click="toggleDateFilter" class="ynab-switch {{ $state['isDateFilterEnabled'] ? 'on' : 'off' }} " role="checkbox" aria-checked="{{
+															$state['isDateFilterEnabled'] ?
 														'true' :'false' }}" type="button">
 																<svg class="switch-toggle" xmlns="http://www.w3.org/2000/svg">
 																	<rect></rect>
@@ -775,7 +775,7 @@
 													</dl>
 												@endif
 											</dd>
-											@if($state['isSwitchDue'])
+											@if($state['isDateFilterEnabled'])
 												<dt aria-label="Due on">
 													Due on
 												</dt>
@@ -884,12 +884,12 @@
 											@elseif ($selectedFrequency == 'monthly')
 												By the {{ $selectedDayText }} of the Month
 											@elseif ($selectedFrequency == 'yearly')
-												By {{ \Carbon\Carbon::createFromFormat('d/m/Y', $formattedDate)->format('M j Y') }}
+												By {{ $formattedEndDate }}
 											@elseif ($selectedFrequency == 'custom')
-												@if($state['isSwitchDue'])
-													By
+												@if($state['isDateFilterEnabled'])
+													By {{ $formattedMonthYear }}
 												@else
-													{{ $selectedOptionType === 'have' ? 'Eventually' : 'By ' . \Carbon\Carbon::createFromFormat('d/m/Y', $formattedDate)->format('M j Y') }}
+													{{ $selectedOptionType === 'have' ? 'Eventually' : 'By ' . $formattedEndDate }}
 												@endif
 											@endif
 										</div>
@@ -908,7 +908,7 @@
 										<div class="shadow"></div>
 									</div>
 								</div>
-								@if(!($selectedOptionType === 'have' && !$state['isActiveSwitchDue']))
+								@if(!($selectedOptionType === 'have' && !$state['isDateFilterEnabled']))
 									<div class="impact-message warning">
 										Assign
 										<span class="highlighted">
@@ -934,16 +934,16 @@
 										<div class="target-breakdown-item-label">
 											@if ($selectedFrequency === 'yearly')
 												{{ $selectedOptionType === 'set-aside' ? 'Total to Assign by' : 'Needed by' }}
-												{{ \Carbon\Carbon::createFromFormat('d/m/Y', $formattedDate)->format('M j Y') }}
+												{{ $formattedEndDate }}
 											@elseif($selectedFrequency === 'custom')
-												@if ($selectedOptionType === 'have' && !$state['isActiveSwitchDue'])
+												@if ($selectedOptionType === 'have' && !$state['isDateFilterEnabled'])
 													Balance Needed
-												@elseif($selectedOptionType === 'have' && $state['isActiveSwitchDue'])
+												@elseif($selectedOptionType === 'have' && $state['isDateFilterEnabled'])
 													Balance Needed by
-													{{ \Carbon\Carbon::createFromDate($selectedYear, $selectedMonth + 1, 1)->format('M Y') }}
+													{{ $formattedMonthYear }}
 												@else
 													{{ $selectedOptionType === 'set-aside' ? 'Total to Assign by' : 'Needed by' }}
-													{{ \Carbon\Carbon::createFromFormat('d/m/Y', $formattedDate)->format('M j Y') }}
+													{{ $formattedEndDate }}
 												@endif
 											@else
 												{{ $selectedOptionType === 'set-aside' ? 'Amount to Assign This Month' : 'Needed This Month' }}
