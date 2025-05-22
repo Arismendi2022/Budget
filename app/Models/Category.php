@@ -9,7 +9,20 @@
 	{
 		use HasFactory;
 		
-		protected $fillable = ['group_id','name','amount','message','day_month','target_date','assigned','activity','available','ordering'];
+		protected $fillable = [
+			'group_id',
+			'name',
+			'amount',
+			'assign',
+			'message',
+			'status_details',
+			'option_type',
+			'frequency',
+			'assigned',
+			'activity',
+			'available',
+			'ordering'
+		];
 		
 		
 		/**

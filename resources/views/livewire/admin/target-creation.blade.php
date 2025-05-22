@@ -318,7 +318,7 @@
 														<dd class="ynab-new-inspector-goals-day-of-week goal-options-select user-data">
 															<div class="x-select-container  ">
 																<select wire:model="selectedDayOfWeek" class="js-x-select" aria-label="Select Day of Week"
-																	@change="$wire.selectedDayText = $event.target.selectedOptions[0].text">
+																	@change="$wire.selectedDay = $event.target.selectedOptions[0].text">
 																	<!---->
 																	<option value="0">
 																		Sunday
@@ -353,7 +353,7 @@
 														<dd class="ynab-new-inspector-goals-day-of-month goal-options-select user-data">
 															<div class="x-select-container  ">
 																<select wire:model="selectedDay" class="js-x-select" aria-label="Select Day of Month"
-																	@change="$wire.selectedDayText = $event.target.selectedOptions[0].text">
+																	@change="$wire.dayOfMonthText = $event.target.selectedOptions[0].text">
 																	{!! generateDayOptions() !!}
 																</select>
 															</div>
@@ -819,7 +819,8 @@
 												<button wire:click="cancelCreateTarget" class="ghost-button primary type-body-large" type="button">
 													Cancel
 												</button>
-												<button wire:click="saveTarget" class="ynab-button primary  " arial-label="Save Target, 0.00, Set aside another <bdi>$</bdi>0.00" type="button">
+												<button wire:click="saveTarget({{ $category->id }})" class="ynab-button primary  " arial-label="Save Target, 0.00, Set aside another <bdi>$</bdi>0.00"
+													type="button">
 													Save Target
 												</button>
 											</div>

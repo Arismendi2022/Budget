@@ -1,18 +1,27 @@
 <!doctype html>
-<html lang="en">
+{{--<html lang="en">--}}
+<html data-wf-domain="www.ynab.com" data-wf-page="640f69143ec11b6bdb2015c7" lang="en" class="w-mod-js wf-inconsolata-n4-active wf-inconsolata-n7-active wf-active w-mod-ix">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>.wf-force-outline-none[tabindex="-1"]:focus {
+			outline: none;
+		}
+	</style>
+	<meta charset="utf-8">
 	<title>YNAB</title>
-	
+	<meta content="Working hard with nothing to show for it? Use your money more efficiently and control your spending and saving with the YNAB app." name="description">
+	<meta content="YNAB" property="og:title">
+	<meta content="Working hard with nothing to show for it? Use your money more efficiently and control your spending and saving with the YNAB app." property="og:description">
+	<!-- Favicon -->
 	<link href="{{ asset('images/front/brand/TreeLogoBlurple.png') }}" rel="shortcut icon" type="image/x-icon">
-	<link rel="stylesheet" href="{{ asset('css/front/home.css') }}">
+	<!-- Styles -->
+	<link href="{{ asset('css/front/home.css') }}" rel="stylesheet" type="text/css">
 	{{--	 Fonts --}}
 	<link href="https://fonts.googleapis.com" rel="preconnect">
 	<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
 
 </head>
+
 <body data-track-page-view="true" data-track-page-name="Home" class="body">
 <div class="page-wrapper">
 	<div>
@@ -251,7 +260,7 @@
 													href="/sign-up" class="button-primary-dark is-green js-signup w-button"
 													data-action=" click->signup-button#beginSignup">Start Your Free Trial</a></div>
 											<div data-referral-content-target="referralContent" class="hide"><a
-													data-controller="signup-button" href="/sign-up"
+													data-controller="signup-button" href="{{ route('users.register') }}"
 													class="button-primary-dark is-green js-signup w-button"
 													data-action=" click->signup-button#beginSignup">Accept Your Invite</a></div>
 										</div>
@@ -265,6 +274,169 @@
 			</div>
 		</div>
 	</nav>
+	<main class="main-wrapper">
+		<section class="home_hero-section background-color-blurple">
+			<div class="padding-global is-hero">
+				<div class="container-large">
+					<div class="home_hero-padding">
+						<div class="home_hero-split">
+							<div class="home_hero-left">
+								<div class="home_hero-copy"><h1>How will you spend your <span class="text-span-3">money</span> life?</h1>
+									<p class="hero_subhead">Create a friendly, flexible plan and spend it well with YNAB.</p>
+									<div class="home_animated-button"><a data-controller="signup-button" href="/sign-up" class="button-wrapper w-inline-block"
+											data-action=" click->signup-button#beginSignup">
+											<div data-rive-url="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/67ae2d354ad777a20d79a183_SYFT_Button_360x80_Nested_003.riv"
+												data-rive-state-machine="State Machine 1" data-rive-artboard="SYFT_NestedScaled_001" data-rive-autoplay="true" data-rive-is-touch-scroll-enabled="false"
+												data-rive-automatically-handle-events="false" data-rive-fit="contain" data-rive-alignment="center" data-animation-type="rive">
+												<canvas style="height:100%;width:100%" width="0" height="0"></canvas>
+											</div>
+										</a></div>
+									<div class="div-block-45"><a data-controller="signup-button" href="/sign-up" class="button-primary-dark is-green js-signup w-button"
+											data-action=" click->signup-button#beginSignup">Start Your Free Trial</a>
+										<div class="padding-bottom padding-xsmall"></div>
+									</div>
+									<div class="div-block-43">
+										<div class="text-size-small">It’s easy! No credit card required.</div>
+									</div>
+								</div>
+							</div>
+							<div class="home_hero-right">
+								<div class="floating-hero-wrapper"><img
+										src="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/672188c512264aa81f920114_flying_money_narrow_firefly_hero.svg" loading="eager" alt=""
+										class="hero-dollars"><img class="floating-hero" src="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/6502e96f8b7ff92feac8c8ab_hero-phone.png"
+										alt="An illustrated version of the YNAB app on a mobile device"
+										style="transform: translate3d(0px, -0.5048px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d; will-change: transform;"
+										sizes="(max-width: 1538px) 100vw, 1538px" data-w-id="dc59ae38-0e3f-b73b-ddac-58f49ab4a50f" loading="eager"
+										srcset="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/6502e96f8b7ff92feac8c8ab_hero-phone-p-500.png 500w, https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/6502e96f8b7ff92feac8c8ab_hero-phone-p-800.png 800w, https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/6502e96f8b7ff92feac8c8ab_hero-phone.png 1538w">
+									<div data-w-id="dc59ae38-0e3f-b73b-ddac-58f49ab4a510"
+										style="opacity: 0.191251; transform: translate3d(0px, 0px, 0px) scale3d(0.989904, 0.989904, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg); transform-style: preserve-3d; will-change: transform, opacity;"
+										class="floating-shadow"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="background-color-buttermilk">
+			<div>
+				<div class="padding-section-small">
+					<div class="container-large">
+						<div class="featured-quote-wrapper is-home">
+							<div class="featured-quote-heading is-home"><span class="text-style-highlight-blurple">“YNAB isn’t just a tool for money management. It’s a tool for self-actualization. Who do you want to be, and how can the money you earn help you get there?”</span>
+							</div>
+							<div class="testimonial-featured_attribution is-home">
+								<div class="testimonial-featured_name text-size-small">Adrienne So,</div>
+								<div class="card-testimonial_name-detail text-size-small">Senior Associate Reviews Editor for <em>WIRED</em></div>
+							</div>
+						</div>
+						<div class="div-block-42">
+							<div class="w-layout-grid socialproof_grid">
+								<div class="laurel_wrapper"><img
+										src="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/66da1cea0a8e8f19b28c756b_02170e0b16c48769b7bc7bfaa3e5d33a_real-simple-logo_alpha.png"
+										loading="lazy" alt="" class="realsimple-logo no-corner-radius">
+									<div class="socialproof_text is-large">Best Budgeting App</div>
+									<div class="socialproof_text">2024</div>
+								</div>
+								<div class="socialproof_wrapper"><img
+										src="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/662abf67548b4eebcfb03e0d_f55e2bf4c2b7b5ed142bbc12636aeef0_Trustpilot_brandmark.svg"
+										loading="lazy" alt="" class="trustpilot_logo"><img
+										src="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/662abf67f92e5dc8fa6b80e0_c816c6c9010164d3c181036150b2d2d9_Trustpilot_stars.svg" loading="lazy"
+										alt="" class="socialproof_stars">
+									<div class="socialproof_text-wrapper">
+										<div class="socialproof_text">TrustScore 4.6</div>
+										<div class="socialproof_text">2,450 Reviews</div>
+									</div>
+								</div>
+								<div class="laurel_wrapper"><img
+										src="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/662ac2560981d8b13499996b_586cef68618deff7f795a74e56e15759_Apple%20logo.svg" loading="lazy"
+										alt="" class="apple-logo no-corner-radius">
+									<div class="socialproof_text is-large">App of the Day</div>
+									<div class="socialproof_text">January 2025</div>
+								</div>
+								<div class="socialproof_wrapper">
+									<div class="socialproof_text is-large">App Reviews</div>
+									<img src="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/662ac1403f633d35dad9723b_3518a7cab9a76454adae6fe67904aadf_app-reviews_stars.svg"
+										loading="lazy" alt="" class="socialproof_stars">
+									<div class="socialproof_text-wrapper">
+										<div class="socialproof_text">4.6 Average</div>
+										<div class="socialproof_text">91K Reviews</div>
+									</div>
+								</div>
+								<div class="laurel_wrapper"><img sizes="(max-width: 1666px) 100vw, 1666px"
+										srcset="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/66da1cf99ff9cb8e115e1e23_3064edc534ffd57838dce15a8e871e33_CNBC_opacity-p-500.png 500w, https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/66da1cf99ff9cb8e115e1e23_3064edc534ffd57838dce15a8e871e33_CNBC_opacity.avif 1666w"
+										alt="" loading="lazy"
+										src="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/66da1cf99ff9cb8e115e1e23_3064edc534ffd57838dce15a8e871e33_CNBC_opacity.avif"
+										class="cnbc-logo no-corner-radius">
+									<div class="socialproof_text is-large">World's Top 250 Fintechs</div>
+									<div class="socialproof_text">2024</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="swoop_bottom_right_yellow150_3">
+			<div class="padding-global">
+				<div class="padding-section-medium">
+					<div class="container-large"><img src="https://cdn.prod.website-files.com/640f69143ec11b21d42015c6/672189d730077e4e36b4a215_spark_trio_blurple.svg" loading="lazy" alt=""
+							class="home_rules-burst hide-mobile-landscape-2">
+						<div class="different_method-wrapper">
+							<div class="different_method-column1"><h2 class="margin-vertical margin-small">We’re #1 for a reason…</h2>
+								<p>(and not just because our mom said so.)<br><br>The YNAB Method simplifies spending decisions, clarifies priorities, and brings more joy to every day and every
+									dollar. And it’s easy! Just give every dollar a job.</p>
+								<div class="button-wrapper is-left hide-tablet"><a id="w-node-_02cfc4da-c026-ee7b-abbe-2cfa10b5325d-10b5325d"
+										data-wf--design-system--button-secondary--variant="dark" href="/ynab-method" class="design-system--button-secondary w-button">Learn More About the YNAB
+										Method</a></div>
+							</div>
+							<div class="different_method-column2">
+								<div id="w-node-_3bc429ce-4ae8-45ee-91f8-e294914c2262-db2015c7" class="w-layout-layout different_rule-grid wf-layout-layout">
+									<div class="w-layout-cell different_rule-card-wrapper">
+										<div class="card_simple is-meadow">
+											<div class="design-system--stat_wrapper">
+												<div class="design-system--stat_content"><h3 class="design-system--stat_number design-system--heading-style-h1">90%</h3>
+													<p class="design-system--stat_description">say their finances are in a better place since starting YNAB*</p></div>
+											</div>
+										</div>
+									</div>
+									<div class="w-layout-cell different_rule-card-wrapper">
+										<div class="card_simple is-meadow">
+											<div class="design-system--stat_wrapper">
+												<div class="design-system--stat_content"><h3 class="design-system--stat_number design-system--heading-style-h1">91%</h3>
+													<p class="design-system--stat_description">say YNAB has changed the way they think about money*</p></div>
+											</div>
+										</div>
+									</div>
+									<div class="w-layout-cell different_rule-card-wrapper">
+										<div class="card_simple is-meadow">
+											<div class="design-system--stat_wrapper">
+												<div class="design-system--stat_content"><h3 class="design-system--stat_number design-system--heading-style-h1">70%</h3>
+													<p class="design-system--stat_description">of YNABers could live for 3 months or more on savings*</p></div>
+											</div>
+										</div>
+									</div>
+									<div class="w-layout-cell different_rule-card-wrapper">
+										<div class="card_simple is-meadow">
+											<div class="design-system--stat_wrapper">
+												<div class="design-system--stat_content"><h3 class="design-system--stat_number design-system--heading-style-h1">93%</h3>
+													<p class="design-system--stat_description">have recommended YNAB to friends or family*</p></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="text-align-center text-size-small text-color-grey">*based on survey responses</div>
+								<div class="button-wrapper show-mobile">
+									<div class="padding-bottom padding-medium"></div>
+									<a id="w-node-_02cfc4da-c026-ee7b-abbe-2cfa10b5325d-10b5325d" data-wf--design-system--button-secondary--variant="dark" href="/ynab-method"
+										class="design-system--button-secondary w-button">Learn More About the YNAB Method</a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
 </div>
 
 <script src="/js/shared/jquery-3.7.1.min.js" type="text/javascript" crossorigin="anonymous"></script>

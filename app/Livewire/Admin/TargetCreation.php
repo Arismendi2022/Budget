@@ -44,14 +44,18 @@
 		public int    $currentMonth;
 		public int    $firstDayOfMonth;
 		public string $selectedDate;
-		public array  $daysInMonth = [];
-		public ?int   $selectedDay = null;
-		public        $selectedMonth,$selectedYear;
-		public        $formattedMonthYear,$formattedEndDate;
+		public array  $daysInMonth    = [];
+		public        $selectedDay    = null;
+		public        $dayOfMonthText = "Last Day of Month"; // Valor inicial por defecto
+		
+		public $formattedMonthYear,$formattedEndDate;
+		
+		public $selectedMonth,$selectedYear;
 		
 		// Propiedades relacionadas con día de la semana
 		public int    $selectedDayOfWeek = self::DEFAULT_DAY_OF_WEEK;
 		public string $selectedDayText   = 'Saturday';
+		public        $assignValue;
 		
 		// Propiedades relacionadas con montos
 		public string $amount               = '';
@@ -105,6 +109,17 @@
 		public function updatedSelectedDayOfWeek():void{
 			$this->selectedDayOfWeek = is_numeric($this->selectedDayOfWeek) ? (int)$this->selectedDayOfWeek : self::DEFAULT_DAY_OF_WEEK;
 			$this->selectedDayText   = Carbon::create()->dayOfWeek($this->selectedDayOfWeek)->format('l');
+		}
+		
+		private function getFormattedLastDay(){
+			// Obtener el último día del mes actual
+			$lastDay = Carbon::now()->endOfMonth()->day;
+			
+			// Asignar sufijo solo para el último día
+			$suffix = $lastDay == 31 ? 'st' : 'th';
+			
+			// Retornar el día con el sufijo
+			return $lastDay.$suffix;
 		}
 		
 		/**
@@ -239,9 +254,10 @@
 		}
 		
 		/**
-		 * Método para guardar el objetivo
+		 * Metodo para guardar el objetivo
 		 */
-		public function saveTarget():void{
+		public function saveTarget($categoryId){
+			
 			$this->validate([
 				'currencyAmount' => ['required','numeric','min:0.01'],
 			],[
@@ -249,19 +265,60 @@
 				'currencyAmount.min'      => 'Targets require a positive amount.',
 			]);
 			
+			// Preparar datos base
 			$this->currencyAmountWeekly = $this->currencyAmount;
-			
-			// Cálculos según frecuencia seleccionada
-			if($this->selectedFrequency === 'weekly' && $this->selectedDayOfWeek !== null){
-				$this->currencyAmountWeekly = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->selectedDayOfWeek);
+			if($this->dayOfMonthText === "Last Day of Month"){
+				$this->dayOfMonthText = $this->getFormattedLastDay();
 			}
 			
-			if($this->selectedFrequency === 'yearly' || $this->selectedFrequency === 'custom'){
-				$this->monthlySavingsAmount = $this->calculateMonthlySavings();
-			}
+			// Calcular assign, status y message según frecuencia
+			$assignValue   = $this->currencyAmount;
+			$statusDetails = 'this month';
+			$message       = $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed';
 			
-			if($this->selectedFrequency === 'custom' && $this->state['isDateFilterEnabled']){
-				$this->monthlySavingsAmount = $this->calculateMonthlyGoal();
+			if($this->selectedFrequency === 'weekly' && $this->selectedDayOfWeek){
+				$assignValue = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->selectedDayOfWeek);
+			}else if($this->selectedFrequency === 'monthly'){
+				$statusDetails = 'by the '.$this->dayOfMonthText;
+			}else if($this->selectedFrequency === 'yearly'){
+				$assignValue = $this->calculateMonthlySavings();
+			}else if($this->selectedFrequency === 'custom'){
+				if($this->state['isDateFilterEnabled']){
+					$assignValue = $this->calculateMonthlyGoal();
+				}else{
+					$assignValue   = $this->selectedOptionType === 'have' ? $this->currencyAmount : $this->calculateMonthlySavings();
+					$statusDetails = $this->selectedOptionType === 'have' ? 'eventually' : 'this month';
+				}
+			};
+			
+			/*$data = [
+				'amount'         => $this->currencyAmount,
+				'assign'         => $assignValue,
+				'message'        => $message,
+				'status_details' => $statusDetails,
+				'frequency'      => $this->selectedFrequency,
+				'option_type'    => $this->selectedOptionType
+			];
+			*/
+			
+			try{
+				$category = Category::findOrFail($categoryId);
+				
+				$category->update([
+					'amount'         => $this->currencyAmount,
+					'assign'         => $assignValue,
+					'message'        => $message,
+					'status_details' => $statusDetails,
+					'frequency'      => $this->selectedFrequency,
+					'option_type'    => $this->selectedOptionType,
+				]);
+				
+				// Actualiza la lista sin orden
+				$this->dispatch('Target.freshCategories');
+				
+			} catch(\Exception $e){
+				\Log::error('Error al crear categoría: '.$e->getMessage());
+				return false;
 			}
 			
 			$this->setState('isCreateTarget',false);
@@ -373,6 +430,7 @@
 				'selectedYear',
 				'selectedDayOfWeek',
 				'selectedDayText',
+				'dayOfMonthText',
 				'formattedMonthYear',
 				'formattedEndDate',
 				'cadenceFrequency',
@@ -391,6 +449,10 @@
 		 */
 		public function getFormattedDateProperty():string{
 			return format_date(Carbon::parse($this->selectedDate));
+		}
+		
+		public function loadCategories(){
+			$this->categories = Category::all(); // sin orden
 		}
 		
 		public function render(){

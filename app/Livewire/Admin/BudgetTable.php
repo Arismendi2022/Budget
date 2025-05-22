@@ -27,6 +27,7 @@
 			'numberFormatUpdated'    => '$refresh',
 			'categoryGroupCreated'   => 'loadCategoryGroups',
 			'updateClearSelection'   => 'clearSelections',
+			'Target.freshCategories' => 'loadCategoryGroups',
 		];
 		
 		public function mount(){
@@ -257,6 +258,10 @@
 		
 		public function toggleProgressBar(){
 			$this->showProgressBar = !$this->showProgressBar;
+		}
+		
+		public function getTitleProperty(){
+			return trim(format_currency($this->category->assigned).' Assign '.format_currency($this->category->assign).' more to fund your '.format_currency($this->category->assign).' monthly target.');
 		}
 		
 		public function render(){

@@ -49,7 +49,7 @@
 		
 		// Registrar el listener para el evento `reorderAccounts`
 		protected $listeners = [
-			'numberFormatUpdated' => 'accountRefresh'  //Escucha el evento 'numberFormatUpdated'
+			'numberFormatUpdated' => '$refresh'  //Escucha el evento 'numberFormatUpdated'
 		];
 		
 		public function mount(){

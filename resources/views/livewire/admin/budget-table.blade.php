@@ -1107,11 +1107,11 @@
 						<div class="budget-table-cell-collapse budget-table-row-li" role="cell" aria-colindex="2">&nbsp;
 						</div>
 						<!-- Checkbox de la categoría -->
-						<div class="budget-table-cell-checkbox budget-table-row-li " role="cell" aria-colindex="1" >
+						<div class="budget-table-cell-checkbox budget-table-row-li " role="cell" aria-colindex="1">
 							<button wire:click.stop="toggleCheckboxTarget({{ $category->id }}, {{ $group->id }})"
 								class="ynab-checkbox ynab-checkbox-button {{ in_array($category->id, $selectedCategories) ? 'is-checked' : '' }}" role="checkbox" aria-checked="true"
-								aria-label="{{ $category->name }}" type="button" >
-								<svg class="ynab-new-icon ynab-checkbox-button-square {{ in_array($category->id, $selectedCategories) ? 'is-checked' : '' }}" width="13" height="13" >
+								aria-label="{{ $category->name }}" type="button">
+								<svg class="ynab-new-icon ynab-checkbox-button-square {{ in_array($category->id, $selectedCategories) ? 'is-checked' : '' }}" width="13" height="13">
 									<!---->
 									<use href="#icon_sprite_check">
 										<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check" fill="none" viewBox="0 0 24 24">
@@ -1137,9 +1137,12 @@
 												{{ $category->name }}
 											</button>
 											<div class="budget-table-cell-goal-gap"></div>
-											<div class="budget-table-cell-goal-status"></div>
+											<div class="budget-table-cell-goal-status">
+												<span class="highlighted-message-part"> {{ $category->assign != 0.00 ? format_currency($category->assign) : '' }}</span>
+												{{ $category->message }}
+											</div>
 										</div>
-										<div class="budget-table-cell-goal-status-details"></div>
+										<div class="budget-table-cell-goal-status-details"> {{ $category->status_details }}</div>
 									</div>
 									<figure class="ynab-new-budget-bar-v2" role="group">
 										<div class="ynab-new-budget-bar-v2-section ynab-new-budget-bar-v2-section-funded"
@@ -1204,11 +1207,23 @@
 						</div>
 						<div class="budget-table-cell-available budget-table-row-li" role="cell" aria-colindex="6">
 							<!---->
-							<button class="ynab-new-budget-available-number js-budget-available-number user-data zero" title=""
-								aria-disabled="true" disabled="" type="button">
-								<!---->
+							<button class="ynab-new-budget-available-number js-budget-available-number user-data {{ $category->amount > 0 ? 'cautious goal' : 'zero' }}"
+								title="{{ format_currency($category->assigned) }} Assign {{ format_currency($category->assign) }} more to fund your {{ format_currency($category->assign) }}
+								monthly target." aria-disabled="true" disabled="" type="button">
+								@if ($category->amount > 0)
+									<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress zero" xmlns="http://www.w3.org/2000/svg">
+										<defs>
+											<clipPath id="icon-circle-progress-clip-ember251">
+												<path d="M 1 0 A 1 1 0 0 1 0.9048270524660195 0.4257792915650727 L 0 0"></path>
+											</clipPath>
+										</defs>
+										<circle r=".9" cx="0" cy="0" stroke-width=".2" class="outer"></circle>
+										<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-ember251)"></circle>
+									</svg>
+								@endif
 								<span class="user-data currency tabular-nums zero "><bdi>{{ format_currency($category->available) }}</bdi></span>
 							</button>
+							<!---->
 						</div>
 						<div class="budget-table-cell-margin-right budget-table-row-li" aria-hidden="true">&nbsp;</div>
 					</div>
