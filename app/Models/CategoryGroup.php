@@ -5,13 +5,12 @@
 	use Illuminate\Database\Eloquent\Factories\HasFactory;
 	use Illuminate\Database\Eloquent\Model;
 	use Illuminate\Support\Str;
-	use App\Models\Budget;
 	
 	class CategoryGroup extends Model
 	{
 		use HasFactory;
 		
-		protected $fillable = ['budget_id','name','ordering'];
+		protected $fillable = ['budget_id','name','hidden','ordering'];
 		
 		/**
 		 * @return \Illuminate\Database\Eloquent\Relations\HasMany

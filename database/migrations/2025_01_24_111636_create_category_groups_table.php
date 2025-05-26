@@ -13,6 +13,7 @@
 				$table->id();
 				$table->foreignId('budget_id')->constrained('budgets')->onDelete('cascade');
 				$table->string('name')->unique();
+				$table->boolean('hidden')->default(false);
 				$table->integer('ordering')->default(1000);
 				$table->timestamps();
 			});

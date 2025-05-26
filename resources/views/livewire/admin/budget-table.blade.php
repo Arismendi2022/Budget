@@ -1138,11 +1138,11 @@
 											</button>
 											<div class="budget-table-cell-goal-gap"></div>
 											<div class="budget-table-cell-goal-status">
-												<span class="highlighted-message-part"> {{ $category->assign != 0.00 ? format_currency($category->assign) : '' }}</span>
-												{{ $category->message }}
+												<span class="highlighted-message-part"> {{ $category->categoryBudget?->assign != 0.00 ? format_currency($category->categoryBudget?->assign) : '' }}</span>
+												{{ $category->categoryBudget?->message }}
 											</div>
 										</div>
-										<div class="budget-table-cell-goal-status-details"> {{ $category->status_details }}</div>
+										<div class="budget-table-cell-goal-status-details"> {{ $category->categoryBudget?->status_details }}</div>
 									</div>
 									<figure class="ynab-new-budget-bar-v2" role="group">
 										<div class="ynab-new-budget-bar-v2-section ynab-new-budget-bar-v2-section-funded"
@@ -1207,10 +1207,10 @@
 						</div>
 						<div class="budget-table-cell-available budget-table-row-li" role="cell" aria-colindex="6">
 							<!---->
-							<button class="ynab-new-budget-available-number js-budget-available-number user-data {{ $category->amount > 0 ? 'cautious goal' : 'zero' }}"
-								title="{{ format_currency($category->assigned) }} Assign {{ format_currency($category->assign) }} more to fund your {{ format_currency($category->assign) }}
+							<button class="ynab-new-budget-available-number js-budget-available-number user-data {{ $category->categoryBudget?->amount > 0 ? 'cautious goal' : 'zero' }}"
+								title="{{ format_currency($category->categoryBudget?->assigned) }} Assign {{ format_currency($category->categoryBudget?->assign) }} more to fund your {{ format_currency($category->categoryBudget?->assign) }}
 								monthly target." aria-disabled="true" disabled="" type="button">
-								@if ($category->amount > 0)
+								@if ($category->categoryBudget?->amount > 0)
 									<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress zero" xmlns="http://www.w3.org/2000/svg">
 										<defs>
 											<clipPath id="icon-circle-progress-clip-ember251">
@@ -1221,7 +1221,7 @@
 										<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-ember251)"></circle>
 									</svg>
 								@endif
-								<span class="user-data currency tabular-nums zero "><bdi>{{ format_currency($category->available) }}</bdi></span>
+								<span class="user-data currency tabular-nums zero "><bdi>{{ format_currency($category->categoryBudget?->available) }}</bdi></span>
 							</button>
 							<!---->
 						</div>

@@ -21,6 +21,8 @@
 		public $isMasterPartial    = false;
 		public $showProgressBar    = true;
 		
+		public $title; // Agregar esta línea
+		
 		// Listeners
 		protected $listeners = [
 			'updateGroupAndCategory' => 'loadCategoryGroups',
@@ -32,15 +34,30 @@
 		
 		public function mount(){
 			$this->loadCategoryGroups();
+			
 		}
 		
 		public function loadCategoryGroups(){
-			$this->groups = CategoryGroup::with('categories')->get()->map(function($group){
-				$group->total_assigned  = $group->categories->sum('assigned');
-				$group->total_activity  = $group->categories->sum('activity');
-				$group->total_available = $group->categories->sum('available');
-				return $group;
-			});
+			$this->groups = CategoryGroup::with('categories.categoryBudget')
+				->get()
+				->map(function($group){
+					$group->total_assigned  = $group->categories->sum(function($category){
+						return $category->categoryBudget?->assigned ?? 0;
+					});
+					$group->total_activity  = $group->categories->sum(function($category){
+						return $category->categoryBudget?->activity ?? 0;
+					});
+					$group->total_available = $group->categories->sum(function($category){
+						return $category->categoryBudget?->available ?? 0;
+					});
+					return $group;
+				});
+		}
+		
+		// Metodo para obtener información específica de CategoryBudget
+		public function getCategoryBudgetInfo($categoryId){
+			$category = Category::with('categoryBudget')->find($categoryId);
+			return $category ? $category->categoryBudget : null;
 		}
 		
 		public function toggleGroup($groupId){
@@ -260,9 +277,13 @@
 			$this->showProgressBar = !$this->showProgressBar;
 		}
 		
-		public function getTitleProperty(){
-			return trim(format_currency($this->category->assigned).' Assign '.format_currency($this->category->assign).' more to fund your '.format_currency($this->category->assign).' monthly target.');
+		// OPCIÓN 3: Una sola línea con operador ternario
+		public function getTitleAttribute(){
+			$assigned = format_currency($this->category->categoryBudget?->assigned ?? 0);
+			$assign   = format_currency($this->category->categoryBudget?->assign ?? 0);
+			return "{$assigned} Assign {$assign} more to fund your {$assign} monthly target.";
 		}
+		
 		
 		public function render(){
 			return view('livewire.admin.budget-table');

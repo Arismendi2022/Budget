@@ -12,15 +12,7 @@
 		protected $fillable = [
 			'group_id',
 			'name',
-			'amount',
-			'assign',
-			'message',
-			'status_details',
-			'option_type',
-			'frequency',
-			'assigned',
-			'activity',
-			'available',
+			'hidden',
 			'ordering'
 		];
 		
@@ -30,6 +22,13 @@
 		 */
 		public function group(){
 			return $this->belongsTo(CategoryGroup::class,'group_id');
+		}
+		
+		/**
+		 * Relación uno a uno con CategoryBudget
+		 */
+		public function categoryBudget(){
+			return $this->hasOne(CategoryBudget::class);
 		}
 		
 	}

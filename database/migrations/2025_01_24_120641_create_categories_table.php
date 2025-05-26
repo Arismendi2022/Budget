@@ -13,16 +13,7 @@
 				$table->id();
 				$table->foreignId('group_id')->constrained('category_groups')->onDelete('cascade');
 				$table->string('name')->unique();
-				$table->decimal('amount',10,2)->default(0.00);
-				$table->decimal('assign',10,2)->default(0.00);
-				$table->string('message')->nullable();
-				$table->string('status_details')->nullable();
-				$table->string('option_type')->nullable();
-				$table->string('frequency')->nullable();
-				$table->string('target_date')->nullable();
-				$table->decimal('assigned',10,2)->default(0.00);
-				$table->decimal('activity',10,2)->default(0.00);
-				$table->decimal('available',10,2)->default(0.00);
+				$table->boolean('hidden')->default(false);
 				$table->integer('ordering')->default(1000);
 				$table->timestamps();
 			});

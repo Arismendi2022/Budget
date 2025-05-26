@@ -3,6 +3,7 @@
 	namespace App\Livewire\Admin;
 	
 	use App\Models\Category;
+	use App\Models\CategoryBudget;
 	use Carbon\Carbon;
 	use Livewire\Attributes\On;
 	use Livewire\Component;
@@ -304,7 +305,8 @@
 			try{
 				$category = Category::findOrFail($categoryId);
 				
-				$category->update([
+				CategoryBudget::create([
+					'category_id'    => $categoryId,
 					'amount'         => $this->currencyAmount,
 					'assign'         => $assignValue,
 					'message'        => $message,
