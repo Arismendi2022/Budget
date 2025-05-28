@@ -180,7 +180,19 @@
 								<!---->
 								<use href="#icon_sprite_chevron_down"></use>
 							</svg>
-							<span class="ynab-new-budget-available-number js-budget-available-number user-data zero" title="" aria-disabled="true" disabled="" type="button">
+							<span class="ynab-new-budget-available-number js-budget-available-number user-data {{ $category->categoryBudget?->amount > 0 ? 'cautious goal' : 'zero' }}" title=""
+								aria-disabled="true" disabled="" type="button">
+								@if($category->categoryBudget?->amount > 0)
+									<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress " xmlns="http://www.w3.org/2000/svg">
+ 								 <defs>
+									<clipPath id="icon-circle-progress-clip-ember116">
+											<path d="M 1 0 A 1 1 0 0 1 0.9048270524660195 0.4257792915650727 L 0 0"></path>
+									</clipPath>
+								</defs>
+									<circle r=".9" cx="0" cy="0" stroke-width=".2" class="outer"></circle>
+									<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-ember116)"></circle>
+								</svg>
+								@endif
 								<span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>0.00</span>
 							</span>
 						</h2>
@@ -216,7 +228,7 @@
 							<button wire:click="toggleCollapse" class="card-roll-up" aria-expanded="{{ $state['isCollapsed'] ? 'false' : 'true' }}" aria-controls="controls-ember132"
 								type="button">
 								<h2>
-									@if($state['isTargetSuccess'])
+									@if($state['isSaveSuccessful'])
 										<svg width="16" height="16" viewBox="-1 -1 2 2" class="icon-circle-progress zero" xmlns="http://www.w3.org/2000/svg">
 											<defs>
 												<clipPath id="icon-circle-progress-clip-ember158">
@@ -233,7 +245,7 @@
 									</svg>
 								</h2>
 							</button>
-							@if(!$state['isTargetSuccess'])
+							@if(!$state['isSaveSuccessful'])
 								<div class="card-body" style="{{ $state['isCollapsed'] ? 'display: none;' : '' }}" aria-hidden="{{ $state['isCollapsed'] ? 'true' : 'false' }}"
 									id="controls-ember132">
 									<div class="target-inspector">
@@ -819,7 +831,7 @@
 												<button wire:click="cancelCreateTarget" class="ghost-button primary type-body-large" type="button">
 													Cancel
 												</button>
-												<button wire:click="saveTarget({{ $category->id }})" class="ynab-button primary  " arial-label="Save Target, 0.00, Set aside another <bdi>$</bdi>0.00"
+												<button wire:click="createTarget({{ $category->id }})" class="ynab-button primary  " arial-label="Save Target, 0.00, Set aside another <bdi>$</bdi>0.00"
 													type="button">
 													Save Target
 												</button>
@@ -831,7 +843,7 @@
 						</div>
 					@endif
 					<!-- Mostrar éxito después de guardar -->
-					@if($state['isTargetSuccess'])
+					@if($state['isSaveSuccessful'])
 						<div class="card-body" aria-hidden="false" id="controls-ember108">
 							<div class="target-inspector">
 								<div class="target-inspector-header">
@@ -935,7 +947,7 @@
 										</div>
 									</div>
 								</div>
-								<button class="ynab-button secondary  " type="button">
+								<button wire:click="showEditTargetForm({{ $category->categoryBudget->id }})" class="ynab-button secondary  " type="button">
 									Edit Target
 								</button>
 								<div class="goal-snooze">

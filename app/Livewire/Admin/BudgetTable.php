@@ -3,6 +3,7 @@
 	namespace App\Livewire\Admin;
 	
 	use App\Models\Category;
+	use App\Models\CategoryBudget;
 	use App\Models\CategoryGroup;
 	use Livewire\Component;
 	
@@ -106,7 +107,18 @@
 			
 			$this->updateMasterPartialState();
 			$this->dispatch('focusInput',inputId:'dataCurrency-'.$categoryId);
-			$this->dispatch('showCategoryTarget',$categoryId);
+			
+			// Verificamos si la categoría existe en CategoryBudget
+			$categoryBudgetExists = CategoryBudget::where('category_id',$categoryId)->exists();
+			
+			if($categoryBudgetExists){
+				// Si existe en CategoryBudget, mostramos el formulario alternativo
+				$this->dispatch('showEditForm',$categoryId);
+			}else{
+				// Si no existe en CategoryBudget, mostramos el formulario original
+				$this->dispatch('showCategoryTarget',$categoryId);
+			}
+			
 		}
 		
 		public function toggleCategory($categoryId,$groupId){
@@ -151,7 +163,17 @@
 				
 				// Enfocamos el input y mostramos el modal
 				$this->dispatch('focusInput',inputId:'dataCurrency-'.$categoryId);
-				$this->dispatch('showCategoryTarget',$categoryId);
+				
+				// Verificamos si la categoría existe en CategoryBudget
+				$categoryBudgetExists = CategoryBudget::where('category_id',$categoryId)->exists();
+				
+				if($categoryBudgetExists){
+					// Si existe en CategoryBudget, mostramos el formulario alternativo
+					$this->dispatch('showEditForm',$categoryId);
+				}else{
+					// Si no existe en CategoryBudget, mostramos el formulario original
+					$this->dispatch('showCategoryTarget',$categoryId);
+				}
 				
 				// Actualizamos el estado
 				$this->updateMasterPartialState();
@@ -278,12 +300,11 @@
 		}
 		
 		// OPCIÓN 3: Una sola línea con operador ternario
-		public function getTitleAttribute(){
-			$assigned = format_currency($this->category->categoryBudget?->assigned ?? 0);
-			$assign   = format_currency($this->category->categoryBudget?->assign ?? 0);
-			return "{$assigned} Assign {$assign} more to fund your {$assign} monthly target.";
+		public function getCategoryTitle($category){
+			$assigned = format_currency($category->categoryBudget?->assigned ?? 0);
+			$assign   = format_currency($category->categoryBudget?->assign ?? 0);
+			return "$assigned Assign $assign more to fund your $assign monthly target.";
 		}
-		
 		
 		public function render(){
 			return view('livewire.admin.budget-table');

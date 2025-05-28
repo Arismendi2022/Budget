@@ -1208,8 +1208,7 @@
 						<div class="budget-table-cell-available budget-table-row-li" role="cell" aria-colindex="6">
 							<!---->
 							<button class="ynab-new-budget-available-number js-budget-available-number user-data {{ $category->categoryBudget?->amount > 0 ? 'cautious goal' : 'zero' }}"
-								title="{{ format_currency($category->categoryBudget?->assigned) }} Assign {{ format_currency($category->categoryBudget?->assign) }} more to fund your {{ format_currency($category->categoryBudget?->assign) }}
-								monthly target." aria-disabled="true" disabled="" type="button">
+								title="{{ $this->getCategoryTitle($category) }}" aria-disabled="true" disabled="" type="button">
 								@if ($category->categoryBudget?->amount > 0)
 									<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress zero" xmlns="http://www.w3.org/2000/svg">
 										<defs>

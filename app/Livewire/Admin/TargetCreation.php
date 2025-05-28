@@ -8,9 +8,15 @@
 	use Livewire\Attributes\On;
 	use Livewire\Component;
 	
+	/**
+	 *
+	 */
 	class TargetCreation extends Component
 	{
 		// Constantes
+		/**
+		 *
+		 */
 		private const VALID_FREQUENCIES   = ['weekly','monthly','yearly','custom'];
 		private const DEFAULT_FREQUENCY   = 'monthly';
 		private const DEFAULT_DAY_OF_WEEK = 6;
@@ -20,12 +26,15 @@
 		private const UNIT_YEAR  = 2;
 		
 		// Estados unificados con valores por defecto
+		/**
+		 * @var array
+		 */
 		public array $state = [
 			// Estados de visibilidad de componentes UI
 			'isCollapsed'            => false,
 			'isAutoAssign'           => true,
 			'isCreateTarget'         => false,
-			'isTargetSuccess'        => false,
+			'isSaveSuccessful'       => false,
 			
 			// Estados de modales
 			'isOpenModalAssign'      => false,
@@ -235,7 +244,7 @@
 		}
 		
 		/**
-		 * Métodos para manejo de categorías
+		 * Métodos para manejo crear target categorías
 		 */
 		#[On('showCategoryTarget')]
 		public function showCategoryTarget(int $categoryId):void{
@@ -244,10 +253,13 @@
 				'isAutoAssign'     => false,
 				'isCreateTarget'   => false,
 				'isOpenAsideModal' => false,
-				'isTargetSuccess'  => false,
+				'isSaveSuccessful' => false,
 			]);
 		}
 		
+		/**
+		 * Metodo para salir de crear target
+		 */
 		#[On('hideCategoryTarget')]
 		public function hideCategoryTarget():void{
 			$this->setState('isAutoAssign',true);
@@ -255,9 +267,36 @@
 		}
 		
 		/**
+		 * Métodos para editar los target debcategorías
+		 */
+		#[On('showEditForm')]
+		public function showEditForm(int $categoryId):void{
+			$this->category = Category::findOrFail($categoryId);
+			$this->state    = array_merge($this->state,[
+				'isAutoAssign'     => false,
+				'isCreateTarget'   => false,
+				'isOpenAsideModal' => false,
+				'isSaveSuccessful' => true,
+			]);
+		}
+		
+		/**
+		 * Metodo para editar el target de una categoria
+		 */
+		public function showEditTargetForm(int $targetId):void{
+			//dd($targetId);
+			$this->setState('isCreateTarget',true);
+			$this->selectedFrequency = self::DEFAULT_FREQUENCY;
+			//$this->resetForm();
+			
+			$this->dispatch('focusInput');
+			
+		}
+		
+		/**
 		 * Metodo para guardar el objetivo
 		 */
-		public function saveTarget($categoryId){
+		public function createTarget(int $categoryId){
 			
 			$this->validate([
 				'currencyAmount' => ['required','numeric','min:0.01'],
@@ -292,16 +331,6 @@
 				}
 			};
 			
-			/*$data = [
-				'amount'         => $this->currencyAmount,
-				'assign'         => $assignValue,
-				'message'        => $message,
-				'status_details' => $statusDetails,
-				'frequency'      => $this->selectedFrequency,
-				'option_type'    => $this->selectedOptionType
-			];
-			*/
-			
 			try{
 				$category = Category::findOrFail($categoryId);
 				
@@ -324,7 +353,30 @@
 			}
 			
 			$this->setState('isCreateTarget',false);
-			$this->setState('isTargetSuccess',true);
+			$this->setState('isSaveSuccessful',true);
+		}
+		
+		/**
+		 * Metodo para actualizar el objetivo
+		 */
+		public function updateTarget(int $Id){
+			
+		}
+		
+		/**
+		 * Metodo para eliminar el objetivo
+		 */
+		public function deleteTarget(int $Id){
+			
+			try{
+				$categoryTarget = CategoryBudget::findOrFail($Id);
+				
+				$categoryTarget->delete();
+				
+			} catch(\Exception $e){
+				\Log::error('Error al crear categoría: '.$e->getMessage());
+				return false;
+			}
 		}
 		
 		/**
@@ -451,10 +503,6 @@
 		 */
 		public function getFormattedDateProperty():string{
 			return format_date(Carbon::parse($this->selectedDate));
-		}
-		
-		public function loadCategories(){
-			$this->categories = Category::all(); // sin orden
 		}
 		
 		public function render(){
