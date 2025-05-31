@@ -3,7 +3,7 @@
 	namespace App\Livewire\Admin;
 	
 	use App\Models\Category;
-	use App\Models\CategoryBudget;
+	use App\Models\CategoryTarget;
 	use App\Models\CategoryGroup;
 	use Livewire\Component;
 	
@@ -39,26 +39,26 @@
 		}
 		
 		public function loadCategoryGroups(){
-			$this->groups = CategoryGroup::with('categories.categoryBudget')
+			$this->groups = CategoryGroup::with('categories.categoryTarget')
 				->get()
 				->map(function($group){
 					$group->total_assigned  = $group->categories->sum(function($category){
-						return $category->categoryBudget?->assigned ?? 0;
+						return $category->categoryTarget?->assigned ?? 0;
 					});
 					$group->total_activity  = $group->categories->sum(function($category){
-						return $category->categoryBudget?->activity ?? 0;
+						return $category->categoryTarget?->activity ?? 0;
 					});
 					$group->total_available = $group->categories->sum(function($category){
-						return $category->categoryBudget?->available ?? 0;
+						return $category->categoryTarget?->available ?? 0;
 					});
 					return $group;
 				});
 		}
 		
-		// Metodo para obtener información específica de CategoryBudget
-		public function getCategoryBudgetInfo($categoryId){
-			$category = Category::with('categoryBudget')->find($categoryId);
-			return $category ? $category->categoryBudget : null;
+		// Metodo para obtener información específica de CategoryTarget
+		public function getCategoryTargetInfo($categoryId){
+			$category = Category::with('categoryTarget')->find($categoryId);
+			return $category ? $category->categoryTarget : null;
 		}
 		
 		public function toggleGroup($groupId){
@@ -108,14 +108,14 @@
 			$this->updateMasterPartialState();
 			$this->dispatch('focusInput',inputId:'dataCurrency-'.$categoryId);
 			
-			// Verificamos si la categoría existe en CategoryBudget
-			$categoryBudgetExists = CategoryBudget::where('category_id',$categoryId)->exists();
+			// Verificamos si la categoría existe en CategoryTarget
+			$categoryTargetExists = CategoryTarget::where('category_id',$categoryId)->exists();
 			
-			if($categoryBudgetExists){
-				// Si existe en CategoryBudget, mostramos el formulario alternativo
+			if($categoryTargetExists){
+				// Si existe en CategoryTarget, mostramos el formulario alternativo
 				$this->dispatch('showEditForm',$categoryId);
 			}else{
-				// Si no existe en CategoryBudget, mostramos el formulario original
+				// Si no existe en CategoryTarget, mostramos el formulario original
 				$this->dispatch('showCategoryTarget',$categoryId);
 			}
 			
@@ -164,14 +164,14 @@
 				// Enfocamos el input y mostramos el modal
 				$this->dispatch('focusInput',inputId:'dataCurrency-'.$categoryId);
 				
-				// Verificamos si la categoría existe en CategoryBudget
-				$categoryBudgetExists = CategoryBudget::where('category_id',$categoryId)->exists();
+				// Verificamos si la categoría existe en CategoryTarget
+				$categoryTargetExists = CategoryTarget::where('category_id',$categoryId)->exists();
 				
-				if($categoryBudgetExists){
-					// Si existe en CategoryBudget, mostramos el formulario alternativo
+				if($categoryTargetExists){
+					// Si existe en CategoryTarget, mostramos el formulario alternativo
 					$this->dispatch('showEditForm',$categoryId);
 				}else{
-					// Si no existe en CategoryBudget, mostramos el formulario original
+					// Si no existe en CategoryTarget, mostramos el formulario original
 					$this->dispatch('showCategoryTarget',$categoryId);
 				}
 				
@@ -301,8 +301,8 @@
 		
 		// OPCIÓN 3: Una sola línea con operador ternario
 		public function getCategoryTitle($category){
-			$assigned = format_currency($category->categoryBudget?->assigned ?? 0);
-			$assign   = format_currency($category->categoryBudget?->assign ?? 0);
+			$assigned = format_currency($category->categoryTarget?->assigned ?? 0);
+			$assign   = format_currency($category->categoryTarget?->assign ?? 0);
 			return "$assigned Assign $assign more to fund your $assign monthly target.";
 		}
 		

@@ -180,9 +180,9 @@
 								<!---->
 								<use href="#icon_sprite_chevron_down"></use>
 							</svg>
-							<span class="ynab-new-budget-available-number js-budget-available-number user-data {{ $category->categoryBudget?->amount > 0 ? 'cautious goal' : 'zero' }}" title=""
+							<span class="ynab-new-budget-available-number js-budget-available-number user-data {{ $category->categoryTarget?->amount > 0 ? 'cautious goal' : 'zero' }}" title=""
 								aria-disabled="true" disabled="" type="button">
-								@if($category->categoryBudget?->amount > 0)
+								@if($category->categoryTarget?->amount > 0)
 									<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress " xmlns="http://www.w3.org/2000/svg">
  								 <defs>
 									<clipPath id="icon-circle-progress-clip-ember116">
@@ -308,7 +308,7 @@
 															</button>
 															<div class="input-wrapper">
 																<input id="target-amount" class="ember-text-field ember-view " title="Target Amount" aria-label="Target Amount" onfocus="this.select()" autofocus=""
-																	type="text" wire:model.lazy="amount" wire:blur="unsetFocused">
+																	type="text" wire:model.lazy="targetAmount" wire:blur="unsetFocused">
 																<button class="user-data currency tabular-nums zero " wire:click="setFocused">
 																	<span><bdi>{{ format_currency($currencyAmount) }}</bdi></span>
 																</button>
@@ -329,7 +329,7 @@
 														</dt>
 														<dd class="ynab-new-inspector-goals-day-of-week goal-options-select user-data">
 															<div class="x-select-container  ">
-																<select wire:model="selectedDayOfWeek" class="js-x-select" aria-label="Select Day of Week"
+																<select wire:model="dayOfWeek" class="js-x-select" aria-label="Select Day of Week"
 																	@change="$wire.selectedDay = $event.target.selectedOptions[0].text">
 																	<!---->
 																	<option value="0">
@@ -364,7 +364,7 @@
 														</dt>
 														<dd class="ynab-new-inspector-goals-day-of-month goal-options-select user-data">
 															<div class="x-select-container  ">
-																<select wire:model="selectedDay" class="js-x-select" aria-label="Select Day of Month"
+																<select wire:model="dayOfMonth" class="js-x-select" aria-label="Select Day of Month"
 																	@change="$wire.dayOfMonthText = $event.target.selectedOptions[0].text">
 																	{!! generateDayOptions() !!}
 																</select>
@@ -439,7 +439,7 @@
 																				@endfor
 																				@foreach ($daysInMonth as $day)
 																					<li
-																						class="accounts-calendar-day {{ $selectedDate == Carbon\Carbon::create($currentYear, $currentMonth, $day)->format('Y-m-d') ? 'accounts-calendar-day-selected' : '' }}"
+																						class="accounts-calendar-day {{ $targetFinishDate == Carbon\Carbon::create($currentYear, $currentMonth, $day)->format('Y-m-d') ? 'accounts-calendar-day-selected' : '' }}"
 																						data-date="{{ Carbon\Carbon::create($currentYear, $currentMonth, $day)->format('Y-m-d') }}"
 																						wire:click="selectDate({{ $day }})">
 																						{{ $day }}
@@ -608,7 +608,7 @@
 																				@endfor
 																				@foreach ($daysInMonth as $day)
 																					<li
-																						class="accounts-calendar-day {{ $selectedDate == Carbon\Carbon::create($currentYear, $currentMonth, $day)->format('Y-m-d') ? 'accounts-calendar-day-selected' : '' }}"
+																						class="accounts-calendar-day {{ $targetFinishDate == Carbon\Carbon::create($currentYear, $currentMonth, $day)->format('Y-m-d') ? 'accounts-calendar-day-selected' : '' }}"
 																						data-date="{{ Carbon\Carbon::create($currentYear, $currentMonth, $day)->format('Y-m-d') }}"
 																						wire:click="selectDate({{ $day }})">
 																						{{ $day }}
@@ -819,7 +819,7 @@
 									<div class="goal-actions">
 										<div class="actions">
 											<div class="actions-left">
-												<button class="ghost-button destructive type-body-large" type="button">
+												<button wire:click="deleteTarget({{ $category->categoryTarget->id ?? 0 }})" class="ghost-button destructive type-body-large" type="button">
 													<svg class="ynab-new-icon" width="16" height="16">
 														<!---->
 														<use href="#icon_sprite_trash_can"></use>
@@ -947,7 +947,7 @@
 										</div>
 									</div>
 								</div>
-								<button wire:click="showEditTargetForm({{ $category->categoryBudget->id }})" class="ynab-button secondary  " type="button">
+								<button wire:click="showEditTargetForm({{ $category->categoryTarget->id ?? ''}})" class="ynab-button secondary  " type="button">
 									Edit Target
 								</button>
 								<div class="goal-snooze">

@@ -1138,11 +1138,11 @@
 											</button>
 											<div class="budget-table-cell-goal-gap"></div>
 											<div class="budget-table-cell-goal-status">
-												<span class="highlighted-message-part"> {{ $category->categoryBudget?->assign != 0.00 ? format_currency($category->categoryBudget?->assign) : '' }}</span>
-												{{ $category->categoryBudget?->message }}
+												<span class="highlighted-message-part"> {{ $category->categoryTarget?->assign != 0.00 ? format_currency($category->categoryTarget?->assign) : '' }}</span>
+												{{ $category->categoryTarget?->message }}
 											</div>
 										</div>
-										<div class="budget-table-cell-goal-status-details"> {{ $category->categoryBudget?->status_details }}</div>
+										<div class="budget-table-cell-goal-status-details"> {{ $category->categoryTarget?->status_details }}</div>
 									</div>
 									<figure class="ynab-new-budget-bar-v2" role="group">
 										<div class="ynab-new-budget-bar-v2-section ynab-new-budget-bar-v2-section-funded"
@@ -1171,7 +1171,7 @@
 									</svg>
 								</button>
 								<div class="input-wrapper">
-									<input id="dataCurrency-{{ $category->id }}" class="ember-text-field ember-view" type="text" value="0.00" onfocus="this.select()">
+									<input id="dataCurrency-{{ $category->id }}" class="ember-text-field ember-view" type="text" value="0.00" onfocus="this.select()" wire:blur="resetEditingState">
 									<button class="user-data currency tabular-nums zero">
 										<span><bdi>{{ format_currency($category->assigned) }}</bdi></span>
 									</button>
@@ -1207,9 +1207,9 @@
 						</div>
 						<div class="budget-table-cell-available budget-table-row-li" role="cell" aria-colindex="6">
 							<!---->
-							<button class="ynab-new-budget-available-number js-budget-available-number user-data {{ $category->categoryBudget?->amount > 0 ? 'cautious goal' : 'zero' }}"
+							<button class="ynab-new-budget-available-number js-budget-available-number user-data {{ $category->categoryTarget?->amount > 0 ? 'cautious goal' : 'zero' }}"
 								title="{{ $this->getCategoryTitle($category) }}" aria-disabled="true" disabled="" type="button">
-								@if ($category->categoryBudget?->amount > 0)
+								@if ($category->categoryTarget?->amount > 0)
 									<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress zero" xmlns="http://www.w3.org/2000/svg">
 										<defs>
 											<clipPath id="icon-circle-progress-clip-ember251">
@@ -1220,7 +1220,7 @@
 										<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-ember251)"></circle>
 									</svg>
 								@endif
-								<span class="user-data currency tabular-nums zero "><bdi>{{ format_currency($category->categoryBudget?->available) }}</bdi></span>
+								<span class="user-data currency tabular-nums zero "><bdi>{{ format_currency($category->categoryTarget?->available) }}</bdi></span>
 							</button>
 							<!---->
 						</div>

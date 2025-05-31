@@ -27,8 +27,8 @@
 		/**
 		 * Relación uno a uno con CategoryBudget
 		 */
-		public function categoryBudget(){
-			return $this->hasOne(CategoryBudget::class);
+		public function categoryTarget(){
+			return $this->hasOne(CategoryTarget::class);
 		}
 		
 	}

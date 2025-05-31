@@ -3,7 +3,7 @@
 	namespace App\Livewire\Admin;
 	
 	use App\Models\Category;
-	use App\Models\CategoryBudget;
+	use App\Models\CategoryTarget;
 	use Carbon\Carbon;
 	use Livewire\Attributes\On;
 	use Livewire\Component;
@@ -53,9 +53,9 @@
 		public int    $currentYear;
 		public int    $currentMonth;
 		public int    $firstDayOfMonth;
-		public string $selectedDate;
+		public string $targetFinishDate;
 		public array  $daysInMonth    = [];
-		public        $selectedDay    = null;
+		public        $dayOfMonth     = null;
 		public        $dayOfMonthText = "Last Day of Month"; // Valor inicial por defecto
 		
 		public $formattedMonthYear,$formattedEndDate;
@@ -63,13 +63,13 @@
 		public $selectedMonth,$selectedYear;
 		
 		// Propiedades relacionadas con día de la semana
-		public int    $selectedDayOfWeek = self::DEFAULT_DAY_OF_WEEK;
-		public string $selectedDayText   = 'Saturday';
-		public        $assignValue;
+		public int    $dayOfWeek       = self::DEFAULT_DAY_OF_WEEK;
+		public string $selectedDayText = 'Saturday';
+		public        $assignValue,$targetId;
 		
 		// Propiedades relacionadas con montos
-		public string $amount               = '';
-		public float  $currencyAmount       = 0.0;
+		public string $targetAmount         = '';
+		public        $currencyAmount       = 0.0;
 		public float  $currencyAmountWeekly = 0.0;
 		public float  $monthlySavingsAmount = 0.0;
 		
@@ -99,9 +99,9 @@
 		 * Actualiza el monto cuando cambia el valor del input
 		 */
 		public function updatedAmount():void{
-			$num                  = preg_replace('/[^0-9.]/','',$this->amount);
+			$num                  = preg_replace('/[^0-9.]/','',$this->targetAmount);
 			$this->currencyAmount = is_numeric($num) ? (float)$num : 0.0;
-			$this->amount         = $this->currencyAmount ? format_number($this->currencyAmount) : '';
+			$this->targetAmount   = $this->currencyAmount ? format_number($this->currencyAmount) : '';
 		}
 		
 		/**
@@ -116,9 +116,9 @@
 		/**
 		 * Actualiza el día de la semana seleccionado
 		 */
-		public function updatedSelectedDayOfWeek():void{
-			$this->selectedDayOfWeek = is_numeric($this->selectedDayOfWeek) ? (int)$this->selectedDayOfWeek : self::DEFAULT_DAY_OF_WEEK;
-			$this->selectedDayText   = Carbon::create()->dayOfWeek($this->selectedDayOfWeek)->format('l');
+		public function updateddayOfWeek():void{
+			$this->dayOfWeek       = is_numeric($this->dayOfWeek) ? (int)$this->dayOfWeek : self::DEFAULT_DAY_OF_WEEK;
+			$this->selectedDayText = Carbon::create()->dayOfWeek($this->dayOfWeek)->format('l');
 		}
 		
 		private function getFormattedLastDay(){
@@ -175,9 +175,16 @@
 		}
 		
 		public function cancelCreateTarget():void{
-			$this->setState('isCreateTarget',false);
-			$this->setState('isOpenAsideModal',false);
-			$this->resetForm();
+			// Verifica si existe un registro en CategoryTarget con ese ID
+			if(!empty($this->targetId) && CategoryTarget::find($this->targetId)){
+				$this->setState('isCreateTarget',false);
+				$this->setState('isSaveSuccessful',true);
+				$this->resetForm();
+			}else{
+				$this->setState('isCreateTarget',false);
+				$this->setState('isOpenAsideModal',false);
+				$this->resetForm();
+			}
 		}
 		
 		public function showNextMonthModal():void{
@@ -192,7 +199,7 @@
 		 * Métodos para la gestión del calendario
 		 */
 		public function showModalCalendar():void{
-			$this->initializeDate(Carbon::parse($this->selectedDate));
+			$this->initializeDate(Carbon::parse($this->targetFinishDate));
 			$this->setState('isOpenCalendarModal',true);
 			$this->setState('isCalendarVisible',true);
 		}
@@ -211,7 +218,7 @@
 		}
 		
 		public function selectDate(int $day):void{
-			$this->selectedDate = Carbon::create($this->currentYear,$this->currentMonth,$day)->format('Y-m-d');
+			$this->targetFinishDate = Carbon::create($this->currentYear,$this->currentMonth,$day)->format('Y-m-d');
 			$this->hideModalCalendar();
 		}
 		
@@ -284,117 +291,188 @@
 		 * Metodo para editar el target de una categoria
 		 */
 		public function showEditTargetForm(int $targetId):void{
-			//dd($targetId);
-			$this->setState('isCreateTarget',true);
-			$this->selectedFrequency = self::DEFAULT_FREQUENCY;
-			//$this->resetForm();
 			
-			$this->dispatch('focusInput');
+			$this->targetId = $targetId; // Guardas el ID que vas a editar
 			
+			$this->state = array_merge($this->state,[
+				'isCreateTarget'   => true,
+				'isSaveSuccessful' => false,
+			]);
+			try{
+				// Obtener el CategoryTarget con su categoría relacionada
+				$categoryTarget = CategoryTarget::with('category')->findOrFail($targetId);
+				
+				// Asignar datos al formulario
+				$this->targetAmount   = $categoryTarget->amount;
+				$this->currencyAmount = $categoryTarget->amount;
+				
+				// Asignar datos específicos según la frecuencia
+				switch($categoryTarget->frequency){
+					case 'weekly':
+						$this->selectedFrequency = $categoryTarget->frequency;
+						$this->dayOfWeek         = $categoryTarget->day_of_week;
+						break;
+					case 'monthly':
+						$this->selectedFrequency = $categoryTarget->frequency;
+						$this->dayOfMonth        = $categoryTarget->day_of_month;
+						break;
+					case 'yearly':
+						$this->selectedFrequency = $categoryTarget->frequency;
+						$this->targetFinishDate  = $categoryTarget->target_date;
+						break;
+					case 'custom':
+						$this->selectedFrequency            = $categoryTarget->frequency;
+						$this->state['isDateFilterEnabled'] = false;
+						
+						break;
+				}
+				$this->setFocused();
+				
+			} catch(\Exception $e){
+				\Log::error("Error al cargar objetivo $targetId para edición: {$e->getMessage()}");
+				throw new \Exception('No se pudo cargar el objetivo para edición: '.$e->getMessage());
+			}
+		}
+		
+		/**
+		 * Valida los datos de entrada para los objetivos
+		 */
+		private
+		function validateTargetData():void{
+			$this->validate([
+				'currencyAmount' => ['required','numeric','min:0.01'],
+			],[
+				'currencyAmount.required' => 'El objetivo requiere una cantidad positiva.',
+				'currencyAmount.min'      => 'El objetivo requiere una cantidad positiva.',
+			]);
 		}
 		
 		/**
 		 * Metodo para guardar el objetivo
 		 */
-		public function createTarget(int $categoryId){
-			
-			$this->validate([
-				'currencyAmount' => ['required','numeric','min:0.01'],
-			],[
-				'currencyAmount.required' => 'Targets require a positive amount.',
-				'currencyAmount.min'      => 'Targets require a positive amount.',
-			]);
-			
-			// Preparar datos base
-			$this->currencyAmountWeekly = $this->currencyAmount;
-			if($this->dayOfMonthText === "Last Day of Month"){
-				$this->dayOfMonthText = $this->getFormattedLastDay();
-			}
-			
-			// Calcular assign, status y message según frecuencia
-			$assignValue   = $this->currencyAmount;
-			$statusDetails = 'this month';
-			$message       = $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed';
-			
-			if($this->selectedFrequency === 'weekly' && $this->selectedDayOfWeek){
-				$assignValue = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->selectedDayOfWeek);
-			}else if($this->selectedFrequency === 'monthly'){
-				$statusDetails = 'by the '.$this->dayOfMonthText;
-			}else if($this->selectedFrequency === 'yearly'){
-				$assignValue = $this->calculateMonthlySavings();
-			}else if($this->selectedFrequency === 'custom'){
-				if($this->state['isDateFilterEnabled']){
-					$assignValue = $this->calculateMonthlyGoal();
-				}else{
-					$assignValue   = $this->selectedOptionType === 'have' ? $this->currencyAmount : $this->calculateMonthlySavings();
-					$statusDetails = $this->selectedOptionType === 'have' ? 'eventually' : 'this month';
-				}
-			};
+		public function createTarget(int $categoryId
+		):void{
+			// Validar el monto
+			$this->validateTargetData();
 			
 			try{
-				$category = Category::findOrFail($categoryId);
+				// Ajustar el día del mes si es "último día"
+				$dayOfMonthText = $this->dayOfMonthText === 'Last Day of Month'
+					? $this->getFormattedLastDay()
+					: $this->dayOfMonthText;
 				
-				CategoryBudget::create([
-					'category_id'    => $categoryId,
-					'amount'         => $this->currencyAmount,
-					'assign'         => $assignValue,
-					'message'        => $message,
-					'status_details' => $statusDetails,
-					'frequency'      => $this->selectedFrequency,
-					'option_type'    => $this->selectedOptionType,
-				]);
+				// Verificar que la categoría existe
+				Category::findOrFail($categoryId);
 				
-				// Actualiza la lista sin orden
+				// Preparar datos básicos
+				$data = [
+					'category_id' => $categoryId,
+					'amount'      => $this->currencyAmount,
+					'option_type' => $this->selectedOptionType,
+					'frequency'   => $this->selectedFrequency,
+					'message'     => $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed',
+				];
+				
+				// Agregar datos según la frecuencia seleccionada
+				switch($this->selectedFrequency){
+					case 'weekly':
+						$data['assign']         = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->dayOfWeek);
+						$data['status_details'] = 'this month';
+						$data['day_of_week']    = $this->dayOfWeek;
+						break;
+					
+					case 'monthly':
+						$data['assign']         = $this->currencyAmount;
+						$data['status_details'] = 'by the '.$dayOfMonthText;
+						$data['day_of_month']   = $this->dayOfMonth;
+						break;
+					
+					case 'yearly':
+						$data['assign']         = $this->calculateMonthlySavings();
+						$data['status_details'] = 'this month';
+						$data['target_date']    = $this->targetFinishDate;
+						break;
+					
+					case 'custom':
+						if($this->state['isDateFilterEnabled']){
+							$data['assign']         = $this->calculateMonthlyGoal();
+							$data['status_details'] = 'this month';
+							$data['target_date']    = $this->endDateTarget;
+						}else{
+							$data['assign']         = $this->selectedOptionType === 'have'
+								? $this->currencyAmount
+								: $this->calculateMonthlySavings();
+							$data['status_details'] = $this->selectedOptionType === 'have' ? 'eventually' : 'this month';
+							if($this->selectedOptionType !== 'have'){
+								$data['target_date'] = $this->targetFinishDate;
+							}
+						}
+						break;
+				}
+				
+				// Guardar el objetivo
+				CategoryTarget::create($data);
+				
+				// Actualizar interfaz
 				$this->dispatch('Target.freshCategories');
+				$this->setState('isCreateTarget',false);
+				$this->setState('isSaveSuccessful',true);
+				$this->resetForm();
 				
 			} catch(\Exception $e){
-				\Log::error('Error al crear categoría: '.$e->getMessage());
-				return false;
+				\Log::error("Error al crear objetivo para categoría $categoryId: {$e->getMessage()}");
+				throw new \Exception('No se pudo crear el objetivo: '.$e->getMessage());
 			}
-			
-			$this->setState('isCreateTarget',false);
-			$this->setState('isSaveSuccessful',true);
 		}
 		
 		/**
 		 * Metodo para actualizar el objetivo
 		 */
-		public function updateTarget(int $Id){
-			
+		public function updateTarget(int $Id
+		){
+		
 		}
 		
 		/**
 		 * Metodo para eliminar el objetivo
 		 */
-		public function deleteTarget(int $Id){
+		public function deleteTarget(int $targetId
+		){
 			
 			try{
-				$categoryTarget = CategoryBudget::findOrFail($Id);
-				
+				$categoryTarget = CategoryTarget::findOrFail($targetId);
+				// Eliminar el objetivo
 				$categoryTarget->delete();
 				
+				// Actualizar interfaz
+				$this->dispatch('Target.freshCategories');
+				$this->setState('isCreateTarget',false);
+				$this->setState('isSaveSuccessful',true);
 			} catch(\Exception $e){
-				\Log::error('Error al crear categoría: '.$e->getMessage());
-				return false;
+				\Log::error("Error al eliminar objetivo $targetId: {$e->getMessage()}");
+				throw new \Exception('No se pudo eliminar el objetivo: '.$e->getMessage());
 			}
+			
 		}
 		
 		/**
 		 * Inicializa las propiedades de fecha
 		 */
-		private function initializeDate(Carbon $date):void{
-			$this->currentMonth    = $date->month;
-			$this->currentYear     = $date->year;
-			$this->selectedDate    = $date->startOfMonth()->format('Y-m-d');
-			$this->firstDayOfMonth = $date->dayOfWeek;
-			$this->daysInMonth     = range(1,$date->daysInMonth);
-			$this->selectedMonth   = $date->month - 1;
+		private function initializeDate(Carbon $date
+		):void{
+			$this->currentMonth     = $date->month;
+			$this->currentYear      = $date->year;
+			$this->targetFinishDate = $date->startOfMonth()->format('Y-m-d');
+			$this->firstDayOfMonth  = $date->dayOfWeek;
+			$this->daysInMonth      = range(1,$date->daysInMonth);
+			$this->selectedMonth    = $date->month - 1;
 		}
 		
 		/**
 		 * Calcula el número de ocurrencias de un día de la semana en el mes actual
 		 */
-		private function getDayOccurrencesInMonth(int $dayOfWeek):int{
+		private function getDayOccurrencesInMonth(int $dayOfWeek
+		):int{
 			$start = Carbon::now()->startOfMonth();
 			$end   = $start->copy()->endOfMonth();
 			$count = 0;
@@ -414,11 +492,11 @@
 		 */
 		private function calculateMonthlySavings():float{
 			$currentDate      = Carbon::now()->startOfMonth();
-			$endDate          = Carbon::parse($this->selectedDate)->endOfMonth();
-			$monthsDifference = max(1,$currentDate->diffInMonths($endDate));
+			$endDateTarget    = Carbon::parse($this->targetFinishDate)->endOfMonth();
+			$monthsDifference = max(1,$currentDate->diffInMonths($endDateTarget));
 			
 			// Formatea la fecha final
-			$this->formattedEndDate = Carbon::parse($this->selectedDate)->format('M j Y');
+			$this->formattedEndDate = Carbon::parse($this->targetFinishDate)->format('M j Y');
 			
 			return $this->currencyAmount / $monthsDifference;
 		}
@@ -427,14 +505,14 @@
 		 * Calcula el objetivo mensual para fechas personalizadas
 		 */
 		private function calculateMonthlyGoal():float{
-			$currentDate = Carbon::now()->startOfMonth();
-			$endDate     = Carbon::create($this->selectedYear,$this->selectedMonth + 1,1)->endOfMonth();
+			$currentDate         = Carbon::now()->startOfMonth();
+			$this->endDateTarget = Carbon::create($this->selectedYear,$this->selectedMonth + 1,1)->endOfMonth();
 			
-			if($endDate->lt($currentDate)){
+			if($this->endDateTarget->lt($currentDate)){
 				return 0;
 			}
 			
-			$monthsDifference = max(1,$currentDate->diffInMonths($endDate));
+			$monthsDifference = max(1,$currentDate->diffInMonths($this->endDateTarget)); // ✅ Agregué $this->
 			// Formatea la fecha como "Jun 2026"
 			$this->formattedMonthYear = Carbon::create($this->selectedYear,$this->selectedMonth + 1,1)->format('M Y');
 			
@@ -474,21 +552,22 @@
 		private function resetForm():void{
 			$this->initializeDate(Carbon::now()->addMonth());
 			$this->reset([
-				'amount',
+				'targetAmount',
 				'currencyAmount',
 				'currencyAmountWeekly',
 				'monthlySavingsAmount',
 				'selectedText',
 				'selectedTextCustom',
-				'selectedDay',
+				'dayOfMonth',
 				'selectedYear',
-				'selectedDayOfWeek',
+				'dayOfWeek',
 				'selectedDayText',
 				'dayOfMonthText',
 				'formattedMonthYear',
 				'formattedEndDate',
 				'cadenceFrequency',
 				'cadenceUnit',
+				'targetId',
 			]);
 			
 			$this->setState('isRepeatEnabled',false);
@@ -502,7 +581,7 @@
 		 * Propiedad calculada para mostrar la fecha formateada
 		 */
 		public function getFormattedDateProperty():string{
-			return format_date(Carbon::parse($this->selectedDate));
+			return format_date(Carbon::parse($this->targetFinishDate));
 		}
 		
 		public function render(){
