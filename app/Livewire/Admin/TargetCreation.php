@@ -50,13 +50,13 @@
 		];
 		
 		// Propiedades relacionadas con fechas y calendario
-		public int    $currentYear;
-		public int    $currentMonth;
-		public int    $firstDayOfMonth;
-		public string $targetFinishDate;
-		public array  $daysInMonth    = [];
-		public        $dayOfMonth     = null;
-		public        $dayOfMonthText = "Last Day of Month"; // Valor inicial por defecto
+		public int     $currentYear;
+		public int     $currentMonth;
+		public int     $firstDayOfMonth;
+		public ?string $targetFinishDate = null;
+		public array   $daysInMonth      = [];
+		public         $dayOfMonth       = null;
+		public         $dayOfMonthText   = "Last Day of Month"; // Valor inicial por defecto
 		
 		public $formattedMonthYear,$formattedEndDate;
 		
@@ -302,9 +302,24 @@
 				// Obtener el CategoryTarget con su categoría relacionada
 				$categoryTarget = CategoryTarget::with('category')->findOrFail($targetId);
 				
+				// Mapa de textos según option_type
+				$textMap = [
+					'set-aside' => __('Set aside another'),
+					'refill'    => __('Refill up to'),
+					'have'      => __('Have a balance of'),
+				];
+				
+				$textMapCustom = [
+					'set-aside' => __('Set aside'),
+					'refill'    => __('Fill up to'),
+					'have'      => __('Have a balance of'),
+				];
+				
+				
 				// Asignar datos al formulario
 				$this->targetAmount   = $categoryTarget->amount;
 				$this->currencyAmount = $categoryTarget->amount;
+				$this->selectedText   = $textMap[$categoryTarget->option_type];
 				
 				// Asignar datos específicos según la frecuencia
 				switch($categoryTarget->frequency){
@@ -321,10 +336,15 @@
 						$this->targetFinishDate  = $categoryTarget->target_date;
 						break;
 					case 'custom':
-						$this->selectedFrequency            = $categoryTarget->frequency;
-						$this->state['isDateFilterEnabled'] = false;
-						
-						break;
+						$this->selectedFrequency  = $categoryTarget->frequency;
+						$this->selectedTextCustom = $textMapCustom[$categoryTarget->option_type];
+						$this->targetFinishDate   = $categoryTarget->target_date;
+						if($categoryTarget->option_type === 'have'){
+							$this->selectedOptionType = 'have';
+							if($categoryTarget->filter_by_date === 1){
+								$this->toggleState('isDateFilterEnabled');
+							}
+						}
 				}
 				$this->setFocused();
 				
@@ -398,6 +418,7 @@
 							$data['assign']         = $this->calculateMonthlyGoal();
 							$data['status_details'] = 'this month';
 							$data['target_date']    = $this->endDateTarget;
+							$data['filter_by_date'] = $this->state['isDateFilterEnabled'];
 						}else{
 							$data['assign']         = $this->selectedOptionType === 'have'
 								? $this->currencyAmount
@@ -417,7 +438,6 @@
 				$this->dispatch('Target.freshCategories');
 				$this->setState('isCreateTarget',false);
 				$this->setState('isSaveSuccessful',true);
-				$this->resetForm();
 				
 			} catch(\Exception $e){
 				\Log::error("Error al crear objetivo para categoría $categoryId: {$e->getMessage()}");
@@ -447,7 +467,7 @@
 				// Actualizar interfaz
 				$this->dispatch('Target.freshCategories');
 				$this->setState('isCreateTarget',false);
-				$this->setState('isSaveSuccessful',true);
+				$this->setState('isSaveSuccessful',false);
 			} catch(\Exception $e){
 				\Log::error("Error al eliminar objetivo $targetId: {$e->getMessage()}");
 				throw new \Exception('No se pudo eliminar el objetivo: '.$e->getMessage());

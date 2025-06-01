@@ -725,7 +725,8 @@
 																						</div>
 																					</button>
 																					<hr class="dropdown-divider">
-																					<button wire:click="updateSelectedText('Refill up to')" class="type-dropdown-option " role="option" aria-selected="false" type="button">
+																					<button wire:click="updateSelectedText('Refill up to','refill')" class="type-dropdown-option " role="option"
+																						aria-selected="false" type="button">
 																						<div class="type-dropdown-label">
 																							<div class="type-dropdown-label-title">
 																								<!---->
