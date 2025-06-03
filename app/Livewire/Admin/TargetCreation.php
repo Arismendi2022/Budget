@@ -288,68 +288,80 @@
 		}
 		
 		/**
-		 * Metodo para editar el target de una categoria
+		 * Metodo para editar el target de una categoría
 		 */
 		public function showEditTargetForm(int $targetId):void{
-			
-			$this->targetId = $targetId; // Guardas el ID que vas a editar
+			$this->resetForm();
+			$this->targetId = $targetId;
 			
 			$this->state = array_merge($this->state,[
 				'isCreateTarget'   => true,
 				'isSaveSuccessful' => false,
 			]);
+			
 			try{
-				// Obtener el CategoryTarget con su categoría relacionada
 				$categoryTarget = CategoryTarget::with('category')->findOrFail($targetId);
 				
-				// Mapa de textos según option_type
-				$textMap = [
-					'set-aside' => __('Set aside another'),
-					'refill'    => __('Refill up to'),
-					'have'      => __('Have a balance of'),
+				// Mapas de texto centralizados
+				$textMaps = [
+					'default' => [
+						'set-aside' => __('Set aside another'),
+						'refill'    => __('Refill up to'),
+						'have'      => __('Have a balance of'),
+					],
+					'custom'  => [
+						'set-aside' => __('Set aside'),
+						'refill'    => __('Fill up to'),
+						'have'      => __('Have a balance of'),
+					]
 				];
 				
-				$textMapCustom = [
-					'set-aside' => __('Set aside'),
-					'refill'    => __('Fill up to'),
-					'have'      => __('Have a balance of'),
-				];
+				// Datos básicos del formulario
+				$this->targetAmount      = $categoryTarget->amount;
+				$this->currencyAmount    = $categoryTarget->amount;
+				$this->selectedText      = $textMaps['default'][$categoryTarget->option_type];
+				$this->selectedFrequency = $categoryTarget->frequency;
 				
-				
-				// Asignar datos al formulario
-				$this->targetAmount   = $categoryTarget->amount;
-				$this->currencyAmount = $categoryTarget->amount;
-				$this->selectedText   = $textMap[$categoryTarget->option_type];
-				
-				// Asignar datos específicos según la frecuencia
-				switch($categoryTarget->frequency){
-					case 'weekly':
-						$this->selectedFrequency = $categoryTarget->frequency;
-						$this->dayOfWeek         = $categoryTarget->day_of_week;
-						break;
-					case 'monthly':
-						$this->selectedFrequency = $categoryTarget->frequency;
-						$this->dayOfMonth        = $categoryTarget->day_of_month;
-						break;
-					case 'yearly':
-						$this->selectedFrequency = $categoryTarget->frequency;
-						$this->targetFinishDate  = $categoryTarget->target_date;
-						break;
-					case 'custom':
-						$this->selectedFrequency  = $categoryTarget->frequency;
-						$this->selectedTextCustom = $textMapCustom[$categoryTarget->option_type];
+				// Configuración específica por frecuencia usando array asociativo
+				$frequencyConfig = [
+					'weekly'  => function() use ($categoryTarget){
+						$this->dayOfWeek = $categoryTarget->day_of_week;
+					},
+					'monthly' => function() use ($categoryTarget){
+						$this->dayOfMonth = $categoryTarget->day_of_month;
+					},
+					'yearly'  => function() use ($categoryTarget){
+						$this->targetFinishDate = $categoryTarget->target_date;
+					},
+					'custom'  => function() use ($categoryTarget,$textMaps){
+						$this->selectedTextCustom = $textMaps['custom'][$categoryTarget->option_type];
 						$this->targetFinishDate   = $categoryTarget->target_date;
+						
 						if($categoryTarget->option_type === 'have'){
 							$this->selectedOptionType = 'have';
+							
 							if($categoryTarget->filter_by_date === 1){
 								$this->toggleState('isDateFilterEnabled');
+								
+								// Extraer mes y año de target_date
+								$targetDate = Carbon::parse($categoryTarget->target_date);
+								
+								$this->selectedMonth = $targetDate->month - 1; // Restamos 1 porque tus options van de 0-11
+								$this->selectedYear  = $targetDate->year;
 							}
 						}
+					}
+				];
+				
+				// Ejecutar configuración específica si existe
+				if(isset($frequencyConfig[$categoryTarget->frequency])){
+					$frequencyConfig[$categoryTarget->frequency]();
 				}
+				
 				$this->setFocused();
 				
 			} catch(\Exception $e){
-				\Log::error("Error al cargar objetivo $targetId para edición: {$e->getMessage()}");
+				\Log::error("Error al cargar objetivo {$targetId} para edición: {$e->getMessage()}");
 				throw new \Exception('No se pudo cargar el objetivo para edición: '.$e->getMessage());
 			}
 		}
@@ -370,18 +382,10 @@
 		/**
 		 * Metodo para guardar el objetivo
 		 */
-		public function createTarget(int $categoryId
-		):void{
-			// Validar el monto
+		public function createTarget(int $categoryId):void{
 			$this->validateTargetData();
 			
 			try{
-				// Ajustar el día del mes si es "último día"
-				$dayOfMonthText = $this->dayOfMonthText === 'Last Day of Month'
-					? $this->getFormattedLastDay()
-					: $this->dayOfMonthText;
-				
-				// Verificar que la categoría existe
 				Category::findOrFail($categoryId);
 				
 				// Preparar datos básicos
@@ -393,42 +397,55 @@
 					'message'     => $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed',
 				];
 				
-				// Agregar datos según la frecuencia seleccionada
-				switch($this->selectedFrequency){
-					case 'weekly':
+				// Configurar datos específicos por frecuencia
+				$frequencyHandlers = [
+					'weekly' => function() use (&$data){
 						$data['assign']         = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->dayOfWeek);
 						$data['status_details'] = 'this month';
 						$data['day_of_week']    = $this->dayOfWeek;
-						break;
+					},
 					
-					case 'monthly':
+					'monthly' => function() use (&$data){
+						$dayOfMonthText = $this->dayOfMonthText === 'Last Day of Month'
+							? $this->getFormattedLastDay()
+							: $this->dayOfMonthText;
+						
 						$data['assign']         = $this->currencyAmount;
 						$data['status_details'] = 'by the '.$dayOfMonthText;
 						$data['day_of_month']   = $this->dayOfMonth;
-						break;
+					},
 					
-					case 'yearly':
+					'yearly' => function() use (&$data){
 						$data['assign']         = $this->calculateMonthlySavings();
 						$data['status_details'] = 'this month';
 						$data['target_date']    = $this->targetFinishDate;
-						break;
+					},
 					
-					case 'custom':
+					'custom' => function() use (&$data){
 						if($this->state['isDateFilterEnabled']){
 							$data['assign']         = $this->calculateMonthlyGoal();
 							$data['status_details'] = 'this month';
 							$data['target_date']    = $this->endDateTarget;
 							$data['filter_by_date'] = $this->state['isDateFilterEnabled'];
 						}else{
-							$data['assign']         = $this->selectedOptionType === 'have'
+							$isHaveType = $this->selectedOptionType === 'have';
+							
+							$data['assign'] = $isHaveType
 								? $this->currencyAmount
 								: $this->calculateMonthlySavings();
-							$data['status_details'] = $this->selectedOptionType === 'have' ? 'eventually' : 'this month';
-							if($this->selectedOptionType !== 'have'){
+							
+							$data['status_details'] = $isHaveType ? 'eventually' : 'this month';
+							
+							if(!$isHaveType){
 								$data['target_date'] = $this->targetFinishDate;
 							}
 						}
-						break;
+					}
+				];
+				
+				// Ejecutar configuración específica si existe
+				if(isset($frequencyHandlers[$this->selectedFrequency])){
+					$frequencyHandlers[$this->selectedFrequency]();
 				}
 				
 				// Guardar el objetivo
@@ -440,7 +457,7 @@
 				$this->setState('isSaveSuccessful',true);
 				
 			} catch(\Exception $e){
-				\Log::error("Error al crear objetivo para categoría $categoryId: {$e->getMessage()}");
+				\Log::error("Error al crear objetivo para categoría {$categoryId}: {$e->getMessage()}");
 				throw new \Exception('No se pudo crear el objetivo: '.$e->getMessage());
 			}
 		}
@@ -580,6 +597,7 @@
 				'selectedTextCustom',
 				'dayOfMonth',
 				'selectedYear',
+				'selectedMonth',
 				'dayOfWeek',
 				'selectedDayText',
 				'dayOfMonthText',

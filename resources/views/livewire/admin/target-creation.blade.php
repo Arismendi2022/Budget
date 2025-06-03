@@ -948,7 +948,7 @@
 										</div>
 									</div>
 								</div>
-								<button wire:click="showEditTargetForm({{ $category->categoryTarget->id ?? ''}})" class="ynab-button secondary  " type="button">
+								<button wire:click="showEditTargetForm({{ $category->categoryTarget?->id ?? '' }})" class="ynab-button secondary  " type="button">
 									Edit Target
 								</button>
 								<div class="goal-snooze">
