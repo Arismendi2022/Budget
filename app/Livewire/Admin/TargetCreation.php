@@ -8,84 +8,80 @@
 	use Livewire\Attributes\On;
 	use Livewire\Component;
 	
-	/**
-	 *
-	 */
 	class TargetCreation extends Component
 	{
-		// Constantes
-		/**
-		 *
-		 */
+		// === CONSTANTS ===
 		private const VALID_FREQUENCIES   = ['weekly','monthly','yearly','custom'];
 		private const DEFAULT_FREQUENCY   = 'monthly';
-		private const DEFAULT_DAY_OF_WEEK = 6;
+		private const DEFAULT_DAY_OF_WEEK = 6; // Saturday
+		private const UNIT_MONTH          = 1;
+		private const UNIT_YEAR           = 2;
 		
-		// Constantes para unidades
-		private const UNIT_MONTH = 1;
-		private const UNIT_YEAR  = 2;
-		
-		// Estados unificados con valores por defecto
-		/**
-		 * @var array
-		 */
+		// === EXISTING GROUPED STATE (mantener para evitar errores) ===
 		public array $state = [
-			// Estados de visibilidad de componentes UI
+			// UI visibility states
 			'isCollapsed'            => false,
 			'isAutoAssign'           => true,
 			'isCreateTarget'         => false,
 			'isSaveSuccessful'       => false,
 			
-			// Estados de modales
+			// Modal states
 			'isOpenModalAssign'      => false,
 			'isOpenAsideModal'       => false,
 			'isOpenAsideCustomModal' => false,
 			'isOpenCalendarModal'    => false,
 			'isCalendarVisible'      => false,
 			
-			// Estados de funcionalidad
+			// Functionality states
 			'isRepeatEnabled'        => false,
 			'isDateFilterEnabled'    => false,
 			'isFocusedInput'         => false,
+			'isUpdateTargetMode'     => false,
 		];
 		
-		// Propiedades relacionadas con fechas y calendario
+		// === CALENDAR & DATE PROPERTIES ===
 		public int     $currentYear;
 		public int     $currentMonth;
 		public int     $firstDayOfMonth;
 		public ?string $targetFinishDate = null;
 		public array   $daysInMonth      = [];
-		public         $dayOfMonth       = null;
-		public         $dayOfMonthText   = "Last Day of Month"; // Valor inicial por defecto
+		public ?int    $dayOfMonth       = null;
+		public string  $dayOfMonthText   = "Last Day of Month";
 		
-		public $formattedMonthYear,$formattedEndDate;
+		// === DISPLAY FORMATTING ===
+		public ?string $formattedMonthYear = null;
+		public ?string $formattedEndDate   = null;
+		public ?int    $selectedMonth      = null;
+		public ?int    $selectedYear       = null;
 		
-		public $selectedMonth,$selectedYear;
-		
-		// Propiedades relacionadas con día de la semana
+		// === DAY OF WEEK CONFIGURATION ===
 		public int    $dayOfWeek       = self::DEFAULT_DAY_OF_WEEK;
 		public string $selectedDayText = 'Saturday';
-		public        $assignValue,$targetId;
 		
-		// Propiedades relacionadas con montos
+		// === TARGET CONFIGURATION ===
+		public ?int      $targetId    = null;
+		public           $assignValue = null;
+		public ?Category $category    = null;
+		
+		// === FINANCIAL AMOUNTS ===
 		public string $targetAmount         = '';
-		public        $currencyAmount       = 0.0;
+		public float  $currencyAmount       = 0.0;
 		public float  $currencyAmountWeekly = 0.0;
 		public float  $monthlySavingsAmount = 0.0;
 		
-		// Propiedades relacionadas con la frecuencia y opciones
-		public string  $selectedFrequency  = self::DEFAULT_FREQUENCY;
+		// === FREQUENCY CONFIGURATION ===
+		public string $selectedFrequency = self::DEFAULT_FREQUENCY;
+		public array  $frequencyOptions  = [];
+		public int    $cadenceFrequency  = 1;
+		public int    $cadenceUnit       = self::UNIT_MONTH;
+		
+		// === TEXT CONFIGURATION ===
 		public string  $selectedText       = 'Set aside another';
 		public string  $selectedTextCustom = 'Set aside';
 		public ?string $selectedOptionType = null;
 		
-		// Añadir estas propiedades
-		public int   $cadenceFrequency = 1;
-		public int   $cadenceUnit      = self::UNIT_MONTH;
-		public array $frequencyOptions = [];
-		
-		// Categoría seleccionada
-		public $category = null;
+		// === DEPRECATED INDIVIDUAL PROPERTIES (mantener para compatibilidad) ===
+		public bool $isUpdateTargetMode = false; // Duplicado en $state pero m
 		
 		/**
 		 * Inicializa el componente
@@ -290,7 +286,7 @@
 		/**
 		 * Metodo para editar el target de una categoría
 		 */
-		public function showEditTargetForm(int $targetId):void{
+		public function openEditTargetForm(int $targetId):void{
 			$this->resetForm();
 			$this->targetId = $targetId;
 			
@@ -359,6 +355,7 @@
 				}
 				
 				$this->setFocused();
+				$this->isUpdateTargetMode = true;
 				
 			} catch(\Exception $e){
 				\Log::error("Error al cargar objetivo {$targetId} para edición: {$e->getMessage()}");
@@ -369,8 +366,7 @@
 		/**
 		 * Valida los datos de entrada para los objetivos
 		 */
-		private
-		function validateTargetData():void{
+		private function validateTargetData():void{
 			$this->validate([
 				'currencyAmount' => ['required','numeric','min:0.01'],
 			],[
@@ -465,9 +461,107 @@
 		/**
 		 * Metodo para actualizar el objetivo
 		 */
-		public function updateTarget(int $Id
-		){
-		
+		public function updateTarget(int $targetId):void{
+			$this->validateTargetData();
+			
+			try{
+				// Buscar el objetivo existente
+				$target = CategoryTarget::findOrFail($targetId);
+				
+				// Preparar datos básicos (sin category_id)
+				$data = [
+					'amount'         => $this->currencyAmount,
+					'option_type'    => $this->selectedOptionType,
+					'frequency'      => $this->selectedFrequency,
+					'message'        => $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed',
+					'filter_by_date' => false, // Valor por defecto
+				];
+				
+				// Configurar datos específicos por frecuencia
+				$frequencyHandlers = [
+					'weekly' => function() use (&$data){
+						$data['assign']         = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->dayOfWeek);
+						$data['status_details'] = 'this month';
+						$data['day_of_week']    = $this->dayOfWeek;
+						$data['filter_by_date'] = false;
+						// Limpiar campos que no aplican para weekly
+						$data['day_of_month'] = null;
+						$data['target_date']  = null;
+					},
+					
+					'monthly' => function() use (&$data){
+						$dayOfMonthText = $this->dayOfMonthText === 'Last Day of Month'
+							? $this->getFormattedLastDay()
+							: $this->dayOfMonthText;
+						
+						$data['assign']         = $this->currencyAmount;
+						$data['status_details'] = 'by the '.$dayOfMonthText;
+						$data['day_of_month']   = $this->dayOfMonth;
+						$data['filter_by_date'] = false;
+						// Limpiar campos que no aplican para monthly
+						$data['day_of_week'] = null;
+						$data['target_date'] = null;
+					},
+					
+					'yearly' => function() use (&$data){
+						$data['assign']         = $this->calculateMonthlySavings();
+						$data['status_details'] = 'this month';
+						$data['target_date']    = $this->targetFinishDate;
+						$data['filter_by_date'] = false;
+						// Limpiar campos que no aplican para yearly
+						$data['day_of_week']  = null;
+						$data['day_of_month'] = null;
+					},
+					
+					'custom' => function() use (&$data){
+						if($this->state['isDateFilterEnabled']){
+							$data['assign']         = $this->calculateMonthlyGoal();
+							$data['status_details'] = 'this month';
+							$data['target_date']    = $this->endDateTarget;
+							$data['filter_by_date'] = true; // Habilitado cuando se usa filtro de fecha
+							// Limpiar campos que no aplican para custom con fecha
+							$data['day_of_week']  = null;
+							$data['day_of_month'] = null;
+						}else{
+							$isHaveType = $this->selectedOptionType === 'have';
+							
+							$data['assign'] = $isHaveType
+								? $this->currencyAmount
+								: $this->calculateMonthlySavings();
+							
+							$data['status_details'] = $isHaveType ? 'eventually' : 'this month';
+							$data['filter_by_date'] = false;
+							
+							if(!$isHaveType){
+								$data['target_date'] = $this->targetFinishDate;
+							}else{
+								$data['target_date'] = null;
+							}
+							
+							// Limpiar campos que no aplican para custom sin fecha
+							$data['day_of_week']  = null;
+							$data['day_of_month'] = null;
+						}
+					}
+				];
+				
+				// Ejecutar configuración específica si existe
+				if(isset($frequencyHandlers[$this->selectedFrequency])){
+					$frequencyHandlers[$this->selectedFrequency]();
+				}
+				
+				// Actualizar el objetivo
+				$target->update($data);
+				
+				// Actualizar interfaz
+				$this->dispatch('Target.freshCategories');
+				$this->setState('isCreateTarget',false);
+				$this->setState('isSaveSuccessful',true);
+				
+			} catch(\Exception $e){
+				\Log::error("Error al actualizar objetivo {$targetId}: {$e->getMessage()}");
+				throw new \Exception('No se pudo actualizar el objetivo: '.$e->getMessage());
+			}
 		}
 		
 		/**
@@ -484,7 +578,7 @@
 				// Actualizar interfaz
 				$this->dispatch('Target.freshCategories');
 				$this->setState('isCreateTarget',false);
-				$this->setState('isSaveSuccessful',false);
+				$this->setState('isSaveSuccessful',true);
 			} catch(\Exception $e){
 				\Log::error("Error al eliminar objetivo $targetId: {$e->getMessage()}");
 				throw new \Exception('No se pudo eliminar el objetivo: '.$e->getMessage());
@@ -495,8 +589,7 @@
 		/**
 		 * Inicializa las propiedades de fecha
 		 */
-		private function initializeDate(Carbon $date
-		):void{
+		private function initializeDate(Carbon $date):void{
 			$this->currentMonth     = $date->month;
 			$this->currentYear      = $date->year;
 			$this->targetFinishDate = $date->startOfMonth()->format('Y-m-d');
@@ -508,8 +601,7 @@
 		/**
 		 * Calcula el número de ocurrencias de un día de la semana en el mes actual
 		 */
-		private function getDayOccurrencesInMonth(int $dayOfWeek
-		):int{
+		private function getDayOccurrencesInMonth(int $dayOfWeek):int{
 			$start = Carbon::now()->startOfMonth();
 			$end   = $start->copy()->endOfMonth();
 			$count = 0;
@@ -597,7 +689,6 @@
 				'selectedTextCustom',
 				'dayOfMonth',
 				'selectedYear',
-				'selectedMonth',
 				'dayOfWeek',
 				'selectedDayText',
 				'dayOfMonthText',

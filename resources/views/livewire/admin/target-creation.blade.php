@@ -832,7 +832,10 @@
 												<button wire:click="cancelCreateTarget" class="ghost-button primary type-body-large" type="button">
 													Cancel
 												</button>
-												<button wire:click="createTarget({{ $category->id }})" class="ynab-button primary  " arial-label="Save Target, 0.00, Set aside another <bdi>$</bdi>0.00"
+												<button
+													wire:click="{{ $isUpdateTargetMode && $category->categoryTarget ? 'updateTarget(' . $category->categoryTarget->id . ')' : 'createTarget(' . $category->id . ')' }}"
+													class="ynab-button primary  "
+													arial-label="Save Target, 0.00, Set aside another <bdi>$</bdi>0.00"
 													type="button">
 													Save Target
 												</button>
@@ -948,7 +951,7 @@
 										</div>
 									</div>
 								</div>
-								<button wire:click="showEditTargetForm({{ $category->categoryTarget?->id ?? '' }})" class="ynab-button secondary  " type="button">
+								<button wire:click="openEditTargetForm({{ $category->categoryTarget?->id ?? '' }})" class="ynab-button secondary  " type="button">
 									Edit Target
 								</button>
 								<div class="goal-snooze">
