@@ -500,7 +500,7 @@
 				// Preparar datos básicos (sin category_id)
 				$data = [
 					'amount'         => $this->currencyAmount,
-					'option_type'    => $this->selectedOptionType,
+					'option_type'    => $this->selectedOptionType ?? $target->option_type,
 					'frequency'      => $this->selectedFrequency,
 					'message'        => $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed',
 					'filter_by_date' => $this->state['isDateFilterEnabled'],
@@ -570,6 +570,27 @@
 							// Limpiar campos que no aplican para custom sin fecha
 							$data['day_of_week']  = null;
 							$data['day_of_month'] = null;
+							
+							// Manejar la repetición del target
+							if($this->state['isRepeatEnabled']){
+								$data['is_repeat_enabled'] = true;
+								$data['repeat_frequency']  = $this->cadenceFrequency; // Valor del 1-11
+								$data['repeat_unit']       = $this->cadenceUnit; // 1 = Month, 2 = Year
+								
+								// Calcular la siguiente fecha basada en la repetición
+								$nextDate = Carbon::parse($this->targetFinishDate);
+								if($this->cadenceUnit == 1){ // Months
+									$nextDate->addMonths($this->cadenceFrequency);
+								}else{ // Years
+									$nextDate->addYears($this->cadenceFrequency);
+								}
+								$data['next_target_date'] = $nextDate->format('Y-m-d');
+							}else{
+								$data['is_repeat_enabled'] = false;
+								$data['repeat_frequency']  = null;
+								$data['repeat_unit']       = null;
+								$data['next_target_date']  = null;
+							}
 						}
 					}
 				];
