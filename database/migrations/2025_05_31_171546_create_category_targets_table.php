@@ -19,6 +19,10 @@
 				$table->string('day_of_week')->nullable();
 				$table->string('day_of_month')->nullable();
 				$table->date('target_date')->nullable();
+				$table->boolean('is_repeat_enabled')->default(false);
+				$table->integer('repeat_frequency')->nullable();
+				$table->tinyInteger('repeat_unit')->nullable();
+				$table->date('next_target_date')->nullable();
 				$table->string('option_type')->nullable();
 				$table->string('frequency')->nullable();
 				$table->boolean('filter_by_date')->default(false);

@@ -222,6 +222,7 @@
 		 * Métodos para manejo del foco en el input
 		 */
 		public function setFocused():void{
+			
 			$this->setState('isFocusedInput',true);
 			$this->dispatch('focusInput');
 		}
@@ -333,6 +334,20 @@
 						$this->selectedTextCustom = $textMaps['custom'][$categoryTarget->option_type];
 						$this->targetFinishDate   = $categoryTarget->target_date;
 						
+						// Verificar si el target tiene repetición habilitada
+						if($categoryTarget->is_repeat_enabled === 1){
+							// Habilitar el botón de repetición usando state
+							$this->toggleState('isRepeatEnabled');
+							
+							$this->cadenceFrequency = $categoryTarget->repeat_frequency ?? 1; // Valor del 1-11
+							$this->cadenceUnit      = $categoryTarget->repeat_unit ?? 1; // 1 = Month, 2 = Year
+							
+							// Si tienes una fecha de próximo target, puedes mostrarla o usarla
+							if($categoryTarget->next_target_date){
+								$this->nextTargetDate = $categoryTarget->next_target_date;
+							}
+						}
+						
 						if($categoryTarget->option_type === 'have'){
 							$this->selectedOptionType = 'have';
 							
@@ -378,7 +393,7 @@
 		/**
 		 * Metodo para guardar el objetivo
 		 */
-		public function createTarget(int $categoryId):void{
+		public function saveTarget(int $categoryId):void{
 			$this->validateTargetData();
 			
 			try{
@@ -424,16 +439,30 @@
 							$data['target_date']    = $this->endDateTarget;
 							$data['filter_by_date'] = $this->state['isDateFilterEnabled'];
 						}else{
-							$isHaveType = $this->selectedOptionType === 'have';
-							
+							$isHaveType     = $this->selectedOptionType === 'have';
 							$data['assign'] = $isHaveType
 								? $this->currencyAmount
 								: $this->calculateMonthlySavings();
 							
 							$data['status_details'] = $isHaveType ? 'eventually' : 'this month';
-							
 							if(!$isHaveType){
 								$data['target_date'] = $this->targetFinishDate;
+							}
+							
+							// Manejar la repetición del target
+							if($this->state['isRepeatEnabled']){
+								$data['is_repeat_enabled'] = true;
+								$data['repeat_frequency']  = $this->cadenceFrequency; // Valor del 1-11
+								$data['repeat_unit']       = $this->cadenceUnit; // 1 = Month, 2 = Year
+								
+								// Calcular la siguiente fecha basada en la repetición
+								$nextDate = Carbon::parse($this->targetFinishDate);
+								if($this->cadenceUnit == 1){ // Months
+									$nextDate->addMonths($this->cadenceFrequency);
+								}else{ // Years
+									$nextDate->addYears($this->cadenceFrequency);
+								}
+								$data['next_target_date'] = $nextDate->format('Y-m-d');
 							}
 						}
 					}
@@ -474,7 +503,7 @@
 					'option_type'    => $this->selectedOptionType,
 					'frequency'      => $this->selectedFrequency,
 					'message'        => $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed',
-					'filter_by_date' => false, // Valor por defecto
+					'filter_by_date' => $this->state['isDateFilterEnabled'],
 				];
 				
 				// Configurar datos específicos por frecuencia
@@ -578,7 +607,8 @@
 				// Actualizar interfaz
 				$this->dispatch('Target.freshCategories');
 				$this->setState('isCreateTarget',false);
-				$this->setState('isSaveSuccessful',true);
+				$this->setState('isSaveSuccessful',false);
+				
 			} catch(\Exception $e){
 				\Log::error("Error al eliminar objetivo $targetId: {$e->getMessage()}");
 				throw new \Exception('No se pudo eliminar el objetivo: '.$e->getMessage());
@@ -666,13 +696,23 @@
 		 * Actualiza las opciones de frecuencia según la unidad seleccionada
 		 */
 		private function updateFrequencyOptions(){
-			// Mapa de opciones por unidad
+			// Mapa de opciones por unidad (solo números)
 			$optionsMap = [
 				self::UNIT_MONTH => range(1,11),
 				self::UNIT_YEAR  => range(1,2),
 			];
 			
 			$this->frequencyOptions = $optionsMap[$this->cadenceUnit] ?? range(1,11);
+		}
+		
+		/**
+		 * Obtiene las opciones de unidad con pluralización correcta
+		 */
+		public function getUnitOptions(){
+			return [
+				'1' => $this->cadenceFrequency >= 2 ? 'Months' : 'Month',
+				'2' => $this->cadenceFrequency >= 2 ? 'Years' : 'Year'
+			];
 		}
 		
 		/**

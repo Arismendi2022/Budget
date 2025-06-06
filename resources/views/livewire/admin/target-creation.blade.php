@@ -655,12 +655,9 @@
 																	<div class="x-select-container  ">
 																		<select wire:model.live="cadenceUnit" class="js-x-select cadence-selector" aria-label="Select Unit of Time">
 																			<!---->
-																			<option value="1">
-																				Month
-																			</option>
-																			<option value="2">
-																				Year
-																			</option>
+																			@foreach($this->getUnitOptions() as $value => $label)
+																				<option value="{{ $value }}">{{ $label }}</option>
+																			@endforeach
 																		</select>
 																	</div>
 																</dd>
@@ -833,7 +830,8 @@
 													Cancel
 												</button>
 												<button
-													wire:click="{{ $isUpdateTargetMode && $category->categoryTarget ? 'updateTarget(' . $category->categoryTarget->id . ')' : 'createTarget(' . $category->id . ')' }}"
+													wire:click="{{ $isUpdateTargetMode && $category->categoryTarget ? 'updateTarget(' . $category->categoryTarget->id . ')' : 'saveTarget(' . $category->id .
+													')' }}"
 													class="ynab-button primary  "
 													arial-label="Save Target, 0.00, Set aside another <bdi>$</bdi>0.00"
 													type="button">
