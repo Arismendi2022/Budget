@@ -7,6 +7,66 @@
 	<div class="budget-inspector-content">
 		@if($state['isAutoAssign'])
 			<div class="budget-breakdown ">
+				<section class="card {{ $state['isSummaryEnabled'] ? 'is-collapsed' : '' }} ">
+					<button wire:click="toggleMonthSummary" class="card-roll-up" aria-expanded="true" aria-controls="controls-ember117" type="button">
+						<h2>{{ now()->format('F') }}'s Summary
+							<svg class="ynab-new-icon card-chevron" width="12" height="12">
+								<!---->
+								<use href="{{ $state['isSummaryEnabled'] ? '#icon_sprite_chevron_right' : '#icon_sprite_chevron_down' }}"></use>
+							</svg>
+						</h2>
+					</button>
+					<div class="card-body" aria-hidden="false" id="controls-ember117">
+						<div class="ynab-breakdown">
+							<div tabindex="0" class="ynab-breakdown-leftover-prev-month" aria-describedby="ember118">
+								<div>
+									Left Over from Last Month
+								</div>
+								<div class="user-data"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></div>
+							</div>
+							<div tabindex="0" class="ynab-breakdown-assigned-in-month" aria-describedby="ember119">
+								<div>
+									Assigned in June
+								</div>
+								<div class="user-data"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></div>
+							</div>
+							<div tabindex="0" class="ynab-breakdown-activity" aria-describedby="ember120">
+								<div>
+									Activity
+								</div>
+								<div class="user-data"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></div>
+							</div>
+							<div tabindex="0" class="ynab-breakdown-available" aria-describedby="ember121">
+								<div>
+                <span class="ynab-breakdown-available-heading">
+                  Available</span>
+								</div>
+								<div class="user-data"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></div>
+							</div>
+						</div>
+						<div class="cost-to-be-me-summary">
+							<div>
+								<div class="cost-to-be-me-separator">
+								</div>
+								<div tabindex="0" class="title">Cost to Be Me</div>
+								<div tabindex="0" class="label">
+									<span class="description">June’s Targets</span>
+									<span class="amount">$448.65</span>
+								</div>
+								<!---->
+							</div>
+							<div>
+								<button class="ynab-button secondary   income-button" type="button">
+									Enter your expected income
+								</button>
+								<div tabindex="0" class="next-month-section">
+									<span class="description">Next month's targets could increase your total to $472.79
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
 				<section class="card budget-breakdown-auto-assign is-collapsed">
 					<button class="card-roll-up" aria-expanded="true" aria-controls="controls-ember95" type="button">
 						<h2>
@@ -86,53 +146,14 @@
 					</div>
 				
 				</section>
-				<section class="card budget-breakdown-monthly-totals ">
-					<button class="card-roll-up" aria-expanded="true" aria-controls="controls-ember369" type="button">
-						<h2 class="ynab-breakdown-available-in-month">
-							Available in {{ ucfirst(now()->monthName) }}
-							<svg class="ynab-new-icon card-chevron" width="12" height="12">
-								<!---->
-								<use href="#icon_sprite_chevron_down">
-									<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_chevron_down" fill="none" viewBox="0 0 24 24">
-										<path fill="currentColor" fill-rule="evenodd"
-											d="M13 18.7a1.4 1.4 0 0 1-2 0L.4 7.4a2 2 0 0 1 0-2 1.4 1.4 0 0 1 2 0l9.6 10 9.6-10.2a1.4 1.4 0 0 1 2 0 2 2 0 0 1 0 2.1z" clip-rule="evenodd"></path>
-									</symbol>
-								</use>
-							</svg>
-							<span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>0.00</span>
-						</h2>
-					</button>
-					<div class="card-body" aria-hidden="false" id="controls-ember369">
-						<div class="ynab-breakdown">
-							<div tabindex="0" class="ynab-breakdown-leftover-prev-month">
-								<div aria-describedby="ember370">
-									Left Over from Last Month
-								</div>
-								<div class="user-data"><span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>0.00</span></div>
-							</div>
-							<div tabindex="0" class="ynab-breakdown-assigned-in-month">
-								<div aria-describedby="ember371">
-									Assigned in {{ ucfirst(now()->monthName) }}
-								</div>
-								<div class="user-data"><span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>0.00</span></div>
-							</div>
-							<div tabindex="0" class="ynab-breakdown-activity">
-								<div aria-describedby="ember372">
-									Activity
-								</div>
-								<div class="user-data"><span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>0.00</span></div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="card budget-breakdown-future-totals future-assignments-update ">
-					<button class="card-roll-up" aria-expanded="true" aria-controls="controls-ember104" type="button">
+				<section class="card budget-breakdown-future-totals future-assignments-update {{ $state['isAssignedMonthEnabled'] ? 'is-collapsed' : '' }} ">
+					<button wire:click="toogleAssignedMonth" class="card-roll-up" aria-expanded="true" aria-controls="controls-ember104" type="button">
 						<h2>
 							<!---->
 							<span>Assigned in Future Months</span>
 							<svg class="ynab-new-icon card-chevron" width="12" height="12">
 								<!---->
-								<use href="#icon_sprite_chevron_down"></use>
+								<use href="{{ $state['isAssignedMonthEnabled'] ? '#icon_sprite_chevron_right' : '#icon_sprite_chevron_down' }}"></use>
 							</svg>
 							<span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>0.00</span>
 						</h2>
@@ -163,10 +184,17 @@
 						<div class="inspector-category-name user-data">
 							<div class="user-entered-text"><h1>{{ $category->name }}</h1></div>
 						</div>
-						<button class="inspector-category-edit" aria-label="Edit category: 🛒 Groceries" aria-describedby="ember305" type="button">
+						<button wire:click="openCategoryEditModal({{ $category->id }})" class="inspector-category-edit" aria-label="Edit category: 🛒 Groceries" aria-describedby="ember305"
+							type="button">
 							<svg class="ynab-new-icon fill-secondary" width="16" height="16">
 								<!---->
-								<use href="#icon_sprite_pencil"></use>
+								<use href="#icon_sprite_pencil">
+									<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_pencil" fill="none" viewBox="0 0 24 24">
+										<path fill="currentColor" fill-rule="evenodd"
+											d="m0 23.5 1.1-3.7A4 4 0 0 1 2.2 18l14-14a.5.5 0 0 1 .8 0l3 3a.5.5 0 0 1 0 .8l-14 14c-.5.5-1.1.9-1.8 1L.5 24a.4.4 0 0 1-.5-.5m22-23L23.5 2a1.6 1.6 0 0 1 0 2.3L21.7 6a.5.5 0 0 1-.8 0l-3-3a.5.5 0 0 1 0-.8L19.7.5a1.6 1.6 0 0 1 2.3 0"
+											clip-rule="evenodd"></path>
+									</symbol>
+								</use>
 							</svg>
 						</button>
 					</div>
@@ -222,10 +250,10 @@
 					</div>
 				</section>
 				<!---->
-				<section class="card target-inspector-card ">
+				<section class="card target-inspector-card {{ $state['isCollapsed'] ? 'is-collapsed' : '' }} ">
 					@if(!$state['isCreateTarget'])
 						<div id="ember131" class="ynab-new-inspector-goals">
-							<button wire:click="toggleCollapse" class="card-roll-up" aria-expanded="{{ $state['isCollapsed'] ? 'false' : 'true' }}" aria-controls="controls-ember132"
+							<button wire:click="toggleGoalTarget" class="card-roll-up" aria-expanded="{{ $state['isCollapsed'] ? 'false' : 'true' }}" aria-controls="controls-ember132"
 								type="button">
 								<h2>
 									@if($state['isSaveSuccessful'])
@@ -246,7 +274,7 @@
 								</h2>
 							</button>
 							@if(!$state['isSaveSuccessful'])
-								<div class="card-body" style="{{ $state['isCollapsed'] ? 'display: none;' : '' }}" aria-hidden="{{ $state['isCollapsed'] ? 'true' : 'false' }}"
+								<div class="card-body" aria-hidden="{{ $state['isCollapsed'] ? 'true' : 'false' }}"
 									id="controls-ember132">
 									<div class="target-inspector">
 										<div class="view-target-empty-state">
@@ -254,7 +282,7 @@
 											<p>
 												When you create a target, we’ll let you know how much money to set aside to stay on track over time.
 											</p>
-											<button wire:click="showCreateTarget" class="ynab-button secondary   budget-inspector-goals-create" type="button">
+											<button wire:click="openCreateTarget" class="ynab-button secondary   budget-inspector-goals-create" type="button">
 												Create Target
 											</button>
 										</div>
@@ -846,46 +874,26 @@
 					@endif
 					<!-- Mostrar éxito después de guardar -->
 					@if($state['isSaveSuccessful'])
-						<div class="card-body" aria-hidden="false" id="controls-ember108">
+						<div class="card-body" aria-hidden="false" id="controls-ember113">
 							<div class="target-inspector">
+								@php
+									$targetData = $this->getCategoryTargetData($category->categoryTarget?->id);
+								@endphp
+									<!---->
 								<div class="target-inspector-header">
 									<!---->
 									<div class="header-bottom">
-										<h2
-											class="target-behavior">{{ $selectedOptionType === 'set-aside' ? 'Set Aside Another' : ($selectedOptionType === 'have' ? 'Have a Balance of' : 'Refill Up to') }} {{ format_currency($currencyAmount) }}
-											@if ($selectedFrequency == 'weekly')
-												Each Week
-											@elseif ($selectedFrequency == 'monthly')
-												Each Month
-											@elseif ($selectedFrequency == 'yearly')
-												Each Year
-											@elseif ($selectedFrequency == 'custom')
-												<!-- Nada o texto personalizado para custom -->
-											@endif
-										</h2>
-										<div class="target-by-date">
-											@if ($selectedFrequency == 'weekly')
-												By {{ $selectedDayText }}
-											@elseif ($selectedFrequency == 'monthly')
-												By the {{ $selectedDayText }} of the Month
-											@elseif ($selectedFrequency == 'yearly')
-												By {{ $formattedEndDate }}
-											@elseif ($selectedFrequency == 'custom')
-												@if($state['isDateFilterEnabled'])
-													By {{ $formattedMonthYear }}
-												@else
-													{{ $selectedOptionType === 'have' ? 'Eventually' : 'By ' . $formattedEndDate }}
-												@endif
-											@endif
-										</div>
+										<h2 class="target-behavior">{{ $targetData['target_behavior'] }}</h2>
+										<div class="target-by-date">{{ $targetData['target_by_date'] }}</div>
 									</div>
 								</div>
 								<hr>
+								<!---->
 								<div class="donut-container">
 									<div class="donut-wrapper">
-                    <span class="label">
-                        <span class="percent">0</span><span>%</span>
-                    </span>
+										<span class="label">
+											<span class="percent">0</span><span>%</span>
+										</span>
 										<div class="donut" style="clip: rect(0px, 1em, 1em, 0.5em);">
 											<div class="left half-circle passive" style="transform: rotate(7deg);"></div>
 											<div class="right half-circle passive" style="transform: rotate(0deg);"></div>
@@ -893,85 +901,57 @@
 										<div class="shadow"></div>
 									</div>
 								</div>
-								@if(!($selectedOptionType === 'have' && !$state['isDateFilterEnabled']))
-									<div class="impact-message warning">
-										Assign
-										<span class="highlighted">
-										@if($selectedFrequency === 'weekly')
-												{{ format_currency($currencyAmountWeekly) }}
-											@elseif($selectedFrequency === 'yearly')
-												{{ format_currency($monthlySavingsAmount) }}
-											@elseif($selectedFrequency === 'custom')
-												{{ format_currency($monthlySavingsAmount) }}
-											@else
-												{{ format_currency($currencyAmount) }}
-											@endif
-									</span>
-										@if(in_array($selectedFrequency, ['weekly', 'monthly']))
-											to meet your target
-										@elseif(in_array($selectedFrequency, ['yearly', 'custom']))
-											this month to stay on track
-										@endif
-									</div>
-								@endif
+								<!---->
+								<div class="impact-message warning">
+									Assign
+									<span class="highlighted">{{ format_currency($targetData['to_go']) }}</span>
+									{{ $targetData['target_message'] }}
+								</div>
+								<!---->
 								<div class="target-breakdown">
 									<div class="target-breakdown-item">
-										<div class="target-breakdown-item-label">
-											@if ($selectedFrequency === 'yearly')
-												{{ $selectedOptionType === 'set-aside' ? 'Total to Assign by' : 'Needed by' }}
-												{{ $formattedEndDate }}
-											@elseif($selectedFrequency === 'custom')
-												@if ($selectedOptionType === 'have' && !$state['isDateFilterEnabled'])
-													Balance Needed
-												@elseif($selectedOptionType === 'have' && $state['isDateFilterEnabled'])
-													Balance Needed by
-													{{ $formattedMonthYear }}
-												@else
-													{{ $selectedOptionType === 'set-aside' ? 'Total to Assign by' : 'Needed by' }}
-													{{ $formattedEndDate }}
-												@endif
-											@else
-												{{ $selectedOptionType === 'set-aside' ? 'Amount to Assign This Month' : 'Needed This Month' }}
-											@endif
-										</div>
-										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums positive"><bdi>{{ format_currency($selectedFrequency === 'weekly' ? $currencyAmountWeekly : $currencyAmount) }}</bdi></span>
-										</div>
+										<div class="target-breakdown-item-label">Amount to Assign This Month</div>
+										<div class="target-breakdown-item-value"><span
+												class="user-data currency tabular-nums positive"><bdi>$</bdi>100.00</span></div>
 									</div>
 									<div class="target-breakdown-item">
-										<div class="target-breakdown-item-label">{{ $selectedOptionType === 'set-aside' ? 'Assigned So Far' : ($selectedOptionType === 'have' ? 'Current Balance' :
-										'Funded') }}</div>
-										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></div>
+										<div class="target-breakdown-item-label">Assigned So Far</div>
+										<div class="target-breakdown-item-value"><span
+												class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></div>
 									</div>
 									<hr>
 									<div class="target-breakdown-item">
 										<div class="target-breakdown-item-label">To Go</div>
-										<div class="target-breakdown-item-value"><span class="user-data currency tabular-nums positive"><bdi>{{ format_currency($selectedFrequency === 'weekly' ? $currencyAmountWeekly : $currencyAmount) }}</bdi></span>
-										</div>
+										<div class="target-breakdown-item-value"><span
+												class="user-data currency tabular-nums positive"><bdi>$</bdi>100.00</span></div>
 									</div>
 								</div>
-								<button wire:click="openEditTargetForm({{ $category->categoryTarget?->id ?? '' }})" class="ynab-button secondary  " type="button">
+								<button wire:click="openEditTargetForm({{ $category->categoryTarget?->id ?? '' }})" class="ynab-button secondary  "
+									type="button">
 									Edit Target
 								</button>
 								<div class="goal-snooze">
-									<button class="ynab-switch off " role="checkbox" aria-checked="false" type="button">
+									<button wire:click="toogleSnooze" class="ynab-switch {{ $state['isSnoozeEnabled'] ? 'on' : 'off' }}" role="checkbox" aria-checked="{{ $state['isSnoozeEnabled'] ? 'true' :
+										'false' }}" type="button">
 										<svg class="switch-toggle" xmlns="http://www.w3.org/2000/svg">
 											<rect></rect>
 											<circle></circle>
 										</svg>
 										Snooze target for this month
 										<span class="info-icon-tooltip" aria-describedby="ember159">
-										<a href="#">
-											<svg class="ynab-new-icon" width="16" height="16">
-												<!---->
-												<use href="#icon_sprite_question_mark_circle">
-													<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_question_mark_circle" fill="none" viewBox="0 0 24 24"><path fill="currentColor"
-															fill-rule="evenodd"
-															d="M12 24a12 12 0 1 1 0-24 12 12 0 0 1 0 24m0-22a10 10 0 1 0 0 20 10 10 0 0 0 0-20m1.1 12-.5.5h-1.1L11 14c0-3.3 2.8-3 2.8-5.5 0-.8-1-1.5-1.9-1.5-1 0-2 .7-2 1.5l.2.8a.5.5 0 0 1-.5.7h-1l-.5-.4L8 8.5C8 6.5 9.8 5 12 5s4 1.6 4 3.5c0 3.2-2.9 3-2.9 5.5M12 16a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 12 16"
-															clip-rule="evenodd"></path></symbol>
-												</use>
-											</svg>
-          					</a>
-        					</span>
+											<a href="#">
+												<svg class="ynab-new-icon" width="16" height="16">
+													<!---->
+													<use href="#icon_sprite_question_mark_circle">
+														<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_question_mark_circle" fill="none" viewBox="0 0 24 24"><path fill="currentColor"
+																fill-rule="evenodd"
+																d="M12 24a12 12 0 1 1 0-24 12 12 0 0 1 0 24m0-22a10 10 0 1 0 0 20 10 10 0 0 0 0-20m1.1 12-.5.5h-1.1L11 14c0-3.3 2.8-3 2.8-5.5 0-.8-1-1.5-1.9-1.5-1 0-2 .7-2 1.5l.2.8a.5.5 0 0 1-.5.7h-1l-.5-.4L8 8.5C8 6.5 9.8 5 12 5s4 1.6 4 3.5c0 3.2-2.9 3-2.9 5.5M12 16a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 12 16"
+																clip-rule="evenodd"></path>
+														</symbol>
+													</use>
+												</svg>
+											</a>
+        						</span>
 									</button>
 								</div>
 								<!---->
@@ -980,8 +960,8 @@
 					@endif
 				</section>
 				<!---->
-				<section class="card budget-breakdown-auto-assign is-collapsed">
-					<button class="card-roll-up" aria-expanded="false" aria-controls="controls-ember119" type="button">
+				<section class="card budget-breakdown-auto-assign {{ !$state['isAutoAssignEnabled'] ? 'is-collapsed' : '' }}">
+					<button wire:click="toogleAutoAssign" class="card-roll-up" aria-expanded="false" aria-controls="controls-ember119" type="button">
 						<h2>
 							<svg class="ynab-new-icon" width="16" height="16">
 								<!---->
@@ -990,14 +970,21 @@
 							Auto-Assign
 							<svg class="ynab-new-icon card-chevron" width="12" height="12">
 								<!---->
-								<use href="#icon_sprite_chevron_right"></use>
+								<use href="{{ !$state['isAutoAssignEnabled'] ? '#icon_sprite_chevron_right' : '#icon_sprite_chevron_down' }}">
+								</use>
 							</svg>
 						</h2>
 					</button>
-					<div class="card-body" aria-hidden="true" id="controls-ember119">
+					<div class="card-body" aria-hidden="false" id="controls-ember106">
 						<!---->
 						<div class="inspector-quick-budget">
 							<div class="option-groups">
+								<div>
+									<button class="budget-inspector-button js-focus-on-start underfunded" type="button">
+										<div>Underfunded</div>
+										<div><strong class="user-data" title="$100.00"><span class="user-data currency tabular-nums positive"><bdi>$</bdi>100.00</span></strong></div>
+									</button>
+								</div>
 								<div>
 									<button class="budget-inspector-button  assigned-last month" type="button">
 										<div>Assigned Last Month</div>
@@ -1071,7 +1058,6 @@
 						<div class="auto-assign-preview-funding-groups">
 							<div class="auto-assign-preview-funding-group">
 								<div class="auto-assign-preview-funding-banner mod-positive">
-									<!---->
 									<!---->
 									<svg class="ynab-new-icon icon-checkmark" width="24" height="24">
 										<use href="#icon_sprite_check_circle_fill">

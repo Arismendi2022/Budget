@@ -6,7 +6,7 @@
 				<div role="cell">
 					<button wire:click="showCategoryGroupModal"
 						class="ghost-button primary type-body budget-toolbar-add-category "
-						onclick="setAddGroupModalPosition(event)" aria-describedby="addCategoryGroups" type="button">
+						onclick="setAddGroupModalPosition(event)" aria-describedby="addCategoryGroup" type="button">
 						<svg class="ynab-new-icon " width="16" height="16">
 							<!---->
 							<use href="#icon_sprite_plus_circle_fill">

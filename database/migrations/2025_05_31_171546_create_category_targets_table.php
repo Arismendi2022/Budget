@@ -26,6 +26,7 @@
 				$table->string('option_type')->nullable();
 				$table->string('frequency')->nullable();
 				$table->boolean('filter_by_date')->default(false);
+				$table->boolean('is_snoozed')->default(false);
 				$table->decimal('assigned',10,2)->default(0.00);
 				$table->decimal('activity',10,2)->default(0.00);
 				$table->decimal('available',10,2)->default(0.00);

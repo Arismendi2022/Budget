@@ -24,6 +24,9 @@
 			'isAutoAssign'           => true,
 			'isCreateTarget'         => false,
 			'isSaveSuccessful'       => false,
+			'isAutoAssignEnabled'    => false,
+			'isSummaryEnabled'       => false,
+			'isAssignedMonthEnabled' => false,
 			
 			// Modal states
 			'isOpenModalAssign'      => false,
@@ -37,6 +40,7 @@
 			'isDateFilterEnabled'    => false,
 			'isFocusedInput'         => false,
 			'isUpdateTargetMode'     => false,
+			'isSnoozeEnabled'        => false,
 		];
 		
 		// === CALENDAR & DATE PROPERTIES ===
@@ -144,7 +148,7 @@
 		}
 		
 		// Métodos de UI simplificados
-		public function toggleCollapse():void{
+		public function toggleGoalTarget():void{
 			$this->toggleState('isCollapsed');
 		}
 		
@@ -156,6 +160,22 @@
 			$this->toggleState('isDateFilterEnabled');
 		}
 		
+		public function toogleSnooze(){
+			$this->toggleState('isSnoozeEnabled');
+		}
+		
+		public function toogleAutoAssign(){
+			$this->toggleState('isAutoAssignEnabled');
+		}
+		
+		public function toggleMonthSummary():void{
+			$this->toggleState('isSummaryEnabled');
+		}
+		
+		public function toogleAssignedMonth():void{
+			$this->toggleState('isAssignedMonthEnabled');
+		}
+		
 		/**
 		 * Métodos relacionados con modales
 		 */
@@ -163,7 +183,7 @@
 			$this->setState('isOpenModalAssign',true);
 		}
 		
-		public function showCreateTarget():void{
+		public function openCreateTarget():void{
 			$this->setState('isCreateTarget',true);
 			$this->selectedFrequency = self::DEFAULT_FREQUENCY;
 			$this->resetForm();
@@ -337,7 +357,7 @@
 						// Verificar si el target tiene repetición habilitada
 						if($categoryTarget->is_repeat_enabled === 1){
 							// Habilitar el botón de repetición usando state
-							$this->toggleState('isRepeatEnabled');
+							$this->state['isRepeatEnabled'] = true;
 							
 							$this->cadenceFrequency = $categoryTarget->repeat_frequency ?? 1; // Valor del 1-11
 							$this->cadenceUnit      = $categoryTarget->repeat_unit ?? 1; // 1 = Month, 2 = Year
@@ -403,9 +423,10 @@
 				$data = [
 					'category_id' => $categoryId,
 					'amount'      => $this->currencyAmount,
-					'option_type' => $this->selectedOptionType,
+					'option_type' => empty($this->selectedOptionType) ? 'set-aside' : $this->selectedOptionType,
 					'frequency'   => $this->selectedFrequency,
-					'message'     => $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed',
+					//'message'     => $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed',
+					'message'     => ($this->selectedOptionType === 'set-aside' || empty($this->selectedOptionType)) ? 'more needed' : 'needed',
 				];
 				
 				// Configurar datos específicos por frecuencia
@@ -480,6 +501,7 @@
 				$this->dispatch('Target.freshCategories');
 				$this->setState('isCreateTarget',false);
 				$this->setState('isSaveSuccessful',true);
+				$this->getCategoryTargetData($categoryId);
 				
 			} catch(\Exception $e){
 				\Log::error("Error al crear objetivo para categoría {$categoryId}: {$e->getMessage()}");
@@ -758,6 +780,7 @@
 				'cadenceFrequency',
 				'cadenceUnit',
 				'targetId',
+				'selectedOptionType',
 			]);
 			
 			$this->setState('isRepeatEnabled',false);
@@ -773,6 +796,111 @@
 		public function getFormattedDateProperty():string{
 			return format_date(Carbon::parse($this->targetFinishDate));
 		}
+		
+		/**
+		 * Handles different frequency types (custom, weekly, monthly, yearly) and date formatting
+		 */
+		public function getCategoryTargetData($targetId){
+			$categoryTarget = CategoryTarget::find($targetId);
+			
+			if(!$categoryTarget){
+				return [
+					'target_behavior' => 'Target not found',
+					'error'           => 'No category target found for the provided ID'
+				];
+			}
+			
+			$amount = $categoryTarget->amount ?? 0;
+			
+			// Determine frequency text
+			if($categoryTarget->frequency === 'custom'){
+				$frequency = 'Each Year'; // Default for custom
+				if($categoryTarget->repeat_frequency && $categoryTarget->repeat_unit){
+					if($categoryTarget->repeat_frequency == 1){
+						$frequency = match ($categoryTarget->repeat_unit) {
+							'1',1,'monthly' => 'Each Month',
+							'2',2,'yearly' => 'Each Year',
+							'weekly' => 'Each Week',
+							default => 'Each Year',
+						};
+					}else{
+						$unit      = match ($categoryTarget->repeat_unit) {
+							'1',1,'monthly' => $categoryTarget->repeat_frequency > 1 ? 'Months' : 'Month',
+							'2',2,'yearly' => $categoryTarget->repeat_frequency > 1 ? 'Years' : 'Year',
+							'weekly' => $categoryTarget->repeat_frequency > 1 ? 'Weeks' : 'Week',
+							default => 'Years',
+						};
+						$frequency = "Every {$categoryTarget->repeat_frequency} {$unit}";
+					}
+				}
+			}else{
+				$frequency = match ($categoryTarget->frequency) {
+					'monthly' => 'Each Month',
+					'weekly' => 'Each Week',
+					'yearly' => 'Each Year',
+					default => 'Each Year',
+				};
+			}
+			
+			// Determine target date
+			$targetDate = 'Eventually';
+			if($categoryTarget->frequency === 'custom' && $categoryTarget->target_date){
+				$isFilterByDate = $categoryTarget->filter_by_date == 1 || $categoryTarget->filter_by_date === true;
+				$targetDate     = "By ".date($isFilterByDate ? 'M Y' : 'M j Y',strtotime($categoryTarget->target_date));
+			}else if($categoryTarget->frequency === 'weekly' && $categoryTarget->day_of_week){
+				$days       = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+				$targetDate = "By ".$days[(int)$categoryTarget->day_of_week];
+			}else if($categoryTarget->day_of_month){
+				$day        = $categoryTarget->day_of_month;
+				$suffix     = match ($day % 10) {
+					1 => ($day >= 11 && $day <= 13) ? 'th' : 'st',
+					2 => ($day >= 11 && $day <= 13) ? 'th' : 'nd',
+					3 => ($day >= 11 && $day <= 13) ? 'th' : 'rd',
+					default => 'th'
+				};
+				$targetDate = "By the {$day}{$suffix} of the Month";
+			}else if($categoryTarget->target_date){
+				$targetDate = "By ".date('M j, Y',strtotime($categoryTarget->target_date));
+			}
+			
+			// Generate behavior text
+			$formattedAmount = $amount > 0 ? format_currency($amount) : format_currency(1000);
+			$behaviorText    = match ($categoryTarget->option_type) {
+				'refill' => "Refill Up to ".format_currency($amount)." ".$frequency,
+				'set-aside','custom' => "Set Aside Another ".$formattedAmount." ".$frequency,
+				'have' => "Have a Balance of ".format_currency($amount)." ".$frequency,
+				default => "Set Aside Another ".$formattedAmount." ".$frequency,
+			};
+			
+			// Calculate progress percentage
+			$amount     = $categoryTarget->assign ?? 0;
+			$assigned   = $categoryTarget->assigned ?? 0;
+			$percentage = $amount > 0 ? round(($assigned / $amount) * 100) : 0;
+			
+			// Calculate amount to go
+			$toGo = max(0,$amount - $assigned);
+			
+			// Determine target message based on frequency
+			$targetMessage = in_array($categoryTarget->frequency,['monthly','weekly'])
+				? 'to meet your target'
+				: 'this month to stay on track';
+			
+			return [
+				'target_behavior' => $behaviorText,
+				'target_by_date'  => $targetDate,
+				'to_go'           => $toGo,
+				'target_message'  => $targetMessage,
+			];
+		}
+		
+		/**
+		 * Propiedad para mostrar uel modal para editar categoriasx
+		 *
+		 */
+		public function openCategoryEditModal($categoryId):void{
+			dd('En construcción...'." Id: ".$categoryId);
+		}
+		
 		
 		public function render(){
 			return view('livewire.admin.target-creation',[
