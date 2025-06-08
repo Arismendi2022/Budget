@@ -892,11 +892,11 @@
 								<div class="donut-container">
 									<div class="donut-wrapper">
 										<span class="label">
-											<span class="percent">0</span><span>%</span>
+											<span class="percent">{{ $targetData['percentage'] }}</span><span>%</span>
 										</span>
-										<div class="donut" style="clip: rect(0px, 1em, 1em, 0.5em);">
-											<div class="left half-circle passive" style="transform: rotate(7deg);"></div>
-											<div class="right half-circle passive" style="transform: rotate(0deg);"></div>
+										<div class="donut" style="{{ $targetData['clip_style'] }}">
+											<div class="left half-circle {{ $targetData['css_class'] }}" style="transform: rotate({{ $targetData['left_rotation'] }}deg);"></div>
+											<div class="right half-circle {{ $targetData['css_class'] }}" style="transform: rotate({{ $targetData['right_rotation'] }}deg);"></div>
 										</div>
 										<div class="shadow"></div>
 									</div>

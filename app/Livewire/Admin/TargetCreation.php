@@ -803,13 +803,6 @@
 		public function getCategoryTargetData($targetId){
 			$categoryTarget = CategoryTarget::find($targetId);
 			
-			if(!$categoryTarget){
-				return [
-					'target_behavior' => 'Target not found',
-					'error'           => 'No category target found for the provided ID'
-				];
-			}
-			
 			$amount = $categoryTarget->amount ?? 0;
 			
 			// Determine frequency text
@@ -873,12 +866,41 @@
 			};
 			
 			// Calculate progress percentage
-			$amount     = $categoryTarget->assign ?? 0;
+			$assign     = $categoryTarget->assign ?? 0;
 			$assigned   = $categoryTarget->assigned ?? 0;
 			$percentage = $amount > 0 ? round(($assigned / $amount) * 100) : 0;
 			
+			// Calculate rotation angles for donut chart
+			$totalAngle = ($percentage / 100) * 360;
+			
+			// Determine CSS class based on percentage
+			if($percentage == 0){
+				$cssClass = 'passive';
+			}else if($percentage == 100){
+				$cssClass = 'positive';
+			}else{
+				$cssClass = 'warning';
+			}
+			
+			if($percentage == 0){
+				// Caso especial: 0% - mostrar mínimo visual
+				$rightRotation = 7; // Rotación mínima visible
+				$leftRotation  = 0;
+				$clipStyle     = "clip: rect(0px, 1em, 1em, 0.5em);";
+			}else if($percentage <= 50){
+				// Solo se llena la mitad derecha
+				$rightRotation = $totalAngle;
+				$leftRotation  = 0;
+				$clipStyle     = "clip: rect(0px, 1em, 1em, 0.5em);";
+			}else{
+				// Se llena la mitad derecha completa y parte de la izquierda
+				$rightRotation = 180; // Mitad derecha completa
+				$leftRotation  = $totalAngle; // El ángulo TOTAL
+				$clipStyle     = "clip: rect(auto, auto, auto, auto);";
+			}
+			
 			// Calculate amount to go
-			$toGo = max(0,$amount - $assigned);
+			$toGo = max(0,$assign - $assigned);  // Usa $assign para toGo
 			
 			// Determine target message based on frequency
 			$targetMessage = in_array($categoryTarget->frequency,['monthly','weekly'])
@@ -890,6 +912,11 @@
 				'target_by_date'  => $targetDate,
 				'to_go'           => $toGo,
 				'target_message'  => $targetMessage,
+				'percentage'      => $percentage,
+				'left_rotation'   => $leftRotation,
+				'right_rotation'  => $rightRotation,
+				'clip_style'      => $clipStyle,
+				'css_class'       => $cssClass,
 			];
 		}
 		

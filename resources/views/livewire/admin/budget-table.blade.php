@@ -1173,7 +1173,7 @@
 								<div class="input-wrapper">
 									<input id="dataCurrency-{{ $category->id }}" class="ember-text-field ember-view" type="text" value="0.00" onfocus="this.select()" wire:blur="resetEditingState">
 									<button class="user-data currency tabular-nums zero">
-										<span><bdi>{{ format_currency($category->assigned) }}</bdi></span>
+										<span><bdi>{{ format_currency($category->categoryTarget?->assigned) }}</bdi></span>
 									</button>
 								</div>
 								<!---->
