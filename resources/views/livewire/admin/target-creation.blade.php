@@ -891,9 +891,21 @@
 								<!---->
 								<div class="donut-container">
 									<div class="donut-wrapper">
-										<span class="label">
-											<span class="percent">{{ $targetData['percentage'] }}</span><span>%</span>
-										</span>
+										@if($targetData['show_label'])
+											<span class="label">
+												<span class="percent">{{ $targetData['percentage'] }}</span><span>%</span>
+											</span>
+										@endif
+										@if($targetData['show_icon'])
+											<svg class="ynab-new-icon progress-complete-icon" width="16" height="16">
+												<use href="#icon_sprite_check_circle_fill">
+													<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_check_circle_fill" fill="none" viewBox="0 0 24 24">
+														<path fill="currentColor"
+															d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24M8.7 17.1l-4.3-4.3a1.2 1.2 0 0 1 0-1.7 1.2 1.2 0 0 1 1.7 0l3.5 3.5 8.3-8.3a1 1 0 0 1 1.6 0 1.2 1.2 0 0 1 0 1.7l-9 9.1a1.2 1.2 0 0 1-1.8 0"></path>
+													</symbol>
+												</use>
+											</svg>
+										@endif
 										<div class="donut" style="{{ $targetData['clip_style'] }}">
 											<div class="left half-circle {{ $targetData['css_class'] }}" style="transform: rotate({{ $targetData['left_rotation'] }}deg);"></div>
 											<div class="right half-circle {{ $targetData['css_class'] }}" style="transform: rotate({{ $targetData['right_rotation'] }}deg);"></div>
@@ -902,28 +914,34 @@
 									</div>
 								</div>
 								<!---->
-								<div class="impact-message warning">
-									Assign
-									<span class="highlighted">{{ format_currency($targetData['to_go']) }}</span>
-									{{ $targetData['target_message'] }}
-								</div>
+								@if($targetData['show_label'])
+									<div class="impact-message warning">
+										Assign
+										<span class="highlighted">{{ format_currency($targetData['to_assing']) }}</span>
+										{{ $targetData['target_message'] }}
+									</div>
+								@else
+									<div class="impact-message positive">
+										You've met your target!
+									</div>
+								@endif
 								<!---->
 								<div class="target-breakdown">
 									<div class="target-breakdown-item">
 										<div class="target-breakdown-item-label">Amount to Assign This Month</div>
 										<div class="target-breakdown-item-value"><span
-												class="user-data currency tabular-nums positive"><bdi>$</bdi>100.00</span></div>
+												class="user-data currency tabular-nums positive"><bdi>{{ format_currency($targetData['to_amount']) }}</bdi></span></div>
 									</div>
 									<div class="target-breakdown-item">
 										<div class="target-breakdown-item-label">Assigned So Far</div>
 										<div class="target-breakdown-item-value"><span
-												class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></div>
+												class="user-data currency tabular-nums zero"><bdi>{{ format_currency($targetData['so_far']) }}</bdi></span></div>
 									</div>
 									<hr>
 									<div class="target-breakdown-item">
 										<div class="target-breakdown-item-label">To Go</div>
 										<div class="target-breakdown-item-value"><span
-												class="user-data currency tabular-nums positive"><bdi>$</bdi>100.00</span></div>
+												class="user-data currency tabular-nums positive"><bdi>{{ format_currency($targetData['to_go']) }}</bdi></span></div>
 									</div>
 								</div>
 								<button wire:click="openEditTargetForm({{ $category->categoryTarget?->id ?? '' }})" class="ynab-button secondary  "

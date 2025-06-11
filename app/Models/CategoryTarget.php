@@ -31,27 +31,21 @@
 			'available',
 		];
 		
-		// Accessor para obtener el texto legible de la unidad de repetición
-		/*public function getRepeatUnitTextAttribute(){
-			return match ($this->repeat_unit) {
-				1 => 'Month'.($this->repeat_frequency > 1 ? 's' : ''),
-				2 => 'Year'.($this->repeat_frequency > 1 ? 's' : ''),
-				default => null,
-			};
+		//Metopgo para realizar resta
+		public function getRemainingAssignAttribute(){
+			return $this->assign - $this->assigned;
+		}
+		
+		//Metodo para mostrar balance
+		/*public function getBalanceAttribute(){
+			return ($this->assign) - ($this->assigned);
 		}*/
 		
-		// Accessor para obtener la descripción completa de la repetición
-		/*public function getRepeatDescriptionAttribute(){
-			if(!$this->is_repeat_enabled){
-				return null;
-			}
-			
-			$frequency = $this->repeat_frequency;
-			$unit      = $this->repeat_unit == 1 ? 'month' : 'year';
-			$plural    = $frequency > 1 ? 's' : '';
-			
-			return "Every {$frequency} {$unit}{$plural}";
-		}*/
+		//Metodo para mostrar available
+		public function getAvailableAttribute(){
+			return $this->assigned;
+		}
+		
 		
 		// Metodo para calcular la próxima fecha de repetición
 		public function calculateNextRepeatDate(){
@@ -73,11 +67,6 @@
 			return $query->where('is_repeat_enabled',true);
 		}*/
 		
-		// Scope para obtener targets que necesitan ser recreados
-		/*public function scopeNeedingRepeat($query){
-			return $query->where('is_repeat_enabled',true)
-				->where('next_target_date','<=',now());
-		}*/
 		
 		/**
 		 * Relación uno a uno inversa con Category

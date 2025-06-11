@@ -80,12 +80,17 @@
 		public int    $cadenceUnit       = self::UNIT_MONTH;
 		
 		// === TEXT CONFIGURATION ===
-		public string  $selectedText       = 'Set aside another';
-		public string  $selectedTextCustom = 'Set aside';
-		public ?string $selectedOptionType = null;
+		public string $selectedText       = 'Set aside another';
+		public string $selectedTextCustom = 'Set aside';
+		public string $selectedOptionType = 'set-aside';
 		
 		// === DEPRECATED INDIVIDUAL PROPERTIES (mantener para compatibilidad) ===
 		public bool $isUpdateTargetMode = false; // Duplicado en $state pero m
+		
+		// Listeners
+		protected $listeners = [
+			'Table.freshTarget' => 'mount',
+		];
 		
 		/**
 		 * Inicializa el componente
@@ -98,11 +103,13 @@
 		/**
 		 * Actualiza el monto cuando cambia el valor del input
 		 */
+		
 		public function updatedAmount():void{
-			$num                  = preg_replace('/[^0-9.]/','',$this->targetAmount);
+			$num                  = filter_var($this->targetAmount,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
 			$this->currencyAmount = is_numeric($num) ? (float)$num : 0.0;
-			$this->targetAmount   = $this->currencyAmount ? format_number($this->currencyAmount) : '';
+			$this->targetAmount   = $this->currencyAmount > 0 ? format_number($this->currencyAmount) : '';
 		}
+		
 		
 		/**
 		 * Establece la frecuencia seleccionada
@@ -128,8 +135,11 @@
 			// Asignar sufijo solo para el último día
 			$suffix = $lastDay == 31 ? 'st' : 'th';
 			
-			// Retornar el día con el sufijo
-			return $lastDay.$suffix;
+			// Retorna un array con ambos valores
+			return [
+				'day_number'      => $lastDay,        // Solo el número (28, 29, 30, 31)
+				'day_with_suffix' => $lastDay.$suffix  // Número con sufijo (28th, 29th, 30th, 31st)
+			];
 		}
 		
 		/**
@@ -187,7 +197,7 @@
 			$this->setState('isCreateTarget',true);
 			$this->selectedFrequency = self::DEFAULT_FREQUENCY;
 			$this->resetForm();
-			$this->dispatch('focusInput');
+			$this->setFocused();
 		}
 		
 		public function cancelCreateTarget():void{
@@ -401,20 +411,21 @@
 		/**
 		 * Valida los datos de entrada para los objetivos
 		 */
-		private function validateTargetData():void{
-			$this->validate([
-				'currencyAmount' => ['required','numeric','min:0.01'],
-			],[
-				'currencyAmount.required' => 'El objetivo requiere una cantidad positiva.',
-				'currencyAmount.min'      => 'El objetivo requiere una cantidad positiva.',
-			]);
-		}
+		protected $rules = [
+			'currencyAmount' => ['required','numeric','min:0.01'],
+		];
+		
+		// Custom error messages
+		protected $messages = [
+			'currencyAmount.required' => 'Targets require a positive amount.',
+			'currencyAmount.min'      => 'Targets require a positive amount.',
+		];
 		
 		/**
 		 * Metodo para guardar el objetivo
 		 */
 		public function saveTarget(int $categoryId):void{
-			$this->validateTargetData();
+			$this->validate();
 			
 			try{
 				Category::findOrFail($categoryId);
@@ -423,10 +434,9 @@
 				$data = [
 					'category_id' => $categoryId,
 					'amount'      => $this->currencyAmount,
-					'option_type' => empty($this->selectedOptionType) ? 'set-aside' : $this->selectedOptionType,
+					'option_type' => $this->selectedOptionType,
 					'frequency'   => $this->selectedFrequency,
-					//'message'     => $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed',
-					'message'     => ($this->selectedOptionType === 'set-aside' || empty($this->selectedOptionType)) ? 'more needed' : 'needed',
+					'message'     => $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed',
 				];
 				
 				// Configurar datos específicos por frecuencia
@@ -438,13 +448,20 @@
 					},
 					
 					'monthly' => function() use (&$data){
-						$dayOfMonthText = $this->dayOfMonthText === 'Last Day of Month'
-							? $this->getFormattedLastDay()
-							: $this->dayOfMonthText;
+						// Inicializar con valores por defecto del select
+						$dayOfMonthText = $this->dayOfMonthText;
+						$dayOfMonth     = $this->dayOfMonth;
+						// Solo cambiar si es "Last Day of Month"
+						if($this->dayOfMonthText === 'Last Day of Month'){
+							$lastDayData    = $this->getFormattedLastDay();
+							$dayOfMonthText = $lastDayData['day_with_suffix'];
+							// Asigna el número del día para guardar en base de datos (ej: 31, 30)
+							$dayOfMonth = $lastDayData['day_number'];
+						}
 						
 						$data['assign']         = $this->currencyAmount;
 						$data['status_details'] = 'by the '.$dayOfMonthText;
-						$data['day_of_month']   = $this->dayOfMonth;
+						$data['day_of_month']   = $dayOfMonth;
 					},
 					
 					'yearly' => function() use (&$data){
@@ -501,7 +518,6 @@
 				$this->dispatch('Target.freshCategories');
 				$this->setState('isCreateTarget',false);
 				$this->setState('isSaveSuccessful',true);
-				$this->getCategoryTargetData($categoryId);
 				
 			} catch(\Exception $e){
 				\Log::error("Error al crear objetivo para categoría {$categoryId}: {$e->getMessage()}");
@@ -513,7 +529,7 @@
 		 * Metodo para actualizar el objetivo
 		 */
 		public function updateTarget(int $targetId):void{
-			$this->validateTargetData();
+			$this->validate();
 			
 			try{
 				// Buscar el objetivo existente
@@ -522,7 +538,7 @@
 				// Preparar datos básicos (sin category_id)
 				$data = [
 					'amount'         => $this->currencyAmount,
-					'option_type'    => $this->selectedOptionType ?? $target->option_type,
+					'option_type'    => $this->selectedOptionType,
 					'frequency'      => $this->selectedFrequency,
 					'message'        => $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed',
 					'filter_by_date' => $this->state['isDateFilterEnabled'],
@@ -541,13 +557,13 @@
 					},
 					
 					'monthly' => function() use (&$data){
-						$dayOfMonthText = $this->dayOfMonthText === 'Last Day of Month'
-							? $this->getFormattedLastDay()
-							: $this->dayOfMonthText;
+						// En update, usar valores actuales del formulario o mantener los de BD
+						$dayOfMonthText = $this->dayOfMonthText ? : $this->getOriginal('dayOfMonthText');
+						$dayOfMonth     = $this->dayOfMonth ? : $this->getOriginal('dayOfMonth');
 						
 						$data['assign']         = $this->currencyAmount;
 						$data['status_details'] = 'by the '.$dayOfMonthText;
-						$data['day_of_month']   = $this->dayOfMonth;
+						$data['day_of_month']   = $dayOfMonth;
 						$data['filter_by_date'] = false;
 						// Limpiar campos que no aplican para monthly
 						$data['day_of_week'] = null;
@@ -882,6 +898,10 @@
 				$cssClass = 'warning';
 			}
 			
+			// Determine visibility of label and icon
+			$showLabel = $percentage < 100;
+			$showIcon  = $percentage == 100;
+			
 			if($percentage == 0){
 				// Caso especial: 0% - mostrar mínimo visual
 				$rightRotation = 7; // Rotación mínima visible
@@ -900,7 +920,9 @@
 			}
 			
 			// Calculate amount to go
-			$toGo = max(0,$assign - $assigned);  // Usa $assign para toGo
+			$toGo     = max(0,$assign - $assigned);  // Usa $assign para toGo
+			$assigned = max(0,$assign - $assigned);  // Usa $assign para toGo
+			$soFar    = max(0,$categoryTarget->assigned ?? 0);  // Usa $assign para toGo
 			
 			// Determine target message based on frequency
 			$targetMessage = in_array($categoryTarget->frequency,['monthly','weekly'])
@@ -910,6 +932,9 @@
 			return [
 				'target_behavior' => $behaviorText,
 				'target_by_date'  => $targetDate,
+				'to_assing'       => $assigned,
+				'to_amount'       => $amount,
+				'so_far'          => $soFar,
 				'to_go'           => $toGo,
 				'target_message'  => $targetMessage,
 				'percentage'      => $percentage,
@@ -917,6 +942,8 @@
 				'right_rotation'  => $rightRotation,
 				'clip_style'      => $clipStyle,
 				'css_class'       => $cssClass,
+				'show_label'      => $showLabel,
+				'show_icon'       => $showIcon,
 			];
 		}
 		

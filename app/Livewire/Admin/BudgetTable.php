@@ -3,8 +3,8 @@
 	namespace App\Livewire\Admin;
 	
 	use App\Models\Category;
-	use App\Models\CategoryTarget;
 	use App\Models\CategoryGroup;
+	use App\Models\CategoryTarget;
 	use Livewire\Component;
 	
 	class BudgetTable extends Component
@@ -18,6 +18,7 @@
 		public $selectedCategoryId = null;
 		public $isPartial          = false;
 		public $selectedCategories = [];
+		public $assignedValues     = [];
 		public $editingCategoryId;
 		public $isMasterPartial    = false;
 		public $showProgressBar    = true;
@@ -35,7 +36,6 @@
 		
 		public function mount(){
 			$this->loadCategoryGroups();
-			
 		}
 		
 		public function loadCategoryGroups(){
@@ -53,6 +53,8 @@
 					});
 					return $group;
 				});
+			// Cargar categorías con la relación categoryTarget
+			$this->categories = Category::with('categoryTarget')->get();
 		}
 		
 		// Metodo para obtener información específica de CategoryTarget
@@ -305,6 +307,27 @@
 			$assign   = format_currency($category->categoryTarget?->assign ?? 0);
 			return "$assigned Assign $assign more to fund your $assign monthly target.";
 		}
+		
+		/**
+		 *  Metodo pata guardar valor asiognado a la categoria
+		 */
+		public function updateAssignedValue($value,$categoryId){
+			//	$cleanValue = (float)$value;
+			$cleanValue = filter_var($value,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+			$category   = Category::find($categoryId);
+			
+			if($category && $category->categoryTarget){
+				$category->categoryTarget->update(['assigned' => $cleanValue]);
+				
+				// En lugar de refresh(), actualiza la propiedad local
+				$this->assignedValues[$categoryId] = $cleanValue;
+			}
+			
+			//Actualiza vista create-target
+			$this->dispatch('Table.freshTarget');
+			
+		}
+		
 		
 		public function render(){
 			return view('livewire.admin.budget-table');

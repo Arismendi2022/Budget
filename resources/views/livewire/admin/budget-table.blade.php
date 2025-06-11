@@ -1138,7 +1138,8 @@
 											</button>
 											<div class="budget-table-cell-goal-gap"></div>
 											<div class="budget-table-cell-goal-status">
-												<span class="highlighted-message-part"> {{ $category->categoryTarget?->assign != 0.00 ? format_currency($category->categoryTarget?->assign) : '' }}</span>
+												<span class="highlighted-message-part"> {{ $category->categoryTarget?->remaining_assign != 0.00
+                          ? format_currency($category->categoryTarget->remaining_assign): '' }}</span>
 												{{ $category->categoryTarget?->message }}
 											</div>
 										</div>
@@ -1171,7 +1172,9 @@
 									</svg>
 								</button>
 								<div class="input-wrapper">
-									<input id="dataCurrency-{{ $category->id }}" class="ember-text-field ember-view" type="text" value="0.00" onfocus="this.select()" wire:blur="resetEditingState">
+									<input id="dataCurrency-{{ $category->id }}" class="ember-text-field ember-view" value="{{ format_number($category->categoryTarget?->assigned) }}" type="text"
+										onfocus="this.select()" wire:change="updateAssignedValue($event.target.value, {{ $category->id }})" wire:blur="resetEditingState"
+										onkeydown="if(event.key==='Enter') this.blur()">
 									<button class="user-data currency tabular-nums zero">
 										<span><bdi>{{ format_currency($category->categoryTarget?->assigned) }}</bdi></span>
 									</button>
