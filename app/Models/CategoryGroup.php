@@ -12,6 +12,26 @@
 		
 		protected $fillable = ['budget_id','name','hidden','ordering'];
 		
+		// Accessors para los totales
+		public function getTotalAssignedAttribute(){
+			return $this->categories->sum(function($category){
+				return $category->categoryTarget?->assigned ?? 0;
+			});
+		}
+		
+		public function getTotalActivityAttribute(){
+			return $this->categories->sum(function($category){
+				return $category->categoryTarget?->activity ?? 0;
+			});
+		}
+		
+		public function getTotalAvailableAttribute(){
+			return $this->categories->sum(function($category){
+				return $category->categoryTarget?->assigned ?? 0;
+			});
+		}
+		
+		
 		/**
 		 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 		 */

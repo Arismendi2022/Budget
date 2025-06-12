@@ -74,5 +74,19 @@
 		}
 	}
 	
+	// Helper functions
+	if(!function_exists('sanitize_float')){
+		/**
+		 * Sanitiza un número flotante usando NumberSanitizer helper.
+		 *
+		 * @param mixed $value
+		 * @param float $default
+		 * @return float
+		 */
+		function sanitize_float($value,float $default = 0.0):float{
+			return \App\Helpers\SanitizeHelper::sanitizeFloat($value,$default);
+		}
+	}
+	
 
 	

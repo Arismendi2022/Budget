@@ -110,7 +110,6 @@
 			$this->targetAmount   = $this->currencyAmount > 0 ? format_number($this->currencyAmount) : '';
 		}
 		
-		
 		/**
 		 * Establece la frecuencia seleccionada
 		 */
@@ -886,6 +885,9 @@
 			$assigned   = $categoryTarget->assigned ?? 0;
 			$percentage = $amount > 0 ? round(($assigned / $amount) * 100) : 0;
 			
+			// LIMITAR EL PORCENTAJE A UN MÁXIMO DE 100%
+			$percentage = min($percentage,100);
+			
 			// Calculate rotation angles for donut chart
 			$totalAngle = ($percentage / 100) * 360;
 			
@@ -948,8 +950,19 @@
 		}
 		
 		/**
+		 * Get CSS class based on budget assignment status.
+		 */
+		public function getStatusClassProperty(){
+			$assigned = $this->category->categoryTarget?->assigned ?? 0;
+			$assign   = $this->category->categoryTarget?->assign ?? 0;
+			
+			if($assigned == 0) return 'zero';
+			if($assigned >= $assign) return 'positive';
+			return 'cautious goal';
+		}
+		
+		/**
 		 * Propiedad para mostrar uel modal para editar categoriasx
-		 *
 		 */
 		public function openCategoryEditModal($categoryId):void{
 			dd('En construcción...'." Id: ".$categoryId);

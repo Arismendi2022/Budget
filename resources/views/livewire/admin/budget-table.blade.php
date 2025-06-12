@@ -1172,8 +1172,8 @@
 									</svg>
 								</button>
 								<div class="input-wrapper">
-									<input id="dataCurrency-{{ $category->id }}" class="ember-text-field ember-view" value="{{ format_number($category->categoryTarget?->assigned) }}" type="text"
-										onfocus="this.select()" wire:change="updateAssignedValue($event.target.value, {{ $category->id }})" wire:blur="resetEditingState"
+									<input id="dataCurrency-{{ $category->id }}" class="ember-text-field ember-view" value=" {{ format_number($category->categoryTarget?->assigned) }} " type="text"
+										onfocus="this.select()" wire:change=" updateAssignedValue($event.target.value, {{ $category->id }})" wire:blur="resetEditingState"
 										onkeydown="if(event.key==='Enter') this.blur()">
 									<button class="user-data currency tabular-nums zero">
 										<span><bdi>{{ format_currency($category->categoryTarget?->assigned) }}</bdi></span>

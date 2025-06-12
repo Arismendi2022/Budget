@@ -39,20 +39,8 @@
 		}
 		
 		public function loadCategoryGroups(){
-			$this->groups = CategoryGroup::with('categories.categoryTarget')
-				->get()
-				->map(function($group){
-					$group->total_assigned  = $group->categories->sum(function($category){
-						return $category->categoryTarget?->assigned ?? 0;
-					});
-					$group->total_activity  = $group->categories->sum(function($category){
-						return $category->categoryTarget?->activity ?? 0;
-					});
-					$group->total_available = $group->categories->sum(function($category){
-						return $category->categoryTarget?->available ?? 0;
-					});
-					return $group;
-				});
+			
+			$this->groups = CategoryGroup::with('categories.categoryTarget')->get();
 			// Cargar categorías con la relación categoryTarget
 			$this->categories = Category::with('categoryTarget')->get();
 		}
@@ -312,8 +300,8 @@
 		 *  Metodo pata guardar valor asiognado a la categoria
 		 */
 		public function updateAssignedValue($value,$categoryId){
-			//	$cleanValue = (float)$value;
-			$cleanValue = filter_var($value,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+			
+			$cleanValue = sanitize_float($value);
 			$category   = Category::find($categoryId);
 			
 			if($category && $category->categoryTarget){
@@ -327,7 +315,6 @@
 			$this->dispatch('Table.freshTarget');
 			
 		}
-		
 		
 		public function render(){
 			return view('livewire.admin.budget-table');

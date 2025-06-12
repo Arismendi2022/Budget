@@ -208,7 +208,7 @@
 								<!---->
 								<use href="#icon_sprite_chevron_down"></use>
 							</svg>
-							<span class="ynab-new-budget-available-number js-budget-available-number user-data {{ $category->categoryTarget?->amount > 0 ? 'cautious goal' : 'zero' }}" title=""
+							<span class="ynab-new-budget-available-number js-budget-available-number user-data {{ $this->statusClass }}" title=""
 								aria-disabled="true" disabled="" type="button">
 								@if($category->categoryTarget?->amount > 0)
 									<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress " xmlns="http://www.w3.org/2000/svg">
@@ -221,7 +221,7 @@
 									<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-ember116)"></circle>
 								</svg>
 								@endif
-								<span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>0.00</span>
+								<span class="user-data currency tabular-nums zero"><bdi>{{ format_currency($category->categoryTarget?->assigned) }}</bdi></span>
 							</span>
 						</h2>
 					</button>
@@ -235,7 +235,9 @@
 								<div>
 									Assigned This Month
 								</div>
-								<div class="user-data" title="{{ currency() }}0.00"><span class="user-data currency tabular-nums zero"><bdi>{{ currency() }}</bdi>0.00</span></div>
+								<div class="user-data" title="{{ format_currency($category->categoryTarget?->assigned) }}"><span class="user-data currency tabular-nums positive">{{$category->categoryTarget?->assigned > 0 ? '+' : '' }}<bdi>{{
+								format_currency($category->categoryTarget?->assigned) }}</bdi></span>
+								</div>
 							</div>
 							<div tabindex="0">
 								<div>Cash Spending</div>
@@ -917,7 +919,9 @@
 								@if($targetData['show_label'])
 									<div class="impact-message warning">
 										Assign
-										<span class="highlighted">{{ format_currency($targetData['to_assing']) }}</span>
+										<span class="highlighted">{{ format_currency($targetData['to_assing']) }}
+											{{ $category->categoryTarget->assigned > 0 ? ' more' : '' }}
+										</span>
 										{{ $targetData['target_message'] }}
 									</div>
 								@else
