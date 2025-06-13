@@ -1172,8 +1172,10 @@
 									</svg>
 								</button>
 								<div class="input-wrapper">
-									<input id="dataCurrency-{{ $category->id }}" class="ember-text-field ember-view" value=" {{ format_number($category->categoryTarget?->assigned) }} " type="text"
-										onfocus="this.select()" wire:change=" updateAssignedValue($event.target.value, {{ $category->id }})" wire:blur="resetEditingState"
+									<input id="dataCurrency-{{ $category->id }}" class="ember-text-field ember-view"
+										value=" {{ format_number($category->categoryTarget?->claenValue) }}" type="text" onfocus="this.select()"
+										wire:change="updateAssignedValue($event.target.value, {{ $category->id }})"
+										wire:blur="resetEditingState"
 										onkeydown="if(event.key==='Enter') this.blur()">
 									<button class="user-data currency tabular-nums zero">
 										<span><bdi>{{ format_currency($category->categoryTarget?->assigned) }}</bdi></span>
@@ -1210,7 +1212,9 @@
 						</div>
 						<div class="budget-table-cell-available budget-table-row-li" role="cell" aria-colindex="6">
 							<!---->
-							<button class="ynab-new-budget-available-number js-budget-available-number user-data {{ $category->categoryTarget?->amount > 0 ? 'cautious goal' : 'zero' }}"
+							<button class="ynab-new-budget-available-number js-budget-available-number user-data
+						  	{{ ($category->categoryTarget?->assign ?? 0) == 0 ? 'zero' :
+							  (($category->categoryTarget?->assigned ?? 0) >= ($category->categoryTarget?->assign ?? 0) ? 'positive' : 'cautious goal') }}"
 								title="{{ $this->getCategoryTitle($category) }}" aria-disabled="true" disabled="" type="button">
 								@if ($category->categoryTarget?->amount > 0)
 									<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress zero" xmlns="http://www.w3.org/2000/svg">

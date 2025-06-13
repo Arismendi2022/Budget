@@ -103,11 +103,10 @@
 		/**
 		 * Actualiza el monto cuando cambia el valor del input
 		 */
-		
 		public function updatedAmount():void{
-			$num                  = filter_var($this->targetAmount,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
-			$this->currencyAmount = is_numeric($num) ? (float)$num : 0.0;
-			$this->targetAmount   = $this->currencyAmount > 0 ? format_number($this->currencyAmount) : '';
+			$this->currencyAmount = max(0.0,sanitize_float($this->targetAmount,0.0));
+			// Formateo condicional más limpio
+			$this->targetAmount = $this->currencyAmount > 0 ? format_number($this->currencyAmount) : '';
 		}
 		
 		/**
@@ -885,7 +884,7 @@
 			$assigned   = $categoryTarget->assigned ?? 0;
 			$percentage = $amount > 0 ? round(($assigned / $amount) * 100) : 0;
 			
-			// LIMITAR EL PORCENTAJE A UN MÁXIMO DE 100%
+			// Asegurar que el porcentaje no exceda 100%
 			$percentage = min($percentage,100);
 			
 			// Calculate rotation angles for donut chart
