@@ -880,9 +880,10 @@
 			};
 			
 			// Calculate progress percentage
-			$assign     = $categoryTarget->assign ?? 0;
-			$assigned   = $categoryTarget->assigned ?? 0;
-			$percentage = $amount > 0 ? round(($assigned / $amount) * 100) : 0;
+			$assign   = $categoryTarget->assign ?? 0;
+			$assigned = $categoryTarget->assigned ?? 0;
+			
+			$percentage = $amount > 0 ? round(($assigned / $assign) * 100) : 0; // crear condicional segun frequency  sobretodo yearly  && custom.
 			
 			// Asegurar que el porcentaje no exceda 100%
 			$percentage = min($percentage,100);

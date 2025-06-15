@@ -1138,17 +1138,17 @@
 											</button>
 											<div class="budget-table-cell-goal-gap"></div>
 											<div class="budget-table-cell-goal-status">
-												<span class="highlighted-message-part"> {{ $category->categoryTarget?->remaining_assign != 0.00
-                          ? format_currency($category->categoryTarget->remaining_assign): '' }}</span>
-												{{ $category->categoryTarget?->message }}
+												<span class="highlighted-message-part">{{ $category->status_display['remaining_assign'] }}</span>
+												{{ $category->status_display['message'] }}
 											</div>
 										</div>
-										<div class="budget-table-cell-goal-status-details"> {{ $category->categoryTarget?->status_details }}</div>
+										<div class="budget-table-cell-goal-status-details">{{ $category->status_display['status_details'] }}</div>
 									</div>
 									<figure class="ynab-new-budget-bar-v2" role="group">
-										<div class="ynab-new-budget-bar-v2-section ynab-new-budget-bar-v2-section-funded"
-											style="flex-basis: 100%;">
-											<!---->
+										<div class="ynab-new-budget-bar-v2-section ynab-new-budget-bar-v2-section-funded" style="flex-basis: 100%;">
+											@if($category->categoryTarget?->assigned > 0)
+												<div class="ynab-new-budget-bar-v2-segment is-fully-funded" style="width: 30%;"></div>
+											@endif
 										</div>
 									</figure>
 								</div>
@@ -1173,7 +1173,7 @@
 								</button>
 								<div class="input-wrapper">
 									<input id="dataCurrency-{{ $category->id }}" class="ember-text-field ember-view"
-										value=" {{ format_number($category->categoryTarget?->claenValue) }}" type="text" onfocus="this.select()"
+										value=" {{ format_number($category->categoryTarget?->cleanValue) }}" type="text" onfocus="this.select()"
 										wire:change="updateAssignedValue($event.target.value, {{ $category->id }})"
 										wire:blur="resetEditingState"
 										onkeydown="if(event.key==='Enter') this.blur()">
@@ -1212,9 +1212,7 @@
 						</div>
 						<div class="budget-table-cell-available budget-table-row-li" role="cell" aria-colindex="6">
 							<!---->
-							<button class="ynab-new-budget-available-number js-budget-available-number user-data
-						  	{{ ($category->categoryTarget?->assign ?? 0) == 0 ? 'zero' :
-							  (($category->categoryTarget?->assigned ?? 0) >= ($category->categoryTarget?->assign ?? 0) ? 'positive' : 'cautious goal') }}"
+							<button class="ynab-new-budget-available-number js-budget-available-number user-data {{ $category->status_class }}"
 								title="{{ $this->getCategoryTitle($category) }}" aria-disabled="true" disabled="" type="button">
 								@if ($category->categoryTarget?->amount > 0)
 									<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress zero" xmlns="http://www.w3.org/2000/svg">

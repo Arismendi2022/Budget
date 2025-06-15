@@ -297,17 +297,6 @@
 		/**
 		 *  Metodo pata guardar valor asiognado a la categoria
 		 */
-		public function updatedAssignedValues($value,$key){
-			// Limpiar y formatear el valor
-			$cleanValue = max(0.0,sanitize_float($value,0.0));
-			
-			// Actualizar el array con el valor limpio formateado
-			$this->assignedValues[$key] = $cleanValue > 0 ? format_number($cleanValue) : '';
-		}
-		
-		/**
-		 *  Metodo pata guardar valor asiognado a la categoria
-		 */
 		public function updateAssignedValue($value,$categoryId){
 			
 			$cleanValue = sanitize_float($value);
@@ -319,12 +308,15 @@
 				// En lugar de refresh(), actualiza la propiedad local
 				$this->assignedValues[$categoryId] = $cleanValue;
 			}
-			// Actualizar el valor
-			$category->categoryTarget->update(['assigned' => $cleanValue]);
 			
 			//Actualiza vista create-target
 			$this->dispatch('Table.freshTarget');
 		}
+		
+		/**
+		 * progress bar
+		 */
+		
 		
 		public function render(){
 			return view('livewire.admin.budget-table');

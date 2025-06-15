@@ -62,12 +62,6 @@
 			}
 		}
 		
-		// Scope para obtener targets con repetición habilitada
-		/*public function scopeWithRepeatEnabled($query){
-			return $query->where('is_repeat_enabled',true);
-		}*/
-		
-		
 		/**
 		 * Relación uno a uno inversa con Category
 		 */
