@@ -21,7 +21,7 @@
 		 */
 		public function getStatusClassAttribute(){
 			$assigned = $this->categoryTarget?->assigned ?? 0;
-			$assign   = $this->categoryTarget?->assign ?? 0;
+			$assign   = $this->categoryTarget?->monthly_target ?? 0;
 			
 			if($assign == 0) return 'zero';
 			if($assigned >= $assign) return 'positive';
@@ -46,7 +46,7 @@
 			$target = $this->categoryTarget;
 			
 			// Si está completamente financiado
-			if(($target->assigned ?? 0) >= ($target->assign ?? 0) && ($target->assign ?? 0) > 0){
+			if(($target->assigned ?? 0) >= ($target->monthly_target ?? 0) && ($target->monthly_target ?? 0) > 0){
 				return [
 					'message'          => '',
 					'status_details'   => 'Funded',

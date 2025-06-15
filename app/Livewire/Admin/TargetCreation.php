@@ -345,7 +345,7 @@
 				$this->targetAmount      = $categoryTarget->amount;
 				$this->currencyAmount    = $categoryTarget->amount;
 				$this->selectedText      = $textMaps['default'][$categoryTarget->option_type];
-				$this->selectedFrequency = $categoryTarget->frequency;
+				$this->selectedFrequency = $categoryTarget->period_type;
 				
 				// Configuración específica por frecuencia usando array asociativo
 				$frequencyConfig = [
@@ -393,8 +393,8 @@
 				];
 				
 				// Ejecutar configuración específica si existe
-				if(isset($frequencyConfig[$categoryTarget->frequency])){
-					$frequencyConfig[$categoryTarget->frequency]();
+				if(isset($frequencyConfig[$categoryTarget->period_type])){
+					$frequencyConfig[$categoryTarget->period_type]();
 				}
 				
 				$this->setFocused();
@@ -433,14 +433,14 @@
 					'category_id' => $categoryId,
 					'amount'      => $this->currencyAmount,
 					'option_type' => $this->selectedOptionType,
-					'frequency'   => $this->selectedFrequency,
+					'period_type'   => $this->selectedFrequency,
 					'message'     => $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed',
 				];
 				
 				// Configurar datos específicos por frecuencia
 				$frequencyHandlers = [
 					'weekly' => function() use (&$data){
-						$data['assign']         = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->dayOfWeek);
+						$data['monthly_target']         = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->dayOfWeek);
 						$data['status_details'] = 'this month';
 						$data['day_of_week']    = $this->dayOfWeek;
 					},
@@ -457,26 +457,26 @@
 							$dayOfMonth = $lastDayData['day_number'];
 						}
 						
-						$data['assign']         = $this->currencyAmount;
+						$data['monthly_target']         = $this->currencyAmount;
 						$data['status_details'] = 'by the '.$dayOfMonthText;
 						$data['day_of_month']   = $dayOfMonth;
 					},
 					
 					'yearly' => function() use (&$data){
-						$data['assign']         = $this->calculateMonthlySavings();
+						$data['monthly_target']         = $this->calculateMonthlySavings();
 						$data['status_details'] = 'this month';
 						$data['target_date']    = $this->targetFinishDate;
 					},
 					
 					'custom' => function() use (&$data){
 						if($this->state['isDateFilterEnabled']){
-							$data['assign']         = $this->calculateMonthlyGoal();
+							$data['monthly_target']         = $this->calculateMonthlyGoal();
 							$data['status_details'] = 'this month';
 							$data['target_date']    = $this->endDateTarget;
 							$data['filter_by_date'] = $this->state['isDateFilterEnabled'];
 						}else{
 							$isHaveType     = $this->selectedOptionType === 'have';
-							$data['assign'] = $isHaveType
+							$data['monthly_target'] = $isHaveType
 								? $this->currencyAmount
 								: $this->calculateMonthlySavings();
 							
@@ -537,7 +537,7 @@
 				$data = [
 					'amount'         => $this->currencyAmount,
 					'option_type'    => $this->selectedOptionType,
-					'frequency'      => $this->selectedFrequency,
+					'period_type'      => $this->selectedFrequency,
 					'message'        => $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed',
 					'filter_by_date' => $this->state['isDateFilterEnabled'],
 				];
@@ -545,7 +545,7 @@
 				// Configurar datos específicos por frecuencia
 				$frequencyHandlers = [
 					'weekly' => function() use (&$data){
-						$data['assign']         = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->dayOfWeek);
+						$data['monthly_target']         = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->dayOfWeek);
 						$data['status_details'] = 'this month';
 						$data['day_of_week']    = $this->dayOfWeek;
 						$data['filter_by_date'] = false;
@@ -559,7 +559,7 @@
 						$dayOfMonthText = $this->dayOfMonthText ? : $this->getOriginal('dayOfMonthText');
 						$dayOfMonth     = $this->dayOfMonth ? : $this->getOriginal('dayOfMonth');
 						
-						$data['assign']         = $this->currencyAmount;
+						$data['monthly_target']         = $this->currencyAmount;
 						$data['status_details'] = 'by the '.$dayOfMonthText;
 						$data['day_of_month']   = $dayOfMonth;
 						$data['filter_by_date'] = false;
@@ -569,7 +569,7 @@
 					},
 					
 					'yearly' => function() use (&$data){
-						$data['assign']         = $this->calculateMonthlySavings();
+						$data['monthly_target']         = $this->calculateMonthlySavings();
 						$data['status_details'] = 'this month';
 						$data['target_date']    = $this->targetFinishDate;
 						$data['filter_by_date'] = false;
@@ -580,7 +580,7 @@
 					
 					'custom' => function() use (&$data){
 						if($this->state['isDateFilterEnabled']){
-							$data['assign']         = $this->calculateMonthlyGoal();
+							$data['monthly_target']         = $this->calculateMonthlyGoal();
 							$data['status_details'] = 'this month';
 							$data['target_date']    = $this->endDateTarget;
 							$data['filter_by_date'] = true; // Habilitado cuando se usa filtro de fecha
@@ -590,7 +590,7 @@
 						}else{
 							$isHaveType = $this->selectedOptionType === 'have';
 							
-							$data['assign'] = $isHaveType
+							$data['monthly_target'] = $isHaveType
 								? $this->currencyAmount
 								: $this->calculateMonthlySavings();
 							
@@ -812,15 +812,15 @@
 		}
 		
 		/**
-		 * Handles different frequency types (custom, weekly, monthly, yearly) and date formatting
+		 * Handles different period_type types (custom, weekly, monthly, yearly) and date formatting
 		 */
 		public function getCategoryTargetData($targetId){
 			$categoryTarget = CategoryTarget::find($targetId);
 			
 			$amount = $categoryTarget->amount ?? 0;
 			
-			// Determine frequency text
-			if($categoryTarget->frequency === 'custom'){
+			// Determine period_type text
+			if($categoryTarget->period_type === 'custom'){
 				$frequency = 'Each Year'; // Default for custom
 				if($categoryTarget->repeat_frequency && $categoryTarget->repeat_unit){
 					if($categoryTarget->repeat_frequency == 1){
@@ -841,7 +841,7 @@
 					}
 				}
 			}else{
-				$frequency = match ($categoryTarget->frequency) {
+				$frequency = match ($categoryTarget->period_type) {
 					'monthly' => 'Each Month',
 					'weekly' => 'Each Week',
 					'yearly' => 'Each Year',
@@ -851,10 +851,10 @@
 			
 			// Determine target date
 			$targetDate = 'Eventually';
-			if($categoryTarget->frequency === 'custom' && $categoryTarget->target_date){
+			if($categoryTarget->period_type === 'custom' && $categoryTarget->target_date){
 				$isFilterByDate = $categoryTarget->filter_by_date == 1 || $categoryTarget->filter_by_date === true;
 				$targetDate     = "By ".date($isFilterByDate ? 'M Y' : 'M j Y',strtotime($categoryTarget->target_date));
-			}else if($categoryTarget->frequency === 'weekly' && $categoryTarget->day_of_week){
+			}else if($categoryTarget->period_type === 'weekly' && $categoryTarget->day_of_week){
 				$days       = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 				$targetDate = "By ".$days[(int)$categoryTarget->day_of_week];
 			}else if($categoryTarget->day_of_month){
@@ -880,10 +880,10 @@
 			};
 			
 			// Calculate progress percentage
-			$assign   = $categoryTarget->assign ?? 0;
+			$assign   = $categoryTarget->monthly_target ?? 0;
 			$assigned = $categoryTarget->assigned ?? 0;
 			
-			$percentage = $amount > 0 ? round(($assigned / $assign) * 100) : 0; // crear condicional segun frequency  sobretodo yearly  && custom.
+			$percentage = $amount > 0 ? round(($assigned / $assign) * 100) : 0; // crear condicional segun period_type  sobretodo yearly  && custom.
 			
 			// Asegurar que el porcentaje no exceda 100%
 			$percentage = min($percentage,100);
@@ -926,8 +926,8 @@
 			$assigned = max(0,$assign - $assigned);  // Usa $assign para toGo
 			$soFar    = max(0,$categoryTarget->assigned ?? 0);  // Usa $assign para toGo
 			
-			// Determine target message based on frequency
-			$targetMessage = in_array($categoryTarget->frequency,['monthly','weekly'])
+			// Determine target message based on period_type
+			$targetMessage = in_array($categoryTarget->period_type,['monthly','weekly'])
 				? 'to meet your target'
 				: 'this month to stay on track';
 			
@@ -954,7 +954,7 @@
 		 */
 		public function getStatusClassProperty(){
 			$assigned = $this->category->categoryTarget?->assigned ?? 0;
-			$assign   = $this->category->categoryTarget?->assign ?? 0;
+			$assign   = $this->category->categoryTarget?->monthly_target ?? 0;
 			
 			if($assigned == 0) return 'zero';
 			if($assigned >= $assign) return 'positive';

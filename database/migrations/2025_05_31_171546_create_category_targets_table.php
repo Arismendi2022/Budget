@@ -13,7 +13,7 @@
 				$table->id();
 				$table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
 				$table->decimal('amount',10,2)->default(0.00);
-				$table->decimal('assign',10,2)->default(0.00);
+				$table->decimal('monthly_target',10,2)->default(0.00);
 				$table->string('message')->nullable();
 				$table->string('status_details')->nullable();
 				$table->string('day_of_week')->nullable();
@@ -24,12 +24,11 @@
 				$table->tinyInteger('repeat_unit')->nullable();
 				$table->date('next_target_date')->nullable();
 				$table->string('option_type')->nullable();
-				$table->string('frequency')->nullable();
+				$table->string('period_type')->nullable();
 				$table->boolean('filter_by_date')->default(false);
 				$table->boolean('is_snoozed')->default(false);
 				$table->decimal('assigned',10,2)->default(0.00);
 				$table->decimal('activity',10,2)->default(0.00);
-				$table->decimal('available',10,2)->default(0.00);
 				$table->timestamps();
 			});
 		}

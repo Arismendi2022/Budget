@@ -290,7 +290,7 @@
 		// OPCIÓN 3: Una sola línea con operador ternario
 		public function getCategoryTitle($category){
 			$assigned = format_currency($category->categoryTarget?->assigned ?? 0);
-			$assign   = format_currency($category->categoryTarget?->assign ?? 0);
+			$assign   = format_currency($category->categoryTarget?->monthly_target ?? 0);
 			return "$assigned Assign $assign more to fund your $assign monthly target.";
 		}
 		

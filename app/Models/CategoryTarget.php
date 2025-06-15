@@ -12,7 +12,7 @@
 		protected $fillable = [
 			'category_id',
 			'amount',
-			'assign',
+			'monthly_target',
 			'message',
 			'status_details',
 			'day_of_week',
@@ -23,22 +23,21 @@
 			'repeat_unit',
 			'next_target_date',
 			'option_type',
-			'frequency',
+			'period_type',
 			'filter_by_date',
 			'is_snoozed',
 			'assigned',
 			'activity',
-			'available',
 		];
 		
 		//Metopgo para realizar resta
 		public function getRemainingAssignAttribute(){
-			return $this->assign - $this->assigned;
+			return $this->monthly_target - $this->assigned;
 		}
 		
 		//Metodo para mostrar balance
 		/*public function getBalanceAttribute(){
-			return ($this->assign) - ($this->assigned);
+			return ($this->monthly_target) - ($this->assigned);
 		}*/
 		
 		//Metodo para mostrar available
