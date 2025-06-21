@@ -16,6 +16,7 @@
 			= [
 				'uuid',
 				'budget_id',
+				'category_id',
 				'nickname',
 				'notes',
 				'account_group',
@@ -32,14 +33,6 @@
 			'payoff_date' => 'date',
 		];
 		
-		/**
-		 * Obtiene el presupuesto al que pertenece esta cuenta
-		 */
-		public function budget():BelongsTo{
-			return $this->belongsTo(Budget::class);
-		}
-		
-		// Boot method para manejar eventos del modelo
 		protected static function boot(){
 			parent::boot();
 			
@@ -48,6 +41,20 @@
 				// Generar y asignar un UUID
 				$model->uuid = Uuid::uuid4()->toString();
 			});
+		}
+		
+		// Boot method para manejar eventos del modelo
+
+		/**
+		 * Obtiene el presupuesto al que pertenece esta cuenta
+		 */
+		public function budget():BelongsTo{
+			return $this->belongsTo(Budget::class);
+		}
+		
+		// Relacion con Category
+		public function category(){
+			return $this->belongsTo(Category::class);
 		}
 		
 		public function setNickNameAttribute($value){

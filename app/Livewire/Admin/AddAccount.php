@@ -5,12 +5,16 @@
 	use App\Helpers\AccountHelper;
 	use App\Models\Budget;
 	use App\Models\BudgetAccount;
+	use App\Models\Category;
 	use App\Models\CategoryGroup;
 	use Illuminate\Support\Facades\DB;
 	use Livewire\Component;
 	
 	class AddAccount extends Component
 	{
+		const ACCOUNT_TYPES        = ['CreditCard','LineOfCredit'];
+		const LOAN_CATEGORY_GROUPS = ['Mortgages','Loans'];
+		const CATEGORY_MAP         = ['Cash Accounts' => 'Cash','Credit Accounts' => 'Credit','Tracking Accounts' => 'Tracking','Mortgages and Loans' => 'Loans',];
 		public $isOpenAccountModal    = false;
 		public $nickname,$balance,$interest,$payment;
 		public $currentSection        = 1;
@@ -24,14 +28,66 @@
 		public $categoriesByGroup,$accountId;
 		public $budgetAccounts,$activeBudgetId,$dataAccountType;
 		public $accountGroups,$selectedDataAccountType;
+		
+		// Constantes para los tipos de categoría
 		public $newMasterCategory     = '';
 		public $activeAccountId;
 		public $BudgetAccount;
+		protected $listeners = [
+			'numberFormatUpdated' => '$refresh'  //Escucha el evento 'numberFormatUpdated'
+		];
 		
-		// Constantes para los tipos de categoría
-		const ACCOUNT_TYPES        = ['CreditCard','LineOfCredit'];
-		const LOAN_CATEGORY_GROUPS = ['Mortgages','Loans'];
-		const CATEGORY_MAP         = ['Cash Accounts' => 'Cash','Credit Accounts' => 'Credit','Tracking Accounts' => 'Tracking','Mortgages and Loans' => 'Loans',];
+		// Registrar el listener para el evento `reorderAccounts`
+
+public function mount(){
+			$activeBudget         = Budget::where('user_id',auth()->id())->where('is_active',true)->first();
+			$this->activeBudgetId = $activeBudget->id;
+			
+			// Inicializa el ID de la cuenta activa desde la ruta o con el valor predeterminado
+			$this->activeAccountId = request()->route('id');
+			
+			$this->updateAccountLists();
+			$this->accountTypes      = AccountHelper::getAccountTypes();
+			$this->categoriesByGroup = CategoryGroup::with('categories')->get();
+			
+		}
+		
+		private function updateAccountLists(){
+			$this->budgetAccounts = BudgetAccount::where('budget_id',$this->activeBudgetId)
+				->orderBy('account_group')
+				->orderBy('ordering')
+				->get();
+			
+			// Agrupar las cuentas por grupo
+			$this->accountGroups = $this->budgetAccounts->groupBy('account_group')->map(function($budgetAccounts){
+				$groupType = $budgetAccounts->first()->account_group;
+				
+				return (object)[
+					'type'          => $groupType,
+					'accounts'      => $budgetAccounts->map(function($account){
+						return (object)[
+							'id'          => $account->id,
+							'budget_id'   => $this->activeBudgetId,
+							'nickname'    => $account->nickname,
+							'balance'     => $account->balance,
+							'is_selected' => false
+						];
+					}),
+					'total_balance' => $budgetAccounts->sum('balance')
+				];
+			});
+			
+			// Inicializa el estado de los grupos dinámicamente
+			foreach($this->accountGroups as $group){
+				$this->showGroups[$group->type] = true; // Inicializa cada grupo como expandido
+			}
+			
+		} //End Method
+		
+		public function addAccountModal(){
+			$this->resetFields();
+			$this->showAccountModalForm();
+		}
 		
 		/** Limpia todos los campos */
 		public function resetFields(){
@@ -47,37 +103,10 @@
 			$this->selectedOption          = 'existing';
 		}
 		
-		// Registrar el listener para el evento `reorderAccounts`
-		protected $listeners = [
-			'numberFormatUpdated' => '$refresh'  //Escucha el evento 'numberFormatUpdated'
-		];
-		
-		public function mount(){
-			$activeBudget         = Budget::where('user_id',auth()->id())->where('is_active',true)->first();
-			$this->activeBudgetId = $activeBudget->id;
-			
-			// Inicializa el ID de la cuenta activa desde la ruta o con el valor predeterminado
-			$this->activeAccountId = request()->route('id');
-			
-			$this->updateAccountLists();
-			$this->accountTypes      = AccountHelper::getAccountTypes();
-			$this->categoriesByGroup = CategoryGroup::with('categories')->get();
-			
-		} //End Method
-		
-		public function addAccountModal(){
-			$this->resetFields();
-			$this->showAccountModalForm();
-		}
-		
 		public function showAccountModalForm(){
 			$this->resetErrorBag();
 			$this->currentSection     = 1;
 			$this->isOpenAccountModal = true;
-		}
-		
-		public function hideAccountModalForm(){
-			$this->isOpenAccountModal = false;
 		}
 		
 		public function showLinkedModal(){
@@ -122,14 +151,8 @@
 			// Lógica adicional si es necesario
 		}
 		
-		private function validateNickname(){
-			$this->validate([
-				'nickname' => 'required|unique:budget_accounts,nickname',
-			],[
-				'nickname.required' => 'Se requiere el nombre de la cuenta.',
-				'nickname.unique'   => 'Este nombre de cuenta ya existe.',
-			]);
-			
+		public function saveBudgetTracking(){
+			$this->saveAccount(false);
 		}
 		
 		private function saveAccount($isLoan = false){
@@ -158,6 +181,12 @@
 						$data['payoff_date'] = $payoffDate;
 					}
 					
+					// Verificar si es CreditCard o LineOfCredit para crear grupo y categoría
+					if(in_array($this->selectedDataAccountType,['CreditCard','LineOfCredit'])){
+						$categoryId          = $this->createCreditCardGroupAndCategory();
+						$data['category_id'] = $categoryId;
+					}
+					
 					// Crear la cuenta y almacenarla en una variable
 					$account = BudgetAccount::create($data);
 					
@@ -172,12 +201,14 @@
 			}
 		} //End Method
 		
-		public function saveBudgetTracking(){
-			$this->saveAccount(false);
-		}
-		
-		public function saveMortgageLoans(){
-			$this->saveAccount(true);
+		private function validateNickname(){
+			$this->validate([
+				'nickname' => 'required|unique:budget_accounts,nickname',
+			],[
+				'nickname.required' => 'Se requiere el nombre de la cuenta.',
+				'nickname.unique'   => 'Este nombre de cuenta ya existe.',
+			]);
+			
 		}
 		
 		private function calculateBalance(){
@@ -187,44 +218,60 @@
 			return $isNegativeBalance ? abs($balance) * -1 : $balance;
 		}
 		
+private function calculatePayoffDate($balance,$interestRate,$minimumPayment){
+			$interestRateDecimal = $interestRate / 100;
+			$months              = 0;
+			$balance             = abs($balance); // Asegurarse de que el saldo sea positivo
+			
+			while($balance > 0){
+				$interest = $balance * $interestRateDecimal / 12;
+				$balance  = $balance + $interest - $minimumPayment;
+				$months++;
+			}
+			
+			// Devolver la fecha en formato Y-m-d
+			return now()->addMonths($months);
+			
+		}
+		
+		/**
+		 * Crear grupo y categoría para tarjetas de crédito y líneas de crédito
+		 * @return int ID de la categoría creada o encontrada
+		 */
+		public function createCreditCardGroupAndCategory(){
+			$groupName = 'Credit Card Payment';
+			
+			// Verificar si ya existe el grupo
+			$group = CategoryGroup::where('name',$groupName)->first();
+			
+			// Si no existe el grupo, crearlo
+			if(!$group){
+				$group = CategoryGroup::create([
+					'budget_id' => $this->activeBudgetId,
+					'name'      => $groupName,
+				]);
+			}
+			
+			// Crear la categoría directamente ya que la cuenta es única
+			$category = Category::create([
+				'group_id' => $group->id,
+				'name'     => $this->nickname,
+				'hidden'   => false,
+			]);
+			
+			return $category->id;
+		}
+		
+		public function saveMortgageLoans(){
+			$this->saveAccount(true);
+		}
+		
 		public function saveMortgageLoansSkip(){
 			dd('Save Mortgage Loans sin categoria...');
 		}
 		
-		public function goToSection($section){
+				public function goToSection($section){
 			$this->currentSection = $section;
-		}
-		
-		private function updateAccountLists(){
-			$this->budgetAccounts = BudgetAccount::where('budget_id',$this->activeBudgetId)
-				->orderBy('account_group')
-				->orderBy('ordering')
-				->get();
-			
-			// Agrupar las cuentas por grupo
-			$this->accountGroups = $this->budgetAccounts->groupBy('account_group')->map(function($budgetAccounts){
-				$groupType = $budgetAccounts->first()->account_group;
-				
-				return (object)[
-					'type'          => $groupType,
-					'accounts'      => $budgetAccounts->map(function($account){
-						return (object)[
-							'id'          => $account->id,
-							'budget_id'   => $this->activeBudgetId,
-							'nickname'    => $account->nickname,
-							'balance'     => $account->balance,
-							'is_selected' => false
-						];
-					}),
-					'total_balance' => $budgetAccounts->sum('balance')
-				];
-			});
-			
-			// Inicializa el estado de los grupos dinámicamente
-			foreach($this->accountGroups as $group){
-				$this->showGroups[$group->type] = true; // Inicializa cada grupo como expandido
-			}
-			
 		} //End Mtehod
 		
 		public function closeBudgetAccount(){
@@ -234,6 +281,10 @@
 			$this->dispatch('budgetTotalUpdated');
 			// Redirigir después de la transacción utilizando el ID de la cuenta
 			return redirect()->route('accounts.assign',['id' => $this->accountId]);
+		}
+		
+		public function hideAccountModalForm(){
+			$this->isOpenAccountModal = false;
 		}
 		
 		public function addAnotherAccount(){
@@ -250,30 +301,16 @@
 			$this->newMasterCategory = '';
 		}
 		
+		//funcion para calcular la fecha final de pago.
+		
 		public function setOption($option){
 			$this->selectedOption    = $option;
 			$this->selectedGroup     = '';
 			$this->newMasterCategory = '';
-		}
-		
-		//funcion para calcular la fecha final de pago.
-		private function calculatePayoffDate($balance,$interestRate,$minimumPayment){
-			$interestRateDecimal = $interestRate / 100;
-			$months              = 0;
-			$balance             = abs($balance); // Asegurarse de que el saldo sea positivo
-			
-			while($balance > 0){
-				$interest = $balance * $interestRateDecimal / 12;
-				$balance  = $balance + $interest - $minimumPayment;
-				$months++;
-			}
-			
-			// Devolver la fecha en formato Y-m-d
-			return now()->addMonths($months);
-			
 		} //End Method
 		
 		// Esta nueva función actualiza la cuenta activa
+
 		public function updateActiveAccount($accountId){
 			session()->put('showGroups',$this->showGroups);
 			$this->activeAccountId = $accountId;

@@ -1039,7 +1039,6 @@
 							title="{{ $group->name }}">{{ $group->name }}</button>
 						<button class="button budget-table-cell-add-category budget-table-cell-button " aria-label="Add Category" aria-describedby="addCategory"
 							wire:click="addCategoryModal({{ $group->id }})" onclick="setModalPositionCategory(event)">
-							
 							<svg class="ynab-new-icon " width="14" height="14">
 								<!---->
 								<use href="#icon_sprite_plus_circle_fill">
@@ -1142,12 +1141,13 @@
 												{{ $category->status_display['message'] }}
 											</div>
 										</div>
-										<div class="budget-table-cell-goal-status-details">{{ $category->status_display['status_details'] }}</div>
+										<div class="budget-table-cell-goal-status-details">{{" " . $category->status_display['status_details'] }}</div>
 									</div>
 									<figure class="ynab-new-budget-bar-v2" role="group">
 										<div class="ynab-new-budget-bar-v2-section ynab-new-budget-bar-v2-section-funded" style="flex-basis: 100%;">
-											@if($category->categoryTarget?->assigned > 0)
-												<div class="ynab-new-budget-bar-v2-segment is-fully-funded" style="width: 30%;"></div>
+											@if(($category->categoryTarget->assigned ?? 0) > 0)
+												<div class="ynab-new-budget-bar-v2-segment {{ $category->progress_data['css_class'] }}"
+													style="width: {{ $category->progress_data['percentage'] }}%;"></div>
 											@endif
 										</div>
 									</figure>
@@ -1156,9 +1156,7 @@
 							<!---->
 						@else
 							<div class="budget-table-cell-name budget-table-row-li" role="rowheader" aria-colindex="3">
-								<button wire:click="{{ in_array($category->id, $selectedCategories) ? 'editCategoryModal('.$category->id.')' : '' }}"
-									class="button budget-table-cell-name-row-label-item budget-table-cell-button budget-table-cell-edit-category user-data"
-									title="{{ $category->name }}">{{ $category->name }}</button>
+								<div class="ynab-new-budget-bar-v2-segment {{ $this->progressClass($category) }}" style="width: {{ $this->progressPercentage($category) }}%;"></div>
 							</div>
 						@endif
 						<!---->
@@ -1171,9 +1169,9 @@
 											d="m3.8 0 .5.5v2.3h2.2l.5.5v.5l-.5.5H4.3v2.2l-.5.5h-.5l-.5-.5V4.3H.5L0 3.8v-.5l.5-.5h2.3V.5l.5-.5zM9 3.3l.5-.5h6l.5.5v.5l-.5.5h-6L9 3.8zm3.5 7.7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 5a1 1 0 1 0 0-2 1 1 0 0 0 0 2M9 12.3a.5.5 0 0 1 .5-.6h6a.5.5 0 0 1 .5.6v.4a.5.5 0 0 1-.5.6h-6a.5.5 0 0 1-.5-.6zm-2.8-2.1v.7l-1.6 1.6 1.6 1.6v.7l-.4.4h-.7l-1.6-1.6-1.6 1.6h-.7l-.4-.4v-.7l1.6-1.6L1 10.9v-.7l.3-.4H2l1.6 1.6 1.6-1.6h.7z"></path>
 									</svg>
 								</button>
-								<div class="input-wrapper">
+								<div class="input-wrapper" wire:key="category-input-{{ $category->id }}-{{ $category->categoryTarget?->assigned }}">
 									<input id="dataCurrency-{{ $category->id }}" class="ember-text-field ember-view"
-										value=" {{ format_number($category->categoryTarget?->cleanValue) }}" type="text" onfocus="this.select()"
+										value="{{ format_number($category->categoryTarget?->assigned) }}" type="text" onfocus="this.select()"
 										wire:change="updateAssignedValue($event.target.value, {{ $category->id }})"
 										wire:blur="resetEditingState"
 										onkeydown="if(event.key==='Enter') this.blur()">

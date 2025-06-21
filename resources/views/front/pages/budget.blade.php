@@ -73,7 +73,7 @@
       Add Category Group
     </span>
 		<span role="tooltip" id="recentMoves" class="tooltip-content" style="top: calc(80.5px - 0.5rem); left: 430.833px;">
-      Previous 34 days of assigning and moving money (Rule Three is a thing!)
+      Previous 34 days of assigning and moving money
     </span>
 		<span role="tooltip" id="progressBarOn" class="tooltip-content" data-position="top" style="top: calc(96.5px - 0.5rem); left: 1253.1px;">
       Progress Bars On
@@ -119,16 +119,7 @@
 			});
 
 			const $newBudget = $('#new_budget_modal');
-			//Abre modal New Budget
-			/*	window.addEventListener('showCreateModalForm', function () {
-					$('#new_budget_modal').show();
-					$('#modal-settings-budget-name').focus();
-				})*/
-
-			//Cierra el modal New Budget
-			/*	window.addEventListener('hideCreateModalForm', function () {
-					$('#new_budget_modal').hide();
-				})*/
+		
 		});
 
 		/** TOOLTIP GLOBAL POCISION  */

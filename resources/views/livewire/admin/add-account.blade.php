@@ -4,7 +4,7 @@
 		@if($budgetAccounts->isEmpty())
 			<div class="nav-accounts-empty-state">
 				<h5>No Accounts</h5>
-				<p>You can't budget without adding accounts to YNAB first. How about adding one now?</p>
+				<p>You can't plan without adding accounts to YNAB first. How about adding one now?</p>
 			</div>
 		@endif
 		<button class="ynab-button contrast button-sidebar nav-add-account" type="button" wire:click="addAccountModal">

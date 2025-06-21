@@ -30,21 +30,25 @@
 			'activity',
 		];
 		
-		//Metopgo para realizar resta
+		//Metodo para la suma total del monthy_target
+		public static function getTotalMonthlyTarget(){
+			return static::sum('monthly_target') ?? 0;
+		}
+		
+		//Metodo para realizar resta
 		public function getRemainingAssignAttribute(){
 			return $this->monthly_target - $this->assigned;
 		}
-		
-		//Metodo para mostrar balance
-		/*public function getBalanceAttribute(){
-			return ($this->monthly_target) - ($this->assigned);
-		}*/
 		
 		//Metodo para mostrar available
 		public function getAvailableAttribute(){
 			return $this->assigned;
 		}
 		
+		//Metodo para mostrar balance
+		/*public function getBalanceAttribute(){
+			return ($this->monthly_target) - ($this->assigned);
+		}*/
 		
 		// Metodo para calcular la próxima fecha de repetición
 		public function calculateNextRepeatDate(){
@@ -59,6 +63,16 @@
 			}else{ // Years
 				return $date->addYears($this->repeat_frequency);
 			}
+		}
+		
+		// Accessor para obtener la suma total de assigned
+		public function getTotalAssignedAttribute(){
+			return static::sum('assigned');
+		}
+		
+		// Accessor para obtener la suma total de monthly_target
+		public function getTotalMonthlyTargetAttribute(){
+			return static::sum('monthly_target');
 		}
 		
 		/**

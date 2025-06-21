@@ -61,6 +61,5 @@
 @stack('scripts')
 
 </body>
-7
 </html>
 

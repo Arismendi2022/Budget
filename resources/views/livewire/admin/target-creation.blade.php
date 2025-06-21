@@ -26,9 +26,9 @@
 							</div>
 							<div tabindex="0" class="ynab-breakdown-assigned-in-month" aria-describedby="ember119">
 								<div>
-									Assigned in June
+									Assigned in {{ now()->format('F') }}
 								</div>
-								<div class="user-data"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></div>
+								<div class="user-data"><span class="user-data currency tabular-nums zero"><bdi>{{ format_currency($totalAssigned) }}</bdi></span></div>
 							</div>
 							<div tabindex="0" class="ynab-breakdown-activity" aria-describedby="ember120">
 								<div>
@@ -41,7 +41,7 @@
                 <span class="ynab-breakdown-available-heading">
                   Available</span>
 								</div>
-								<div class="user-data"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></div>
+								<div class="user-data"><span class="user-data currency tabular-nums zero"><bdi>{{ format_currency($totalAssigned) }}</bdi></span></div>
 							</div>
 						</div>
 						<div class="cost-to-be-me-summary">
@@ -50,8 +50,8 @@
 								</div>
 								<div tabindex="0" class="title">Cost to Be Me</div>
 								<div tabindex="0" class="label">
-									<span class="description">June’s Targets</span>
-									<span class="amount">$448.65</span>
+									<span class="description">{{ now()->format('F') }}'s  Targets</span>
+									<span class="amount">{{ format_currency($totalMonthlyTarget) }}</span>
 								</div>
 								<!---->
 							</div>
@@ -164,6 +164,15 @@
 							<button class="future-month-button" type="button">
 								<div class="future-month-button-interior">
 									<div class="month-label">
+										<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress zero" xmlns="http://www.w3.org/2000/svg">
+											<defs>
+												<clipPath id="icon-circle-progress-clip-ember108">
+													<path d="M 1 0 A 1 1 0 0 1 0.9048270524660195 0.4257792915650727 L 0 0"></path>
+												</clipPath>
+											</defs>
+											<circle r=".9" cx="0" cy="0" stroke-width=".2" class="outer"></circle>
+											<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-ember108)"></circle>
+										</svg>
 										<!---->
 										<div>{{ ucfirst(now()->addMonth()->monthName) }}</div>
 									</div>
@@ -429,9 +438,9 @@
 														</dd>
 														<div class="ynab-new-inspector-goals-calendar">
 															@if($state['isOpenCalendarModal'])
-																<div id="ember168" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
+																<div id="calendarModal" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
 																	wire:click.self="hideModalCalendar">
-																	<div class="modal" role="dialog" aria-modal="true" style="top: 647.8px; left: 1271.1px;">
+																	<div class="modal" role="dialog" aria-modal="true" style="top: 329.4px; left: 937.367px;">
 																		<div class="accounts-calendar">
 																			<ul class="accounts-calendar-date">
 																				<li class="accounts-calendar-prev">
@@ -479,9 +488,8 @@
 																			<div class="modal-actions">
 																			</div>
 																		</div>
-																		<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none"
-																			style="left: 100px; bottom: 100%; height: 0.9375rem; width: 1.875rem;">
-																			<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform=""></path>
+																		<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none" style="top: 100%; left: 113px; height: 0.9375rem; width: 1.875rem;">
+																			<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform="rotate(180 50 50)"></path>
 																		</svg>
 																	</div>
 																</div>
@@ -503,8 +511,8 @@
 																	</button>
 																	<!---->
 																	@if($state['isOpenAsideCustomModal'])
-																		<div id="asideModal" class="modal-overlay active ynab-new-dropdown-modal" wire:click.self="$set('state.isOpenAsideCustomModal', false)">
-																			<div class="modal" role="dialog" aria-modal="true" style="top: 264.8px; left: 1145.2px; height: auto; width: 481.8px;">
+																		<div id="asideCustomModal" class="modal-overlay active ynab-new-dropdown-modal" wire:click.self="$set('state.isOpenAsideCustomModal', false)">
+																			<div class="modal" role="dialog" aria-modal="true" style="top: 226px; left: 887.533px; height: auto; width: 355.667px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
 																					<button wire:click="updateSelectedTextCustom('Set aside','set-aside')" class="type-dropdown-option is-selected" role="option"
 																						aria-selected="true"
@@ -558,7 +566,7 @@
 																					<hr class="dropdown-divider">
 																				</div>
 																				<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none"
-																					style="top: 100%; left: 225.9px; height: 0.9375rem; width: 1.875rem;">
+																					style="top: 100%; left: 162.834px; height: 0.9375rem; width: 1.875rem;">
 																					<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform="rotate(180 50 50)"></path>
 																				</svg>
 																			</div>
@@ -598,9 +606,9 @@
 														<!---->
 														<div class="ynab-new-inspector-goals-calendar">
 															@if($state['isOpenCalendarModal'])
-																<div id="ember168" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
+																<div id="calendarCustomModal" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
 																	wire:click.self="hideModalCalendar">
-																	<div class="modal" role="dialog" aria-modal="true" style="top: 400.4px; left: 1271.1px;">
+																	<div class="modal" role="dialog" aria-modal="true" style="top: 396.4px; left: 937.367px; height: auto;">
 																		<div class="accounts-calendar">
 																			<ul class="accounts-calendar-date">
 																				<li class="accounts-calendar-prev">
@@ -723,9 +731,9 @@
 																		</svg>
 																	</button>
 																	@if($state['isOpenAsideModal'])
-																		<div id="dropdownModal" class="modal-overlay active ynab-new-dropdown-modal "
+																		<div id="asideModal" class="modal-overlay active ynab-new-dropdown-modal "
 																			wire:click.self="$set('state.isOpenAsideModal', false)">
-																			<div class="modal" role="dialog" aria-modal="true" style="top: 429.6px; left: 1145.2px; height: auto; width: 481.8px;">
+																			<div class="modal" role="dialog" aria-modal="true" style="top: 409.8px; left: 887.533px; height: auto; width: 355.667px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
 																					<button wire:click="updateSelectedText('Set aside another','set-aside')" class="type-dropdown-option is-selected" role="option"
 																						aria-selected="true"
@@ -773,7 +781,7 @@
 																					<hr class="dropdown-divider">
 																				</div>
 																				<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none"
-																					style="top: 100%; left: 225.9px; height: 0.9375rem; width: 1.875rem;">
+																					style="top: 100%; left: 162.834px; height: 0.9375rem; width: 1.875rem;">
 																					<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform="rotate(180 50 50)"></path>
 																				</svg>
 																			</div>
@@ -932,12 +940,12 @@
 								<!---->
 								<div class="target-breakdown">
 									<div class="target-breakdown-item">
-										<div class="target-breakdown-item-label">Amount to Assign This Month</div>
+										<div class="target-breakdown-item-label">{{ $targetData['to_label'] }}</div>
 										<div class="target-breakdown-item-value"><span
 												class="user-data currency tabular-nums positive"><bdi>{{ format_currency($targetData['to_amount']) }}</bdi></span></div>
 									</div>
 									<div class="target-breakdown-item">
-										<div class="target-breakdown-item-label">Assigned So Far</div>
+										<div class="target-breakdown-item-label">{{ $targetData['so_label'] }}</div>
 										<div class="target-breakdown-item-value"><span
 												class="user-data currency tabular-nums zero"><bdi>{{ format_currency($targetData['so_far']) }}</bdi></span></div>
 									</div>
@@ -1162,16 +1170,16 @@
 		};
 
 		// Observer y eventos
-		new MutationObserver(() => {
+		/*new MutationObserver(() => {
 			if (document.querySelector(".ynab-new-dropdown-modal") ||
 				document.getElementById("asideModal") ||
 				document.querySelector(".js-ynab-new-calendar-overlay")) {
 				updateModals();
 			}
 		}).observe(document.body, {childList: true, subtree: true});
-
-		document.addEventListener("livewire:load", updateModals);
-		window.addEventListener("livewire:update", updateModals);
+*/
+		/*document.addEventListener("livewire:load", updateModals);
+		window.addEventListener("livewire:update", updateModals);*/
 
 		// Script para solucionar el problema de enfoque del input de divisa al hacer clic en otros elementos
 		document.addEventListener('click', function (event) {

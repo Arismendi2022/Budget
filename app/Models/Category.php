@@ -64,6 +64,31 @@
 			];
 		}
 		
+		/**
+		 * Calcula el porcentaje de progreso y clase CSS de la categoría.
+		 *
+		 */
+		public function getProgressDataAttribute(){
+			// Si no hay categoryTarget, devolver valores por defecto
+			if(!$this->relationLoaded('categoryTarget') || !$this->categoryTarget){
+				return ['percentage' => 0,'css_class' => 'is-partially-funded'];
+			}
+			
+			$target   = $this->categoryTarget;
+			$assigned = floatval($target->assigned ?? 0);
+			
+			// Determinar el valor objetivo basado en period_type
+			if($target->period_type === 'weekly'){
+				$targetAmount = floatval($target->monthly_target ?? 0);
+			}else{
+				$targetAmount = floatval($target->amount ?? 0);
+			}
+			
+			$percentage = $targetAmount > 0 ? min(100,($assigned / $targetAmount) * 100) : 0;
+			$cssClass   = $percentage < 100 ? 'is-partially-funded' : 'is-fully-funded';
+			
+			return ['percentage' => $percentage,'css_class' => $cssClass];
+		}
 		
 		/**
 		 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -79,5 +104,9 @@
 			return $this->hasOne(CategoryTarget::class);
 		}
 		
+		// Relacion con BudgetAccount
+		public function budgetAccounts(){
+			return $this->hasOne(BudgetAccount::class);
+		}
+		
 	}
-	
