@@ -87,9 +87,21 @@
 		// === DEPRECATED INDIVIDUAL PROPERTIES (mantener para compatibilidad) ===
 		public bool $isUpdateTargetMode = false; // Duplicado en $state pero m
 		
+		public $totalMonthlyTarget,$totalAssigned;
+		
 		// Listeners
 		protected $listeners = [
 			'Table.freshTarget' => 'mount',
+		];
+		/**
+		 * Valida los datos de entrada para los objetivos
+		 */
+		protected $rules    = [
+			'currencyAmount' => ['required','numeric','min:0.01'],
+		];
+		protected $messages = [
+			'currencyAmount.required' => 'Targets require a positive amount.',
+			'currencyAmount.min'      => 'Targets require a positive amount.',
 		];
 		
 		/**
@@ -98,15 +110,43 @@
 		public function mount():void{
 			$this->initializeDate(Carbon::now()->addMonth());
 			$this->updateFrequencyOptions();
+			
+			$this->calculateTotals();
 		}
 		
 		/**
-		 * Actualiza el monto cuando cambia el valor del input
+		 * Inicializa las propiedades de fecha
 		 */
-		public function updatedAmount():void{
-			$this->currencyAmount = max(0.0,sanitize_float($this->targetAmount,0.0));
-			// Formateo condicional más limpio
-			$this->targetAmount = $this->currencyAmount > 0 ? format_number($this->currencyAmount) : '';
+		private function initializeDate(Carbon $date):void{
+			$this->currentMonth     = $date->month;
+			$this->currentYear      = $date->year;
+			$this->targetFinishDate = $date->startOfMonth()->format('Y-m-d');
+			$this->firstDayOfMonth  = $date->dayOfWeek;
+			$this->daysInMonth      = range(1,$date->daysInMonth);
+			$this->selectedMonth    = $date->month - 1;
+		}
+		
+		/**
+		 * Actualiza las opciones de frecuencia según la unidad seleccionada
+		 */
+		private function updateFrequencyOptions(){
+			// Mapa de opciones por unidad (solo números)
+			$optionsMap = [
+				self::UNIT_MONTH => range(1,11),
+				self::UNIT_YEAR  => range(1,2),
+			];
+			
+			$this->frequencyOptions = $optionsMap[$this->cadenceUnit] ?? range(1,11);
+		}
+		
+		/**
+		 * Calcular los totales
+		 */
+		public function calculateTotals(){
+			// Calcular totales
+			$this->totalMonthlyTarget = CategoryTarget::sum('monthly_target');
+			$this->totalAssigned      = CategoryTarget::sum('assigned');
+			
 		}
 		
 		/**
@@ -126,18 +166,10 @@
 			$this->selectedDayText = Carbon::create()->dayOfWeek($this->dayOfWeek)->format('l');
 		}
 		
-		private function getFormattedLastDay(){
-			// Obtener el último día del mes actual
-			$lastDay = Carbon::now()->endOfMonth()->day;
-			
-			// Asignar sufijo solo para el último día
-			$suffix = $lastDay == 31 ? 'st' : 'th';
-			
-			// Retorna un array con ambos valores
-			return [
-				'day_number'      => $lastDay,        // Solo el número (28, 29, 30, 31)
-				'day_with_suffix' => $lastDay.$suffix  // Número con sufijo (28th, 29th, 30th, 31st)
-			];
+		// Métodos de UI simplificados
+		
+		public function toggleGoalTarget():void{
+			$this->toggleState('isCollapsed');
 		}
 		
 		/**
@@ -147,17 +179,6 @@
 			if(isset($this->state[$stateKey])){
 				$this->state[$stateKey] = !$this->state[$stateKey];
 			}
-		}
-		
-		public function setState(string $stateKey,bool $value):void{
-			if(isset($this->state[$stateKey])){
-				$this->state[$stateKey] = $value;
-			}
-		}
-		
-		// Métodos de UI simplificados
-		public function toggleGoalTarget():void{
-			$this->toggleState('isCollapsed');
 		}
 		
 		public function toggleRepeat():void{
@@ -191,11 +212,58 @@
 			$this->setState('isOpenModalAssign',true);
 		}
 		
+		public function setState(string $stateKey,bool $value):void{
+			if(isset($this->state[$stateKey])){
+				$this->state[$stateKey] = $value;
+			}
+		}
+		
 		public function openCreateTarget():void{
 			$this->setState('isCreateTarget',true);
 			$this->selectedFrequency = self::DEFAULT_FREQUENCY;
 			$this->resetForm();
 			$this->setFocused();
+		}
+		
+		/**
+		 * Reinicia el formulario
+		 */
+		private function resetForm():void{
+			$this->initializeDate(Carbon::now()->addMonth());
+			$this->reset([
+				'targetAmount',
+				'currencyAmount',
+				'currencyAmountWeekly',
+				'monthlySavingsAmount',
+				'selectedText',
+				'selectedTextCustom',
+				'dayOfMonth',
+				'selectedYear',
+				'dayOfWeek',
+				'selectedDayText',
+				'dayOfMonthText',
+				'formattedMonthYear',
+				'formattedEndDate',
+				'cadenceFrequency',
+				'cadenceUnit',
+				'targetId',
+				'selectedOptionType',
+			]);
+			
+			$this->setState('isRepeatEnabled',false);
+			$this->setState('isDateFilterEnabled',false);
+			
+			$this->updateFrequencyOptions();
+			$this->resetErrorBag();
+		}
+		
+		/**
+		 * Métodos para manejo del foco en el input
+		 */
+		public function setFocused():void{
+			
+			$this->setState('isFocusedInput',true);
+			$this->dispatch('focusInput');
 		}
 		
 		public function cancelCreateTarget():void{
@@ -228,11 +296,6 @@
 			$this->setState('isCalendarVisible',true);
 		}
 		
-		public function hideModalCalendar():void{
-			$this->setState('isOpenCalendarModal',false);
-			$this->setState('isCalendarVisible',false);
-		}
-		
 		public function previousMonth():void{
 			$this->initializeDate(Carbon::create($this->currentYear,$this->currentMonth,1)->subMonth());
 		}
@@ -246,18 +309,23 @@
 			$this->hideModalCalendar();
 		}
 		
-		/**
-		 * Métodos para manejo del foco en el input
-		 */
-		public function setFocused():void{
-			
-			$this->setState('isFocusedInput',true);
-			$this->dispatch('focusInput');
+		public function hideModalCalendar():void{
+			$this->setState('isOpenCalendarModal',false);
+			$this->setState('isCalendarVisible',false);
 		}
 		
 		public function unsetFocused():void{
 			$this->setState('isFocusedInput',false);
 			$this->updatedAmount();
+		}
+		
+		/**
+		 * Actualiza el monto cuando cambia el valor del input
+		 */
+		public function updatedAmount():void{
+			$this->currencyAmount = max(0.0,sanitize_float($this->targetAmount,0.0));
+			// Formateo condicional más limpio
+			$this->targetAmount = $this->currencyAmount > 0 ? format_number($this->currencyAmount) : '';
 		}
 		
 		/**
@@ -288,6 +356,8 @@
 				'isSaveSuccessful' => false,
 			]);
 		}
+		
+		// Custom error messages
 		
 		/**
 		 * Metodo para salir de crear target
@@ -407,19 +477,6 @@
 		}
 		
 		/**
-		 * Valida los datos de entrada para los objetivos
-		 */
-		protected $rules = [
-			'currencyAmount' => ['required','numeric','min:0.01'],
-		];
-		
-		// Custom error messages
-		protected $messages = [
-			'currencyAmount.required' => 'Targets require a positive amount.',
-			'currencyAmount.min'      => 'Targets require a positive amount.',
-		];
-		
-		/**
 		 * Metodo para guardar el objetivo
 		 */
 		public function saveTarget(int $categoryId):void{
@@ -433,14 +490,14 @@
 					'category_id' => $categoryId,
 					'amount'      => $this->currencyAmount,
 					'option_type' => $this->selectedOptionType,
-					'period_type'   => $this->selectedFrequency,
-					'message'     => $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed',
+					'period_type' => $this->selectedFrequency,
+					'message'     => $this->selectedOptionType === 'set-aside' ? 'more needed ' : 'needed ',
 				];
 				
 				// Configurar datos específicos por frecuencia
 				$frequencyHandlers = [
 					'weekly' => function() use (&$data){
-						$data['monthly_target']         = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->dayOfWeek);
+						$data['monthly_target'] = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->dayOfWeek);
 						$data['status_details'] = 'this month';
 						$data['day_of_week']    = $this->dayOfWeek;
 					},
@@ -457,25 +514,25 @@
 							$dayOfMonth = $lastDayData['day_number'];
 						}
 						
-						$data['monthly_target']         = $this->currencyAmount;
+						$data['monthly_target'] = $this->currencyAmount;
 						$data['status_details'] = 'by the '.$dayOfMonthText;
 						$data['day_of_month']   = $dayOfMonth;
 					},
 					
 					'yearly' => function() use (&$data){
-						$data['monthly_target']         = $this->calculateMonthlySavings();
+						$data['monthly_target'] = $this->calculateMonthlySavings();
 						$data['status_details'] = 'this month';
 						$data['target_date']    = $this->targetFinishDate;
 					},
 					
 					'custom' => function() use (&$data){
 						if($this->state['isDateFilterEnabled']){
-							$data['monthly_target']         = $this->calculateMonthlyGoal();
+							$data['monthly_target'] = $this->calculateMonthlyGoal();
 							$data['status_details'] = 'this month';
 							$data['target_date']    = $this->endDateTarget;
 							$data['filter_by_date'] = $this->state['isDateFilterEnabled'];
 						}else{
-							$isHaveType     = $this->selectedOptionType === 'have';
+							$isHaveType             = $this->selectedOptionType === 'have';
 							$data['monthly_target'] = $isHaveType
 								? $this->currencyAmount
 								: $this->calculateMonthlySavings();
@@ -517,172 +574,13 @@
 				$this->setState('isCreateTarget',false);
 				$this->setState('isSaveSuccessful',true);
 				
+				// Recalcular total desde base de datos
+				$this->calculateTotals();
+				
 			} catch(\Exception $e){
 				\Log::error("Error al crear objetivo para categoría {$categoryId}: {$e->getMessage()}");
 				throw new \Exception('No se pudo crear el objetivo: '.$e->getMessage());
 			}
-		}
-		
-		/**
-		 * Metodo para actualizar el objetivo
-		 */
-		public function updateTarget(int $targetId):void{
-			$this->validate();
-			
-			try{
-				// Buscar el objetivo existente
-				$target = CategoryTarget::findOrFail($targetId);
-				
-				// Preparar datos básicos (sin category_id)
-				$data = [
-					'amount'         => $this->currencyAmount,
-					'option_type'    => $this->selectedOptionType,
-					'period_type'      => $this->selectedFrequency,
-					'message'        => $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed',
-					'filter_by_date' => $this->state['isDateFilterEnabled'],
-				];
-				
-				// Configurar datos específicos por frecuencia
-				$frequencyHandlers = [
-					'weekly' => function() use (&$data){
-						$data['monthly_target']         = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->dayOfWeek);
-						$data['status_details'] = 'this month';
-						$data['day_of_week']    = $this->dayOfWeek;
-						$data['filter_by_date'] = false;
-						// Limpiar campos que no aplican para weekly
-						$data['day_of_month'] = null;
-						$data['target_date']  = null;
-					},
-					
-					'monthly' => function() use (&$data){
-						// En update, usar valores actuales del formulario o mantener los de BD
-						$dayOfMonthText = $this->dayOfMonthText ? : $this->getOriginal('dayOfMonthText');
-						$dayOfMonth     = $this->dayOfMonth ? : $this->getOriginal('dayOfMonth');
-						
-						$data['monthly_target']         = $this->currencyAmount;
-						$data['status_details'] = 'by the '.$dayOfMonthText;
-						$data['day_of_month']   = $dayOfMonth;
-						$data['filter_by_date'] = false;
-						// Limpiar campos que no aplican para monthly
-						$data['day_of_week'] = null;
-						$data['target_date'] = null;
-					},
-					
-					'yearly' => function() use (&$data){
-						$data['monthly_target']         = $this->calculateMonthlySavings();
-						$data['status_details'] = 'this month';
-						$data['target_date']    = $this->targetFinishDate;
-						$data['filter_by_date'] = false;
-						// Limpiar campos que no aplican para yearly
-						$data['day_of_week']  = null;
-						$data['day_of_month'] = null;
-					},
-					
-					'custom' => function() use (&$data){
-						if($this->state['isDateFilterEnabled']){
-							$data['monthly_target']         = $this->calculateMonthlyGoal();
-							$data['status_details'] = 'this month';
-							$data['target_date']    = $this->endDateTarget;
-							$data['filter_by_date'] = true; // Habilitado cuando se usa filtro de fecha
-							// Limpiar campos que no aplican para custom con fecha
-							$data['day_of_week']  = null;
-							$data['day_of_month'] = null;
-						}else{
-							$isHaveType = $this->selectedOptionType === 'have';
-							
-							$data['monthly_target'] = $isHaveType
-								? $this->currencyAmount
-								: $this->calculateMonthlySavings();
-							
-							$data['status_details'] = $isHaveType ? 'eventually' : 'this month';
-							$data['filter_by_date'] = false;
-							
-							if(!$isHaveType){
-								$data['target_date'] = $this->targetFinishDate;
-							}else{
-								$data['target_date'] = null;
-							}
-							
-							// Limpiar campos que no aplican para custom sin fecha
-							$data['day_of_week']  = null;
-							$data['day_of_month'] = null;
-							
-							// Manejar la repetición del target
-							if($this->state['isRepeatEnabled']){
-								$data['is_repeat_enabled'] = true;
-								$data['repeat_frequency']  = $this->cadenceFrequency; // Valor del 1-11
-								$data['repeat_unit']       = $this->cadenceUnit; // 1 = Month, 2 = Year
-								
-								// Calcular la siguiente fecha basada en la repetición
-								$nextDate = Carbon::parse($this->targetFinishDate);
-								if($this->cadenceUnit == 1){ // Months
-									$nextDate->addMonths($this->cadenceFrequency);
-								}else{ // Years
-									$nextDate->addYears($this->cadenceFrequency);
-								}
-								$data['next_target_date'] = $nextDate->format('Y-m-d');
-							}else{
-								$data['is_repeat_enabled'] = false;
-								$data['repeat_frequency']  = null;
-								$data['repeat_unit']       = null;
-								$data['next_target_date']  = null;
-							}
-						}
-					}
-				];
-				
-				// Ejecutar configuración específica si existe
-				if(isset($frequencyHandlers[$this->selectedFrequency])){
-					$frequencyHandlers[$this->selectedFrequency]();
-				}
-				
-				// Actualizar el objetivo
-				$target->update($data);
-				
-				// Actualizar interfaz
-				$this->dispatch('Target.freshCategories');
-				$this->setState('isCreateTarget',false);
-				$this->setState('isSaveSuccessful',true);
-				
-			} catch(\Exception $e){
-				\Log::error("Error al actualizar objetivo {$targetId}: {$e->getMessage()}");
-				throw new \Exception('No se pudo actualizar el objetivo: '.$e->getMessage());
-			}
-		}
-		
-		/**
-		 * Metodo para eliminar el objetivo
-		 */
-		public function deleteTarget(int $targetId
-		){
-			
-			try{
-				$categoryTarget = CategoryTarget::findOrFail($targetId);
-				// Eliminar el objetivo
-				$categoryTarget->delete();
-				
-				// Actualizar interfaz
-				$this->dispatch('Target.freshCategories');
-				$this->setState('isCreateTarget',false);
-				$this->setState('isSaveSuccessful',false);
-				
-			} catch(\Exception $e){
-				\Log::error("Error al eliminar objetivo $targetId: {$e->getMessage()}");
-				throw new \Exception('No se pudo eliminar el objetivo: '.$e->getMessage());
-			}
-			
-		}
-		
-		/**
-		 * Inicializa las propiedades de fecha
-		 */
-		private function initializeDate(Carbon $date):void{
-			$this->currentMonth     = $date->month;
-			$this->currentYear      = $date->year;
-			$this->targetFinishDate = $date->startOfMonth()->format('Y-m-d');
-			$this->firstDayOfMonth  = $date->dayOfWeek;
-			$this->daysInMonth      = range(1,$date->daysInMonth);
-			$this->selectedMonth    = $date->month - 1;
 		}
 		
 		/**
@@ -701,6 +599,20 @@
 			}
 			
 			return $count;
+		}
+		
+		private function getFormattedLastDay(){
+			// Obtener el último día del mes actual
+			$lastDay = Carbon::now()->endOfMonth()->day;
+			
+			// Asignar sufijo solo para el último día
+			$suffix = $lastDay == 31 ? 'st' : 'th';
+			
+			// Retorna un array con ambos valores
+			return [
+				'day_number'      => $lastDay,        // Solo el número (28, 29, 30, 31)
+				'day_with_suffix' => $lastDay.$suffix  // Número con sufijo (28th, 29th, 30th, 31st)
+			];
 		}
 		
 		/**
@@ -736,6 +648,184 @@
 		}
 		
 		/**
+		 * Metodo para actualizar el objetivo
+		 */
+		
+		
+		public function updateTarget(int $targetId):void{
+			$this->validate();
+			
+			try{
+				// Buscar el objetivo existente
+				$target = CategoryTarget::findOrFail($targetId);
+				
+				// Preparar datos básicos (sin category_id)
+				$data = [
+					'amount'         => $this->currencyAmount,
+					'period_type'    => $this->selectedFrequency,
+					'filter_by_date' => isset($this->state['isDateFilterEnabled']) ? $this->state['isDateFilterEnabled'] : false,
+				];
+				
+				// Preserve existing option_type and message unless option_type is explicitly changed
+				if(!empty($this->selectedOptionType) && $this->selectedOptionType !== 'set-aside'){
+					$data['option_type'] = $this->selectedOptionType;
+					$data['message']     = $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed';
+				}else{
+					$data['option_type'] = $target->option_type;
+					$data['message']     = $target->message;
+				}
+				
+				// Configurar datos específicos por frecuencia
+				$frequencyHandlers = [
+					'weekly' => function() use (&$data){
+						if(!isset($this->dayOfWeek)){
+							throw new \Exception('Day of week is not set for weekly frequency.');
+						}
+						$data['monthly_target'] = $this->currencyAmount * $this->getDayOccurrencesInMonth($this->dayOfWeek);
+						$data['status_details'] = 'this month';
+						$data['day_of_week']    = $this->dayOfWeek;
+						$data['filter_by_date'] = false;
+						// Limpiar campos que no aplican para weekly
+						$data['day_of_month'] = null;
+						$data['target_date']  = null;
+					},
+					
+					'monthly' => function() use (&$data,$target){
+						// Si dayOfMonthText es exactamente "Last Day of Month" o lo contiene
+						if($this->dayOfMonthText === 'Last Day of Month' ||
+							strpos((string)$this->dayOfMonthText,'Last Day of Month') !== false){
+							// Mantener todos los valores originales
+							$data['status_details']    = $target->status_details;
+							$data['day_of_month']      = $target->day_of_month;
+							$data['day_of_month_text'] = $target->day_of_month_text;
+						}else{
+							// Usuario seleccionó algo específico, actualizar
+							$data['status_details']    = 'by the '.$this->dayOfMonthText;
+							$data['day_of_month']      = $this->dayOfMonth;
+							$data['day_of_month_text'] = $this->dayOfMonthText;
+						}
+						
+						$data['monthly_target'] = $this->currencyAmount;
+						$data['filter_by_date'] = false;
+						$data['day_of_week']    = null;
+						$data['target_date']    = null;
+					},
+					
+					'yearly' => function() use (&$data){
+						$data['monthly_target'] = $this->calculateMonthlySavings();
+						$data['status_details'] = 'this month';
+						$data['target_date']    = $this->targetFinishDate;
+						$data['filter_by_date'] = false;
+						// Limpiar campos que no aplican para yearly
+						$data['day_of_week']  = null;
+						$data['day_of_month'] = null;
+					},
+					
+					'custom' => function() use (&$data){
+						if(isset($this->state['isDateFilterEnabled']) && $this->state['isDateFilterEnabled']){
+							$data['monthly_target'] = $this->calculateMonthlyGoal();
+							$data['status_details'] = 'this month';
+							$data['target_date']    = $this->endDateTarget;
+							$data['filter_by_date'] = true; // Habilitado cuando se usa filtro de fecha
+							// Limpiar campos que no aplican para custom con fecha
+							$data['day_of_week']  = null;
+							$data['day_of_month'] = null;
+						}else{
+							$isHaveType = $this->selectedOptionType === 'have';
+							
+							$data['monthly_target'] = $isHaveType
+								? $this->currencyAmount
+								: $this->calculateMonthlySavings();
+							
+							$data['status_details'] = $isHaveType ? 'eventually' : 'this month';
+							$data['filter_by_date'] = false;
+							
+							if(!$isHaveType){
+								$data['target_date'] = $this->targetFinishDate;
+							}else{
+								$data['target_date'] = null;
+							}
+							
+							// Limpiar campos que no aplican para custom sin fecha
+							$data['day_of_week']  = null;
+							$data['day_of_month'] = null;
+							
+							// Manejar la repetición del target
+							if(isset($this->state['isRepeatEnabled']) && $this->state['isRepeatEnabled']){
+								$data['is_repeat_enabled'] = true;
+								$data['repeat_frequency']  = $this->cadenceFrequency; // Valor del 1-11
+								$data['repeat_unit']       = $this->cadenceUnit; // 1 = Month, 2 = Year
+								
+								// Calcular la siguiente fecha basada en la repetición
+								if(!empty($this->targetFinishDate)){
+									$nextDate = Carbon::parse($this->targetFinishDate);
+									if($this->cadenceUnit == 1){ // Months
+										$nextDate->addMonths($this->cadenceFrequency);
+									}else{ // Years
+										$nextDate->addYears($this->cadenceFrequency);
+									}
+									$data['next_target_date'] = $nextDate->format('Y-m-d');
+								}else{
+									$data['next_target_date'] = null;
+								}
+							}else{
+								$data['is_repeat_enabled'] = false;
+								$data['repeat_frequency']  = null;
+								$data['repeat_unit']       = null;
+								$data['next_target_date']  = null;
+							}
+						}
+					}
+				];
+				
+				// Ejecutar configuración específica si existe
+				if(isset($frequencyHandlers[$this->selectedFrequency])){
+					$frequencyHandlers[$this->selectedFrequency]();
+				}
+				
+				// Actualizar el objetivo
+				$target->update($data);
+				
+				// Actualizar interfaz
+				$this->dispatch('Target.freshCategories');
+				$this->setState('isCreateTarget',false);
+				$this->setState('isSaveSuccessful',true);
+				// Recalcular total desde base de datos
+				$this->calculateTotals();
+				
+			} catch(\Exception $e){
+				\Log::error("Error al actualizar objetivo {$targetId}: {$e->getMessage()}");
+				throw new \Exception('No se pudo actualizar el objetivo: '.$e->getMessage());
+			}
+		}
+		
+		/**
+		 * Metodo para eliminar el objetivo
+		 */
+		public function deleteTarget(int $targetId
+		){
+			
+			try{
+				$categoryTarget = CategoryTarget::findOrFail($targetId);
+				// Eliminar el objetivo
+				$categoryTarget->delete();
+				
+				// Actualizar interfaz9
+				$this->dispatch('Target.freshCategories');
+				$this->setState('isCreateTarget',false);
+				$this->setState('isSaveSuccessful',false);
+				// Recalcular total desde base de datos
+				$this->calculateTotals();
+				//$this->totalMonthlyTarget = CategoryTarget::sum('monthly_target');
+				
+			} catch(\Exception $e){
+				\Log::error("Error al eliminar objetivo $targetId: {$e->getMessage()}");
+				throw new \Exception('No se pudo eliminar el objetivo: '.$e->getMessage());
+			}
+			
+		}
+		
+		/**
 		 * Actualiza las opciones de frecuencia cuando cambia la unidad de tiempo
 		 */
 		public function updatedCadenceUnit(){
@@ -750,19 +840,6 @@
 		}
 		
 		/**
-		 * Actualiza las opciones de frecuencia según la unidad seleccionada
-		 */
-		private function updateFrequencyOptions(){
-			// Mapa de opciones por unidad (solo números)
-			$optionsMap = [
-				self::UNIT_MONTH => range(1,11),
-				self::UNIT_YEAR  => range(1,2),
-			];
-			
-			$this->frequencyOptions = $optionsMap[$this->cadenceUnit] ?? range(1,11);
-		}
-		
-		/**
 		 * Obtiene las opciones de unidad con pluralización correcta
 		 */
 		public function getUnitOptions(){
@@ -770,38 +847,6 @@
 				'1' => $this->cadenceFrequency >= 2 ? 'Months' : 'Month',
 				'2' => $this->cadenceFrequency >= 2 ? 'Years' : 'Year'
 			];
-		}
-		
-		/**
-		 * Reinicia el formulario
-		 */
-		private function resetForm():void{
-			$this->initializeDate(Carbon::now()->addMonth());
-			$this->reset([
-				'targetAmount',
-				'currencyAmount',
-				'currencyAmountWeekly',
-				'monthlySavingsAmount',
-				'selectedText',
-				'selectedTextCustom',
-				'dayOfMonth',
-				'selectedYear',
-				'dayOfWeek',
-				'selectedDayText',
-				'dayOfMonthText',
-				'formattedMonthYear',
-				'formattedEndDate',
-				'cadenceFrequency',
-				'cadenceUnit',
-				'targetId',
-				'selectedOptionType',
-			]);
-			
-			$this->setState('isRepeatEnabled',false);
-			$this->setState('isDateFilterEnabled',false);
-			
-			$this->updateFrequencyOptions();
-			$this->resetErrorBag();
 		}
 		
 		/**
@@ -854,6 +899,9 @@
 			if($categoryTarget->period_type === 'custom' && $categoryTarget->target_date){
 				$isFilterByDate = $categoryTarget->filter_by_date == 1 || $categoryTarget->filter_by_date === true;
 				$targetDate     = "By ".date($isFilterByDate ? 'M Y' : 'M j Y',strtotime($categoryTarget->target_date));
+				$dateAside      = date($isFilterByDate ? 'M Y' : 'M j Y',strtotime($categoryTarget->target_date));
+				$dateHave       = date($isFilterByDate ? 'M Y' : 'M j Y',strtotime($categoryTarget->target_date));
+				$dateYearly     = date($isFilterByDate ? 'M Y' : 'M j Y',strtotime($categoryTarget->target_date));
 			}else if($categoryTarget->period_type === 'weekly' && $categoryTarget->day_of_week){
 				$days       = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 				$targetDate = "By ".$days[(int)$categoryTarget->day_of_week];
@@ -868,6 +916,8 @@
 				$targetDate = "By the {$day}{$suffix} of the Month";
 			}else if($categoryTarget->target_date){
 				$targetDate = "By ".date('M j, Y',strtotime($categoryTarget->target_date));
+				$dateYear   = date('M j, Y',strtotime($categoryTarget->target_date));
+				
 			}
 			
 			// Generate behavior text
@@ -883,7 +933,12 @@
 			$assign   = $categoryTarget->monthly_target ?? 0;
 			$assigned = $categoryTarget->assigned ?? 0;
 			
-			$percentage = $amount > 0 ? round(($assigned / $assign) * 100) : 0; // crear condicional segun period_type  sobretodo yearly  && custom.
+			// Modified percentage calculation based on period_type
+			if(in_array($categoryTarget->period_type,['yearly','custom'])){
+				$percentage = $amount > 0 ? round(($assigned / $amount) * 100) : 0;
+			}else{
+				$percentage = $amount > 0 ? round(($assigned / $assign) * 100) : 0;
+			}
 			
 			// Asegurar que el porcentaje no exceda 100%
 			$percentage = min($percentage,100);
@@ -931,13 +986,55 @@
 				? 'to meet your target'
 				: 'this month to stay on track';
 			
+			// Determinar el valor de to_amount basado en period_type
+			$toAmount = ($categoryTarget->period_type === 'weekly') ? $assign : $amount;
+			
+			// Optimización directa manteniendo la lógica original
+			$period = $categoryTarget->period_type;
+			$option = $categoryTarget->option_type;
+			
+			if($period === 'monthly' || $period === 'weekly'){
+				$to_label = match ($option) {
+					'set-aside' => 'Amount to Assign This Month',
+					'refill' => 'Needed This Month',
+					default => 'Total to Assign by '.$targetDate
+				};
+			}else if($period === 'custom'){
+				if($categoryTarget->status_details === 'eventually'){
+					$to_label = 'Balance Needed';
+				}else if($categoryTarget->filter_by_date === 1){
+					$to_label = 'Balance Needed by '.$dateHave;
+				}else{
+					$to_label = ($option === 'set-aside')
+						? 'Amount to Set Aside'
+						: 'Needed by '.$dateHave;
+				}
+			}else if($period === 'yearly'){
+				$to_label = ($option === 'refill')
+					? 'Needed by '.$dateYear
+					: 'Total to Assign by '.$dateYear;
+			}
+			
+			// Nueva condicional para $so_far
+			if($categoryTarget->period_type === 'custom' && $categoryTarget->option_type === 'refill'){
+				$so_label = 'Funded';
+			}else if($categoryTarget->period_type === 'custom' && $categoryTarget->option_type === 'have'){
+				$so_label = 'Current Balance';
+			}else if($categoryTarget->period_type === 'yearly' && $categoryTarget->option_type === 'refill'){
+				$so_label = 'Funded';
+			}else{
+				$so_label = 'Assigned So Far';
+			}
+			
 			return [
 				'target_behavior' => $behaviorText,
 				'target_by_date'  => $targetDate,
 				'to_assing'       => $assigned,
-				'to_amount'       => $amount,
+				'to_amount'       => $toAmount,
 				'so_far'          => $soFar,
 				'to_go'           => $toGo,
+				'to_label'        => $to_label,
+				'so_label'        => $so_label,
 				'target_message'  => $targetMessage,
 				'percentage'      => $percentage,
 				'left_rotation'   => $leftRotation,

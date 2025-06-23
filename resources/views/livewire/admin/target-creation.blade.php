@@ -26,9 +26,9 @@
 							</div>
 							<div tabindex="0" class="ynab-breakdown-assigned-in-month" aria-describedby="ember119">
 								<div>
-									Assigned in June
+									Assigned in {{ now()->format('F') }}
 								</div>
-								<div class="user-data"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></div>
+								<div class="user-data"><span class="user-data currency tabular-nums zero"><bdi>{{ format_currency($totalAssigned) }}</bdi></span></div>
 							</div>
 							<div tabindex="0" class="ynab-breakdown-activity" aria-describedby="ember120">
 								<div>
@@ -41,7 +41,7 @@
                 <span class="ynab-breakdown-available-heading">
                   Available</span>
 								</div>
-								<div class="user-data"><span class="user-data currency tabular-nums zero"><bdi>$</bdi>0.00</span></div>
+								<div class="user-data"><span class="user-data currency tabular-nums zero"><bdi>{{ format_currency($totalAssigned) }}</bdi></span></div>
 							</div>
 						</div>
 						<div class="cost-to-be-me-summary">
@@ -50,8 +50,8 @@
 								</div>
 								<div tabindex="0" class="title">Cost to Be Me</div>
 								<div tabindex="0" class="label">
-									<span class="description">June’s Targets</span>
-									<span class="amount">$448.65</span>
+									<span class="description">{{ now()->format('F') }}'s  Targets</span>
+									<span class="amount">{{ format_currency($totalMonthlyTarget) }}</span>
 								</div>
 								<!---->
 							</div>
@@ -164,6 +164,15 @@
 							<button class="future-month-button" type="button">
 								<div class="future-month-button-interior">
 									<div class="month-label">
+										<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress zero" xmlns="http://www.w3.org/2000/svg">
+											<defs>
+												<clipPath id="icon-circle-progress-clip-ember108">
+													<path d="M 1 0 A 1 1 0 0 1 0.9048270524660195 0.4257792915650727 L 0 0"></path>
+												</clipPath>
+											</defs>
+											<circle r=".9" cx="0" cy="0" stroke-width=".2" class="outer"></circle>
+											<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-ember108)"></circle>
+										</svg>
 										<!---->
 										<div>{{ ucfirst(now()->addMonth()->monthName) }}</div>
 									</div>
@@ -211,15 +220,31 @@
 							<span class="ynab-new-budget-available-number js-budget-available-number user-data {{ $this->statusClass }}" title=""
 								aria-disabled="true" disabled="" type="button">
 								@if($category->categoryTarget?->amount > 0)
-									<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress " xmlns="http://www.w3.org/2000/svg">
- 								 <defs>
-									<clipPath id="icon-circle-progress-clip-ember116">
-											<path d="M 1 0 A 1 1 0 0 1 0.9048270524660195 0.4257792915650727 L 0 0"></path>
-									</clipPath>
-								</defs>
-									<circle r=".9" cx="0" cy="0" stroke-width=".2" class="outer"></circle>
-									<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-ember116)"></circle>
-								</svg>
+									@if($category->categoryTarget?->progress_data && $category->categoryTarget->progress_data['class'] === 'complete')
+										<!-- 100% - SVG con checkmark -->
+										<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress complete" xmlns="http://www.w3.org/2000/svg">
+											<defs>
+												<clipPath id="icon-circle-progress-clip-{{ $category->categoryTarget->id }}">
+													<path class="checkmark" transform="scale(.015) rotate(90) translate(-35, -28)"
+														d="M62.7217 10.8417L30.1078 58.1502C29.4223 59.1438 28.4948 59.977 27.3909 60.5596C26.2858 61.1429 25.0439 61.454 23.773 61.454C22.5022 61.454 21.2603 61.1429 20.1551 60.5596C19.0513 59.977 18.1247 59.1451 17.4392 58.1515L1.27863 34.7095C0.350892 33.4061 -0.0848857 31.8439 0.0136661 30.2872C0.113302 28.7133 0.756408 27.1933 1.8757 26.0008L1.91649 25.9574L1.95863 25.9151C2.66751 25.2047 3.53559 24.6456 4.50937 24.2916C5.484 23.9373 6.53103 23.8009 7.57331 23.8971C8.61533 23.9933 9.61275 24.3184 10.4957 24.838C11.3768 25.3567 12.1179 26.0535 12.6786 26.8673L23.7732 42.9608L51.3201 3.00222C51.8809 2.18833 52.6235 1.48932 53.5048 0.970699C54.3877 0.451064 55.3851 0.126086 56.4272 0.0299405C57.4695 -0.0662309 58.5165 0.0703119 59.4911 0.424682C60.4648 0.778745 61.3328 1.33782 62.0417 2.04835L62.0837 2.09048L62.1244 2.13382C63.2435 3.32618 63.8866 4.84599 63.9863 6.41967C64.0849 7.97627 63.6493 9.53835 62.7217 10.8417Z"></path>
+												</clipPath>
+											</defs>
+												<circle r=".9" cx="0" cy="0" stroke-width=".2" class="outer"></circle>
+												<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-{{ $category->categoryTarget->id }})"></circle>
+										</svg>
+									@else
+										<!-- SVG normal para progreso -->
+										<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress {{ $category->categoryTarget?->progress_data['class'] ?? '' }}"
+											xmlns="http://www.w3.org/2000/svg">
+											<defs>
+												<clipPath id="icon-circle-progress-clip-{{ $category->categoryTarget->id }}">
+													<path d="{{ $category->categoryTarget?->progress_data['path'] ?? 'M 1 0 A 1 1 0 0 1 0.9048270524660195 0.4257792915650727 L 0 0' }}"></path>
+												</clipPath>
+											</defs>
+											<circle r=".9" cx="0" cy="0" stroke-width=".2" class="outer"></circle>
+											<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-{{ $category->categoryTarget->id }})"></circle>
+									</svg>
+									@endif
 								@endif
 								<span class="user-data currency tabular-nums zero"><bdi>{{ format_currency($category->categoryTarget?->assigned) }}</bdi></span>
 							</span>
@@ -259,15 +284,32 @@
 								type="button">
 								<h2>
 									@if($state['isSaveSuccessful'])
-										<svg width="16" height="16" viewBox="-1 -1 2 2" class="icon-circle-progress zero" xmlns="http://www.w3.org/2000/svg">
-											<defs>
-												<clipPath id="icon-circle-progress-clip-ember158">
-													<path d="M 1 0 A 1 1 0 0 1 0.9048270524660195 0.4257792915650727 L 0 0"></path>
-												</clipPath>
-											</defs>
-											<circle r=".9" cx="0" cy="0" stroke-width=".2" class="outer"></circle>
-											<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-ember158)"></circle>
-										</svg>
+										@if($category->categoryTarget->progress_data['class'] === 'complete')
+											<!-- 100% - SVG con checkmark -->
+											<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress complete" xmlns="http://www.w3.org/2000/svg">
+												<defs>
+													<clipPath id="icon-circle-progress-clip-{{ $category->categoryTarget->id }}">
+														<path class="checkmark" transform="scale(.015) rotate(90) translate(-35, -28)"
+															d="M62.7217 10.8417L30.1078 58.1502C29.4223 59.1438 28.4948 59.977 27.3909 60.5596C26.2858 61.1429 25.0439 61.454 23.773 61.454C22.5022 61.454 21.2603 61.1429 20.1551 60.5596C19.0513 59.977 18.1247 59.1451 17.4392 58.1515L1.27863 34.7095C0.350892 33.4061 -0.0848857 31.8439 0.0136661 30.2872C0.113302 28.7133 0.756408 27.1933 1.8757 26.0008L1.91649 25.9574L1.95863 25.9151C2.66751 25.2047 3.53559 24.6456 4.50937 24.2916C5.484 23.9373 6.53103 23.8009 7.57331 23.8971C8.61533 23.9933 9.61275 24.3184 10.4957 24.838C11.3768 25.3567 12.1179 26.0535 12.6786 26.8673L23.7732 42.9608L51.3201 3.00222C51.8809 2.18833 52.6235 1.48932 53.5048 0.970699C54.3877 0.451064 55.3851 0.126086 56.4272 0.0299405C57.4695 -0.0662309 58.5165 0.0703119 59.4911 0.424682C60.4648 0.778745 61.3328 1.33782 62.0417 2.04835L62.0837 2.09048L62.1244 2.13382C63.2435 3.32618 63.8866 4.84599 63.9863 6.41967C64.0849 7.97627 63.6493 9.53835 62.7217 10.8417Z">
+														</path>
+													</clipPath>
+												</defs>
+												<circle r=".9" cx="0" cy="0" stroke-width=".2" class="outer"></circle>
+												<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-{{ $category->categoryTarget->id }})"></circle>
+											</svg>
+										@else
+											<!-- SVG normal para progreso -->
+											<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress {{ $category->categoryTarget?->progress_data['class'] ?? '' }}"
+												xmlns="http://www.w3.org/2000/svg">
+												<defs>
+													<clipPath id="icon-circle-progress-clip-{{ $category->categoryTarget->id }}">
+														<path d="{{ $category->categoryTarget?->progress_data['path'] ?? 'M 1 0 A 1 1 0 0 1 0.9048270524660195 0.4257792915650727 L 0 0' }}"></path>
+													</clipPath>
+												</defs>
+												<circle r=".9" cx="0" cy="0" stroke-width=".2" class="outer"></circle>
+												<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-{{ $category->categoryTarget->id }})"></circle>
+											</svg>
+										@endif
 									@endif
 									Target
 									<svg class="ynab-new-icon card-chevron" width="12" height="12">
@@ -429,9 +471,9 @@
 														</dd>
 														<div class="ynab-new-inspector-goals-calendar">
 															@if($state['isOpenCalendarModal'])
-																<div id="ember168" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
+																<div id="calendarModal" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
 																	wire:click.self="hideModalCalendar">
-																	<div class="modal" role="dialog" aria-modal="true" style="top: 647.8px; left: 1271.1px;">
+																	<div class="modal" role="dialog" aria-modal="true" style="top: 329.4px; left: 937.367px;">
 																		<div class="accounts-calendar">
 																			<ul class="accounts-calendar-date">
 																				<li class="accounts-calendar-prev">
@@ -479,9 +521,8 @@
 																			<div class="modal-actions">
 																			</div>
 																		</div>
-																		<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none"
-																			style="left: 100px; bottom: 100%; height: 0.9375rem; width: 1.875rem;">
-																			<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform=""></path>
+																		<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none" style="top: 100%; left: 113px; height: 0.9375rem; width: 1.875rem;">
+																			<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform="rotate(180 50 50)"></path>
 																		</svg>
 																	</div>
 																</div>
@@ -503,8 +544,8 @@
 																	</button>
 																	<!---->
 																	@if($state['isOpenAsideCustomModal'])
-																		<div id="asideModal" class="modal-overlay active ynab-new-dropdown-modal" wire:click.self="$set('state.isOpenAsideCustomModal', false)">
-																			<div class="modal" role="dialog" aria-modal="true" style="top: 264.8px; left: 1145.2px; height: auto; width: 481.8px;">
+																		<div id="asideCustomModal" class="modal-overlay active ynab-new-dropdown-modal" wire:click.self="$set('state.isOpenAsideCustomModal', false)">
+																			<div class="modal" role="dialog" aria-modal="true" style="top: 226px; left: 887.533px; height: auto; width: 355.667px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
 																					<button wire:click="updateSelectedTextCustom('Set aside','set-aside')" class="type-dropdown-option is-selected" role="option"
 																						aria-selected="true"
@@ -558,7 +599,7 @@
 																					<hr class="dropdown-divider">
 																				</div>
 																				<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none"
-																					style="top: 100%; left: 225.9px; height: 0.9375rem; width: 1.875rem;">
+																					style="top: 100%; left: 162.834px; height: 0.9375rem; width: 1.875rem;">
 																					<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform="rotate(180 50 50)"></path>
 																				</svg>
 																			</div>
@@ -598,9 +639,9 @@
 														<!---->
 														<div class="ynab-new-inspector-goals-calendar">
 															@if($state['isOpenCalendarModal'])
-																<div id="ember168" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
+																<div id="calendarCustomModal" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
 																	wire:click.self="hideModalCalendar">
-																	<div class="modal" role="dialog" aria-modal="true" style="top: 400.4px; left: 1271.1px;">
+																	<div class="modal" role="dialog" aria-modal="true" style="top: 396.4px; left: 937.367px; height: auto;">
 																		<div class="accounts-calendar">
 																			<ul class="accounts-calendar-date">
 																				<li class="accounts-calendar-prev">
@@ -723,9 +764,9 @@
 																		</svg>
 																	</button>
 																	@if($state['isOpenAsideModal'])
-																		<div id="dropdownModal" class="modal-overlay active ynab-new-dropdown-modal "
+																		<div id="asideModal" class="modal-overlay active ynab-new-dropdown-modal "
 																			wire:click.self="$set('state.isOpenAsideModal', false)">
-																			<div class="modal" role="dialog" aria-modal="true" style="top: 429.6px; left: 1145.2px; height: auto; width: 481.8px;">
+																			<div class="modal" role="dialog" aria-modal="true" style="top: 409.8px; left: 887.533px; height: auto; width: 355.667px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
 																					<button wire:click="updateSelectedText('Set aside another','set-aside')" class="type-dropdown-option is-selected" role="option"
 																						aria-selected="true"
@@ -773,7 +814,7 @@
 																					<hr class="dropdown-divider">
 																				</div>
 																				<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none"
-																					style="top: 100%; left: 225.9px; height: 0.9375rem; width: 1.875rem;">
+																					style="top: 100%; left: 162.834px; height: 0.9375rem; width: 1.875rem;">
 																					<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform="rotate(180 50 50)"></path>
 																				</svg>
 																			</div>
@@ -932,12 +973,12 @@
 								<!---->
 								<div class="target-breakdown">
 									<div class="target-breakdown-item">
-										<div class="target-breakdown-item-label">Amount to Assign This Month</div>
+										<div class="target-breakdown-item-label">{{ $targetData['to_label'] }}</div>
 										<div class="target-breakdown-item-value"><span
 												class="user-data currency tabular-nums positive"><bdi>{{ format_currency($targetData['to_amount']) }}</bdi></span></div>
 									</div>
 									<div class="target-breakdown-item">
-										<div class="target-breakdown-item-label">Assigned So Far</div>
+										<div class="target-breakdown-item-label">{{ $targetData['so_label'] }}</div>
 										<div class="target-breakdown-item-value"><span
 												class="user-data currency tabular-nums zero"><bdi>{{ format_currency($targetData['so_far']) }}</bdi></span></div>
 									</div>
@@ -1162,16 +1203,16 @@
 		};
 
 		// Observer y eventos
-		new MutationObserver(() => {
+		/*new MutationObserver(() => {
 			if (document.querySelector(".ynab-new-dropdown-modal") ||
 				document.getElementById("asideModal") ||
 				document.querySelector(".js-ynab-new-calendar-overlay")) {
 				updateModals();
 			}
 		}).observe(document.body, {childList: true, subtree: true});
-
-		document.addEventListener("livewire:load", updateModals);
-		window.addEventListener("livewire:update", updateModals);
+*/
+		/*document.addEventListener("livewire:load", updateModals);
+		window.addEventListener("livewire:update", updateModals);*/
 
 		// Script para solucionar el problema de enfoque del input de divisa al hacer clic en otros elementos
 		document.addEventListener('click', function (event) {

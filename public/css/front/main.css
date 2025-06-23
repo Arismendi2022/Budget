@@ -26148,3 +26148,9 @@ bdi {
 	justify-content: center;
 	align-items: center;
 }
+label {
+	color: var(--labelPrimary); /*Agrega la visibilidad al label */
+}
+.divider span {
+	color: var(--labelPrimary);
+}

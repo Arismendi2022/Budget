@@ -1039,7 +1039,6 @@
 							title="{{ $group->name }}">{{ $group->name }}</button>
 						<button class="button budget-table-cell-add-category budget-table-cell-button " aria-label="Add Category" aria-describedby="addCategory"
 							wire:click="addCategoryModal({{ $group->id }})" onclick="setModalPositionCategory(event)">
-							
 							<svg class="ynab-new-icon " width="14" height="14">
 								<!---->
 								<use href="#icon_sprite_plus_circle_fill">
@@ -1142,12 +1141,13 @@
 												{{ $category->status_display['message'] }}
 											</div>
 										</div>
-										<div class="budget-table-cell-goal-status-details">{{ $category->status_display['status_details'] }}</div>
+										<div class="budget-table-cell-goal-status-details">{{" " . $category->status_display['status_details'] }}</div>
 									</div>
 									<figure class="ynab-new-budget-bar-v2" role="group">
 										<div class="ynab-new-budget-bar-v2-section ynab-new-budget-bar-v2-section-funded" style="flex-basis: 100%;">
-											@if($category->categoryTarget?->assigned > 0)
-												<div class="ynab-new-budget-bar-v2-segment is-fully-funded" style="width: 30%;"></div>
+											@if(($category->categoryTarget->assigned ?? 0) > 0)
+												<div class="ynab-new-budget-bar-v2-segment {{ $category->progress_data['css_class'] }}"
+													style="width: {{ $category->progress_data['percentage'] }}%;"></div>
 											@endif
 										</div>
 									</figure>
@@ -1156,9 +1156,7 @@
 							<!---->
 						@else
 							<div class="budget-table-cell-name budget-table-row-li" role="rowheader" aria-colindex="3">
-								<button wire:click="{{ in_array($category->id, $selectedCategories) ? 'editCategoryModal('.$category->id.')' : '' }}"
-									class="button budget-table-cell-name-row-label-item budget-table-cell-button budget-table-cell-edit-category user-data"
-									title="{{ $category->name }}">{{ $category->name }}</button>
+								<div class="ynab-new-budget-bar-v2-segment {{ $this->progressClass($category) }}" style="width: {{ $this->progressPercentage($category) }}%;"></div>
 							</div>
 						@endif
 						<!---->
@@ -1171,9 +1169,9 @@
 											d="m3.8 0 .5.5v2.3h2.2l.5.5v.5l-.5.5H4.3v2.2l-.5.5h-.5l-.5-.5V4.3H.5L0 3.8v-.5l.5-.5h2.3V.5l.5-.5zM9 3.3l.5-.5h6l.5.5v.5l-.5.5h-6L9 3.8zm3.5 7.7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 5a1 1 0 1 0 0-2 1 1 0 0 0 0 2M9 12.3a.5.5 0 0 1 .5-.6h6a.5.5 0 0 1 .5.6v.4a.5.5 0 0 1-.5.6h-6a.5.5 0 0 1-.5-.6zm-2.8-2.1v.7l-1.6 1.6 1.6 1.6v.7l-.4.4h-.7l-1.6-1.6-1.6 1.6h-.7l-.4-.4v-.7l1.6-1.6L1 10.9v-.7l.3-.4H2l1.6 1.6 1.6-1.6h.7z"></path>
 									</svg>
 								</button>
-								<div class="input-wrapper">
+								<div class="input-wrapper" wire:key="category-input-{{ $category->id }}-{{ $category->categoryTarget?->assigned }}">
 									<input id="dataCurrency-{{ $category->id }}" class="ember-text-field ember-view"
-										value=" {{ format_number($category->categoryTarget?->cleanValue) }}" type="text" onfocus="this.select()"
+										value="{{ format_number($category->categoryTarget?->assigned) }}" type="text" onfocus="this.select()"
 										wire:change="updateAssignedValue($event.target.value, {{ $category->id }})"
 										wire:blur="resetEditingState"
 										onkeydown="if(event.key==='Enter') this.blur()">
@@ -1215,15 +1213,33 @@
 							<button class="ynab-new-budget-available-number js-budget-available-number user-data {{ $category->status_class }}"
 								title="{{ $this->getCategoryTitle($category) }}" aria-disabled="true" disabled="" type="button">
 								@if ($category->categoryTarget?->amount > 0)
-									<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress zero" xmlns="http://www.w3.org/2000/svg">
-										<defs>
-											<clipPath id="icon-circle-progress-clip-ember251">
-												<path d="M 1 0 A 1 1 0 0 1 0.9048270524660195 0.4257792915650727 L 0 0"></path>
-											</clipPath>
-										</defs>
-										<circle r=".9" cx="0" cy="0" stroke-width=".2" class="outer"></circle>
-										<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-ember251)"></circle>
-									</svg>
+									@if($category->circle_progress_data['class'] === 'complete')
+										<!-- 100% - SVG con checkmark -->
+										<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress complete"
+											xmlns="http://www.w3.org/2000/svg">
+											<defs>
+												<clipPath id="icon-circle-progress-clip-{{ $category->id }}">
+													<path class="checkmark" transform="scale(.015) rotate(90) translate(-35, -28)"
+														d="M62.7217 10.8417L30.1078 58.1502C29.4223 59.1438 28.4948 59.977 27.3909 60.5596C26.2858 61.1429 25.0439 61.454 23.773 61.454C22.5022 61.454 21.2603 61.1429 20.1551 60.5596C19.0513 59.977 18.1247 59.1451 17.4392 58.1515L1.27863 34.7095C0.350892 33.4061 -0.0848857 31.8439 0.0136661 30.2872C0.113302 28.7133 0.756408 27.1933 1.8757 26.0008L1.91649 25.9574L1.95863 25.9151C2.66751 25.2047 3.53559 24.6456 4.50937 24.2916C5.484 23.9373 6.53103 23.8009 7.57331 23.8971C8.61533 23.9933 9.61275 24.3184 10.4957 24.838C11.3768 25.3567 12.1179 26.0535 12.6786 26.8673L23.7732 42.9608L51.3201 3.00222C51.8809 2.18833 52.6235 1.48932 53.5048 0.970699C54.3877 0.451064 55.3851 0.126086 56.4272 0.0299405C57.4695 -0.0662309 58.5165 0.0703119 59.4911 0.424682C60.4648 0.778745 61.3328 1.33782 62.0417 2.04835L62.0837 2.09048L62.1244 2.13382C63.2435 3.32618 63.8866 4.84599 63.9863 6.41967C64.0849 7.97627 63.6493 9.53835 62.7217 10.8417Z">
+													</path>
+												</clipPath>
+											</defs>
+											<circle r=".9" cx="0" cy="0" stroke-width=".2" class="outer"></circle>
+											<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-{{ $category->id }})"></circle>
+										</svg>
+									@else
+										<!-- SVG normal para progreso -->
+										<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress {{ $category->circle_progress_data['class'] }}"
+											xmlns="http://www.w3.org/2000/svg">
+											<defs>
+												<clipPath id="icon-circle-progress-clip-{{ $category->id }}">
+													<path d="{{ $category->circle_progress_data['path'] }}"></path>
+												</clipPath>
+											</defs>
+											<circle r=".9" cx="0" cy="0" stroke-width=".2" class="outer"></circle>
+											<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-{{ $category->id }})"></circle>
+										</svg>
+									@endif
 								@endif
 								<span class="user-data currency tabular-nums zero "><bdi>{{ format_currency($category->categoryTarget?->available) }}</bdi></span>
 							</button>

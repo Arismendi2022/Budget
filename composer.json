@@ -34,7 +34,7 @@
       "app/helpers/ConstDefaults.php",
       "app/Helpers/AccountHelper.php",
       "app/Helpers/LoanTypesHelper.php",
-      "app/Helpers/helpers.php"
+      "app/Helpers/HelperGlobal.php"
     ]
   },
   "autoload-dev": {

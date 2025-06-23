@@ -77,6 +77,56 @@
 			$this->updateMasterPartialState();
 		}
 		
+		public function clearSelections(){
+			$this->checkedGroupId     = null;
+			$this->selectedCategories = [];
+			$this->isPartial          = false;
+			$this->resetEditingState();
+		}
+		
+		public function resetEditingState(){
+			$this->editingCategoryId = null;
+		}
+		
+		protected function updateMasterPartialState(){
+			if(!empty($this->selectedCategories)){
+				$totalCategories       = Category::count();
+				$this->isMasterPartial = count($this->selectedCategories) < $totalCategories && !empty($this->selectedCategories);
+				$this->updateGroupsState();
+			}else{
+				$this->isMasterPartial = false;
+			}
+		}
+		
+		protected function updateGroupsState(){
+			if(empty($this->selectedCategories)) return;
+			
+			$maxSelectedCount   = 0;
+			$maxSelectedGroupId = null;
+			$isPartial          = false;
+			
+			foreach(CategoryGroup::with('categories')->get() as $group){
+				$groupCategoryIds = $group->categories->pluck('id')->toArray();
+				$selectedInGroup  = array_intersect($groupCategoryIds,$this->selectedCategories);
+				$selectedCount    = count($selectedInGroup);
+				
+				if($selectedCount > 0){
+					$isGroupPartial = $selectedCount < count($groupCategoryIds);
+					
+					if($selectedCount > $maxSelectedCount){
+						$maxSelectedCount   = $selectedCount;
+						$maxSelectedGroupId = $group->id;
+						$isPartial          = $isGroupPartial;
+					}
+				}
+			}
+			
+			if($maxSelectedGroupId){
+				$this->checkedGroupId = $maxSelectedGroupId;
+				$this->isPartial      = $isPartial;
+			}
+		}
+		
 		public function activateCategory($categoryId,$groupId){
 			// If this category is not already selected
 			if(!in_array($categoryId,$this->selectedCategories)){
@@ -109,29 +159,12 @@
 			
 		}
 		
-		public function toggleCategory($categoryId,$groupId){
-			if(in_array($categoryId,$this->selectedCategories)){
-				$this->selectedCategories = array_diff($this->selectedCategories,[$categoryId]);
-				if(empty($this->selectedCategories)){
-					$this->clearSelections();
-				}else{
-					$this->checkedGroupId = $groupId;
-					$this->isPartial      = true;
-					
-					if($this->editingCategoryId === $categoryId){
-						$this->dispatch('showCategoryTarget',$categoryId);
-						$this->resetEditingState();
-					}
-				}
-			}else{
-				$this->selectedCategories[] = $categoryId;
-				$this->checkedGroupId       = $groupId;
-				$this->isPartial            = true;
-				$this->startEditing($categoryId);
-				$this->dispatch('focusInput',inputId:'dataCurrency-'.$categoryId);
-			}
-			$this->updateMasterPartialState();
-			$this->dispatch('hideCategoryTarget',$categoryId);
+		public function startEditing($categoryId){
+			$this->editingCategoryId = $categoryId;
+		}
+		
+		public function toggleEditingState($categoryId){
+			$this->editingCategoryId = ($this->editingCategoryId === $categoryId) ? null : $categoryId;
 		}
 		
 		public function toggleCheckboxTarget($categoryId,$groupId){
@@ -168,33 +201,29 @@
 			}
 		}
 		
-		public function startEditing($categoryId){
-			$this->editingCategoryId = $categoryId;
-		}
-		
-		public function toggleEditingState($categoryId){
-			$this->editingCategoryId = ($this->editingCategoryId === $categoryId) ? null : $categoryId;
-		}
-		
-		public function resetEditingState(){
-			$this->editingCategoryId = null;
-		}
-		
-		public function clearSelections(){
-			$this->checkedGroupId     = null;
-			$this->selectedCategories = [];
-			$this->isPartial          = false;
-			$this->resetEditingState();
-		}
-		
-		protected function updateMasterPartialState(){
-			if(!empty($this->selectedCategories)){
-				$totalCategories       = Category::count();
-				$this->isMasterPartial = count($this->selectedCategories) < $totalCategories && !empty($this->selectedCategories);
-				$this->updateGroupsState();
+		public function toggleCategory($categoryId,$groupId){
+			if(in_array($categoryId,$this->selectedCategories)){
+				$this->selectedCategories = array_diff($this->selectedCategories,[$categoryId]);
+				if(empty($this->selectedCategories)){
+					$this->clearSelections();
+				}else{
+					$this->checkedGroupId = $groupId;
+					$this->isPartial      = true;
+					
+					if($this->editingCategoryId === $categoryId){
+						$this->dispatch('showCategoryTarget',$categoryId);
+						$this->resetEditingState();
+					}
+				}
 			}else{
-				$this->isMasterPartial = false;
+				$this->selectedCategories[] = $categoryId;
+				$this->checkedGroupId       = $groupId;
+				$this->isPartial            = true;
+				$this->startEditing($categoryId);
+				$this->dispatch('focusInput',inputId:'dataCurrency-'.$categoryId);
 			}
+			$this->updateMasterPartialState();
+			$this->dispatch('hideCategoryTarget',$categoryId);
 		}
 		
 		public function toggleAllCategories(){
@@ -217,35 +246,6 @@
 				$this->isPartial          = false;
 				$this->isMasterPartial    = false;
 				$this->updateGroupsState();
-			}
-		}
-		
-		protected function updateGroupsState(){
-			if(empty($this->selectedCategories)) return;
-			
-			$maxSelectedCount   = 0;
-			$maxSelectedGroupId = null;
-			$isPartial          = false;
-			
-			foreach(CategoryGroup::with('categories')->get() as $group){
-				$groupCategoryIds = $group->categories->pluck('id')->toArray();
-				$selectedInGroup  = array_intersect($groupCategoryIds,$this->selectedCategories);
-				$selectedCount    = count($selectedInGroup);
-				
-				if($selectedCount > 0){
-					$isGroupPartial = $selectedCount < count($groupCategoryIds);
-					
-					if($selectedCount > $maxSelectedCount){
-						$maxSelectedCount   = $selectedCount;
-						$maxSelectedGroupId = $group->id;
-						$isPartial          = $isGroupPartial;
-					}
-				}
-			}
-			
-			if($maxSelectedGroupId){
-				$this->checkedGroupId = $maxSelectedGroupId;
-				$this->isPartial      = $isPartial;
 			}
 		}
 		
@@ -313,9 +313,7 @@
 			$this->dispatch('Table.freshTarget');
 		}
 		
-		/**
-		 * progress bar
-		 */
+		//grafico de circulo para botones
 		
 		
 		public function render(){
