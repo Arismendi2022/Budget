@@ -1203,16 +1203,15 @@
 		};
 
 		// Observer y eventos
-		/*new MutationObserver(() => {
+		new MutationObserver(() => {
 			if (document.querySelector(".ynab-new-dropdown-modal") ||
 				document.getElementById("asideModal") ||
 				document.querySelector(".js-ynab-new-calendar-overlay")) {
 				updateModals();
 			}
 		}).observe(document.body, {childList: true, subtree: true});
-*/
-		/*document.addEventListener("livewire:load", updateModals);
-		window.addEventListener("livewire:update", updateModals);*/
+		document.addEventListener("livewire:load", updateModals);
+		window.addEventListener("livewire:update", updateModals);
 
 		// Script para solucionar el problema de enfoque del input de divisa al hacer clic en otros elementos
 		document.addEventListener('click', function (event) {

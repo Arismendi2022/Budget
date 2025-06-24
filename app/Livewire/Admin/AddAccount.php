@@ -137,6 +137,7 @@
 			}
 		}
 		
+		//Habilita el boton Nwxt
 		public function getCanProceedProperty(){
 			$basicFieldsValid = !empty($this->nickname) &&
 				!empty($this->balance) &&
@@ -152,8 +153,11 @@
 			return $basicFieldsValid && $loanFieldsValid;
 		}
 		
-		public function isNextButtonEnabled(){
-			return !empty($this->nickname) && !empty($this->selectedGroup) && ($this->selectedGroup != -1 ? true : !empty($this->newMasterCategory));
+		//habilita boton Next de plan category
+		public function getCanSubmitProperty(){
+			return !empty($this->nickname) &&
+				!empty($this->selectedGroup) &&
+				($this->selectedGroup != -1 ? true : !empty($this->newMasterCategory));
 		}
 		
 		public function checkSelection(){

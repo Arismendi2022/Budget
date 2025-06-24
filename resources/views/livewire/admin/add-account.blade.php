@@ -38,7 +38,13 @@
 								<button wire:click="hideAccountModalForm" aria-label="Close" title="Close" type="button">
 									<svg class="ynab-new-icon icon-close" width="16" height="16">
 										<!---->
-										<use href="#icon_sprite_close"></use>
+										<use href="#icon_sprite_close">
+											<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_close" fill="none" viewBox="0 0 24 24">
+												<path fill="currentColor" fill-rule="evenodd"
+													d="M20.7 20.7a1 1 0 0 1-1.6 0L12 13.6l-7 7a1.1 1.1 0 0 1-1.7-1.5l7.1-7.1-7-7a1.1 1.1 0 0 1 1.5-1.7l7 7.1 7.2-7a1.1 1.1 0 0 1 1.8 1.2l-.2.3-7.1 7.1 7 7a1 1 0 0 1 0 1.7"
+													clip-rule="evenodd"></path>
+											</symbol>
+										</use>
 									</svg>
 								</button>
 							</div>
@@ -247,7 +253,8 @@
 									
 									</div>
 									<div class="account-widget-footer">
-										<button class="ynab-button primary is-large"  @if(!$this->canProceed) disabled @endif  wire:click="{{ $selectedCategoryGroup === 'Loans' ? 'planCategory' : 'saveBudgetTracking' }}">
+										<button class="ynab-button primary is-large" @if(!$this->canProceed) disabled
+											@endif  wire:click="{{ $selectedCategoryGroup === 'Loans' ? 'planCategory' : 'saveBudgetTracking' }}">
 											Next
 										</button>
 									</div>
@@ -386,7 +393,7 @@
 																<optgroup label="{{ $group->name }}">
 																	@foreach($group->categories as $category)
 																		<option value="{{ $category->id }}">
-																			{{ $category->category }}
+																			{{ $category->name }}
 																		</option>
 																	@endforeach
 																</optgroup>
@@ -400,7 +407,7 @@
 										@elseif ($selectedOption === 'new')
 											<div class="y-form-field field-with-error ">
 												<label>Give your category a name</label>
-												<input id="nickname" wire:model="nickname" class="ember-text-field ember-view y-input account-widget-loan-category-new-subcategory"
+												<input id="nickname" wire:model.live="nickname" class="ember-text-field ember-view y-input account-widget-loan-category-new-subcategory"
 													autocomplete="nope"
 													autocorrect="off" spellcheck="false" autocapitalize="words" type="text">
 												<!---->
@@ -409,7 +416,7 @@
 												<label>Add to category group:</label>
 												<div class="category-select">
 													<div class="x-select-container  ">
-														<select wire:model="selectedGroup" wire:input="checkSelection" class="js-x-select type-input account-widget-loan-category-existing-group">
+														<select wire:model.live="selectedGroup" wire:input="checkSelection" class="js-x-select type-input account-widget-loan-category-existing-group">
 															<!---->
 															<option value=""></option>
 															<option value="-1">New Category Group</option>
@@ -424,7 +431,7 @@
 													<div class="y-form-field field-with-error {{ $errors->has('newMasterCategory') ? 'has-errors' : '' }}">
 														<label>New category group name</label>
 														<input id="newMasterCategory" class="ember-text-field ember-view y-input account-widget-loan-category-new-master-category" autocomplete="nope"
-															autocorrect="off" spellcheck="false" autocapitalize="words" type="text" wire:model="newMasterCategory" wire:input="nextButtonState">
+															autocorrect="off" spellcheck="false" autocapitalize="words" type="text" wire:model.live="newMasterCategory">
 														<!---->
 														<ul class="errors{{ $errors->has('newMasterCategory') ? '' : 'warnings' }}">
 															@if ($errors->has('newMasterCategory'))
@@ -441,7 +448,7 @@
 										<button class="ynab-button secondary is-large  skip-pairing" type="button" wire:click="saveMortgageLoans">
 											Skip
 										</button>
-										<button class="ynab-button primary is-large" type="button" @if(!$this->isNextButtonEnabled()) disabled @endif wire:click="saveMortgageLoans">
+										<button class="ynab-button primary is-large" type="button" @if(!$this->canSubmit) disabled @endif wire:click="saveMortgageLoans">
 											Next
 										</button>
 									</div>

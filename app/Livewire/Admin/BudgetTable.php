@@ -287,11 +287,43 @@
 			$this->showProgressBar = !$this->showProgressBar;
 		}
 		
-		// OPCIÓN 3: Una sola línea con operador ternario
+		// Title en una sola línea con operador ternario
 		public function getCategoryTitle($category){
-			$assigned = format_currency($category->categoryTarget?->assigned ?? 0);
-			$assign   = format_currency($category->categoryTarget?->monthly_target ?? 0);
-			return "$assigned Assign $assign more to fund your $assign monthly target.";
+			// Si monthly_target es 0, no mostrar nada
+			if(($category->categoryTarget?->monthly_target ?? 0) == 0){
+				return '';
+			}
+			
+			$assignedValue      = $category->categoryTarget?->assigned ?? 0;
+			$monthlyTargetValue = $category->categoryTarget?->monthly_target ?? 0;
+			$amountValue        = $category->categoryTarget?->amount ?? 0;
+			$periodType         = $category->categoryTarget?->period_type ?? '';
+			$targetDate         = $category->categoryTarget?->target_date ?? '';
+			
+			$assigned = format_currency($assignedValue);
+			$assign   = format_currency($monthlyTargetValue);
+			$amount   = format_currency($amountValue);
+			
+			// Si period_type es yearly o custom
+			if($periodType == 'yearly' || $periodType == 'custom'){
+				// Si assigned >= monthly_target para yearly/custom
+				if($assignedValue >= $monthlyTargetValue){
+					$formattedDate = date('F \of Y',strtotime($targetDate));
+					return "$assigned You're on track to fund your $amount target by $formattedDate.";
+				}
+				// Si assigned < monthly_target para yearly/custom
+				$remaining = format_currency($monthlyTargetValue - $assignedValue);
+				return "$assigned Assign $remaining more to stay on track towards funding your $amount target.";
+			}
+			
+			// Para period_type mensual
+			if($assignedValue >= $monthlyTargetValue){
+				return "$assigned You've funded your $assign target for the month!";
+			}
+			
+			// Mensaje original mensual
+			$remaining = format_currency($monthlyTargetValue - $assignedValue);
+			return "$assigned Assign $remaining more to fund your $assign monthly target.";
 		}
 		
 		/**
@@ -312,9 +344,6 @@
 			//Actualiza vista create-target
 			$this->dispatch('Table.freshTarget');
 		}
-		
-		//grafico de circulo para botones
-		
 		
 		public function render(){
 			return view('livewire.admin.budget-table');
