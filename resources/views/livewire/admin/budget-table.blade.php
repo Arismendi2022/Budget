@@ -1058,11 +1058,10 @@
 					</div>
 					<div class="budget-table-cell-activity budget-table-cell-flexed budget-table-row-li" role="cell"
 						aria-colindex="5">
-						<button id="ember442" class="budget-table-cell-category-moves js-budget-toolbar-open-category-moves"
-							aria-hidden="true" tabindex="-1" type="button">
+						<button id="ember{{ $group?->id }}" class="budget-table-cell-category-moves js-budget-toolbar-open-category-moves"
+							aria-hidden="true" tabindex="-1" type="button" data-type="group">
 							<div class="category-moves-moves-icon-wrapper">
 								<svg class="ynab-new-icon" width="14" height="14">
-									<!---->
 									<use href="#icon_sprite_clock_arrow_back">
 										<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_clock_arrow_back" fill="none"
 											viewBox="0 0 24 24">
@@ -1074,7 +1073,7 @@
 								</svg>
 							</div>
 						</button>
-						<button id="ember443" class="budget-number user-data"
+						<button id="ember{{ $group?->id }}" class="budget-number user-data"
 							title="({{ format_currency($group->total_activity) }}) View this category's monthly activity. Splendid."
 							tabindex="0"
 							aria-disabled="true"
@@ -1184,21 +1183,22 @@
 						</div>
 						<div class="budget-table-cell-activity budget-table-cell-flexed budget-table-row-li" role="cell"
 							aria-colindex="5">
-							<button id="ember163" class="budget-table-cell-category-moves js-budget-toolbar-open-category-moves"
-								aria-hidden="true" tabindex="-1" type="button">
-								<div class="category-moves-moves-icon-wrapper">
-									<svg class="ynab-new-icon" width="14" height="14">
-										<!---->
-										<use href="#icon_sprite_clock_arrow_back">
-											<svg xmlns="http://www.w3.org/2000/svg" id="icon_sprite_clock_arrow_back" fill="none"
-												viewBox="0 0 24 24">
-												<path fill="currentColor" fill-rule="evenodd"
-													d="m17.2 15.3-4.5-2.1A1 1 0 0 1 12 12l.7-7a1 1 0 0 1 .8-.6 1 1 0 0 1 .7.6l.6 6.3L18 14a1 1 0 0 1 0 1l-.8.2M.5 12h2.4A10.5 10.5 0 0 1 24 12c0 5.8-4.7 10.5-10.6 10.5a11 11 0 0 1-6.7-2.4 1 1 0 0 1 0-1.3 1 1 0 0 1 1.3-.1c3.7 3 9.1 2.4 12.1-1.3a8.6 8.6 0 0 0-1.2-12 8.6 8.6 0 0 0-14 6.7h2.3a.5.5 0 0 1 .4.7l-3.4 4.7a.5.5 0 0 1-.8 0L.1 12.8a.5.5 0 0 1 .4-.8"
-													clip-rule="evenodd"></path>
-											</svg>
-										</use>
-									</svg>
-								</div>
+							<button id="ember{{ $category?->id }}" class="budget-table-cell-category-moves js-budget-toolbar-open-category-moves active "
+								aria-hidden="true" tabindex="-1" type="button" title="Changes to your assigned amount this month" data-type="category">
+								@if($category->categoryTarget?->assigned > 0 )
+									<div class="category-moves-moves-icon-wrapper">
+										<svg class="ynab-new-icon" width="14" height="14">
+											<title>Changes to your assigned amount this month</title>
+											<use href="#icon_sprite_clock_arrow_back">
+												<symbol xmlns="http://www.w3.org/2000/svg" id="icon_sprite_clock_arrow_back" fill="none" viewBox="0 0 24 24">
+													<path fill="currentColor" fill-rule="evenodd"
+														d="m17.2 15.3-4.5-2.1A1 1 0 0 1 12 12l.7-7a1 1 0 0 1 .8-.6 1 1 0 0 1 .7.6l.6 6.3L18 14a1 1 0 0 1 0 1l-.8.2M.5 12h2.4A10.5 10.5 0 0 1 24 12c0 5.8-4.7 10.5-10.6 10.5a11 11 0 0 1-6.7-2.4 1 1 0 0 1 0-1.3 1 1 0 0 1 1.3-.1c3.7 3 9.1 2.4 12.1-1.3a8.6 8.6 0 0 0-1.2-12 8.6 8.6 0 0 0-14 6.7h2.3a.5.5 0 0 1 .4.7l-3.4 4.7a.5.5 0 0 1-.8 0L.1 12.8a.5.5 0 0 1 .4-.8"
+														clip-rule="evenodd"></path>
+												</symbol>
+											</use>
+										</svg>
+									</div>
+								@endif
 							</button>
 							<button id="ember164" class="budget-number user-data"
 								title="({{ format_currency($category->activity) }}) View this category's monthly activity. Splendid."

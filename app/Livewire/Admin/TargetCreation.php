@@ -39,7 +39,6 @@
 			'isRepeatEnabled'        => false,
 			'isDateFilterEnabled'    => false,
 			'isFocusedInput'         => false,
-			'isUpdateTargetMode'     => false,
 			'isSnoozeEnabled'        => false,
 		];
 		
@@ -85,9 +84,12 @@
 		public string $selectedOptionType = 'set-aside';
 		
 		// === DEPRECATED INDIVIDUAL PROPERTIES (mantener para compatibilidad) ===
-		public bool $isUpdateTargetMode = false; // Duplicado en $state pero m
-		
+		public $isEditingMode       = false;
+		public $expectedIncomeModal = false;
+		public $incomeAmount        = 0;
 		public $totalMonthlyTarget,$totalAssigned;
+		
+		public $modalPosition = [];
 		
 		// Listeners
 		protected $listeners = [
@@ -113,6 +115,7 @@
 			
 			$this->calculateTotals();
 		}
+		
 		
 		/**
 		 * Inicializa las propiedades de fecha
@@ -263,7 +266,7 @@
 		public function setFocused():void{
 			
 			$this->setState('isFocusedInput',true);
-			$this->dispatch('focusInput');
+			$this->dispatch('focusInput',inputId:'targetAmount');
 		}
 		
 		public function cancelCreateTarget():void{
@@ -291,22 +294,39 @@
 		 * Métodos para la gestión del calendario
 		 */
 		public function showModalCalendar():void{
-			$this->initializeDate(Carbon::parse($this->targetFinishDate));
+			// Solo actualizar el mes y año del calendario, no cambiar targetFinishDate
+			$currentDate           = Carbon::parse($this->targetFinishDate);
+			$this->currentMonth    = $currentDate->month;
+			$this->currentYear     = $currentDate->year;
+			$this->firstDayOfMonth = $currentDate->startOfMonth()->dayOfWeek;
+			$this->daysInMonth     = range(1,$currentDate->daysInMonth);
+			$this->selectedMonth   = $currentDate->month - 1;
+			
 			$this->setState('isOpenCalendarModal',true);
 			$this->setState('isCalendarVisible',true);
 		}
 		
+		//Avanza mes a mes
 		public function previousMonth():void{
 			$this->initializeDate(Carbon::create($this->currentYear,$this->currentMonth,1)->subMonth());
 		}
 		
+		//Retrocede mes a mes
 		public function nextMonth():void{
 			$this->initializeDate(Carbon::create($this->currentYear,$this->currentMonth,1)->addMonth());
 		}
 		
+		//-Seleccio na la fecha
 		public function selectDate(int $day):void{
 			$this->targetFinishDate = Carbon::create($this->currentYear,$this->currentMonth,$day)->format('Y-m-d');
 			$this->hideModalCalendar();
+		}
+		
+		/**
+		 * Propiedad calculada para mostrar la fecha formateada
+		 */
+		public function getFormattedDateProperty():string{
+			return format_date(Carbon::parse($this->targetFinishDate));
 		}
 		
 		public function hideModalCalendar():void{
@@ -394,6 +414,8 @@
 				'isSaveSuccessful' => false,
 			]);
 			
+			$this->isEditingMode = true;
+			
 			try{
 				$categoryTarget = CategoryTarget::with('category')->findOrFail($targetId);
 				
@@ -468,7 +490,6 @@
 				}
 				
 				$this->setFocused();
-				$this->isUpdateTargetMode = true;
 				
 			} catch(\Exception $e){
 				\Log::error("Error al cargar objetivo {$targetId} para edición: {$e->getMessage()}");
@@ -650,8 +671,6 @@
 		/**
 		 * Metodo para actualizar el objetivo
 		 */
-		
-		
 		public function updateTarget(int $targetId):void{
 			$this->validate();
 			
@@ -667,7 +686,7 @@
 				];
 				
 				// Preserve existing option_type and message unless option_type is explicitly changed
-				if(!empty($this->selectedOptionType) && $this->selectedOptionType !== 'set-aside'){
+				if(!empty($this->selectedOptionType)){
 					$data['option_type'] = $this->selectedOptionType;
 					$data['message']     = $this->selectedOptionType === 'set-aside' ? 'more needed' : 'needed';
 				}else{
@@ -825,6 +844,7 @@
 			
 		}
 		
+		
 		/**
 		 * Actualiza las opciones de frecuencia cuando cambia la unidad de tiempo
 		 */
@@ -850,13 +870,6 @@
 		}
 		
 		/**
-		 * Propiedad calculada para mostrar la fecha formateada
-		 */
-		public function getFormattedDateProperty():string{
-			return format_date(Carbon::parse($this->targetFinishDate));
-		}
-		
-		/**
 		 * Handles different period_type types (custom, weekly, monthly, yearly) and date formatting
 		 */
 		public function getCategoryTargetData($targetId){
@@ -866,9 +879,9 @@
 			
 			// Determine period_type text
 			if($categoryTarget->period_type === 'custom'){
-				$frequency = 'Each Year'; // Default for custom
+				$frequency = ''; // Default for custom
 				if($categoryTarget->repeat_frequency && $categoryTarget->repeat_unit){
-					if($categoryTarget->repeat_frequency == 1){
+					if($ctegoryTarget->repeat_frequency == 1){
 						$frequency = match ($categoryTarget->repeat_unit) {
 							'1',1,'monthly' => 'Each Month',
 							'2',2,'yearly' => 'Each Year',
@@ -915,17 +928,25 @@
 				};
 				$targetDate = "By the {$day}{$suffix} of the Month";
 			}else if($categoryTarget->target_date){
-				$targetDate = "By ".date('M j, Y',strtotime($categoryTarget->target_date));
-				$dateYear   = date('M j, Y',strtotime($categoryTarget->target_date));
+				$targetDate = "By ".date('M j Y',strtotime($categoryTarget->target_date));
+				$dateYear   = date('M j Y',strtotime($categoryTarget->target_date));
 				
 			}
 			
 			// Generate behavior text
 			$formattedAmount = $amount > 0 ? format_currency($amount) : format_currency(1000);
-			$behaviorText    = match ($categoryTarget->option_type) {
-				'refill' => "Refill Up to ".format_currency($amount)." ".$frequency,
-				'set-aside','custom' => "Set Aside Another ".$formattedAmount." ".$frequency,
-				'have' => "Have a Balance of ".format_currency($amount)." ".$frequency,
+			$behaviorText    = match (true) {
+				$categoryTarget->option_type === 'refill' && $categoryTarget->period_type === 'custom' => "Fill Up to ".format_currency($amount)." ".$frequency,
+				$categoryTarget->option_type === 'refill' => "Refill Up to ".format_currency($amount)." ".$frequency,
+				$categoryTarget->option_type === 'set-aside' || $categoryTarget->option_type === 'custom' => "Set Aside Another ".$formattedAmount." ".$frequency,
+				$categoryTarget->option_type === 'have' => "Have a Balance of ".format_currency($amount)." ".$frequency,
+				default => "Set Aside Another ".$formattedAmount." ".$frequency,
+			};
+			$behaviorText    = match (true) {
+				$categoryTarget->option_type === 'refill' && $categoryTarget->period_type === 'custom' => "Fill Up to ".format_currency($amount)." ".$frequency,
+				$categoryTarget->option_type === 'refill' => "Refill Up to ".format_currency($amount)." ".$frequency,
+				$categoryTarget->option_type === 'set-aside' || $categoryTarget->option_type === 'custom' => "Set Aside Another ".$formattedAmount." ".$frequency,
+				$categoryTarget->option_type === 'have' => "Have a Balance of ".format_currency($amount)." ".$frequency,
 				default => "Set Aside Another ".$formattedAmount." ".$frequency,
 			};
 			
@@ -935,7 +956,8 @@
 			
 			// Modified percentage calculation based on period_type
 			if(in_array($categoryTarget->period_type,['yearly','custom'])){
-				$percentage = $amount > 0 ? round(($assigned / $amount) * 100) : 0;
+				$percentage        = $amount > 0 ? round(($assigned / $amount) * 100) : 0;
+				$monthlyPercentage = $assign > 0 ? round(($assigned / $assign) * 100) : 0;
 			}else{
 				$percentage = $amount > 0 ? round(($assigned / $assign) * 100) : 0;
 			}
@@ -959,6 +981,9 @@
 			$showLabel = $percentage < 100;
 			$showIcon  = $percentage == 100;
 			
+			// NEW: Determine if warning message should be shown (independent of label)
+			$showWarning = $percentage < 100;
+			
 			if($percentage == 0){
 				// Caso especial: 0% - mostrar mínimo visual
 				$rightRotation = 7; // Rotación mínima visible
@@ -976,8 +1001,12 @@
 				$clipStyle     = "clip: rect(auto, auto, auto, auto);";
 			}
 			
-			// Calculate amount to go
-			$toGo     = max(0,$assign - $assigned);  // Usa $assign para toGo
+			// Condicional para determinar el cálculo de $toGo basado en period_type
+			if(in_array($categoryTarget->period_type,['yearly','custom'])){
+				$toGo = max(0,$amount - $assigned);  // Para yearly y custom usa $amount
+			}else{
+				$toGo = max(0,$assign - $assigned);  // Para otros tipos usa $assign
+			}
 			$assigned = max(0,$assign - $assigned);  // Usa $assign para toGo
 			$soFar    = max(0,$categoryTarget->assigned ?? 0);  // Usa $assign para toGo
 			
@@ -1006,12 +1035,12 @@
 					$to_label = 'Balance Needed by '.$dateHave;
 				}else{
 					$to_label = ($option === 'set-aside')
-						? 'Amount to Set Aside'
+						? 'Total to Assign by '.$dateYearly
 						: 'Needed by '.$dateHave;
 				}
 			}else if($period === 'yearly'){
 				$to_label = ($option === 'refill')
-					? 'Needed by '.$dateYear
+					? 'Needed by .'.$dateYear
 					: 'Total to Assign by '.$dateYear;
 			}
 			
@@ -1026,6 +1055,21 @@
 				$so_label = 'Assigned So Far';
 			}
 			
+			// Determine success message based on period_type
+			$successMessage = '';
+			if(in_array($categoryTarget->period_type,['yearly','custom'])){
+				if($monthlyPercentage == 100){
+					$showLabel      = $percentage < 100;
+					$showWarning    = $percentage == 100;
+					$cssClass       = 'positive';
+					$successMessage = "You're on track to meet your target!";
+				}else{
+					$successMessage = "You've met your target!";
+				}
+			}else{
+				$successMessage = "You've met your target!";
+			}
+			
 			return [
 				'target_behavior' => $behaviorText,
 				'target_by_date'  => $targetDate,
@@ -1036,6 +1080,7 @@
 				'to_label'        => $to_label,
 				'so_label'        => $so_label,
 				'target_message'  => $targetMessage,
+				'success_message' => $successMessage,  //Mensaaje para porcentaje 100%
 				'percentage'      => $percentage,
 				'left_rotation'   => $leftRotation,
 				'right_rotation'  => $rightRotation,
@@ -1043,6 +1088,7 @@
 				'css_class'       => $cssClass,
 				'show_label'      => $showLabel,
 				'show_icon'       => $showIcon,
+				'show_warning'    => $showWarning, // NEW: Independent warning message control
 			];
 		}
 		
@@ -1065,6 +1111,25 @@
 			dd('En construcción...'." Id: ".$categoryId);
 		}
 		
+		//Activa expected income
+		public function showIncomeModal():void{
+			$this->expectedIncomeModal = true;
+			$this->dispatch('focusInput',inputId:'expectedIncome');
+		}
+		
+		//Cierra expected income
+		public function closeIncomeModal():void{
+			$this->expectedIncomeModal = false;
+		}
+		
+		// Posiciona el modal calendario
+		#[On('positionModalYearly')]
+		public function updateModalPosition($position){
+			
+			//dd($position);
+			$this->modalPosition = $position;
+			
+		}
 		
 		public function render(){
 			return view('livewire.admin.target-creation',[

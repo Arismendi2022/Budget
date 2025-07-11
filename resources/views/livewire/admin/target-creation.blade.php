@@ -56,13 +56,48 @@
 								<!---->
 							</div>
 							<div>
-								<button class="ynab-button secondary   income-button" type="button">
-									Enter your expected income
-								</button>
-								<div tabindex="0" class="next-month-section">
-									<span class="description">Next month's targets could increase your total to $472.79
+								@if(!$expectedIncomeModal)
+									<button wire:click="showIncomeModal" class="ynab-button secondary income-button" type="button">
+										Enter your expected income
+									</button>
+									<!---->
+								@else
+									<span class="edit-income-description">Expected Income</span>
+									<div class="edit-income">
+										<div id="ember123" class="ynab-new-currency-input is-focused is-editing mod-left-aligned ">
+											<button tabindex="-1" class="button-calculator" aria-hidden="true" type="button">
+												<svg class="icon-calculator" viewBox="0 0 16 16">
+													<desc>Clicking this button will open the calculator</desc>
+													<path
+														d="m3.8 0 .5.5v2.3h2.2l.5.5v.5l-.5.5H4.3v2.2l-.5.5h-.5l-.5-.5V4.3H.5L0 3.8v-.5l.5-.5h2.3V.5l.5-.5zM9 3.3l.5-.5h6l.5.5v.5l-.5.5h-6L9 3.8zm3.5 7.7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 5a1 1 0 1 0 0-2 1 1 0 0 0 0 2M9 12.3a.5.5 0 0 1 .5-.6h6a.5.5 0 0 1 .5.6v.4a.5.5 0 0 1-.5.6h-6a.5.5 0 0 1-.5-.6zm-2.8-2.1v.7l-1.6 1.6 1.6 1.6v.7l-.4.4h-.7l-1.6-1.6-1.6 1.6h-.7l-.4-.4v-.7l1.6-1.6L1 10.9v-.7l.3-.4H2l1.6 1.6 1.6-1.6h.7z"></path>
+												</svg>
+											</button>
+											<div class="input-wrapper">
+												<input id="expectedIncome" class="ember-text-field ember-view" title="Expected Income" aria-label="Expected Income" type="text"
+													value="{{ format_number($incomeAmount) }}" onfocus="this.select()">
+												<button class="user-data currency tabular-nums zero">
+													<bdi>$</bdi>
+													0.00
+												</button>
+											</div>
+											<!---->
+										</div>
+									</div>
+									<div class="actions">
+										<button wire:click="closeIncomeModal" class="ghost-button primary type-body-large" type="button">
+											Cancel
+										</button>
+										<button class="ynab-button primary  " type="button">
+											Save
+										</button>
+									</div>
+								@endif
+								@if($totalMonthlyTarget > 1000)
+									<div tabindex="0" class="next-month-section">
+									<span class="description">Next month's targets could increase your total to $430.00
 									</span>
-								</div>
+									</div>
+								@endif
 							</div>
 						</div>
 					</div>
@@ -286,7 +321,7 @@
 									@if($state['isSaveSuccessful'])
 										@if($category->categoryTarget->progress_data['class'] === 'complete')
 											<!-- 100% - SVG con checkmark -->
-											<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress complete" xmlns="http://www.w3.org/2000/svg">
+											<svg width="16" height="16" viewBox="-1 -1 2 2" class="icon-circle-progress complete" xmlns="http://www.w3.org/2000/svg">
 												<defs>
 													<clipPath id="icon-circle-progress-clip-{{ $category->categoryTarget->id }}">
 														<path class="checkmark" transform="scale(.015) rotate(90) translate(-35, -28)"
@@ -298,8 +333,8 @@
 												<circle r=".65" cx="0" cy="0" class="inner" clip-path="url(#icon-circle-progress-clip-{{ $category->categoryTarget->id }})"></circle>
 											</svg>
 										@else
-											<!-- SVG normal para progreso -->
-											<svg width="13" height="13" viewBox="-1 -1 2 2" class="icon-circle-progress {{ $category->categoryTarget?->progress_data['class'] ?? '' }}"
+											<!-- SVG norm6l para progreso -->
+											<svg width="16" height="16" viewBox="-1 -1 2 2" class="icon-circle-progress {{ $category->categoryTarget?->progress_data['class'] ?? '' }}"
 												xmlns="http://www.w3.org/2000/svg">
 												<defs>
 													<clipPath id="icon-circle-progress-clip-{{ $category->categoryTarget->id }}">
@@ -379,8 +414,8 @@
 																</svg>
 															</button>
 															<div class="input-wrapper">
-																<input id="target-amount" class="ember-text-field ember-view " title="Target Amount" aria-label="Target Amount" onfocus="this.select()" autofocus=""
-																	type="text" wire:model.lazy="targetAmount" wire:blur="unsetFocused">
+																<input id="targetAmount" class="ember-text-field ember-view " title="Target Amount" aria-label="Target Amount" onfocus="this.select()" autofocus=""
+																	type="text" wire:model.lazy="targetAmount" wire:blur="unsetFocused" onkeydown="if(event.key==='Enter') this.blur()">
 																<button class="user-data currency tabular-nums zero " wire:click="setFocused">
 																	<span><bdi>{{ format_currency($currencyAmount) }}</bdi></span>
 																</button>
@@ -451,7 +486,8 @@
 														<dd class="ynab-new-inspector-goals-calendar-select" wire:click="showModalCalendar">
 															<div id="ember160" class="date-picker {{ $state['isCalendarVisible'] ? 'calendar-visible' : '' }}">
 																<div class="date-picker-input">
-																	<input id="ember161" class="ember-text-field ember-view date-picker-input-field user-data" aria-haspopup="true"
+																	<input id="calendarModal" onclick="positionModalYearly(event)" class="ember-text-field ember-view date-picker-input-field user-data"
+																		aria-haspopup="true"
 																		aria-expanded="false" title="Date" placeholder="DD/MM/YYYY" type="text" value="{{ $formattedDate }}">
 																	<button class="date-picker-input-icon-button" tabindex="-1" type="button">
 																		<svg class="ynab-new-icon date-picker-input-icon" width="12" height="12">
@@ -471,9 +507,10 @@
 														</dd>
 														<div class="ynab-new-inspector-goals-calendar">
 															@if($state['isOpenCalendarModal'])
-																<div id="calendarModal" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
+																<div id="calendarModalYearly" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
 																	wire:click.self="hideModalCalendar">
-																	<div class="modal" role="dialog" aria-modal="true" style="top: 329.4px; left: 937.367px;">
+																	<div class="modal" role="dialog" aria-modal="true" style="top: {{ $modalPosition['top'] }}px; left: {{ $modalPosition['left'] }}px; height:
+																	auto;">
 																		<div class="accounts-calendar">
 																			<ul class="accounts-calendar-date">
 																				<li class="accounts-calendar-prev">
@@ -521,7 +558,7 @@
 																			<div class="modal-actions">
 																			</div>
 																		</div>
-																		<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none" style="top: 100%; left: 113px; height: 0.9375rem; width: 1.875rem;">
+																		<svg class="modal-arrow" viewBox="0 0 100 100" preserveAspectRatio="none" style="top: 100%; left: 100px; height: 0.9375rem; width: 1.875rem;">
 																			<path d="M 0 100 L 50 0 L 100 100 L 0 100 Z" transform="rotate(180 50 50)"></path>
 																		</svg>
 																	</div>
@@ -544,7 +581,7 @@
 																	</button>
 																	<!---->
 																	@if($state['isOpenAsideCustomModal'])
-																		<div id="asideCustomModal" class="modal-overlay active ynab-new-dropdown-modal" wire:click.self="$set('state.isOpenAsideCustomModal', false)">
+																		<div id="asideModalCustom" class="modal-overlay active ynab-new-dropdown-modal" wire:click.self="$set('state.isOpenAsideCustomModal', false)">
 																			<div class="modal" role="dialog" aria-modal="true" style="top: 226px; left: 887.533px; height: auto; width: 355.667px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
 																					<button wire:click="updateSelectedTextCustom('Set aside','set-aside')" class="type-dropdown-option is-selected" role="option"
@@ -639,9 +676,9 @@
 														<!---->
 														<div class="ynab-new-inspector-goals-calendar">
 															@if($state['isOpenCalendarModal'])
-																<div id="calendarCustomModal" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
+																<div id="calendarModalCustom" class="modal-overlay active modal-account-calendar js-ynab-new-calendar-overlay"
 																	wire:click.self="hideModalCalendar">
-																	<div class="modal" role="dialog" aria-modal="true" style="top: 396.4px; left: 937.367px; height: auto;">
+																	<div class="modal" role="dialog" aria-modal="true" style="top: 396.2px; left: 937.367px; height: auto;">
 																		<div class="accounts-calendar">
 																			<ul class="accounts-calendar-date">
 																				<li class="accounts-calendar-prev">
@@ -764,7 +801,7 @@
 																		</svg>
 																	</button>
 																	@if($state['isOpenAsideModal'])
-																		<div id="asideModal" class="modal-overlay active ynab-new-dropdown-modal "
+																		<div id="asideModalBase" class="modal-overlay active ynab-new-dropdown-modal "
 																			wire:click.self="$set('state.isOpenAsideModal', false)">
 																			<div class="modal" role="dialog" aria-modal="true" style="top: 409.8px; left: 887.533px; height: auto; width: 355.667px;">
 																				<div class="js-ynab-modal-scrollable-area" role="listbox" style="overflow: visible;">
@@ -901,7 +938,7 @@
 													Cancel
 												</button>
 												<button
-													wire:click="{{ $isUpdateTargetMode && $category->categoryTarget ? 'updateTarget(' . $category->categoryTarget->id . ')' : 'saveTarget(' . $category->id .
+													wire:click="{{ $isEditingMode && $category->categoryTarget ? 'updateTarget(' . $category->categoryTarget->id . ')' : 'saveTarget(' . $category->id .
 													')' }}"
 													class="ynab-button primary  "
 													arial-label="Save Target, 0.00, Set aside another <bdi>$</bdi>0.00"
@@ -957,7 +994,7 @@
 									</div>
 								</div>
 								<!---->
-								@if($targetData['show_label'])
+								@if($targetData['show_warning'])
 									<div class="impact-message warning">
 										Assign
 										<span class="highlighted">{{ format_currency($targetData['to_assing']) }}
@@ -967,7 +1004,7 @@
 									</div>
 								@else
 									<div class="impact-message positive">
-										You've met your target!
+										{{ $targetData['success_message'] }}
 									</div>
 								@endif
 								<!---->
@@ -1161,57 +1198,13 @@
 @push('scripts')
 	<script>
 
-		$(function () {
-			window.addEventListener('focusInput', function () {
-				setTimeout(function () {
-					$('#target-amount').focus();
-				}, 10); // Retraso de 10 ms
-			});
+		//Da el foco a los inputs
+		document.addEventListener('DOMContentLoaded', () => {
+			window.addEventListener('focusInput', e =>
+				setTimeout(() => document.getElementById(e.detail.inputId)?.focus(), 10)
+			);
 		});
 
-		/**
-		 * Ajusta modales según el estado de la barra lateral
-		 */
-		const updateModals = () => {
-			const collapsed = document.getElementById("sidebar")?.classList.contains("sidebar-resized-collapsed");
-
-			// Actualiza el modal principal
-			const modalOverlay = document.querySelector(".ynab-new-dropdown-modal");
-			if (modalOverlay) {
-				const modal = modalOverlay.querySelector(".modal");
-				const arrow = modalOverlay.querySelector(".modal-arrow");
-
-				if (modal) {
-					modal.style.left = collapsed ? "1281.88px" : "1145.2px";
-					modal.style.width = collapsed ? "549.117px" : "481.8px";
-				}
-				if (arrow) arrow.style.left = collapsed ? "259.559px" : "225.9px";
-			}
-
-			// Actualiza asideModal
-			const asideModalContent = document.getElementById("asideModal")?.querySelector(".modal");
-			if (asideModalContent) asideModalContent.style.top = collapsed ? "281.1px" : "264.8px";
-
-			// Actualiza el modal del calendario
-			const calendarModal = document.querySelector(".js-ynab-new-calendar-overlay");
-			if (calendarModal) {
-				const calendarModalContent = calendarModal.querySelector(".modal");
-				if (calendarModalContent) {
-					calendarModalContent.style.left = collapsed ? "1428.45px" : "1271.1px";
-				}
-			}
-		};
-
-		// Observer y eventos
-		new MutationObserver(() => {
-			if (document.querySelector(".ynab-new-dropdown-modal") ||
-				document.getElementById("asideModal") ||
-				document.querySelector(".js-ynab-new-calendar-overlay")) {
-				updateModals();
-			}
-		}).observe(document.body, {childList: true, subtree: true});
-		document.addEventListener("livewire:load", updateModals);
-		window.addEventListener("livewire:update", updateModals);
 
 		// Script para solucionar el problema de enfoque del input de divisa al hacer clic en otros elementos
 		document.addEventListener('click', function (event) {
@@ -1221,13 +1214,50 @@
 			// Si el clic no fue en el componente de divisa
 			if (!event.target.closest('#new-currency')) {
 				// Obtener el elemento de input
-				const input = document.getElementById('target-amount');
+				const input = document.getElementById('targetAmount');
 				if (input) {
 					// Disparar evento blur manualmente
 					input.dispatchEvent(new Event('blur'));
 				}
 			}
 		});
+
+		//Script para pocisionar los modales
+		document.addEventListener('DOMContentLoaded', () => {
+			const isCollapsed = () =>
+				document.querySelector(".sidebar").classList.contains("sidebar-resized-collapsed");
+
+			const calculatePosition = (rect, {modalWidth = 776, modalHeight = 300.60, useCenter = false} = {}) => {
+				const margin = 0;
+				const left = useCenter ? rect.left + window.scrollX + (rect.width / 2) - (modalWidth / 2)
+					: isCollapsed() ? 1107 : rect.left + window.scrollX + (rect.width / 2) - (modalWidth / 2);
+
+				const spaceBelow = window.innerHeight - rect.bottom - margin;
+				const isBelow = spaceBelow >= modalHeight;
+
+				return {
+					left,
+					top: isBelow ? rect.bottom + window.scrollY + margin : rect.top + window.scrollY - modalHeight - margin,
+					arrowLeft: isCollapsed() && !useCenter ? Math.min(rect.left - left + (rect.width / 2) - 15, modalWidth - 30)
+						: Math.max((modalWidth / 2) - 15, 20),
+					arrowStyle: isBelow ? "bottom: 100%" : "top: 100%",
+					arrowTransform: isBelow ? "" : "rotate(180 50 50)"
+				};
+			};
+
+			/*window.positionModalYearly = (event) =>
+				Livewire.dispatch("positionModalYearly",
+					calculatePosition(event.target.getBoundingClientRect())
+				);
+		*/
+			window.positionModalYearly = (event) => {
+				const position = calculatePosition(event.target.getBoundingClientRect());
+				//console.log(position);
+				Livewire.dispatch("positionModalYearly", {position: position});
+			};
+
+		}); //End event listener.
+	
 	
 	</script>
 @endpush

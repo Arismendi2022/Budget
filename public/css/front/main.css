@@ -26154,3 +26154,12 @@ label {
 .divider span {
 	color: var(--labelPrimary);
 }
+
+/* Solo categorías */
+.js-budget-toolbar-open-category-moves[data-type="category"]:hover {
+	cursor: pointer;
+	opacity: 1;
+}
+
+
+

@@ -91,6 +91,15 @@
 @push('scripts')
 	<script>
 
+		$(function () {
+			window.addEventListener('focusInput', function () {
+				setTimeout(function () {
+					$('#budget-name').focus();
+				}, 50); // Retraso de 50 ms
+			});
+			const $newBudget = $('#new_budget_modal');
+		});
+
 		document.querySelectorAll('[aria-describedby]').forEach(element => {
 			element.addEventListener('mouseenter', function () {
 				const tooltipId = this.getAttribute('aria-describedby');
@@ -109,17 +118,6 @@
 					//tooltip.style.opacity = '0';
 				}
 			});
-		});
-
-		$(function () {
-			window.addEventListener('focusInput', function () {
-				setTimeout(function () {
-					$('#budget-name').focus();
-				}, 50); // Retraso de 50 ms
-			});
-
-			const $newBudget = $('#new_budget_modal');
-		
 		});
 
 		/** TOOLTIP GLOBAL POCISION  */
